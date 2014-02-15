@@ -50,6 +50,17 @@ class ParserTest(unittest.TestCase):
         errorMsg = "Parser.getNextCommand() did not respond expected command."
         self.assertEqual(command, fakeCommand, errorMsg)
 
+    def testCommandRecognized(self):
+        from parser import Parser
+        commandWords = MagicMock()
+        commandWords.isCommand = MagicMock(return_value=True)
+        p = Parser(commandWords)
+
+        result = p._commandRecognized("valid command")
+
+        errorMsg = "Expected Parser._commandRecognized() to return True."
+        self.assertTrue(result, errorMsg) 
+
 if __name__ == "__main__":
     #Supress output from game with "buffer=true"
     unittest.main(buffer=True)
