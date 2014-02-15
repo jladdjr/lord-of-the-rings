@@ -38,7 +38,7 @@ class Item(object):
 
     def getDescription(self):
         """
-        Get's item's description.
+        Gets item's description.
 
         @return: Item's description.
         """
@@ -46,7 +46,7 @@ class Item(object):
 
     def getWeight(self):
         """
-        Get's item's weight.
+        Gets item's weight.
 
         @return: Item's weight.
         """
