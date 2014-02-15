@@ -1,0 +1,5 @@
+"""
+Constants.
+"""
+
+COMMAND_PROMPT = " > "
