@@ -2,4 +2,4 @@
 Constants.
 """
 
-COMMAND_PROMPT = " > "
+COMMAND_PROMPT = "> "

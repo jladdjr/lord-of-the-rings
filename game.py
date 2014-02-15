@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 from parser import Parser
-from commandwords import CommandWords
-from helpcommand import HelpCommand 
-from quitcommand import QuitCommand
+from commands.commandwords import CommandWords
+from commands.helpcommand import HelpCommand 
+from commands.quitcommand import QuitCommand
 from player import Player
 
 class Game(object):
