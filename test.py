@@ -61,6 +61,28 @@ class ParserTest(unittest.TestCase):
         errorMsg = "Expected Parser._commandRecognized() to return True."
         self.assertTrue(result, errorMsg) 
 
+
+class ItemTest(unittest.TestCase):
+    """
+    Tests Item class.
+    """
+
+    def testItem(self):
+        from item import Item
+        name = "Generic item"
+        description = "Generic description"
+        weight = 9
+
+        item = Item(name, description, weight)
+
+        errorMsg = "Expected item name to be '%s'." % name
+        self.assertEqual(item.getName(), name, errorMsg)
+        errorMsg = "Expected item description to be '%s'." % description 
+        self.assertEqual(item.getDescription(), description, errorMsg)
+        errorMsg = "Expected item weight to be '%s'." % weight 
+        self.assertEqual(item.getWeight(), weight, errorMsg)
+
+
 if __name__ == "__main__":
     #Supress output from game with "buffer=true"
     unittest.main(buffer=True)
