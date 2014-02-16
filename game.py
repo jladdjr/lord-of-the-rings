@@ -5,6 +5,9 @@ from commandwords import CommandWords
 from helpcommand import HelpCommand 
 from quitcommand import QuitCommand
 from northcommand import NorthCommand
+from southcommand import SouthCommand
+from eastcommand import EastCommand
+from westcommand import WestCommand
 from player import Player
 
 class Game(object):
@@ -30,6 +33,18 @@ class Game(object):
         northCmd = NorthCommand("north", 
                     "Moves the player to the space north of current space")
         self._commandWords.addCommand("north", northCmd)
+        
+        southCmd = SouthCommand("south", 
+                    "Moves the player to the space south of current space")
+        self._commandWords.addCommand("south", southCmd)
+        
+        eastCmd = EastCommand("east", 
+                    "Moves the player to the space east of current space")
+        self._commandWords.addCommand("east", eastCmd)
+        
+        westCmd = WestCommand("west", 
+                    "Moves the player to the space west of current space")
+        self._commandWords.addCommand("west", westCmd)
 
         #Parser
         self._parser = Parser(self._commandWords)
