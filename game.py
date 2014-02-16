@@ -4,6 +4,7 @@ from parser import Parser
 from commandwords import CommandWords
 from helpcommand import HelpCommand 
 from quitcommand import QuitCommand
+from northcommand import NorthCommand
 from player import Player
 
 class Game(object):
@@ -25,6 +26,10 @@ class Game(object):
 
         quitCmd = QuitCommand("quit", "Exits game")
         self._commandWords.addCommand("quit", quitCmd)
+        
+        northCmd = NorthCommand("north", 
+                    "Moves the player to the space north of current space")
+        self._commandWords.addCommand("north", northCmd)
 
         #Parser
         self._parser = Parser(self._commandWords)
@@ -55,5 +60,5 @@ class Game(object):
             nextCommand.execute()
             print ""
         else:
-            errorMsg = "Failed to received command from parser."
+            errorMsg = "Failed to receive command from parser."
             raise AssertionError(errorMsg)
