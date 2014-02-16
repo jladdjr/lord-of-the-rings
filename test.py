@@ -185,6 +185,58 @@ class ItemsTest(unittest.TestCase):
         errorMsg = "Items object contained Item not added during initialization."
         self.assertEqual(len(self._itemList), 0, errorMsg)
 
+class SpaceTest(unittest.TestCase):
+
+    def testItems(self):
+        from space import Space
+        from item import Item
+
+        #Prepare items
+        blade = Item("blade", "appears to be dull", 1)
+        bow = Item("bow", "long bow", 2) 
+
+        #Create space
+        space = Space()
+        items = space.getItems()
+
+        #Assert space initially empty
+        errorMsg = "New space contains items; should be empty" 
+        self.assertEqual(items.count(), 0, errorMsg)
+
+        errorMsg = "Space claims to contain item even though it is empty."
+        self.assertFalse(space.containsItem(blade), errorMsg)
+        self.assertFalse(space.containsItem(bow), errorMsg)
+
+        #Add blade
+        space.addItem(blade)
+        errorMsg = "Space failed to report that it contained item known to exist."
+        self.assertTrue(space.containsItem(blade), errorMsg)
+
+        #Add bow 
+        space.addItem(bow)
+        self.assertTrue(space.containsItem(bow), errorMsg)
+
+        #Get room's items. Assert blade and bow exist
+        items = space.getItems()
+        self.assertEqual(items.count(), 2, "Room should contain exactly two items.")
+        self.assertTrue(items.containsItem(blade), "Could not find blade in room's set of items.")
+        self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
+
+        #Remove blade
+        space.removeItem(blade)
+        errorMsg = "Space claims to have item that was removed."
+        self.assertFalse(space.containsItem(blade), errorMsg)
+        errorMsg = "Space missing item that should still exist."
+        self.assertTrue(space.containsItem(bow), errorMsg)
+
+        #Get room's items. Assert only bow exists
+        items = space.getItems()
+        self.assertEqual(items.count(), 1, "Room should contain exactly one item.")
+        self.assertFalse(items.containsItem(blade), 
+                "Blade found in room (even though it was removed).")
+        self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
+        
+
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main(buffer=True)
