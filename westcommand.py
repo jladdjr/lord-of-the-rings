@@ -1,6 +1,7 @@
 from command import Command
 import space_dictionary
 import game_stats
+import space
 
 class WestCommand(Command):
     """
@@ -29,4 +30,6 @@ class WestCommand(Command):
         
         print "Welcome to ",west_space
         game_stats.current_space = west_space
+        self.current_space=west_space
+        print space.current_space.description
         

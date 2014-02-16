@@ -31,4 +31,6 @@ class SouthCommand(Command):
         
         print "Welcome to ",south_space
         game_stats.current_space = south_space
+        self.current_space=south_space
+        print space.current_space.description
         

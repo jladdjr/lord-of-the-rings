@@ -29,4 +29,6 @@ class EastCommand(Command):
         
         print "Welcome to ",east_space
         game_stats.current_space = east_space
+        self.current_space=east_space
+        print space.current_space.description
         

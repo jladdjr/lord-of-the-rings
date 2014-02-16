@@ -31,4 +31,7 @@ class NorthCommand(Command):
         
         print "Welcome to ",north_space
         game_stats.current_space = north_space
+        self.current_space=north_space
+        print space.current_space.description
+        
         
