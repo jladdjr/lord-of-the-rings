@@ -4,6 +4,17 @@ Constants.
 
 COMMAND_PROMPT = "> "
 
+
+class Direction(object):
+    """
+    The cardinal directions.
+    """
+    NORTH = 'north'
+    SOUTH = 'south'
+    EAST  = 'east'
+    WEST  = 'west'
+
+
 class ItemType(object):
     """
     When a new item is created, its type should
