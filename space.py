@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
+
 from items import Items
+
 
 class Space(object):
     """
@@ -8,35 +10,43 @@ class Space(object):
     to form larger geographic areas.
     """
 
+
     def __init__(self):
         """
         Intialize a Space object.
         """
         self._items = Items()
 
+
     def addItem(self, item):
         """
         Adds an item to the room.
+
 
         @param item:    Item to add.
         """
         self._items.addItem(item)
 
+
     def removeItem(self, item):
         """
         Removes an item from the room.
+
 
         @param item:    Item to remove.
         """
         self._items.removeItem(item)
 
+
     def containsItem(self, item):
         """
         Determines if room contains an item.
 
+
         @param item:    Item to search for.
         """
         return self._items.containsItem(item)
+
 
     def getItems(self):
         """
@@ -47,3 +57,4 @@ class Space(object):
         set of items found in room.
         """
         return self._items
+

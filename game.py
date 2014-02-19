@@ -4,7 +4,10 @@ from parser import Parser
 from commands.commandwords import CommandWords
 from commands.helpcommand import HelpCommand 
 from commands.quitcommand import QuitCommand
+from commands.dropcommand import DropCommand
+from commands.pickupcommand import PickUpCommand
 from player import Player
+from worldmap import WorldMap
 
 class Game(object):
     """
@@ -15,6 +18,13 @@ class Game(object):
         """
         Initializes new game.
         """
+        
+        #Player
+        self._player = Player()
+
+        #World Map
+        self._worldMap = WorldMap()
+        
         #CommandWords
         self._commandWords = CommandWords()
 
@@ -23,20 +33,22 @@ class Game(object):
                     "Provides help information for game.", self._commandWords)
         self._commandWords.addCommand("help", helpCmd)
 
-        quitCmd = QuitCommand("quit", "Exits game")
+        quitCmd = QuitCommand("quit", "Exits the game.")
         self._commandWords.addCommand("quit", quitCmd)
+        
+        ##Need to create board##
+        dropCmd = DropCommand("drop", "Drops an item from inventory into location.", self._player, self._board)
+        self._commandWords.addCommand("drop", dropCmd)
 
+        pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.")
+        self._commandWords.addCommand("pick up", pickupCmd)
+    
         #Parser
         self._parser = Parser(self._commandWords)
 
-        #Player
-        self._player = Player()
-
-        #TODO: Create game board
-
     def play(self):
         """
-        Executes main game loop. 
+        Executes main game loop.
         """
         print "Welcome to Lord of the Rings Adventure Game!"
         print "(Type 'help' for a list of available commands)"
