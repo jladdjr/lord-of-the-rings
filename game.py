@@ -18,12 +18,15 @@ class Game(object):
         """
         Initializes new game.
         """
-        
-        #Player
-        self._player = Player()
 
         #World Map
         self._worldMap = WorldMap()
+
+        #Get starting location
+        self._starting_location = self._worldMap._shire
+        
+        #Player
+        self._player = Player(self._starting_location)
         
         #CommandWords
         self._commandWords = CommandWords()
@@ -36,11 +39,10 @@ class Game(object):
         quitCmd = QuitCommand("quit", "Exits the game.")
         self._commandWords.addCommand("quit", quitCmd)
         
-        ##Need to create board##
-        dropCmd = DropCommand("drop", "Drops an item from inventory into location.", self._player, self._board)
+        dropCmd = DropCommand("drop", "Drops an item from inventory into location.", self._player)
         self._commandWords.addCommand("drop", dropCmd)
 
-        pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.")
+        pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.", self._player)
         self._commandWords.addCommand("pick up", pickupCmd)
     
         #Parser

@@ -10,5 +10,3 @@ class ItemType(object):
     be added here. (e.g. POTION = 2, WEAPON = 2, ARMOR = 3, etc.)
     """
     GENERIC = 1
-
-base_set = [potion, potion, potion, tunic, tunic, sword, sword, rock, rock]

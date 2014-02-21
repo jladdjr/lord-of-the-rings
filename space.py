@@ -11,11 +11,16 @@ class Space(object):
     """
 
 
-    def __init__(self):
+    def __init__(self, name):
         """
         Intialize a Space object.
         """
         self._items = Items()
+        self._name = name
+
+
+    def returnName(self):
+        return self._name
 
 
     def addItem(self, item):

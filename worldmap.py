@@ -11,10 +11,9 @@ class WorldMap(object):
         """
         Instantiates the spaces that make up the world map.
         """
-        ###Space needs a way to have space-specific paramaters from its __init__###
-        self._shire = Space()
-        self._mordor = Space()
+        
+        self._shire = Space("Shire")
+        self._gondor = Space("Gondor")
+        self._mordor = Space("Mordor")
 
-        self._worldMap = [self._shire, self._mordor]
-
-        pass
+        self._worldMap = [self._shire, self._gondor, self._mordor]

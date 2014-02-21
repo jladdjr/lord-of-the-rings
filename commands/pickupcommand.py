@@ -9,11 +9,24 @@ class PickUpCommand(Command):
         """
         Initializes new pick up command.
         """
+        
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
+        #Create local copies of player, inventory, and location
+        self._player = player
+        self._location = self._player.getLocation()
+
     def execute(self):
         """
-        Run Pick Up command.
+        Picks up an item from a room and adds it to inventory.
         """
-        pass
+
+        item_to_add = raw_input("Which item do you want to pick up? ")
+        if self._location.containsItem(item_to_add):
+            #Adds item to inventory
+            self._player.inventory.addItem(item_to_add)
+
+            #Removes item from space
+            self._location.removeItem(item_to_add)
+            
