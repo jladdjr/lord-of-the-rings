@@ -1,14 +1,14 @@
 #!/usr/bin/python
 import constants
 
-class Weapons(Item):
+class Armor(Item):
     """
-    A class of weapons.
+    Armor class.
     """
 
-    def __init__(self, damage):
+    def __init__(self, defense):
         Item.__init__(self, name, description, weight)
-        self._damage = damage
+        self.defense = defense
 
     def getType(self):
         """
@@ -16,4 +16,4 @@ class Weapons(Item):
 
         @return: Item's type.
         """
-        return ItemType.WEAPON
+        return ItemType.ARMOR
