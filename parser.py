@@ -1,19 +1,34 @@
 #!/usr/bin/python
 
 import constants
+<<<<<<< HEAD
 from commandwords import CommandWords
+=======
+from commands.commandwords import CommandWords
+>>>>>>> master
 
 class Parser(object):
     """
     Parses user input, searching for registered commands.
     """
 
+<<<<<<< HEAD
     def __init__(self, commandWords=None):
+=======
+    def __init__(self, commandWords):
+>>>>>>> master
         """
         Initializes new parser.
 
         @param commandWords:     List of commands.
         """
+<<<<<<< HEAD
+=======
+        if not commandWords:
+            errorMsg = "Parser must be initialized with CommandWords object."
+            raise AssertionError(errorMsg)
+
+>>>>>>> master
         self._commandWords = commandWords
 
     def getNextCommand(self):
