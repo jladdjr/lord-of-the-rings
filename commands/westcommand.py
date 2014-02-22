@@ -32,4 +32,4 @@ class WestCommand(Command):
         Player.current_space = west_space
         self.current_space=west_space
         print space.current_space.description
-        
+

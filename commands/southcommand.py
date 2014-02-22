@@ -34,4 +34,5 @@ class SouthCommand(Command):
         Player.current_space = south_space
         self.current_space=south_space
         print space.current_space.description
-        
+
+
