@@ -1,34 +1,23 @@
 #!/usr/bin/python
 
 import constants
-<<<<<<< HEAD
-from commandwords import CommandWords
-=======
 from commands.commandwords import CommandWords
->>>>>>> master
 
 class Parser(object):
     """
     Parses user input, searching for registered commands.
     """
 
-<<<<<<< HEAD
-    def __init__(self, commandWords=None):
-=======
     def __init__(self, commandWords):
->>>>>>> master
         """
         Initializes new parser.
 
         @param commandWords:     List of commands.
         """
-<<<<<<< HEAD
-=======
         if not commandWords:
             errorMsg = "Parser must be initialized with CommandWords object."
             raise AssertionError(errorMsg)
 
->>>>>>> master
         self._commandWords = commandWords
 
     def getNextCommand(self):
@@ -37,6 +26,16 @@ class Parser(object):
         """
         userInput = raw_input(constants.COMMAND_PROMPT)
         userInput = userInput.strip().lower()
+        
+        #if userInput is n,s,e,w then do northCommand, southCommand, etc.
+        if userInput == "n":
+            userInput = "north"
+        if userInput == "s":
+            userInput = "south"
+        if userInput == "e":
+            userInput = "east"
+        if userInput == "w":
+            userInput = "west"
 
         while not self._commandRecognized(userInput):
             print "Command not recognized. Type 'help' for help."
