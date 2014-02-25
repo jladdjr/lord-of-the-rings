@@ -22,11 +22,9 @@ class Game(object):
         #World Map
         self._worldMap = WorldMap()
 
-        #Get starting location
-        self._starting_location = self._worldMap._shire
-        
         #Player
-        self._player = Player(self._starting_location)
+        self._startingLocation = self._worldMap._shire
+        self._player = Player(self._startingLocation)
         
         #CommandWords
         self._commandWords = CommandWords()
@@ -39,7 +37,7 @@ class Game(object):
         quitCmd = QuitCommand("quit", "Exits the game.")
         self._commandWords.addCommand("quit", quitCmd)
         
-        dropCmd = DropCommand("drop", "Drops an item from inventory into location.", self._player)
+        dropCmd = DropCommand("drop", "Drops an item from inventory into local environment.", self._player)
         self._commandWords.addCommand("drop", dropCmd)
 
         pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.", self._player)

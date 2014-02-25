@@ -5,15 +5,18 @@ class PickUpCommand(Command):
     Allows a player to pick up an item from a location.
     """
 
-    def __init__(self, name, explanation):
+    def __init__(self, name, explanation, player):
         """
         Initializes new pick up command.
+
+        @param name:         Command name.
+        @param explanation:  Explanation of command.
+        @param player:       The player object
         """
-        
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Create local copies of player, inventory, and location
+        #Finish initializing help-specific settings
         self._player = player
         self._location = self._player.getLocation()
 

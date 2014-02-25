@@ -7,13 +7,16 @@ class DropCommand(Command):
 
     def __init__(self, name, explanation, player):
         """
-        Initializes new drop command.
+        Initializes new pick up command.
+
+        @param name:         Command name.
+        @param explanation:  Explanation of command.
+        @param player:       The player object
         """
-        
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Create local copies of player, inventory, and location
+        #Finish initializing help-specific settings
         self._player = player
         self._location = self._player.getLocation()
 
@@ -28,7 +31,6 @@ class DropCommand(Command):
             self._player.inventory.removeItem(item_to_remove)
 
             #Adds item to current space
-            self._location = self._player.getLocation()
             self._location.addItem(item_to_remove)
             
         else:

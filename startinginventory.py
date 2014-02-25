@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-from weapons import Weapons
-from armor import Armor
-from constants import ItemType
+"""
+Player's starting inventory. 
+"""
 
+startingInventory = [uniqueitems.steelDagger, uniqueitems.steelDagger, uniqueitems.leatherCloak, uniqueitems.leatherCloak, uniqueitems.leatherCloak]

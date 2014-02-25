@@ -1,16 +1,13 @@
 #!/usr/bin/python
 
-
 from items import Items
-
 
 class Space(object):
     """
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-
-
+    
     def __init__(self, name):
         """
         Intialize a Space object.
@@ -18,10 +15,8 @@ class Space(object):
         self._items = Items()
         self._name = name
 
-
     def returnName(self):
         return self._name
-
 
     def addItem(self, item):
         """
@@ -32,7 +27,6 @@ class Space(object):
         """
         self._items.addItem(item)
 
-
     def removeItem(self, item):
         """
         Removes an item from the room.
@@ -42,7 +36,6 @@ class Space(object):
         """
         self._items.removeItem(item)
 
-
     def containsItem(self, item):
         """
         Determines if room contains an item.
@@ -51,7 +44,6 @@ class Space(object):
         @param item:    Item to search for.
         """
         return self._items.containsItem(item)
-
 
     def getItems(self):
         """
