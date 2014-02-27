@@ -24,7 +24,7 @@ class Game(object):
 
         #Player
         self._startingLocation = self._worldMap._shire
-        self._player = Player(self._startingLocation)
+        self._player = Player("Frodo", self._startingLocation)
         
         #CommandWords
         self._commandWords = CommandWords()
@@ -42,6 +42,9 @@ class Game(object):
 
         pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.", self._player)
         self._commandWords.addCommand("pick up", pickupCmd)
+
+        attackCmd = AttackCommand("attack", "Allows a character to attack a target.", self._player, None)
+        self._commandWords.addCommand("attack", attackCmd)
     
         #Parser
         self._parser = Parser(self._commandWords)

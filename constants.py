@@ -4,6 +4,14 @@ Constants for Lord of the Rings
 
 COMMAND_PROMPT = "> "
 
+#Character stats
+startingLevel = 1
+startingExperience = 0
+
+attackStat = 2
+hpStat = 10
+
+#Type enumeration
 class ItemType(object):
     """
     When a new item is created, its type should
@@ -12,3 +20,4 @@ class ItemType(object):
     GENERIC = 1
     ARMOR = 2
     WEAPON = 3
+

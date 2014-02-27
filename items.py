@@ -12,7 +12,7 @@ class Items(object):
         Initialize an Items object.
 
         @keyword itemSet:     (Optional) A single Item object or a
-                            list of Item objects.
+                               list of Item objects.
         """
         self._items = []
         self._weight = 0
@@ -22,9 +22,9 @@ class Items(object):
             self._items.append(itemSet)
             self._weight += itemSet.getWeight()
         #Received set of items
-        elif isinstance(itemSet,list):
+        elif isinstance(itemSet, list):
             for item in itemSet:
-                if not isinstance(item,Item):
+                if not isinstance(item, Item):
                     errorMsg = "Items initialized with list containing non-Item object(s)."
                     raise AssertionError(errorMsg)
                 self._items.append(item)
@@ -82,7 +82,9 @@ class Items(object):
         """
         Provide an iterator for this set of items.
 
+
         Allows you to create for loops using Items objects:
+
 
             >>> from item import Item
             >>> from items import Items
@@ -96,6 +98,7 @@ class Items(object):
             sword
             helmet
             healing potion
+
 
         """
         return iter(self._items)
