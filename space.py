@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from items import Items
+from items.items import Items
 
 class Space(object):
     """

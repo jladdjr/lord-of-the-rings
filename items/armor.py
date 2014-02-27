@@ -8,17 +8,17 @@ class Armor(Item):
     Armor class.
     """
 
-    def __init__(self, defense, name, description, weight):
+    def __init__(self, name, description, weight, defense):
         """
         Initializes armor class.
 
-        @param defense:      The defense stat of the piece of armor.
         @param name:         The name of the item.
         @param description:  Armor description.
         @param weight:       Armor weight.
+        @param defense:      The defense stat of the piece of armor.
         """
         Item.__init__(self, name, description, weight)
-        self.defense = defense
+        self._defense = defense
 
     def getType(self):
         """
@@ -27,3 +27,5 @@ class Armor(Item):
         @return: Item's type.
         """
         return ItemType.ARMOR
+
+    #TODO: Needs getDefense() method.

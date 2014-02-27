@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from items.items import Items
-from startinginventory import startingInventory
+from items.startinginventory import startingInventory
 import constants
 
 class Player(object):
