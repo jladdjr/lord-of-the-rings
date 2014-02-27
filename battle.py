@@ -6,7 +6,7 @@ from monsters import Monsters
 
 class Battle(object):
     """
-    A battle sequence for Lord of the Rings
+    A battle sequence for Lord of the Rings.
     """
 
     def __init__(self):
@@ -22,7 +22,7 @@ class Battle(object):
 
     def battleSequence(self):
         while monsters.count() != 0 and ###player isn't defeated###:
-            menu =
+            menu = \
             """
             You are at battle with %s monsters!
             1) Attack
@@ -41,6 +41,6 @@ class Battle(object):
             ###monsters attack back###
 
     def endSequence(self):
-        ###Congradulate player if player won. Otherwise end game sequence?###
+        ###Congratulate player if player won. Otherwise end game sequence?###
         ###Give party members whose health>0 experience.
         ###Exit the battle object

@@ -15,7 +15,8 @@ class Monster(object):
         @param damage:      Damage stat of monster.
         @param experience:  Experienced gained for defeating monster.
         """
-        if (not name) or (not description) or (not hp) or (not damage) or (not experience):
+        if (not name) or (not description) or (not hp) or \
+            (not damage) or (not experience):
             raise AssertionError("Monster must have name, description, hp, damage, and experience.")
         if hp < 1 or damage < 1 or experience < 1:
             errorMsg = "Invalid base stats for monster; stats must be positive integers."
@@ -28,10 +29,23 @@ class Monster(object):
         self.experience = experience
 
     def attack(self, target):
+        """
+        Simulates attacking a given target.
+
+        @param target:      Target to attack.
+        """
         target.takeDamage(self._damage)
+
+        #TODO: Probably want BattleEngine to be responsible for 
+        #reporting battle events.
         print "%s attacked %s for %s damage!" %(self._name, target, self._damage)
         
     def takeDamage(self, damage): 
+        """
+        Simulates taking damage from attack.
+
+        @param damage:      Amount of damage taken.
+        """
         self._hp -= damage
         print "%s took %s damage!" %(self._name, damage)
 
@@ -58,4 +72,3 @@ class Monster(object):
         @return: Monster's experience.
         """
         return self._experience
-

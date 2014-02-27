@@ -15,13 +15,15 @@ class Space(object):
         self._items = Items()
         self._name = name
 
-    def returnName(self):
+    def getName(self):
+        """
+        Returns the name of the room.
+        """
         return self._name
 
     def addItem(self, item):
         """
         Adds an item to the room.
-
 
         @param item:    Item to add.
         """
@@ -31,7 +33,6 @@ class Space(object):
         """
         Removes an item from the room.
 
-
         @param item:    Item to remove.
         """
         self._items.removeItem(item)
@@ -40,9 +41,15 @@ class Space(object):
         """
         Determines if room contains an item.
 
-
         @param item:    Item to search for.
         """
+        #TODO:  Currently this method takes
+        #       an actual object as a parameter.
+        #
+        #       Need to create method that
+        #       searches for an object by name
+        #       instead.  -JDL
+
         return self._items.containsItem(item)
 
     def getItems(self):
@@ -54,4 +61,3 @@ class Space(object):
         set of items found in room.
         """
         return self._items
-

@@ -2,6 +2,9 @@
 
 from monster import Monster
 
+#TODO: Perhaps we want a more generic Party() class that could be used
+#      for a collection of monsters or players/teammates. -JDL
+
 class Monsters(object):
     """
     A simple collection of monsters.
@@ -9,7 +12,7 @@ class Monsters(object):
 
     def __init__(self, monsterSet=None):
         """
-        Initialize an Monsters object.
+        Initialize a Monsters object.
 
         @keyword monsterSet:     (Optional) A single Monster object or a
                                  list of Monster objects.
