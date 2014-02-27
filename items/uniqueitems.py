@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-from armor import Armor
-from weapon import Weapon
+from items.armor import Armor
+from items.weapon import Weapon
 
 """
 A list of unique items.

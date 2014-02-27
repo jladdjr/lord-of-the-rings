@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from item import Item
+from items.item import Item
 
 class Items(object):
     """
