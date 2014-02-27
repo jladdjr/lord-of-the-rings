@@ -24,4 +24,5 @@ class ItemType(object):
     GENERIC = 1
     ARMOR   = 2
     WEAPON  = 3
+    POTION  = 4
 

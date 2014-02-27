@@ -19,6 +19,14 @@ class Weapon(Item):
         Item.__init__(self, name, description, weight)
         self._damage = damage
 
+    def getDamage(self):
+        """
+        Returns the weapon's damage stat.
+
+        @return: Weapon's damage.
+        """
+        return self._damage
+
     def getType(self):
         """
         Returns the item's type.
@@ -26,5 +34,3 @@ class Weapon(Item):
         @return: Item's type.
         """
         return ItemType.WEAPON
-
-    #TODO: Needs getDamage() method

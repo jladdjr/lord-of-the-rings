@@ -20,6 +20,14 @@ class Armor(Item):
         Item.__init__(self, name, description, weight)
         self._defense = defense
 
+    def getDefense(self):
+        """
+        Returns the item's defense stat.
+
+        @return: Armor's defense.
+        """
+        return self._defense
+
     def getType(self):
         """
         Returns the item's type.
@@ -27,5 +35,3 @@ class Armor(Item):
         @return: Item's type.
         """
         return ItemType.ARMOR
-
-    #TODO: Needs getDefense() method.
