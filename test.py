@@ -68,7 +68,7 @@ class ItemTest(unittest.TestCase):
     """
 
     def testItem(self):
-        from item import Item
+        from items.item import Item
         name = "Generic item"
         description = "Generic description"
         weight = 9
@@ -92,8 +92,8 @@ class ItemsTest(unittest.TestCase):
     INITIAL_WEIGHT = 4
 
     def setUp(self):
-        from item import Item
-        from items import Items
+        from items.item import Item
+        from items.items import Items
 
         sword = Item("sword", "made by elves", 2)
         helmet = Item("helmet", "made by men", 1)
@@ -123,7 +123,7 @@ class ItemsTest(unittest.TestCase):
         self.assertEqual(expectedCount, actualCount, errorMsg)
 
     def testAddRemoveContainsItems(self):
-        from item import Item
+        from items.item import Item
         antidote = Item("antidote", "cures poison", 1)
 
         #Verify item not included in collection
@@ -143,7 +143,7 @@ class ItemsTest(unittest.TestCase):
         self.assertFalse(self._items.containsItem(antidote), errorMsg)
 
     def testItemsWeight(self):
-        from item import Item 
+        from items.item import Item 
 
         errorMsg = "Initial weight of Items object incorrect."
         expectedWeight = ItemsTest.INITIAL_WEIGHT
@@ -189,7 +189,7 @@ class SpaceTest(unittest.TestCase):
 
     def testItems(self):
         from space import Space
-        from item import Item
+        from items.item import Item
 
         #Prepare items
         blade = Item("blade", "appears to be dull", 1)

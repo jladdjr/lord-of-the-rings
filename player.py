@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from items import Items
+from items.items import Items
 from startinginventory import startingInventory
 import constants
 

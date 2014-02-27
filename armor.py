@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import constants
-from item import Item
+from items.item import Item
 
 class Armor(Item):
     """
