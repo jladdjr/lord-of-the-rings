@@ -1,11 +1,11 @@
 #!/usr/bin/python
 
 from parser import Parser
-from commands.commandwords import CommandWords
-from commands.helpcommand import HelpCommand 
-from commands.quitcommand import QuitCommand
-from commands.dropcommand import DropCommand
-from commands.pickupcommand import PickUpCommand
+from commands.command_words import CommandWords
+from commands.help_command import HelpCommand 
+from commands.quit_command import QuitCommand
+from commands.drop_command import DropCommand
+from commands.pick_up_command import PickUpCommand
 from player import Player
 from worldmap import WorldMap
 

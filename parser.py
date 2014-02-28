@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import constants
-from commands.commandwords import CommandWords
+from commands.command_words import CommandWords
 
 class Parser(object):
     """

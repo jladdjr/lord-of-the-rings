@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from items.items import Items
+from math import floor
 
 #TODO: Get startingInventory from GameLoader instead
 from items.starting_inventory import startingInventory
@@ -41,10 +42,6 @@ class Player(object):
         """
         target.takeDamage(self._attack)
 
-        #TODO: Probably want to have BattleEngine be responsible for
-        #reporting battle events -JDL
-        print "%s attacked %s for %s damage!" %(self._name, target, self._attack)
-
     def takeDamage(self, damage):
         """
         Allows player to receive damage.
@@ -52,7 +49,6 @@ class Player(object):
         @param damage):    The damage player is to receive.
         """
         self._hp -= damage
-        print "%s took %s damage!" %(self._name, self._attack)
 
     def levelUp(self):
         """
@@ -61,12 +57,21 @@ class Player(object):
         #TODO: Write levelUp() method
         pass
 
-    def updateLocation(self, newLocation):
+    def moveNorth(self):
+        pass
         #TODO: Consider replacing this with moveNorth(), moveSouth(), etc.
         #      methods. (Or, create a move() method that takes a direction
         #      (which should be defined in constants). -JDL
 
-        self._location = newLocation
+
+    def moveSouth(self):
+        pass
+
+    def moveEast(self):
+        pass
+
+    def moveWest(self):
+        pass
 
     def getLocation(self):
         """

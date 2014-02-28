@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 import random
-from monster import Monster
-from monsters import Monsters
+from monsters.monster import Monster
+from monsters.monsters import Monsters
 
 class Battle(object):
     """
