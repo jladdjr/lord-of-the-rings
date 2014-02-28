@@ -4,16 +4,14 @@ Constants for Lord of the Rings
 
 COMMAND_PROMPT = "> "
 
-
-#Character stats
-STARTING_LEVEL = 1
+#Character initialization
 STARTING_EXPERIENCE = 0
+STARTING_LEVEL = 0
+STARTING_EQUIPMENT = []
 
-#TODO: Stats are not constants (they change over the course of the game)
-#      Need to create a separate GameStats class to maintain this information. -JDL
-
-attackStat = 2
-hpStat = 10
+#Character stat calculation
+HP_STAT = 20
+DAMAGE_STAT = 2
 
 #Type enumeration
 class ItemType(object):

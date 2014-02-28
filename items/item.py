@@ -21,7 +21,7 @@ class Item(object):
         if (not name) or (not description) or (not weight):
             raise AssertionError("Item must have name, description, and weight.")
         if weight < 1:
-            errorMsg = "Invalid weight for item (%s); weight must be positive integer." % weight
+            errorMsg = "Invalid weight for item (%s); weight must be positive integer." %weight
             raise AssertionError(errorMsg)
 
         self._name = name

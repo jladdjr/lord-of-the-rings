@@ -21,6 +21,7 @@ class Items(object):
         if isinstance(itemSet, Item):
             self._items.append(itemSet)
             self._weight += itemSet.getWeight()
+            
         #Received set of items
         elif isinstance(itemSet, list):
             for item in itemSet:
