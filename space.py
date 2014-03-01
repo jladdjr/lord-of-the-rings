@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from items.items import Items
+from items.item_set import ItemSet
 
 class Space(object):
     """
@@ -12,7 +12,7 @@ class Space(object):
         """
         Intialize a Space object.
         """
-        self._items = Items()
+        self._items = ItemSet()
         self._name = name
 
     def getName(self):
@@ -52,12 +52,12 @@ class Space(object):
 
         return self._items.containsItem(item)
 
-    def getItems(self):
+    def getItemSet(self):
         """
         Returns items contained by room.
-        (i.e. An Items object).
+        (i.e. An ItemSet object).
         
-        @return: An Items object containing 
+        @return: An ItemSet object containing 
         set of items found in room.
         """
         return self._items

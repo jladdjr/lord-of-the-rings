@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from items.item import Item
-from items.items import Items
+from items.item_set import ItemSet
 from items.weapon import Weapon
 from items.armor import Armor
 from stats import Stats
@@ -26,7 +26,7 @@ class Player(object):
         """
         self._name = name
         self._location = location
-        self._inventory = Items(startingInventory)
+        self._inventory = ItemSet(startingInventory)
         self._level = constants.STARTING_LEVEL
         self._experience = constants.STARTING_EXPERIENCE
         self._equipment = constants.STARTING_EQUIPMENT
