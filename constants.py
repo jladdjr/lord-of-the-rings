@@ -1,11 +1,20 @@
 """
-Constants.
+Constants for Lord of the Rings
 """
 
 COMMAND_PROMPT = "> "
 
-<<<<<<< HEAD
+#Character initialization
+STARTING_EXPERIENCE = 0
+STARTING_LEVEL = 0
+STARTING_EQUIPMENT = []
 
+#Character stat calculation
+HP_STAT = 20
+DAMAGE_STAT = 2
+
+
+#Direction enumeration
 class Direction(object):
     """
     The cardinal directions.
@@ -15,19 +24,14 @@ class Direction(object):
     EAST  = 'east'
     WEST  = 'west'
 
-
+#Type enumeration
 class ItemType(object):
     """
     When a new item is created, its type should
     be added here. (e.g. POTION = 1, WEAPON = 2, ARMOR = 3, etc.)
     """
     GENERIC = 1
+    ARMOR   = 2
+    WEAPON  = 3
+    POTION  = 4
 
-=======
-class ItemType(object):
-    """
-    When a new item is created, its type should
-    be added here. (e.g. POTION = 2, WEAPON = 2, ARMOR = 3, etc.)
-    """
-    GENERIC = 1
->>>>>>> master
