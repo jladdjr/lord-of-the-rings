@@ -28,6 +28,12 @@ class Space(object):
         """
         return self._name
 
+    def getDescription(self):
+        """
+        Returns description of the room.
+        """
+        return self._description
+
     def addItem(self, item):
         """
         Adds an item to the room.
