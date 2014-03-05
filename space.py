@@ -14,7 +14,7 @@ class Space(object):
         """
         self._items = ItemSet()
         self._name = name
-		self._description = "None yet."
+        self._description = "None yet."
 
     def getName(self):
         """

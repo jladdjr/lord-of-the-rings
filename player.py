@@ -29,9 +29,8 @@ class Player(object):
         self._inventory = ItemSet(startingInventory)
         self._level = constants.STARTING_LEVEL
         self._experience = constants.STARTING_EXPERIENCE
+        self._attack = constants.STARTING_ATTACK
         self._equipment = constants.STARTING_EQUIPMENT
-
-		current_space = "space"
 
     def attack(self, target):
         """

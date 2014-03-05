@@ -6,12 +6,12 @@ from commands.help_command import HelpCommand
 from commands.quit_command import QuitCommand
 from commands.drop_command import DropCommand
 from commands.pick_up_command import PickUpCommand
-from commands.helpcommand import HelpCommand 
-from commands.quitcommand import QuitCommand
-from command.snorthcommand import NorthCommand
-from commands.southcommand import SouthCommand
-from commands.eastcommand import EastCommand
-from commands.westcommand import WestCommand
+from commands.north_command import NorthCommand
+from commands.south_command import SouthCommand
+from commands.east_command import EastCommand
+from commands.west_command import WestCommand
+from commands.attack_command import AttackCommand
+
 
 from player import Player
 from worldmap import WorldMap
@@ -69,11 +69,10 @@ class Game(object):
                     "Moves the player to the space west of current space")
         self._commandWords.addCommand("west", westCmd)
 
+        #TODO: Add describe command
+
         #Parser
         self._parser = Parser(self._commandWords)
-
-		#Player
-		self._player = Player()
 
     def play(self):
         """

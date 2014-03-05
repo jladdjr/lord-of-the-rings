@@ -29,7 +29,7 @@ class ItemSet(object):
                     errorMsg = "ItemSet initialized with list containing non-Item object(s)."
                     raise AssertionError(errorMsg)
                 self._items.append(item)
-                self._weight += item.getWeight()
+                self._weight += int(item.getWeight())
 
     def addItem(self, item):
         """
@@ -43,7 +43,7 @@ class ItemSet(object):
             raise AssertionError(errorMsg)
 
         self._items.append(item)
-        self._weight += item.getWeight()
+        self._weight += int(item.getWeight())
 
     def removeItem(self, item):
         """
@@ -52,7 +52,7 @@ class ItemSet(object):
         @param item:    An item in this collection.
         """
         self._items.remove(item)
-        self._weight -= item.getWeight()
+        self._weight -= int(item.getWeight())
    
     def containsItem(self, item):
         """

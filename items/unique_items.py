@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 from items.armor import Armor
 from items.weapon import Weapon
@@ -15,5 +16,5 @@ Example: Andúril, the Flame of the West.
 #Let's touch base and I can give you more details about what this
 #would look like. -Jim
 
-steelDagger = Weapon(3, "Steel Dagger", "A trusty blade", 2)
-leatherCloak = Armor(2, "Leather Cloak", "A common leather cloak, used for long journeys.", 2)
+steelDagger = Weapon("Steel Dagger", "A trusty blade", 2, 3)
+leatherCloak = Armor("Leather Cloak", "A common leather cloak, used for long journeys.", 2, 2)
