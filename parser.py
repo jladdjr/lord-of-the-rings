@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import constants
-from commands.commandwords import CommandWords
+from commands.command_words import CommandWords
 
 class Parser(object):
     """
@@ -26,6 +26,16 @@ class Parser(object):
         """
         userInput = raw_input(constants.COMMAND_PROMPT)
         userInput = userInput.strip().lower()
+        
+        #if userInput is n,s,e,w then do northCommand, southCommand, etc.
+        if userInput == "n":
+            userInput = "north"
+        if userInput == "s":
+            userInput = "south"
+        if userInput == "e":
+            userInput = "east"
+        if userInput == "w":
+            userInput = "west"
 
         while not self._commandRecognized(userInput):
             print "Command not recognized. Type 'help' for help."

@@ -1,18 +1,18 @@
 #!/usr/bin/python
 
-from item import Item
+from items.item import Item
 
-class Items(object):
+class ItemSet(object):
     """
     A simple collection of items.
     """
 
     def __init__(self, itemSet=None):
         """
-        Initialize an Items object.
+        Initialize an ItemSet object.
 
         @keyword itemSet:     (Optional) A single Item object or a
-                            list of Item objects.
+                               list of Item objects.
         """
         self._items = []
         self._weight = 0
@@ -21,14 +21,15 @@ class Items(object):
         if isinstance(itemSet, Item):
             self._items.append(itemSet)
             self._weight += itemSet.getWeight()
+            
         #Received set of items
-        elif isinstance(itemSet,list):
+        elif isinstance(itemSet, list):
             for item in itemSet:
-                if not isinstance(item,Item):
-                    errorMsg = "Items initialized with list containing non-Item object(s)."
+                if not isinstance(item, Item):
+                    errorMsg = "ItemSet initialized with list containing non-Item object(s)."
                     raise AssertionError(errorMsg)
                 self._items.append(item)
-                self._weight += item.getWeight()
+                self._weight += int(item.getWeight())
 
     def addItem(self, item):
         """
@@ -38,11 +39,11 @@ class Items(object):
         """
         #Check preconditions
         if not isinstance(item, Item):
-            errorMsg = "Items.addItem() passed non-Item object."
+            errorMsg = "ItemSet.addItem() passed non-Item object."
             raise AssertionError(errorMsg)
 
         self._items.append(item)
-        self._weight += item.getWeight()
+        self._weight += int(item.getWeight())
 
     def removeItem(self, item):
         """
@@ -51,7 +52,7 @@ class Items(object):
         @param item:    An item in this collection.
         """
         self._items.remove(item)
-        self._weight -= item.getWeight()
+        self._weight -= int(item.getWeight())
    
     def containsItem(self, item):
         """
@@ -82,20 +83,23 @@ class Items(object):
         """
         Provide an iterator for this set of items.
 
-        Allows you to create for loops using Items objects:
+
+        Allows you to create for loops using ItemSet objects:
+
 
             >>> from item import Item
-            >>> from items import Items
+            >>> from items import ItemSet
             >>> item1 = Item("sword", "made by elves", 2)
             >>> item2 = Item("helmet", "made by men", 1)
             >>> item3 = Item("healing potion", "restores health", 1)
-            >>> myItems = Items([item1, item2, item3])
-            >>> for item in myItems:
+            >>> myItemSet = ItemSet([item1, item2, item3])
+            >>> for item in myItemSet:
             ...     print item.getName()
             ... 
             sword
             helmet
             healing potion
+
 
         """
         return iter(self._items)
