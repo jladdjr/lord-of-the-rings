@@ -1,5 +1,6 @@
 #!/usr/bin/python
-import constants
+
+from constants import ItemType
 from items.item import Item
 
 class Potion(Item):
