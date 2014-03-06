@@ -68,8 +68,10 @@ class Game(object):
         westCmd = WestCommand("west", 
                     "Moves the player to the space west of current space")
         self._commandWords.addCommand("west", westCmd)
-
-        #TODO: Add describe command
+        
+        descCmd = DescribeCommand("describe", 
+                    "Gives description of current space", self._player)
+        self._commandWords.addCommand("describe", descCmd)
 
         #Parser
         self._parser = Parser(self._commandWords)
