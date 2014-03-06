@@ -35,6 +35,9 @@ class ItemSet(object):
         """
         Adds an item.
 
+        @precondition: Item's name must not be used
+        by any items already contained in ItemSet.
+
         @param item:    An item.
         """
         #Check preconditions
@@ -44,6 +47,21 @@ class ItemSet(object):
 
         self._items.append(item)
         self._weight += int(item.getWeight())
+
+    def getItemByName(self, name):
+        """
+        Gets an item with a given name.
+
+        @param name:    Name of object.
+
+        @return:        Item with given name.
+                        Returns None if the item
+                        cannot be found.
+        """
+        for item in self._items:
+            if item.getName() == name:
+                return item
+        return None
 
     def removeItem(self, item):
         """
