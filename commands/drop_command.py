@@ -24,7 +24,7 @@ class DropCommand(Command):
         Drops an item from inventory into room.
         """
         
-        itemToRemove = raw_input("Which item do you want to drop?" )
+        itemToRemove = raw_input("Which item do you want to drop? \n")
         inventory = self._player.getInventory()
         item = inventory.getItemByName(itemToRemove)
 
@@ -32,6 +32,8 @@ class DropCommand(Command):
         if not item:
             print itemToRemove, " is not in your inventory!"
             return
+
+        print "dropping ", itemToDrop
 
         #Removes item from inventory
         inventory.removeItem(item)
