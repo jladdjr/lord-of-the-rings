@@ -263,7 +263,60 @@ class PickUpTest(unittest.TestCase):
         #Assert item in player inventory but not in space
         self.assertFalse(space.containsItem(item), "Space should not have item but does.")
         inventory = player.getInventory()
-        self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")      
+        self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")
+
+class DropTest(unittest.TestCase):
+    """
+    Test Drop class.
+    """
+    def testExecute(self):
+        from space import Space
+        from player import Player
+        from items.item import Item
+        from commands.drop_command import DropCommand
+        space = Space("Shire")
+        player = Player("Frodo", space)
+        item = Item("Dagger", "A trusty blade", 2)
+        player.equip(item)
+        dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
+
+        #Asserts item in player inventory but not in space
+        self.assertFalse(space.containsItem(item), "Space should not have item but does.")
+        inventory = player.getInventory()
+        self.assertTrue(inventory.containsItem(item), "Inventory should have item but does not.")
+
+        rawInputMock = MagicMock(return_value="Dagger")
+        
+        with patch('commands.drop_command.raw_input', create=True, new=rawInputMock): 
+            dropCmd.execute()
+            
+        #Assert item in space but not in player inventory
+        self.assertTrue(space.containsItem(item), "Space should have item but does not.")
+        inventory = player.getInventory()
+        self.assertFalse(inventory.containsItem(item), "Inventory should not have item but does.")
+
+class PlayerTest(unittest.TestCase):
+    """
+    Tests player class.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from items.item import Item
+        from items.item_set import ItemSet
+        form items.weapon import Weapon
+        from items.armor import Armor
+        from stats import Stats
+        from monsters.monster import Monster
+
+        space = Space()
+        player = Player("Frodo", s)
+        monster = Monster("Orc", "An orc.", 10, 1, 1)
+        blade = Item("blade", "appears to be dull", 1)
+        
+        #Assert monster         
+                
+        
         
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"

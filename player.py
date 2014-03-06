@@ -9,12 +9,14 @@ from math import floor
 
 #TODO: Get startingInventory from GameLoader instead
 from items.starting_inventory import startingInventory
+###Need this too###
+from items.starting_inventory import startingEquipment
 
 import constants
 
 class Player(object):
     """
-    Represents the (human) player.
+    A character in your party. For instance, "Frodo."
     """
     
     def __init__(self, name, location):
@@ -24,21 +26,19 @@ class Player(object):
         @param name:             The name of the player (e.g. "Frodo").
         @param location:         The location of player.
         """
-        self._name = name
-        self._location = location
+        self._name      = name
+        self._location  = location
         self._inventory = ItemSet(startingInventory)
-        self._level = constants.STARTING_LEVEL
+
+        #Equip player with startingInventory
+        self._equipped = []
+        for item in startingEquipment:
+            self.equip(item)
+
+        #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
-        self._attack = constants.STARTING_ATTACK
-        self._equipment = constants.STARTING_EQUIPMENT
-
-    def getInventory(self):
-        """
-        Returns the player's inventory.
-
-        @return:    Player's inventory.
-        """
-        return self._inventory
+        self._level = None
+        self._levelUp
 
     def attack(self, target):
         """
@@ -47,13 +47,13 @@ class Player(object):
         @param target:     The target player is to attack.
         """
         self._totalDamage = self._attack + self._weaponAttack
-        target.takeDamage(self._totalDamage) 
+        target.takeDamage(self._totalDamage)
 
     def takeDamage(self, damage):
         """
         Allows player to receive damage.
 
-        @param damage:    The damage player is to receive.
+        @param damage:     The damage player is to receive.
         """
         self._hp = self._hp - max(damage - self._armorDefense, 0)
 
@@ -61,7 +61,7 @@ class Player(object):
         """
         Allows player to receive additional experience.
 
-        @param experience:    The experience player is to receive.
+        @param new_experience:    The experience player is to receive.
         """
         self._experience += new_experience
         
@@ -77,7 +77,7 @@ class Player(object):
             print "%s leveled up! %s is now level %s" \
                   %(self._name, self._name, self._level)
             self._stats = Stats(self._level)
-            self._new_stats = stats.getStats()
+            self._newStats = stats.getStats()
             self._hp = self._stats[0]
             self._damage = self._stats[1]
             print "%s now has %s damage and %s hp!" \
@@ -89,43 +89,63 @@ class Player(object):
 
         @param item:    The item to be equipped.
         """
-        #TODO: equipment needs a way to keep track of whether it is currently
-        #      used or not.
-        if isinstance(item, Item) and (item in self._inventory):
-            self._equipment.append(item)
-
-            #Update player to reflect equipment
-            if isinstance(item, Armor):
-                self._armor = item
-                self._armorDefense = self._armor.getDefense()
-            if isinstance(item, Weapon):
-                self._weapon = item
-                self._weaponAttack = self._weapon.getDamage()
-                
-            print "%s equipped %s." %(self._name, self._item)
-        else:
+        if not (isinstance(item, Item) and (item in self._inventory) \
+                and (isinstance(item, Armor) or isinstance(item, Weapon)):
             print "Cannot equip %s" %(self._item)
+            
+        else:
+            if item in self._equipped:
+                print "%s already equipped!" %(item)
 
+            else:
+                self._equipped.append(item)
+                #Update player to reflect equipment
+                if isinstance(item, Armor):
+                    self._armor = item
+                    self._armorDefense = self._armor.getDefense()
+                if isinstance(item, Weapon):
+                    self._weapon = item
+                    self._weaponAttack = self._weapon.getDamage()
+                    
+                print "%s equipped %s." %(self._name, self._item)
+            
     def unequip(self, item):
         """
         Allows a character to unequip a currently equipped item.
 
         @param item:    The item to be unequipped.
         """
-        if isinstance(item, Item) and (item in self._inventory):
-            self._equipment.remove(item)
+        if isinstance(item, Item) and (item in self._inventory) \
+           and (isinstance(item, Armor) or isisntance(item, Weapon)):
+            self._equipped.remove(item)
             
             #Update player to reflect equipment
             if isinstance(item, Armor):
-                self._armor = item
+                self._armor = None
                 self._armorDefense = 0
             if isinstance(item, Weapon):
-                self._weapon = item
+                self._weapon = None
                 self._weaponAttack = 0
                 
             print "%s unequipped %s." %(self._name, self._item)
         else:
             print "Cannot unequip %s." %(self._item)
+
+    def getInventory(self):
+        """
+        Returns the player's inventory.
+
+        @return:    Player's inventory.
+        """
+        return self._inventory
+
+    def getEquipped(self):
+        """
+        Returns the player's currently equipped equipment.
+
+        @return:    Player's current gear.
+        """
+        return self._equipped
 
     def moveNorth(self):
         pass

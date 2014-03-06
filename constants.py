@@ -6,14 +6,11 @@ COMMAND_PROMPT = "> "
 
 #Character initialization
 STARTING_EXPERIENCE = 0
-STARTING_ATTACK = 0
-STARTING_LEVEL = 0
 STARTING_EQUIPMENT = []
 
 #Character stat calculation
 HP_STAT = 20
 DAMAGE_STAT = 2
-
 
 #Direction enumeration
 class Direction(object):
