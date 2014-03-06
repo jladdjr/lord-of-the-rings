@@ -18,18 +18,24 @@ class PickUpCommand(Command):
 
         #Finish initializing help-specific settings
         self._player = player
-        self._location = self._player.getLocation()
 
     def execute(self):
         """
         Picks up an item from a room and adds it to inventory.
         """
 
-        item_to_add = raw_input("Which item do you want to pick up? ")
-        if self._location.containsItem(item_to_add):
-            #Adds item to inventory
-            self._player.inventory.addItem(item_to_add)
+        itemToAdd = raw_input("Which item do you want to pick up? ")
+        location = self._player.getLocation()
+        items = location.getItemSet()
+        item = items.getItemByName(itemToAdd)
+        
+        if not item:
+            print "Space does not contain item."
+            return
 
-            #Removes item from space
-            self._location.removeItem(item_to_add)
-            
+        #Adds item to inventory
+        inventory = self._player.getInventory()
+        inventory.addItem(item)
+
+        #Removes item from space
+        location.removeItem(item)
