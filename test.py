@@ -146,7 +146,7 @@ class ItemSetTest(unittest.TestCase):
         from items.item import Item 
 
         errorMsg = "Initial weight of ItemSet object incorrect."
-        expectedWeight = ItemsTest.INITIAL_WEIGHT
+        expectedWeight = ItemSetTest.INITIAL_WEIGHT
         actualWeight = self._items.weight()
         self.assertEqual(expectedWeight, actualWeight, errorMsg)
 
@@ -195,8 +195,8 @@ class SpaceTest(unittest.TestCase):
         bow = Item("bow", "long bow", 2) 
 
         #Create space
-        space = Space()
-        items = space.getItems()
+        space = Space("shire")
+        items = space.getItemSet()
 
         #Assert space initially empty
         errorMsg = "New space contains items; should be empty" 
@@ -216,7 +216,7 @@ class SpaceTest(unittest.TestCase):
         self.assertTrue(space.containsItem(bow), errorMsg)
 
         #Get room's items. Assert blade and bow exist
-        items = space.getItems()
+        items = space.getItemSet()
         self.assertEqual(items.count(), 2, "Room should contain exactly two items.")
         self.assertTrue(items.containsItem(blade), "Could not find blade in room's set of items.")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
@@ -229,13 +229,42 @@ class SpaceTest(unittest.TestCase):
         self.assertTrue(space.containsItem(bow), errorMsg)
 
         #Get room's items. Assert only bow exists
-        items = space.getItems()
+        items = space.getItemSet()
         self.assertEqual(items.count(), 1, "Room should contain exactly one item.")
         self.assertFalse(items.containsItem(blade), 
                 "Blade found in room (even though it was removed).")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
         
-
+class PickUpTest(unittest.TestCase):
+    """
+    Test PickUp class.
+    """
+    def testExecute(self):
+        from space import Space
+        from player import Player
+        from items.item import Item
+        from commands.pick_up_command import PickUpCommand
+        space = Space("Shire")
+        player = Player("Frodo", space)
+        item = Item("Dagger", "A trusty blade", 2)
+        space.addItem(item)
+        pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
+        
+        #Assert item in space but not in inventory
+        self.assertTrue(space.containsItem(item), "Space should have item but does not.")
+        inventory = player.getInventory()
+        self.assertFalse(inventory.containsItem(item), "Player should not have item but does.")
+        
+        rawInputMock = MagicMock(return_value="Dagger")
+        
+        with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock): 
+            pickUpCmd.execute()
+            
+        #Assert item in player inventory but not in space
+        self.assertFalse(space.containsItem(item), "Space should not have item but does.")
+        inventory = player.getInventory()
+        self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")      
+        
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
-    unittest.main(buffer=True)
+    unittest.main()

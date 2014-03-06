@@ -32,6 +32,14 @@ class Player(object):
         self._attack = constants.STARTING_ATTACK
         self._equipment = constants.STARTING_EQUIPMENT
 
+    def getInventory(self):
+        """
+        Returns the player's inventory.
+
+        @return:    Player's inventory.
+        """
+        return self._inventory
+
     def attack(self, target):
         """
         Allows player to attack target. 

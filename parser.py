@@ -38,7 +38,7 @@ class Parser(object):
             userInput = "west"
 
         while not self._commandRecognized(userInput):
-            print "Command not recognized. Type 'help' for help."
+            print "Command '%s' not recognized. Type 'help' for help." % userInput
             print ""
 
             userInput = raw_input(constants.COMMAND_PROMPT)

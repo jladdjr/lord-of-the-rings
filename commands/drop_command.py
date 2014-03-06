@@ -18,22 +18,27 @@ class DropCommand(Command):
 
         #Finish initializing help-specific settings
         self._player = player
-        self._location = self._player.getLocation()
 
     def execute(self):
         """
         Drops an item from inventory into room.
         """
         
-        item_to_remove = raw_input("Which item do you want to drop?" )
-        if self._player.inventory.containsItem(item_to_remove):
-            #Removes item from inventory
-            self._player.inventory.removeItem(item_to_remove)
+        itemToRemove = raw_input("Which item do you want to drop? \n")
+        inventory = self._player.getInventory()
+        item = inventory.getItemByName(itemToRemove)
 
-            #Adds item to current space
-            self._location.addItem(item_to_remove)
-            
-        else:
-            print "Item does not exist in inventory."
-        
+        #if the item is not recognized, then return without doing anything
+        if not item:
+            print itemToRemove, " is not in your inventory!"
+            return
+
+        print "dropping ", itemToDrop
+
+        #Removes item from inventory
+        inventory.removeItem(item)
+
+        #Adds item to current space
+        location = self._player.getLocation()
+        location.addItem(item)
         
