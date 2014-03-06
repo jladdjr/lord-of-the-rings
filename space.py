@@ -13,16 +13,16 @@ class Space(object):
         """
         Initialize a Space object.
         """
-        self._exits = { Direction.North : None,
-                        Direction.South : None,
-                        Direction.East  : None,
-                        Direction.West  : None }
+        self._exits = { Direction.NORTH : None,
+                        Direction.SOUTH : None,
+                        Direction.EAST : None,
+                        Direction.WEST : None }
 
-		self._items = ItemSet()
+        self._items = ItemSet()
         self._name = name
         self._description = "None yet."
 
-   def getName(self):
+    def getName(self):
         """
         Returns the name of the room.
         """
