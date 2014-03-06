@@ -40,6 +40,14 @@ class Player(object):
         self._level = None
         self._levelUp
 
+    def getInventory(self):
+        """
+        Returns the player's inventory.
+
+        @return:    Player's inventory.
+        """
+        return self._inventory
+
     def attack(self, target):
         """
         Allows player to attack target. 
