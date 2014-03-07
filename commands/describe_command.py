@@ -23,6 +23,4 @@ class DescribeCommand(Command):
         location = self._player.getLocation()
         description = location.getDescription()
         
-        print "You are currently in %s" %(location)
-        print "%s's description: %s" %(location, description)
-
+        print description
