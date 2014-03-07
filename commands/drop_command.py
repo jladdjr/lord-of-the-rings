@@ -30,10 +30,10 @@ class DropCommand(Command):
 
         #if the item is not recognized, then return without doing anything
         if not item:
-            print itemToRemove, " is not in your inventory!"
+            print "%s is not in your inventory!" %(itemToRemove)
             return
 
-        print "dropping ", itemToDrop
+        print "Dropping %s" %(itemToRemove)
 
         #Removes item from inventory
         inventory.removeItem(item)
