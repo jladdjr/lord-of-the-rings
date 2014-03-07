@@ -9,7 +9,7 @@ class Space(object):
     to form larger geographic areas.
     """
     
-    def __init__(self, name):
+    def __init__(self, name, description):
         """
         Initialize a Space object.
         """
@@ -20,7 +20,7 @@ class Space(object):
 
         self._items = ItemSet()
         self._name = name
-        self._description = "None yet."
+        self._description = description
 
     def getName(self):
         """
