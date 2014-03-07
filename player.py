@@ -32,14 +32,6 @@ class Player(object):
         self._attack = constants.STARTING_ATTACK
         self._equipment = constants.STARTING_EQUIPMENT
 
-    def getInventory(self):
-        """
-        Returns the player's inventory.
-
-        @return:    Player's inventory.
-        """
-        return self._inventory
-
     def attack(self, target):
         """
         Allows player to attack target. 
@@ -48,6 +40,14 @@ class Player(object):
         """
         self._totalDamage = self._attack + self._weaponAttack
         target.takeDamage(self._totalDamage) 
+        
+    def getAttack(self):
+        """
+        Gets a player's total attack power (including items).
+        
+        @return:    player attack + weapon attack
+        """
+        return self._attack + self._weaponAttack
 
     def takeDamage(self, damage):
         """
@@ -56,6 +56,14 @@ class Player(object):
         @param damage:    The damage player is to receive.
         """
         self._hp = self._hp - max(damage - self._armorDefense, 0)
+        
+    def getExperience(self):
+        """
+        Return's player experience.
+        
+        @return:    return's player experience.
+        """
+        return self._experience
 
     def increaseExperience(self, new_experience):
         """
@@ -64,6 +72,14 @@ class Player(object):
         @param experience:    The experience player is to receive.
         """
         self._experience += new_experience
+        
+    def getLevel(self):
+        """
+        Return's player level.
+        
+        @return:   return's player level.
+        """
+        return self._level
         
     def _levelUp(self):
         """
@@ -82,6 +98,15 @@ class Player(object):
             self._damage = self._stats[1]
             print "%s now has %s damage and %s hp!" \
                   %(self._name, self._damage, self._hp)
+                  
+    def getEquipped(self):
+        """
+        Return's player's currently-equipped gear.
+        """
+        
+        print "%s currently is equipped with:" %(self._name)
+        for equipment in self._equipped:
+            print equipment
 
     def equip(self, item):
         """
@@ -126,7 +151,15 @@ class Player(object):
             print "%s unequipped %s." %(self._name, self._item)
         else:
             print "Cannot unequip %s." %(self._item)
+            
+    def getInventory(self):
+        """
+        Returns the player's inventory.
 
+        @return:    Player's inventory.
+        """
+        return self._inventory
+        
     def moveNorth(self):
         pass
         #TODO: Consider replacing this with moveNorth(), moveSouth(), etc.
