@@ -9,7 +9,7 @@ class Space(object):
     to form larger geographic areas.
     """
     
-    def __init__(self, name):
+    def __init__(self, name, description):
         """
         Initialize a Space object.
         """
