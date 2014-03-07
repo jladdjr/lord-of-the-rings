@@ -11,9 +11,9 @@ class WorldMap(object):
         """
         Instantiates the spaces that make up the world map.
         """
-        self._shire  = Space("Shire")
-        self._gondor = Space("Gondor")
-        self._mordor = Space("Mordor")
+        self._shire  = Space("Shire", "Home of Hobbits.")
+        self._gondor = Space("Gondor", "Capital: Osgiliath.")
+        self._mordor = Space("Mordor", "Home of Sauron.")
 
         #TODO: These Spaces need to be connected together
         #      (once Dmitriy's code has been merged with this code) -JDL
