@@ -146,7 +146,7 @@ class ItemSetTest(unittest.TestCase):
         from items.item import Item 
 
         errorMsg = "Initial weight of ItemSet object incorrect."
-        expectedWeight = ItemsTest.INITIAL_WEIGHT
+        expectedWeight = ItemSetTest.INITIAL_WEIGHT
         actualWeight = self._items.weight()
         self.assertEqual(expectedWeight, actualWeight, errorMsg)
 
@@ -195,8 +195,8 @@ class SpaceTest(unittest.TestCase):
         bow = Item("bow", "long bow", 2) 
 
         #Create space
-        space = Space()
-        items = space.getItems()
+        space = Space("shire")
+        items = space.getItemSet()
 
         #Assert space initially empty
         errorMsg = "New space contains items; should be empty" 
@@ -216,7 +216,7 @@ class SpaceTest(unittest.TestCase):
         self.assertTrue(space.containsItem(bow), errorMsg)
 
         #Get room's items. Assert blade and bow exist
-        items = space.getItems()
+        items = space.getItemSet()
         self.assertEqual(items.count(), 2, "Room should contain exactly two items.")
         self.assertTrue(items.containsItem(blade), "Could not find blade in room's set of items.")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
@@ -229,13 +229,263 @@ class SpaceTest(unittest.TestCase):
         self.assertTrue(space.containsItem(bow), errorMsg)
 
         #Get room's items. Assert only bow exists
-        items = space.getItems()
+        items = space.getItemSet()
         self.assertEqual(items.count(), 1, "Room should contain exactly one item.")
         self.assertFalse(items.containsItem(blade), 
                 "Blade found in room (even though it was removed).")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
         
+class PickUpTest(unittest.TestCase):
+    """
+    Test PickUp class.
+    """
+    def testExecute(self):
+        from space import Space
+        from player import Player
+        from items.item import Item
+        from commands.pick_up_command import PickUpCommand
+        space = Space("Shire")
+        player = Player("Frodo", space)
+        item = Item("Dagger", "A trusty blade", 2)
+        space.addItem(item)
+        pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
+        
+        #Assert item in space but not in inventory
+        self.assertTrue(space.containsItem(item), "Space should have item but does not.")
+        inventory = player.getInventory()
+        self.assertFalse(inventory.containsItem(item), "Player should not have item but does.")
+        
+        rawInputMock = MagicMock(return_value="Dagger")
+        
+        with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock): 
+            pickUpCmd.execute()
+            
+        #Assert item in player inventory but not in space
+        self.assertFalse(space.containsItem(item), "Space should not have item but does.")
+        inventory = player.getInventory()
+        self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")   
+        
+class DropTest(unittest.TestCase):
+    """
+    Test Drop class.
+    """
+    def testExecute(self):
+        from space import Space
+        from player import Player
+        from items.item import Item
+        from commands.drop_command import DropCommand
+        space = Space("Shire")
+        player = Player("Frodo", space)
+        item = Item("Dagger", "A trusty blade", 2)
+        player.equip(item)
+        dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
+
+        #Asserts item in player inventory but not in space
+        self.assertFalse(space.containsItem(item), "Space should not have item but does.")
+        inventory = player.getInventory()
+        self.assertTrue(inventory.containsItem(item), "Inventory should have item but does not.")
+
+        rawInputMock = MagicMock(return_value="Dagger")
+        
+        with patch('commands.drop_command.raw_input', create=True, new=rawInputMock): 
+            dropCmd.execute()
+            
+        #Assert item in space but not in player inventory
+        self.assertTrue(space.containsItem(item), "Space should have item but does not.")
+        inventory = player.getInventory()
+        self.assertFalse(inventory.containsItem(item), "Inventory should not have item but does.")
+
+class DescribeTest(unittest.TestCase):
+    """
+    Tests Describe class.
+    """
+    def testExecute(self):
+        from player import Player
+        from space import Space
+        from commands.command import Command
+        from commands.describe_command import DescribeCommand
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        descCmd = DescribeCommand("describe", "Gives description of space", player)
+
+        #Tests that execute returns space description
+        self.assertEqual(descCmd.execute(), "Home of the Hobbits.", \
+            "Execute gave incorrect description.")
+
+class ArmorTest(unittest.TestCase):
+    """
+    Tests Armor class.
+    """
+    def testInit(self):
+        from item.armor import Armor
+        
+        shield = Armor("Shield", "A cheap shield", 2, 3)
+
+        #Tests that shield initialized correctly
+        self.assertEqual(shield.getName(), "Shield", "Name did not initialize correctly.")
+        self.assertEqual(shield.getDescription(), "A cheap shield", "Description did not initialize correctly.")
+        self.assertEqual(shield.getWeight(), 2, "Weight did not initialize correctly.")
+        self.assertEqual(shield.getDefense(), 3, "Defense did not initialize correctly.")
+
+class WeaponTest(unittest.TestCase):
+    """
+    Tests Weapon class.
+    """
+    def testInit(self):
+        from item.weapon import Weapon
+
+        sword = Weapon("Sword", "A cheap sword", 1, 3)
+
+        #Tests for correct initialization
+        self.assertEqual(sword.getName(), "Sword", "Name did not initialize correctly.")
+        self.assertEqual(sword.getDescription(), "A cheap sword", "Description did not initialize correctly.")
+        self.assertEqual(sword.getWeight(), 1, "Weight did not initialize correctly.")
+        self.assertEqual(sword.getDamage(), 3, "Damage did not initialize correctly.")
+
+class Potion(unittest.TestCase):
+    """
+    Tests Potion class.
+    """
+    def testInit(self):
+        from item.potion import Potion
+
+        potion = Potion("Potion", "A small potion", 1, 10)
+        
+        #Tests for correct initialization
+        self.assertEqual(potion.getName(), "Potion", "Name did not initialize correctly.")
+        self.assertEqual(potion.getDescription(), "A cheap potion", "Description did not initialize correctly.")
+        self.assertEqual(potion.getWeight(), 1, "Weight did not initialize correctly.")
+        self.assertEqual(potion.getHealing(), 10, "Healing did not initialize correctly.")
+
+class PlayerTest(unittest.TestCase):
+    """
+    Tests Player class.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from items.item import Item
+        from items.item_set import ItemSet
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from stats import Stats
+        from monsters.monster import Monster
+        from starting_inventory import startingInventory
+        import constants
+
+        space = Space()
+        player = Player("Frodo", space)
+        monster = Monster("Orc", "An orc.", 10, 1, 1)
+        blade = Item("Blade", "Appears to be dull", 1)
+        
+        #Test for correct initialization
+        self.assertEqual(player._inventory, startingInventory, "Starting inventory was not initialized correctly.")
+        self.assertEqual(player._level, 1, "Player level was not initialized correctly.")
+        self.assertEqual(player._hp, constants.HP_STAT * player._level, "Player HP was not initialized correctly.")
+        self.assertEqual(player._damage, constants.DAMAGE_STAT * player._level, "Player damage was not initialized correctly.")
+
+    def testAttack(self):
+        from player import Player
+        from space import Space
+        from items.item import Item
+        from items.item_set import ItemSet
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from stats import Stats
+        from monsters.monster import Monster
+        from starting_inventory import startingInventory
+        import constants
+
+        space = Space()
+        player = Player("Frodo", space)
+        monster = Monster("Orc", "An orc.", 10, 1, 1)
+        blade = Item("Blade", "Appears to be dull", 1)
+        
+        #Check monster is undamaged
+        self.assertEqual(monster.getHp(), 10, "Monster HP did not initialize correctly.")
+
+        player._attack(monster)
+        
+        #Player attack's monster
+        self.assertEqual(monster.getHP(), 10 - (player._attack + player._weaponAttack), "Monster attack failed.")
+
+    def testTakeDamage(self):
+        from player import Player
+        from space import Space
+        from items.item import Item
+        from items.item_set import ItemSet
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from stats import Stats
+        from monsters.monster import Monster
+        from starting_inventory import startingInventory
+        import constants
+
+        space = Space()
+        player = Player("Frodo", space)
+        monster = Monster("Orc", "An orc.", 10, 1, 1)  
+
+        originalHp = player.getHp()
+        monster.attack(player)
+        
+        #Test player's takeDamage method
+        newHp = player.getHP()
+        self.assertTrue(originalHP < newHP, "Player takeDamage failed")
+
+    def testLevelUp(self):
+        from player import Player
+        from space import Space
+        from items.item import Item
+        from items.item_set import ItemSet
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from stats import Stats
+        from monsters.monster import Monster
+        from starting_inventory import startingInventory
+        import constants
+
+        space = Space()
+        player = Player("Frodo", space)
+
+        originalLevel = player.getLevel()
+        originalHp = player.getHp()
+        originalDamage = player.getDamage()
+        player.increaseExperience(1000)
+
+        newLevel = player.getLevel()
+        self.assertTrue(newLevel > originalLevel), "Player did not level up.")
+        self.assertTrue(newHp > originalHp), "Player HP did not increase.")
+        self.assertTrue(newDamage > originalDamage), "Player damage did not increase.")
+        
+    def unequip(self):
+        from items.item import Item
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from stats import Stats
+        from monsters.monster import Monster
+        from starting_inventory import startingInventory
+        import constants
+
+        #adding new things to inventory
+        new_item = Item("Chainik teakettle", "makes good tea", 1)
+        new_weapon = Weapon("gun of Hurlocker", "oppressive, but friendly", 2, 3)
+        new_armor = Armor("cookies of Miles","defend agaist sadness", 2,4)
+
+        player.equip(new_item)
+        player.equip(new_weapon)
+        player.equip(new_armor)
+        
+        inventory = player.getInventory()
+        
+        #checking to see if unequip takes new things from inventory
+        player.unequip(new_item)
+        self.assertFalse(new_item in player.getEquipped(), "Failed to unequip %s" %(new_item)
+        player.unequip(new_weapon)
+        self.assertFalse(new_weapon in player.getEquipped(), "Failed to unequip %s" %(new_weapon)
+        player.unequip(new_armor)
+        self.assertFalse(new_armor in player.getEquipped(), "Failed to unequip %s" %(new_armor)
+        
 
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
-    unittest.main(buffer=True)
+    unittest.main()
