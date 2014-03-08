@@ -479,11 +479,11 @@ class PlayerTest(unittest.TestCase):
         
         #checking to see if unequip takes new things from inventory
         player.unequip(new_item)
-        self.assertFalse(new_item in player.getEquipped(), "Failed to unequip %s" %(new_item)
+        self.assertFalse(new_item in player.getEquipped(), "Failed to unequip %s" %(new_item))
         player.unequip(new_weapon)
-        self.assertFalse(new_weapon in player.getEquipped(), "Failed to unequip %s" %(new_weapon)
+        self.assertFalse(new_weapon in player.getEquipped(), "Failed to unequip %s" %(new_weapon))
         player.unequip(new_armor)
-        self.assertFalse(new_armor in player.getEquipped(), "Failed to unequip %s" %(new_armor)
+        self.assertFalse(new_armor in player.getEquipped(), "Failed to unequip %s" %(new_armor))
         
 
 if __name__ == '__main__':
