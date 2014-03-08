@@ -131,14 +131,6 @@ class Player(object):
         else:
             print "Cannot unequip %s." %(self._item)
 
-    def getInventory(self):
-        """
-        Returns the player's inventory.
-
-        @return:    Player's inventory.
-        """
-        return self._inventory
-
     def getEquipped(self):
         """
         Returns the player's currently equipped equipment.
@@ -146,6 +138,24 @@ class Player(object):
         @return:    Player's current gear.
         """
         return self._equipped
+    
+    def addInventory(self, item):
+        """
+        Adds an item to inventory.
+        """
+        if isinstance(item, Item) and (item not in self._inventory):
+            print "Added %s to inventory."
+            self._inventory.append(item)
+        else:
+            print "Cannot add %s to inventory." %(item)
+    
+    def getInventory(self):
+        """
+        Returns the player's inventory.
+
+        @return:    Player's inventory.
+        """
+        return self._inventory
 
     def moveNorth(self):
         pass
