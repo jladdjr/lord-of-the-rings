@@ -20,25 +20,23 @@ class Player(object):
     def __init__(self, name, location):
         """
         Initializes the player.
-        
-        @param name:             The name of the player (e.g. "Frodo").
-        @param location:         The location of player.
+        @param name: The name of the player (e.g. "Frodo").
+        @param location: The location of player.
         """
         self._name = name
         self._location = location
         self._inventory = ItemSet(startingInventory)
-        self._level = constants.STARTING_LEVEL
+
+        #Equip player with startingInventory
+        self._equipped = []
+        for item in startingEquipment:
+            self.equip(item)
+
+        #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
-        self._attack = constants.STARTING_ATTACK
-        self._equipment = constants.STARTING_EQUIPMENT
+        self._level = None
+        self._levelUp
 
-    def getInventory(self):
-        """
-        Returns the player's inventory.
-
-        @return:    Player's inventory.
-        """
-        return self._inventory
 
     def attack(self, target):
         """
@@ -48,6 +46,14 @@ class Player(object):
         """
         self._totalDamage = self._attack + self._weaponAttack
         target.takeDamage(self._totalDamage) 
+        
+    def getAttack(self):
+        """
+        Gets a player's total attack power (including items).
+        
+        @return:    player attack + weapon attack
+        """
+        return self._attack + self._weaponAttack
 
     def takeDamage(self, damage):
         """
@@ -56,6 +62,14 @@ class Player(object):
         @param damage:    The damage player is to receive.
         """
         self._hp = self._hp - max(damage - self._armorDefense, 0)
+        
+    def getExperience(self):
+        """
+        Return's player experience.
+        
+        @return:    return's player experience.
+        """
+        return self._experience
 
     def increaseExperience(self, new_experience):
         """
@@ -64,6 +78,14 @@ class Player(object):
         @param experience:    The experience player is to receive.
         """
         self._experience += new_experience
+        
+    def getLevel(self):
+        """
+        Return's player level.
+        
+        @return:   return's player level.
+        """
+        return self._level
         
     def _levelUp(self):
         """
@@ -82,6 +104,15 @@ class Player(object):
             self._damage = self._stats[1]
             print "%s now has %s damage and %s hp!" \
                   %(self._name, self._damage, self._hp)
+                  
+    def getEquipped(self):
+        """
+        Return's player's currently-equipped gear.
+        """
+        
+        print "%s currently is equipped with:" %(self._name)
+        for equipment in self._equipped:
+            print equipment
 
     def equip(self, item):
         """
@@ -127,6 +158,22 @@ class Player(object):
         else:
             print "Cannot unequip %s." %(self._item)
 
+    def getEquipped(self):
+        """
+        Returns the player's currently equipped equipment.
+
+        @return: Player's current gear.
+        """
+        return self._equipped
+                
+    def getInventory(self):
+        """
+        Returns the player's inventory.
+
+        @return:    Player's inventory.
+        """
+        return self._inventory
+        
     def moveNorth(self):
         pass
         #TODO: Consider replacing this with moveNorth(), moveSouth(), etc.
