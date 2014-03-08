@@ -64,22 +64,6 @@ class Monster(object):
         @return: Monster's description.
         """
         return self._description
-        
-    def getHp(self):
-        """
-        Get monster's HP.
-        
-        @return: Monster's HP.
-        """
-        return self._hp
-        
-    def getDamage(self):
-        """
-        Get monster's damage.
-        
-        @return: Monster's damage.
-        """
-        return self._damage
 
     def getExperience(self):
         """

@@ -14,7 +14,7 @@ from commands.attack_command import AttackCommand
 
 
 from player import Player
-from worldmap import WorldMap
+from world_map import WorldMap
 
 class Game(object):
     """

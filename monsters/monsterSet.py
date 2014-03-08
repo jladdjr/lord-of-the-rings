@@ -5,7 +5,7 @@ from monster import Monster
 #TODO: Perhaps we want a more generic Party() class that could be used
 #      for a collection of monsters or players/teammates. -JDL
 
-class Monsters(object):
+class MonsterSet(object):
     """
     A simple collection of monsters.
     """

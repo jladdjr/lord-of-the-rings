@@ -9,17 +9,23 @@ class Stats(object):
         """
         Determines stats dependent on level.
 
+        @player:  The character in focus (for example: Frodo).
         @level:   The level of any given character.
         """
         self._level = level
-
         self._hp = self._level * constants.HP_STAT
         self._damage = self._level * constants.DAMAGE_STAT
 
-    def getStats(self):
+    def getStats(self, level):
         """
         Returns character stats.
-
-        @return:   Return's a specific character's stats
+        
+        @level:    Return the stats of character given level.
+        @return:   Return's a specific character's stats.
         """
-        return self._hp, self._damage
+        self._level = level
+        self._hp = self._level * constants.HP_STAT
+        self._damage = self._level * constants.DAMAGE_STAT
+        
+        self._stats = [self._hp, self._damage]
+        return self._stats

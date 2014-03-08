@@ -257,13 +257,13 @@ class PickUpTest(unittest.TestCase):
         
         rawInputMock = MagicMock(return_value="Dagger")
         
-        with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock): 
+        with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock):
             pickUpCmd.execute()
             
         #Assert item in player inventory but not in space
         self.assertFalse(space.containsItem(item), "Space should not have item but does.")
         inventory = player.getInventory()
-        self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")   
+        self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")
         
 class DropTest(unittest.TestCase):
     """
@@ -287,7 +287,7 @@ class DropTest(unittest.TestCase):
 
         rawInputMock = MagicMock(return_value="Dagger")
         
-        with patch('commands.drop_command.raw_input', create=True, new=rawInputMock): 
+        with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
             
         #Assert item in space but not in player inventory
@@ -423,7 +423,7 @@ class PlayerTest(unittest.TestCase):
 
         space = Space()
         player = Player("Frodo", space)
-        monster = Monster("Orc", "An orc.", 10, 1, 1)  
+        monster = Monster("Orc", "An orc.", 10, 1, 1)
 
         originalHp = player.getHp()
         monster.attack(player)
@@ -457,7 +457,7 @@ class PlayerTest(unittest.TestCase):
         self.assertTrue(newHp > originalHp), "Player HP did not increase.")
         self.assertTrue(newDamage > originalDamage), "Player damage did not increase.")
         
-    def unequip(self):
+    def testUnequip(self):
         from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
