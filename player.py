@@ -20,17 +20,23 @@ class Player(object):
     def __init__(self, name, location):
         """
         Initializes the player.
-        
-        @param name:             The name of the player (e.g. "Frodo").
-        @param location:         The location of player.
+        @param name: The name of the player (e.g. "Frodo").
+        @param location: The location of player.
         """
         self._name = name
         self._location = location
         self._inventory = ItemSet(startingInventory)
-        self._level = constants.STARTING_LEVEL
+
+        #Equip player with startingInventory
+        self._equipped = []
+        for item in startingEquipment:
+            self.equip(item)
+
+        #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
-        self._attack = constants.STARTING_ATTACK
-        self._equipment = constants.STARTING_EQUIPMENT
+        self._level = None
+        self._levelUp
+
 
     def attack(self, target):
         """
@@ -151,7 +157,15 @@ class Player(object):
             print "%s unequipped %s." %(self._name, self._item)
         else:
             print "Cannot unequip %s." %(self._item)
-            
+
+    def getEquipped(self):
+        """
+        Returns the player's currently equipped equipment.
+
+        @return: Player's current gear.
+        """
+        return self._equipped
+                
     def getInventory(self):
         """
         Returns the player's inventory.
