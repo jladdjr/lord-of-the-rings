@@ -22,7 +22,8 @@ class CommandWords(object):
         """
         #Does command already exist?
         if self.isCommand(name):
-            errorMsg = "Cannot add '%s' to CommandWords; command name already in use."
+            errorMsg = "Cannot add '%s' to CommandWords; command name already in use." % \
+                    name
             raise AssertionError(errorMsg)
 
         #Add command

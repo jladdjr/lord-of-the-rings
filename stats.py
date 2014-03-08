@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+#TODO: Move this back into player (e.g. createa getHp() method in player).
+
 class Stats(object):
     """
     Returns character stats given character level.

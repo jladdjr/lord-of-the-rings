@@ -19,7 +19,7 @@ class AttackCommand(Command):
 
         #Finish initializing attack-specific settings
         self._player = player
-        self._attack = player._attack
+        self._attack = player.getAttack()
         self._target = target
 
     def execute(self):

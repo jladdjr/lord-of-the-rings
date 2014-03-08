@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+#TODO: Create methods related to Hp, damage, etc.
+
 from items.item import Item
 from items.item_set import ItemSet
 from items.weapon import Weapon
@@ -9,7 +11,7 @@ from math import floor
 
 #TODO: Get startingInventory from GameLoader instead
 from items.starting_inventory import startingInventory
-from items.starting_inventory import startingEquipment
+#from items.starting_inventory import startingEquipment
 
 import constants
 
@@ -30,14 +32,16 @@ class Player(object):
         self._inventory = ItemSet(startingInventory)
 
         #Equip player with startingInventory
-        self._equipped = []
-        for item in startingEquipment:
-            self.equip(item)
+        self._equipped = ItemSet()
+        
+        #TODO: Chris add startingEquipment
+        #for item in startingEquipment:
+        #    self.equip(item)
 
         #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
         self._level = None
-        self._levelUp
+        self._updateLevel
 
 
     def attack(self, target):
@@ -89,7 +93,7 @@ class Player(object):
         """
         return self._level
         
-    def _levelUp(self):
+    def _updateLevel(self):
         """
         Levels up player and updates player stats. 
         """
@@ -100,8 +104,8 @@ class Player(object):
             #Player has leveled up. Updates player level and stats.
             print "%s leveled up! %s is now level %s" \
                   %(self._name, self._name, self._level)
-            self._stats = Stats(self._level)
-            self._newStats = stats.getStats()
+            stats = Stats(self._level)
+            newStats = stats.getStats()
             self._hp = self._stats[0]
             self._damage = self._stats[1]
             print "%s now has %s damage and %s hp!" \
@@ -113,8 +117,8 @@ class Player(object):
 
         @param item:    The item to be equipped.
         """
-        if not (isinstance(item, Item) and (item in self._inventory) \
-                and (isinstance(item, Armor) or isinstance(item, Weapon)):
+        if not (item in self._inventory) \
+            or not (isinstance(item, Armor) or isinstance(item, Weapon)):
             print "Cannot equip %s" %(self._item)
             
         else:

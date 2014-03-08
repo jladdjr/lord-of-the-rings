@@ -4,6 +4,7 @@ from parser import Parser
 from commands.command_words import CommandWords
 from commands.help_command import HelpCommand 
 from commands.quit_command import QuitCommand
+from commands.describe_command import DescribeCommand
 from commands.drop_command import DropCommand
 from commands.pick_up_command import PickUpCommand
 from commands.north_command import NorthCommand
@@ -43,15 +44,16 @@ class Game(object):
 
         quitCmd = QuitCommand("quit", "Exits the game.")
         self._commandWords.addCommand("quit", quitCmd)
-        
+       
         dropCmd = DropCommand("drop", "Drops an item from inventory into local environment.", self._player)
         self._commandWords.addCommand("drop", dropCmd)
 
         pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.", self._player)
         self._commandWords.addCommand("pick up", pickupCmd)
 
-        attackCmd = AttackCommand("attack", "Allows a character to attack a target.", self._player, None)
-        self._commandWords.addCommand("attack", attackCmd)
+        #TODO: Redesign attacks (attacks happen automatically, you don't initiate it with a attack command)
+        #attackCmd = AttackCommand("attack", "Allows a character to attack a target.", self._player, None)
+        #self._commandWords.addCommand("attack", attackCmd)
   
         northCmd = NorthCommand("north", 
                     "Moves the player to the space north of current space")

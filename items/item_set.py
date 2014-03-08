@@ -117,7 +117,5 @@ class ItemSet(object):
             sword
             helmet
             healing potion
-
-
         """
         return iter(self._items)
