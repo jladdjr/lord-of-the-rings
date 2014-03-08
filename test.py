@@ -304,7 +304,7 @@ class PlayerTest(unittest.TestCase):
         from space import Space
         from items.item import Item
         from items.item_set import ItemSet
-        form items.weapon import Weapon
+        from items.weapon import Weapon
         from items.armor import Armor
         from stats import Stats
         from monsters.monster import Monster
