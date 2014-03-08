@@ -453,20 +453,20 @@ class PlayerTest(unittest.TestCase):
         player.increaseExperience(1000)
 
         newLevel = player.getLevel()
-        self.assertTrue(newLevel > originalLevel), "Player did not level up.")
-        self.assertTrue(newHp > originalHp), "Player HP did not increase.")
-        self.assertTrue(newDamage > originalDamage), "Player damage did not increase.")
+        self.assertTrue(newLevel > originalLevel, "Player did not level up.")
+        self.assertTrue(newHp > originalHp, "Player HP did not increase.")
+        self.assertTrue(newDamage > originalDamage, "Player damage did not increase.")
         
     def testUnequip(self):
         from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
         from stats import Stats
-        from monsters.monster import Monster
         from starting_inventory import startingInventory
         import constants
 
         #adding new things to inventory
+        player = Player()
         new_item = Item("Chainik teakettle", "makes good tea", 1)
         new_weapon = Weapon("gun of Hurlocker", "oppressive, but friendly", 2, 3)
         new_armor = Armor("cookies of Miles","defend agaist sadness", 2,4)

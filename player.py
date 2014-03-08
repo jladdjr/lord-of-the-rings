@@ -9,7 +9,6 @@ from math import floor
 
 #TODO: Get startingInventory from GameLoader instead
 from items.starting_inventory import startingInventory
-###Need this too###
 from items.starting_inventory import startingEquipment
 
 import constants
@@ -40,13 +39,6 @@ class Player(object):
         self._level = None
         self._levelUp
 
-    def getInventory(self):
-        """
-        Returns the player's inventory.
-
-        @return:    Player's inventory.
-        """
-        return self._inventory
 
     def attack(self, target):
         """
@@ -81,11 +73,11 @@ class Player(object):
         """
         return self._experience
 
-    def increaseExperience(self, new_experience):
+    def increaseExperience(self, newExperience):
         """
         Allows player to receive additional experience.
 
-        @param new_experience:    The experience player is to receive.
+        @param newExperience:    The experience player is to receive.
         """
         self._experience += new_experience
         
