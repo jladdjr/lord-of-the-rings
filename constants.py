@@ -10,7 +10,7 @@ STARTING_EQUIPMENT = []
 
 #Character stat calculation
 HP_STAT = 20
-DAMAGE_STAT = 2
+ATTACK_STAT = 2
 
 #Direction enumeration
 class Direction(object):

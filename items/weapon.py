@@ -7,25 +7,25 @@ class Weapon(Item):
     A class of weapons.
     """
     
-    def __init__(self, name, description, weight, damage):
+    def __init__(self, name, description, weight, attack):
         """
         Initializes weapon class.
 
         @param name:          Name of weapon.
         @param description:   Description of weapon.
         @param weight:        Weight of weapon.
-        @param damage:        Damage stat of weapon.
+        @param attack:        Attack stat of weapon.
         """
         Item.__init__(self, name, description, weight)
-        self._damage = damage
+        self._attack = attack
 
-    def getDamage(self):
+    def getAttack(self):
         """
-        Returns the weapon's damage stat.
+        Returns the weapon's attack stat.
 
-        @return: Weapon's damage.
+        @return: Weapon's attack.
         """
-        return self._damage
+        return self._attack
 
     def getType(self):
         """

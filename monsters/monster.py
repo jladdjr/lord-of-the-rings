@@ -5,27 +5,27 @@ class Monster(object):
     A generic monster to be used as a parent for specific future monster classes.
     """
 
-    def __init__(self, name, description, hp, damage, experience):
+    def __init__(self, name, description, hp, attack, experience):
         """
         Initializes an item object.
 
         @param name:        Name of monster.
         @param description: Description of monster.
         @param hp:          Hit points of monster.
-        @param damage:      Damage stat of monster.
+        @param attack:      Attack stat of monster.
         @param experience:  Experienced gained for defeating monster.
         """
         if (not name) or (not description) or (not hp) or \
-            (not damage) or (not experience):
-            raise AssertionError("Monster must have name, description, hp, damage, and experience.")
-        if hp < 1 or damage < 1 or experience < 1:
+            (not attack) or (not experience):
+            raise AssertionError("Monster must have name, description, hp, attack, and experience.")
+        if hp < 1 or attack < 1 or experience < 1:
             errorMsg = "Invalid base stats for monster; stats must be positive integers."
             raise AssertionError(errorMsg)
 
         self._name = name
         self._description = description
         self._hp = hp
-        self._damage = damage
+        self._attack = attack
         self.experience = experience
 
     def attack(self, target):
@@ -34,20 +34,20 @@ class Monster(object):
 
         @param target:      Target to attack.
         """
-        target.takeDamage(self._damage)
+        target.takeAttack(self._attack)
 
         #TODO: Probably want BattleEngine to be responsible for 
         #reporting battle events.
-        print "%s attacked %s for %s damage!" %(self._name, target, self._damage)
+        print "%s attacked %s for %s attack!" %(self._name, target, self._attack)
         
-    def takeDamage(self, damage): 
+    def takeAttack(self, attack): 
         """
-        Simulates taking damage from attack.
+        Simulates taking attack from attack.
 
-        @param damage:      Amount of damage taken.
+        @param attack:      Amount of attack taken.
         """
-        self._hp -= damage
-        print "%s took %s damage!" %(self._name, damage)
+        self._hp -= attack
+        print "%s took %s attack!" %(self._name, attack)
 
     def getName(self):
         """
@@ -73,13 +73,13 @@ class Monster(object):
         """
         return self._hp
         
-    def getDamage(self):
+    def getAttack(self):
         """
-        Get monster's damage.
+        Get monster's attack.
         
-        @return: Monster's damage.
+        @return: Monster's attack.
         """
-        return self._damage
+        return self._attack
 
     def getExperience(self):
         """
