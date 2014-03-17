@@ -7,7 +7,6 @@ class Parser(object):
     """
     Parses user input, searching for registered commands.
     """
-
     def __init__(self, commandWords):
         """
         Initializes new parser.

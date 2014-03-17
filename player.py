@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-#TODO: Create methods related to Hp, attack, etc.
-
 from items.item import Item
 from items.item_set import ItemSet
 from items.weapon import Weapon
@@ -45,11 +43,19 @@ class Player(object):
         self._weaponAttack = 0
         self._armorDefense = 0
 
+    def getName(self):
+        """
+        Returns player name.
+
+        @return:          The name of the player.
+        """
+        return self._name
+
     def attack(self, target):
         """
         Allows player to attack target. 
 
-        @param target:     The target player is to attack.
+        @param target:    The target player is to attack.
         """
         self._totalAttack = self._attack + self._weaponAttack
         target.takeAttack(self._totalAttack)
@@ -58,7 +64,7 @@ class Player(object):
         """
         Gets a player's total attack power (including items).
         
-        @return:    player attack + weapon attack
+        @return:          Sum of player attack and weapon attack.
         """
         return self._attack + self._weaponAttack
 
@@ -74,7 +80,7 @@ class Player(object):
         """
         Return's player experience.
         
-        @return:    return's player experience.
+        @return:    Returns player experience.
         """
         return self._experience
 
@@ -90,7 +96,7 @@ class Player(object):
         """
         Return's player level.
         
-        @return:   return's player level.
+        @return:     Return's player level.
         """
         return self._level
         
@@ -112,15 +118,32 @@ class Player(object):
         """
         Returns player Hp.
 
-        @return: player Hp.
+        @return:    Player Hp.
         """
         return self._hp
+        
+    def heal(self, amount):
+        """
+        Allows player to heal up to maximum starting Hp.
+
+        @param amount:    The amount of Hp to be healed.
+        """
+        maxHp = self._level * constants.HP_STAT
+
+        if maxHp - amount < amount:
+            amountHealed = maxHp - self._hp
+        else:
+            amountHealed = amount
+            
+        self._hp += amountHealed
+
+        print "%s got healed by %s! Player health is now at %s" %(self._name, amountHealed, self._hp)
         
     def getAttack(self):
         """
         Returns player attack.
         
-        @return: player attack.
+        @return:    Player attack.
         """
         return self._attack
 
@@ -180,6 +203,8 @@ class Player(object):
     def addInventory(self, item):
         """
         Adds an item to inventory.
+
+        @param item:   The item to be added to inventory.
         """
         if isinstance(item, Item) and (item not in self._inventory):
             print "Added %s to inventory."

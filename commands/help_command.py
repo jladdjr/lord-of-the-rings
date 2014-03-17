@@ -4,7 +4,6 @@ class HelpCommand(Command):
     """
     Help command.
     """
-
     def __init__(self, name, explanation, commandWords):
         """
         Initializes new help command.

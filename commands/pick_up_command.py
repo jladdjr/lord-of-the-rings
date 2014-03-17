@@ -4,7 +4,6 @@ class PickUpCommand(Command):
     """
     Allows a player to pick up an item from a location.
     """
-
     def __init__(self, name, explanation, player):
         """
         Initializes new pick up command.
@@ -23,7 +22,6 @@ class PickUpCommand(Command):
         """
         Picks up an item from a room and adds it to inventory.
         """
-
         itemToAdd = raw_input("Which item do you want to pick up? ")
         location = self._player.getLocation()
         items = location.getItemSet()

@@ -4,7 +4,6 @@ class DropCommand(Command):
     """
     Allows player to drop an item from inventory into room.
     """
-
     def __init__(self, name, explanation, player):
         """
         Initializes new pick up command.
@@ -23,12 +22,11 @@ class DropCommand(Command):
         """
         Drops an item from inventory into room.
         """
-        
         itemToRemove = raw_input("Which item do you want to drop? \n")
         inventory = self._player.getInventory()
         item = inventory.getItemByName(itemToRemove)
 
-        #if the item is not recognized, then return without doing anything
+        #Checks if item is in inventory
         if not item:
             print "%s is not in your inventory!" %(itemToRemove)
             return
@@ -38,6 +36,6 @@ class DropCommand(Command):
         #Removes item from inventory
         inventory.removeItem(item)
 
-        #Adds item to current space
+        #Adds item to space
         location = self._player.getLocation()
         location.addItem(item)

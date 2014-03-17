@@ -6,7 +6,6 @@ class Weapon(Item):
     """
     A class of weapons.
     """
-    
     def __init__(self, name, description, weight, attack):
         """
         Initializes weapon class.

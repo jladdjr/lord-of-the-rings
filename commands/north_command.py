@@ -7,7 +7,6 @@ class NorthCommand(Command):
     """
     North command.
     """
-
     def __init__(self, name, explanation):
         """
         Initializes new north command.

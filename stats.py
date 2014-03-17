@@ -6,7 +6,6 @@ class Stats(object):
     """
     Returns character stats given character level.
     """
-
     def __init__(self, level):
         """
         Determines stats dependent on level.

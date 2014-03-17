@@ -6,7 +6,6 @@ class ItemSet(object):
     """
     A simple collection of items.
     """
-
     def __init__(self, itemSet=None):
         """
         Initialize an ItemSet object.
@@ -62,6 +61,14 @@ class ItemSet(object):
             if item.getName() == name:
                 return item
         return None
+
+    def getItems(self):
+        """
+        Returns list of items contained by ItemSet.
+
+        @return:     List of items contained by ItemSet.
+        """
+        return self._items
 
     def removeItem(self, item):
         """

@@ -4,7 +4,6 @@ class CommandWords(object):
     """
     Dictionary of all Command objects used in the game.
     """
-
     def __init__(self):
         """
         Initializes new dictionary of commands.

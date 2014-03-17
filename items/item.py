@@ -9,7 +9,6 @@ class Item(object):
     Direct use of this class is discouraged. Instead, create a 
     subclass of Item based on its type (e.g. Potion, Weapon, Armor).
     """
-
     def __init__(self, name, description, weight):
         """
         Initializes an item object.

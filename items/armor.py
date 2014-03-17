@@ -7,7 +7,6 @@ class Armor(Item):
     """
     Armor class.
     """
-
     def __init__(self, name, description, weight, defense):
         """
         Initializes armor class.

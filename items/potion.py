@@ -7,7 +7,6 @@ class Potion(Item):
     """
     A class of potions.
     """
-    
     def __init__(self, name, description, weight, healing):
         """
         Initializes potions class.

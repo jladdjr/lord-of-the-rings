@@ -5,7 +5,6 @@ class QuitCommand(Command):
     """
     Quit command.
     """
-
     def __init__(self, name, explanation):
         """
         Initializes new quit command.

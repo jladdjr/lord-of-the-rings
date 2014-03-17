@@ -6,7 +6,6 @@ class WorldMap(object):
     """
     Instantiates the spaces that make up the game map.
     """
-    
     def __init__(self):
         """
         Instantiates the spaces that make up the world map.
