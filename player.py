@@ -4,7 +4,6 @@ from items.item import Item
 from items.item_set import ItemSet
 from items.weapon import Weapon
 from items.armor import Armor
-from stats import Stats
 from math import floor
 
 #TODO: Get startingInventory from GameLoader instead
@@ -130,7 +129,7 @@ class Player(object):
         """
         maxHp = self._level * constants.HP_STAT
 
-        if maxHp - amount < amount:
+        if maxHp - self._hp < amount:
             amountHealed = maxHp - self._hp
         else:
             amountHealed = amount

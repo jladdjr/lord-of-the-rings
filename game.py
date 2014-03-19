@@ -11,6 +11,7 @@ from commands.equip_command import EquipCommand
 from commands.unequip_command import UnequipCommand
 from commands.check_inventory_command import CheckInventoryCommand
 from commands.check_equipment_command import CheckEquipmentCommand
+from commands.check_stats_command import CheckStats
 from commands.north_command import NorthCommand
 from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
@@ -66,9 +67,8 @@ class Game(object):
               self._player)
         self._commandWords.addCommand("equipment", checkEquipmentCmd)
 
-        #TODO: Redesign attacks (attacks happen automatically, you don't initiate it with a attack command)
-        #attackCmd = AttackCommand("attack", "Allows a character to attack a target.", self._player, None)
-        #self._commandWords.addCommand("attack", attackCmd)
+        checkStatsCmd = CheckStatsCommand("stats", "Displays current character stats", self._player)
+        self._commandWords.addCommand("stats", checkStatsCmd)
   
         northCmd = NorthCommand("north", 
                     "Moves the player to the space north of current space")
