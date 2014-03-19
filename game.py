@@ -11,12 +11,11 @@ from commands.equip_command import EquipCommand
 from commands.unequip_command import UnequipCommand
 from commands.check_inventory_command import CheckInventoryCommand
 from commands.check_equipment_command import CheckEquipmentCommand
-from commands.check_stats_command import CheckStats
+from commands.check_stats_command import CheckStatsCommand
 from commands.north_command import NorthCommand
 from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
 from commands.west_command import WestCommand
-from commands.attack_command import AttackCommand
 
 from player import Player
 from world_map import WorldMap
@@ -67,7 +66,7 @@ class Game(object):
               self._player)
         self._commandWords.addCommand("equipment", checkEquipmentCmd)
 
-        checkStatsCmd = CheckStatsCommand("stats", "Displays current character stats", self._player)
+        checkStatsCmd = CheckStatsCommand("stats", "Displays current character stats.", self._player)
         self._commandWords.addCommand("stats", checkStatsCmd)
   
         northCmd = NorthCommand("north", 

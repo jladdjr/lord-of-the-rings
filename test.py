@@ -325,7 +325,7 @@ class EquipTest(unittest.TestCase):
         from items.item import Item
         from items.weapon import Weapon
         from commands.command import Command
-        from command.equip_command import EquipCommand
+        from commands.equip_command import EquipCommand
 
         #Trying to equip item not in inventory
         space = Space("Shire", "Home of the Hobbits.")
@@ -379,7 +379,7 @@ class EquipTest(unittest.TestCase):
             
         equipped = player.getEquipped()
         
-        self.asserTrue(equipped.containsItem(weapon), "Player failed to equip equipable item.")
+        self.assertTrue(equipped.containsItem(weapon), "Player failed to equip equipable item.")
         
 class UnequipTest(unittest.TestCase):
     """
@@ -388,8 +388,10 @@ class UnequipTest(unittest.TestCase):
     def testExecute(self):
         from player import Player
         from space import Space
+        from items.item import Item
+        from items.weapon import Weapon
         from commands.command import Command
-        from command.unequip_command import UnequipCommand
+        from commands.unequip_command import UnequipCommand
 
         #Attempting to unequip item not currently equipped
         space = Space("Shire", "Home of the Hobbits.")
@@ -478,7 +480,6 @@ class PlayerTest(unittest.TestCase):
         from items.item_set import ItemSet
         from items.weapon import Weapon
         from items.armor import Armor
-        from stats import Stats
         from items.starting_inventory import startingInventory
         import constants
 
@@ -499,7 +500,6 @@ class PlayerTest(unittest.TestCase):
         from items.item_set import ItemSet
         from items.weapon import Weapon
         from items.armor import Armor
-        from stats import Stats
         from monsters.monster import Monster
         from items.starting_inventory import startingInventory
         import constants
@@ -525,7 +525,6 @@ class PlayerTest(unittest.TestCase):
         from items.item_set import ItemSet
         from items.weapon import Weapon
         from items.armor import Armor
-        from stats import Stats
         from monsters.monster import Monster
         from items.starting_inventory import startingInventory
         import constants
@@ -576,7 +575,6 @@ class PlayerTest(unittest.TestCase):
         from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
-        from stats import Stats
         from items.starting_inventory import startingInventory
         import constants
 
@@ -584,10 +582,10 @@ class PlayerTest(unittest.TestCase):
         player = Player("Frodo", space)
 
         maxHp = player.getHp()
-        player.takeDamage(2)
+        player.takeAttack(2)
         player.heal(3)
 
-        self.assertTrue(maxHp = player._hp, "Healing testcase #1 failed.")
+        self.assertTrue(maxHp == player._hp, "Healing testcase #1 failed.")
 
         #Heal where healing amount is less than total amount possible
         from player import Player
@@ -595,7 +593,6 @@ class PlayerTest(unittest.TestCase):
         from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
-        from stats import Stats
         from items.starting_inventory import startingInventory
         import constants
 
@@ -603,12 +600,12 @@ class PlayerTest(unittest.TestCase):
         player = Player("Frodo", space)
 
         maxHp = player.getHp()
-        player.takeDamage(5)
+        player.takeAttack(5)
         player.heal(3)
 
         newHp = player.getHp()
 
-        self.assertTrue(newHp = maxHp - 5, "Healing testcase #2 failed.")
+        self.assertTrue(newHp == maxHp - 2, "Healing testcase #2 failed.")
         
     def testEquipUnequip(self):
         from player import Player
@@ -616,7 +613,6 @@ class PlayerTest(unittest.TestCase):
         from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
-        from stats import Stats
         from items.starting_inventory import startingInventory
         import constants
         

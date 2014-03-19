@@ -10,9 +10,9 @@ class CheckInventoryCommand(Command):
         """
         Initializes new check inventory command.
 
-        @param name:         Command name.
-        @param explanation:  Explanation of command.
-        @param player:       The player object
+        @param name: Command name.
+        @param explanation: Explanation of command.
+        @param player: The player object
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)

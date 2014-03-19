@@ -197,7 +197,7 @@ class Player(object):
 
         @return:    Player's current gear.
         """
-        return self._equipped._items
+        return self._equipped
     
     def addInventory(self, item):
         """

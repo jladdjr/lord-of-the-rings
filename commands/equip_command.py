@@ -23,6 +23,7 @@ class EquipCommand(Command):
         Equips player with item in inventory.
         """
         itemToEquip = raw_input("Which item do you want to equip? \n")
+        
         inventory = self._player.getInventory()
         equipped = self._player.getEquipped()
         
@@ -31,12 +32,12 @@ class EquipCommand(Command):
         
         #Checks if item is in inventory and is not already equipped
         if not itemInventory:
-            print "%s is not in your inventory!" %(itemToEquip)
+            print "%s is not in your inventory!" %itemToEquip
             return
         
         if itemEquipment:
-            print "%s is already equipped!" %(itemToEquip)
+            print "%s is already equipped!" %itemToEquip
             return
 
         #Equips player with item
-        player.equip(itemToEquip)
+        self._player.equip(itemInventory)
