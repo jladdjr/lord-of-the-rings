@@ -53,17 +53,22 @@ class Space(object):
         """
         Determines if room contains an item.
 
-        @param item:    Item to search for.
+        @param item:    Item object to search for.
         """
-        #TODO:  Currently this method takes
-        #       an actual object as a parameter.
-        #
-        #       Need to create method that
-        #       searches for an object by name
-        #       instead.  -JDL
-
         return self._items.containsItem(item)
 
+    def containsItemString(self, string):
+        """
+        Determines if room contains an item.
+
+        @param item:     The string associated with the name of the item that we are looking for.
+        """
+        for item in self._items:
+            if item.getName() == string:
+                return True
+            
+        return False
+    
     def getItemSet(self):
         """
         Returns items contained by room.
