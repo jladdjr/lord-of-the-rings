@@ -89,7 +89,7 @@ class MonsterSet(object):
 
 
             >>> from monster import Monster
-            >>> from monsters import Monsters
+            >>> from monster_set import MonsterSets
             >>> monster1 = Monster("sword", "made by elves", 2)
             >>> monster2 = Monster("helmet", "made by men", 1)
             >>> monster3 = Monster("healing potion", "restores health", 1)
