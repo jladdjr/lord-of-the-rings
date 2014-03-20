@@ -546,22 +546,21 @@ class PlayerTest(unittest.TestCase):
         from items.armor import Armor
         from stats import Stats
         from monsters.monster import Monster
-        from starting_inventory import startingInventory
         import constants
 
-        space = Space()
+        space = Space("shire", "Frodo's home")
         player = Player("Frodo", space)
 
         originalLevel = player.getLevel()
         originalHp = player.getHp()
-        originalDamage = player.getDamage()
+        originalDamage = player.getAttack()
         originalExperience = player.getExperience()
         
         player.increaseExperience(1000)
         
         newLevel = player.getLevel()
         newHp = player.getHp()
-        newDamage = player.getDamage()
+        newDamage = player.getAttack()
         newExperience = player.getExperience()
         
         self.assertTrue(newLevel > originalLevel, "Player did not level up.")
@@ -640,7 +639,7 @@ class PlayerTest(unittest.TestCase):
         player.unequip(newWeapon)
         self.assertFalse(newWeapon in player.getEquipped(), "Failed to unequip %s" %newWeapon)
         player.unequip(newArmor)
-        self.assertFalse(newArmor in player.getEquipped(), "Failed to unequip %s" %newArmor))
+        self.assertFalse(newArmor in player.getEquipped(), "Failed to unequip %s" %newArmor)
     
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
