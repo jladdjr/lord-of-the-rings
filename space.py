@@ -153,13 +153,13 @@ class Space(object):
         
         @return:            Opposite direction (from constants.Direction)
         """
-        if direction == Direction.North:
-            return Direction.South
-        elif direction == Direction.South:
-            return Direction.North
-        elif direction == Direction.East:
-            return Direction.West
-        elif direciton == Direction.West:
-            return Direction.East
+        if direction == Direction.NORTH:
+            return Direction.SOUTH
+        elif direction == Direction.SOUTH:
+            return Direction.NORTH
+        elif direction == Direction.EAST:
+            return Direction.WEST
+        elif direciton == Direction.WEST:
+            return Direction.EAST
         else:
             raise AssertionError("Not a valid direction: %s" % direction)
