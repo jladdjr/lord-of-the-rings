@@ -273,9 +273,9 @@ class DropTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
         weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
         player.addInventory(weapon)
-        dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
 
         #Asserts item in player inventory but not in space
         self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
@@ -286,15 +286,12 @@ class DropTest(unittest.TestCase):
         
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
-            
+        """    
         #Assert item in space but not in player inventory
-        """
-        TODO: Look at space.containsItem method
-        self.assertTrue(space.containsItem(weapon), "Space should have item but does not. Instead it has %s" %space.getItemSet())
+        self.assertTrue(space.containsItemString("Dagger"), "Space should have item but does not.")
         inventory = player.getInventory()
         self.assertFalse(inventory.containsItem(weapon), "Inventory should not have item but does.")
         """
-        
 class DescribeTest(unittest.TestCase):
     """
     Tests Describe class.
@@ -540,9 +537,6 @@ class PlayerTest(unittest.TestCase):
         newHp = player.getHp()
         self.assertTrue(originalHp > newHp, "Player takeAttack failed.")
 
-    """
-    # TODO: Update this test after adding Hp, Damage, etc. features to Player class.
-
     def testLevelUp(self):
         from player import Player
         from space import Space
@@ -561,13 +555,20 @@ class PlayerTest(unittest.TestCase):
         originalLevel = player.getLevel()
         originalHp = player.getHp()
         originalDamage = player.getDamage()
+        originalExperience = player.getExperience()
+        
         player.increaseExperience(1000)
-
+        
         newLevel = player.getLevel()
+        newHp = player.getHp()
+        newDamage = player.getDamage()
+        newExperience = player.getExperience()
+        
         self.assertTrue(newLevel > originalLevel, "Player did not level up.")
         self.assertTrue(newHp > originalHp, "Player HP did not increase.")
         self.assertTrue(newDamage > originalDamage, "Player damage did not increase.")
-    """
+        self.assertTrue(newExperience > originalExperience, "Player experience did not increase.")
+
     def testHeal(self):
         #Heal where healing amount is greater than total amount possible
         from player import Player
@@ -629,18 +630,18 @@ class PlayerTest(unittest.TestCase):
 
         #Attempt to equip new items
         player.equip(newItem)
-        self.assertFalse(newItem in player.getEquipped(), "Equipped %s and should not have." % (newItem))
+        self.assertFalse(newItem in player.getEquipped(), "Equipped %s and should not have." %newItem)
         player.equip(newWeapon)
-        self.assertTrue(newWeapon in player.getEquipped(), "Failed to equip %s" % (newWeapon))
+        self.assertTrue(newWeapon in player.getEquipped(), "Failed to equip %s" %newWeapon)
         player.equip(newArmor)
-        self.assertTrue(newArmor in player.getEquipped(), "Failed to equip %s" % (newArmor))
+        self.assertTrue(newArmor in player.getEquipped(), "Failed to equip %s" %newArmor)
         
         #Attempt to unequip items
         player.unequip(newWeapon)
-        self.assertFalse(newWeapon in player.getEquipped(), "Failed to unequip %s" % (newWeapon))
+        self.assertFalse(newWeapon in player.getEquipped(), "Failed to unequip %s" %newWeapon)
         player.unequip(newArmor)
-        self.assertFalse(newArmor in player.getEquipped(), "Failed to unequip %s" % (newArmor))
-        
+        self.assertFalse(newArmor in player.getEquipped(), "Failed to unequip %s" %newArmor))
+    
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()
