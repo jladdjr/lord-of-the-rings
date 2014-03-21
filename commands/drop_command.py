@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 
 class DropCommand(Command):

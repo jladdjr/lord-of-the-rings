@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 from space import Space
 from player import Player

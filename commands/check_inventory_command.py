@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor

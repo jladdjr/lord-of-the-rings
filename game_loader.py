@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-from parser import Parser
 from space import Space
 from items.weapon import Weapon
+from items.armor import Armor
+from items.potion import Potion
 from commands.command_words import CommandWords
 from commands.help_command import HelpCommand 
 from commands.quit_command import QuitCommand
@@ -30,6 +31,9 @@ def getWorld():
     
 def getStartingInventory():
     weapon = Weapon("Rock", "Really heavy", 3, 1000)
+    armor = Armor("Leather tunic", "Travel cloak", 3, 1)
+    potion = Potion("Vodka", "Good for health", 1, 1)
+    
     return weapon
 
 def getPlayer (world, startingInventory):
@@ -37,8 +41,11 @@ def getPlayer (world, startingInventory):
     player.equip(startingInventory)
     return player
     
-def getCommandList(player, world):
+def getCommandList(player):
+
+    #Create commandWords object
     commandWords = CommandWords()
+    
     #Commands
     helpCmd = HelpCommand("help", 
         "Provides help information for game.", commandWords)
@@ -62,8 +69,7 @@ def getCommandList(player, world):
     checkInventoryCmd = CheckInventoryCommand("inventory", "Displays contents of inventory.", player)
     commandWords.addCommand("inventory", checkInventoryCmd)
 
-    checkEquipmentCmd = CheckEquipmentCommand("equipment", "Displays current equipment and equipment stats.",
-          player)
+    checkEquipmentCmd = CheckEquipmentCommand("equipment", "Displays current equipment and equipment stats.", player)
     commandWords.addCommand("equipment", checkEquipmentCmd)
 
     checkStatsCmd = CheckStatsCommand("stats", "Displays current character stats.", player)
@@ -86,7 +92,7 @@ def getCommandList(player, world):
     commandWords.addCommand("west", westCmd)
     
     descCmd = DescribeCommand("describe", 
-                "Gives description of current space", player)
+            "Gives description of current space", player)
     commandWords.addCommand("describe", descCmd)
 
     return commandWords

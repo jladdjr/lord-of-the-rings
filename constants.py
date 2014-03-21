@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 """
 Constants for Lord of the Rings
 """

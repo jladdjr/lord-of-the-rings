@@ -11,14 +11,13 @@ class Game(object):
         """
         Initializes new game.
         """
+        #Initializes game objects
         self._world = game_loader.getWorld()
-        
         startingInventory = game_loader.getStartingInventory()
-        
         self._player = game_loader.getPlayer(self._world, startingInventory)
-        
-        self._commandList = game_loader.getCommandList(self._player, self._world)
-        
+        self._commandList = game_loader.getCommandList(self._player)
+
+        #Creates parser
         self._parser = Parser(self._commandList)
 
     def play(self):

@@ -6,17 +6,12 @@ from items.weapon import Weapon
 from items.armor import Armor
 from math import floor
 
-#TODO: Get startingInventory from GameLoader instead
-from items.starting_inventory import startingInventory
-#from items.starting_inventory import startingEquipment
-
 import constants
 
 class Player(object):
     """
     Represents the (human) player.
     """
-    
     def __init__(self, name, location):
         """
         Initializes the player.
@@ -26,7 +21,7 @@ class Player(object):
         """
         self._name      = name
         self._location  = location
-        self._inventory = ItemSet(startingInventory)
+        self._inventory = ItemSet()
 
         #Equip player with startingInventory
         self._equipped = ItemSet()
@@ -37,8 +32,14 @@ class Player(object):
 
         #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
-        self._level = 0
+        self._level = constants.STARTING_LEVEL
+        
+        self._maxHp = self._level * constants.HP_STAT
+        
+        self._Hp = self._maxHp
         self._updateLevel()
+
+        #Initialize items bonuses
         self._weaponAttack = 0
         self._armorDefense = 0
 
@@ -110,7 +111,7 @@ class Player(object):
             #Player has leveled up. Updates player level and stats.
             print "%s leveled up! %s is now level %s" \
                   %(self._name, self._name, self._level)
-            self._hp = self._level * constants.HP_STAT
+            self._maxHp = self._level * constants.HP_STAT
             self._attack = self._level * constants.ATTACK_STAT
                   
     def getHp(self):

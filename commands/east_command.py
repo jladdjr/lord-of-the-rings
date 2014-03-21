@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 import space_dictionary
 from player import Player
