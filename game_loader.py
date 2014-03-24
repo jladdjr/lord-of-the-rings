@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from space import Space
+from player import Player
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
@@ -20,25 +21,30 @@ from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
 from commands.west_command import WestCommand
 
-from player import Player
-
 def getWorld():
     shire = Space("Shire", "Home of the Hobbitses.")
     mordor = Space("Mordor", "Oppressive locale. Bad for health!")
     shire.createExit("north", mordor, outgoingOnly=False)
-    mordor.createExit("south", shire, outgoingOnly=False)
+    
     return shire
     
 def getStartingInventory():
-    weapon = Weapon("Rock", "Really heavy", 3, 1000)
+    weapon = Weapon("Rock", "Really heavy", 2, 1000)
     armor = Armor("Leather tunic", "Travel cloak", 3, 1)
     potion = Potion("Vodka", "Good for health", 1, 1)
-    
-    return weapon
 
-def getPlayer (world, startingInventory):
+    startingInventory = [weapon, armor, potion]
+    
+    return startingInventory
+
+def getPlayer(world, startingInventory):
     player = Player("Russian", world)
-    player.equip(startingInventory)
+
+    for item in startingInventory:
+        player.addInventory(item)
+    for item in startingInventory:
+        player.equip(item)
+        
     return player
     
 def getCommandList(player):
@@ -91,8 +97,7 @@ def getCommandList(player):
                 "Moves the player to the space west of current space")
     commandWords.addCommand("west", westCmd)
     
-    descCmd = DescribeCommand("describe", 
-            "Gives description of current space", player)
+    descCmd = DescribeCommand("describe", "Gives description of current space", player)
     commandWords.addCommand("describe", descCmd)
 
     return commandWords

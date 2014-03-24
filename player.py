@@ -34,10 +34,9 @@ class Player(object):
         self._experience = constants.STARTING_EXPERIENCE
         self._level = constants.STARTING_LEVEL
         
+        self._Hp = self._level * constants.HP_STAT
         self._maxHp = self._level * constants.HP_STAT
-        
-        self._Hp = self._maxHp
-        self._updateLevel()
+        self._attack = self._level * constants.ATTACK_STAT
 
         #Initialize items bonuses
         self._weaponAttack = 0
@@ -120,7 +119,15 @@ class Player(object):
 
         @return:    Player Hp.
         """
-        return self._hp
+        return self._Hp
+
+    def getMaxHp(self):
+        """
+        Returns player maximum Hp.
+
+        @return:    Player maximum Hp.
+        """
+        return self._maxHp
         
     def heal(self, amount):
         """
@@ -168,7 +175,7 @@ class Player(object):
                 self._weapon = item
                 self._weaponAttack = self._weapon.getAttack()
                     
-            print "%s equipped %s." %(self._name, item)
+            print "%s equipped %s." %(self._name, item.getName())
             
     def unequip(self, item):
         """
@@ -187,10 +194,10 @@ class Player(object):
                 self._weapon = None
                 self._weaponAttack = 0
                 
-            print "%s unequipped %s." %(self._name, item)
+            print "%s unequipped %s." %(self._name, item.getName())
             
         else:
-            print "Cannot unequip %s." %(item)
+            print "Cannot unequip %s." %(item.getName())
 
     def getEquipped(self):
         """
@@ -207,7 +214,7 @@ class Player(object):
         @param item:   The item to be added to inventory.
         """
         if isinstance(item, Item) and (item not in self._inventory):
-            print "Added %s to inventory."
+            print "Added %s to inventory." %item.getName()
             self._inventory.addItem(item)
         else:
             print "Cannot add %s to inventory." %(item)

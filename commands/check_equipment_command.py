@@ -26,14 +26,17 @@ class CheckEquipmentCommand(Command):
         """
         playerName = self._player.getName()
         equipment = self._player.getEquipped()
+
+        print "%s's currently equipped items:\n" %playerName
         
         for item in equipment:
             nameItem = item.getName()
             if isinstance(item, Weapon):
                 attack = item.getAttack()
-                print "%s currently wields %s as a his weapon." %(namePlayer, nameItem)
-                print "%s yields a %s attack bonus." %attack
+                print "\tWeapon: %s" %nameItem
+                print "\t%s yields a %s attack bonus." %(nameItem, attack)
             elif isinstance(item, Armor):
                 defense = item.getDefense()
-                print "%s currently wields %s as a his weapon." %(namePlayer, nameItem)
-                print "%s yields a %s attack bonus." %defense
+                print "\tArmor: %s" %nameItem
+                print "\t%s yields a %s defense bonus." %(nameItem, defense)
+            print ""
