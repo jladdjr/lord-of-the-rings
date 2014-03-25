@@ -34,7 +34,7 @@ class Player(object):
         self._experience = constants.STARTING_EXPERIENCE
         self._level = constants.STARTING_LEVEL
         
-        self._Hp = self._level * constants.HP_STAT
+        self._hp = self._level * constants.HP_STAT
         self._maxHp = self._level * constants.HP_STAT
         self._attack = self._level * constants.ATTACK_STAT
 
@@ -73,7 +73,7 @@ class Player(object):
 
         @param attack:     The attack player is to receive.
         """
-        self._hp = self._hp - max(attack - self._armorDefense, 0)
+        self._hp = max(self._hp - max(attack - self._armorDefense, 0), 0)
         
     def getExperience(self):
         """
@@ -115,25 +115,25 @@ class Player(object):
                   
     def getHp(self):
         """
-        Returns player Hp.
+        Returns player hp.
 
-        @return:    Player Hp.
+        @return:    Player hp.
         """
-        return self._Hp
+        return self._hp
 
     def getMaxHp(self):
         """
-        Returns player maximum Hp.
+        Returns player maximum hp.
 
-        @return:    Player maximum Hp.
+        @return:    Player maximum hp.
         """
         return self._maxHp
         
     def heal(self, amount):
         """
-        Allows player to heal up to maximum starting Hp.
+        Allows player to heal up to maximum starting hp.
 
-        @param amount:    The amount of Hp to be healed.
+        @param amount:    The amount of hp to be healed.
         """
         maxHp = self._level * constants.HP_STAT
 

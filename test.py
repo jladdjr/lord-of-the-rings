@@ -334,12 +334,6 @@ class EquipTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
 
-        inventory = player.getInventory()
-        self.assertTrue(inventory.count(), 0, "Player inventory failed to initalize correctly.")
-        
-        equipped = player.getEquipped()
-        self.assertTrue(equipped.count(), 0, "Player equipment failed to initialized correctly.")
-
         #Trying to equip item not in inventory
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
@@ -401,19 +395,10 @@ class UnequipTest(unittest.TestCase):
         from items.weapon import Weapon
         from commands.unequip_command import UnequipCommand
 
-        #Tests default states
-        space = Space("Shire", "Home of the Hobbits.")
-        player = Player("Frodo", space)
-
-        inventory = player.getInventory()
-        self.assertTrue(inventory.count(), 0, "Player inventory failed to initalize correctly.")
-        
-        equipped = player.getEquipped()
-        self.assertTrue(equipped.count(), 0, "Player equipment failed to initialized correctly.")
-
         #Attempting to unequip item not currently equipped
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
+        unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
         item = Item("Charm", "Unknown effects", 1)
         weapon = Weapon("Dagger", "A trusty blade", 2, 2)
@@ -500,25 +485,26 @@ class PlayerTest(unittest.TestCase):
         
         #Test for correct initialization
         self.assertEqual(player._name, "Frodo", "Player name did not initialize correctly.")
-        self.assertEqual(player._location, "Shire", "Player location did not initialize correctly.")
-
+        self.assertEqual(player._location, space, "Player location did not initialize correctly.")
+        
         emptyList = []
-        self.assertTrue(player._inventory.getItems(), emptyList), "Player inventory was not initialized.")
-        self.assertTrue(player._equipped.getItems(), emptyList), "Player equipped was not initialized.")
+        self.assertEqual(player._inventory.getItems(), emptyList, "Player inventory was not initialized.%s")
+        self.assertEqual(player._equipped.getItems(), emptyList, "Player equipped was not initialized.")
         
         self.assertEqual(player._experience, constants.STARTING_EXPERIENCE, "Player experience was not initialized.")
         self.assertEqual(player._level, constants.STARTING_LEVEL, "Player level was not initialized.")
         
         self.assertEqual(player._maxHp, constants.HP_STAT, "Player max Hp was not initialized.")
-        self.assertEqual(player._Hp, constants.HP_STAT, "Player Hp was not initialized.")
-        self.assertEqual(player._attack, constants.HP_STAT, "Player attack was not initialized.")
+        self.assertEqual(player._hp, constants.HP_STAT, "Player Hp was not initialized.")
+        self.assertEqual(player._attack, constants.ATTACK_STAT, "Player attack was not initialized.")
 
-        self.assertEqual(self._weaponAttack, 0, "Player attack bonus was not initialized.")
-        self.assertEqual(self._armorDefense, 0, "Player defense bonus was not initialized.")
+        self.assertEqual(player._weaponAttack, 0, "Player attack bonus was not initialized.")
+        self.assertEqual(player._armorDefense, 0, "Player defense bonus was not initialized.")
                          
     def testAttack(self):
         from player import Player
         from space import Space
+        from monsters.monster import Monster
 
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
@@ -544,10 +530,10 @@ class PlayerTest(unittest.TestCase):
         monsterAttack = monster._attack
         
         #Test to see if Hp decreases after monster attack
-        originalHp = player._Hp
+        originalHp = player._hp
         monster.attack(player)
-        newHp = player._Hp
-        self.assertTrue(newHp = originalHp - monsterAttack, "Player takeAttack method failed.")
+        newHp = player._hp
+        self.assertTrue(newHp == originalHp - monsterAttack, "Player takeAttack method failed.")
 
     def testLevelUp(self):
         from player import Player
@@ -555,7 +541,7 @@ class PlayerTest(unittest.TestCase):
         from math import floor
         import constants
 
-        space = Space()
+        space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
 
         #Increase player experience, run _updateLevel, and test if stats change to where they're intended
@@ -566,7 +552,7 @@ class PlayerTest(unittest.TestCase):
         player._updateLevel()
 
         self.assertEqual(player._experience, originalExperience + experienceIncrease, "Player experience did not increase.")
-        self.assertEqual(player._level, floor(player.experience/20), "Player did not level up.")
+        self.assertEqual(player._level, floor(player._experience/20) + 1, "Player did not level up.")
         self.assertEqual(player._maxHp, player._level * constants.HP_STAT, "Player Hp did not increase.")
         self.assertEqual(player._attack, player._level * constants.ATTACK_STAT, "Player damage did not increase.")
 
