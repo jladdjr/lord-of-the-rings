@@ -160,10 +160,11 @@ class Player(object):
 
         @param item:    The item to be equipped.
         """
+        print ""
         if not (item in self._inventory) \
             or not (isinstance(item, Armor) or isinstance(item, Weapon)) \
             or item in self._equipped:
-            print "Cannot equip %s" %item
+            print "Cannot equip %s." %item.getName()
 
         else:
             self._equipped.addItem(item)
@@ -183,6 +184,7 @@ class Player(object):
 
         @param item:    The item to be unequipped.
         """
+        print ""
         if item in self._equipped:
             self._equipped.removeItem(item)
             
@@ -197,7 +199,7 @@ class Player(object):
             print "%s unequipped %s." %(self._name, item.getName())
             
         else:
-            print "Cannot unequip %s." %(item.getName())
+            print "Cannot unequip %s." %item.getName()
 
     def getEquipped(self):
         """

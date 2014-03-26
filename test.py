@@ -247,22 +247,29 @@ class PickUpTest(unittest.TestCase):
         
         space.addItem(item)
 
-        #Assert item in space but not in inventory
+        #Assert item in space but not in inventory and not in equipment
         self.assertTrue(space.containsItem(item), "Space should have item but does not.")
         
         inventory = player.getInventory()
-        self.assertFalse(inventory.containsItem(item), "Player should not have item but does.")
+        self.assertFalse(inventory.containsItem(item), "Player should not have item but does in inventory.")
         
-        rawInputMock = MagicMock(return_value="Dagger")
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(item), "Player should not have item but does in equipment.")
             
-        #Assert item in player inventory but not in space
+        #Assert item in player inventory but not in space and not in equipment
+        rawInputMock = MagicMock(return_value="Dagger")
+        
         with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock):
             pickUpCmd.execute()
             
         self.assertFalse(space.containsItem(item), "Space should not have item but does.")
+
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(item), "Player should not have item in equipment.")
         
         inventory = player.getInventory()
         self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")
+        
         
 class DropTest(unittest.TestCase):
     """
@@ -281,6 +288,7 @@ class DropTest(unittest.TestCase):
         weapon = Weapon("Dagger", "A trusty blade", 2, 2)
 
         player.addInventory(weapon)
+        player.addEquipped(weapon)
 
         #Asserts item in player inventory but not in space
         self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
@@ -288,9 +296,9 @@ class DropTest(unittest.TestCase):
         inventory = player.getInventory()
         self.assertTrue(inventory.containsItem(weapon), "Inventory should have item but does not.")
 
+        #Assert item in space but not in player inventory and not in equipment
         rawInputMock = MagicMock(return_value="Dagger")
 
-        #Assert item in space but not in player inventory
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
             
@@ -298,6 +306,9 @@ class DropTest(unittest.TestCase):
         
         inventory = player.getInventory()
         self.assertFalse(inventory.containsItem(weapon), "Inventory should not have item but does.")
+        
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(weapon), "Equipment should not have item but does.")
         
 class DescribeTest(unittest.TestCase):
     """
@@ -383,6 +394,35 @@ class EquipTest(unittest.TestCase):
         equipped = player.getEquipped()
         
         self.assertTrue(equipped.containsItem(weapon), "Player failed to equip equipable item.")
+        
+        #Equipping an item that is already equipped
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
+
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+
+        inventory = player.getInventory()
+        inventory.addItem(weapon)
+        
+        equipped = player.getEquipped()
+        equipped.addItem(weapon)
+        
+        rawInputMock = MagicMock(return_value="Dagger")
+        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
+            equipCmd.execute() 
+            
+        numberInInventory = 0
+        numberInEquipped = 0
+        for item in inventory._items:
+            if item == weapon:
+                numberInInventory += 1
+        for item in equipped._items:
+            if item == weapon:
+                numberInEquipped += 1
+            
+        self.assertEqual(inventory.count(), 1, "Equipping an item that is already equipped failed -- inventory problem.")
+        self.assertEqual(equipped.count(), 1, "Equipping an item that is already equipped failed -- equipment problem.")
         
 class UnequipTest(unittest.TestCase):
     """
