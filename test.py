@@ -578,34 +578,23 @@ class PlayerTest(unittest.TestCase):
     def testLevelUp(self):
         from player import Player
         from space import Space
-        from items.item import Item
-        from items.item_set import ItemSet
-        from items.weapon import Weapon
-        from items.armor import Armor
-        from stats import Stats
-        from monsters.monster import Monster
-        from starting_inventory import startingInventory
+        from math import floor
         import constants
 
-        space = Space()
+        space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
 
-        originalLevel = player.getLevel()
-        originalHp = player.getHp()
-        originalDamage = player.getDamage()
-        originalExperience = player.getExperience()
+        #Increase player experience, run _updateLevel, and test if stats change to where they're intended
+        originalExperience = player._experience
+        experienceIncrease = 1000
         
-        player.increaseExperience(1000)
-        
-        newLevel = player.getLevel()
-        newHp = player.getHp()
-        newDamage = player.getDamage()
-        newExperience = player.getExperience()
-        
-        self.assertTrue(newLevel > originalLevel, "Player did not level up.")
-        self.assertTrue(newHp > originalHp, "Player HP did not increase.")
-        self.assertTrue(newDamage > originalDamage, "Player damage did not increase.")
-        self.assertTrue(newExperience > originalExperience, "Player experience did not increase.")
+        player._experience = originalExperience + experienceIncrease
+        player._updateLevel()
+
+        self.assertEqual(player._experience, originalExperience + experienceIncrease, "Player experience did not increase.")
+        self.assertEqual(player._level, floor(player._experience/20) + 1, "Player did not level up.")
+        self.assertEqual(player._maxHp, player._level * constants.HP_STAT, "Player Hp did not increase.")
+        self.assertEqual(player._attack, player._level * constants.ATTACK_STAT, "Player damage did not increase.")
 
     def testHeal(self):
         #Heal where healing amount is greater than total amount possible

@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
 from space import Space
+from cities.city import City
+from cities.inn import Inn
 from player import Player
-import constants
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
@@ -23,8 +24,9 @@ from commands.east_command import EastCommand
 from commands.west_command import WestCommand
 
 def getWorld():
-    #TODO: Needs docstring
-    shire = Space("Shire", "Home of the Hobbitses.")
+    sallyInn = Inn("Sally's Inn", "A place for strangers", "Hi welcome to Sally's Inn", 30)
+    hobbinton = City("Hobbinton", "Capital of the Shire", "Welcome to Hobbinton", [sallyInn])
+    shire = Space("Shire", "Home of the Hobbitses", city = hobbinton)
     mordor = Space("Mordor", "Oppressive locale. Bad for health!")
     shire.createExit(constants.Direction.NORTH, mordor)
     

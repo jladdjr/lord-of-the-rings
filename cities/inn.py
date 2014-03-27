@@ -1,55 +1,45 @@
 #!/usr/bin/python
 
-class Cities(object):
+from building import Building
+
+class Inn(Building):
     """
-    Inns are in cities. Inns allow player to heal.
+    Inns are instances of the Building object.
+    Inns have a special method that allows player to heal.
     """
-    def __init__(self, player, name, description, greetings, talk):
+    def __init__(self, name, description, greetings):
         """
         Initializes inn object.
 
         @param name:           The name of the inn.
         @param description:    A description of the inn.
         @param greetings:      The greetings the user gets as he enters a inn.
-        @param talk:           What the local say when the user talks to the locale.
+        @param cost:           The cost of using the inn.
         """
-        self._player = player
+        Building.__init__(self, name, description, greetings)
+        self._cost = cost
         
-        self._name = name
-        self._description = description
-        self._greetings = greetings
-        self._talk = talk
-
-    def getName(self):
+    def enterBuilding(self, player):
         """
-        Returns name of inn.
-
-        @return:    The name of the inn.
-        """
-        return self._name
-
-    def getDescription(self):
-        """
-        Returns description of inn.
-
-        @return:    The description of the inn.
-        """
-        return self._description
-
-    def Greetings(self):
-        """
-        Prints a screen that represents a player greeting upon entering inn.
+        Player enters inn.
         """
         print self._greetings
-        
-    def Talk(self):
-        """
-        Prints a string that represents what happens when player attempts to talk to the locale.
-        """
-        print self._talk
+        print "Cost to stay: %s." %self._cost
 
-    def Heal(self):
+		#TODO: Use _heal method to heal player.
+    
+    def getCost(self):
         """
-        Heals player.
-        """
+        Returns cost for using inn.
         
+        @return:    Cost of using inn.
+        """
+        return self._cost
+
+	def _heal(self, player):
+		"""
+		Heals a player.
+
+		@param player:		The player.
+		"""
+		pass
