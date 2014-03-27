@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 
 class EastCommand(Command):
@@ -21,13 +23,18 @@ class EastCommand(Command):
         """
         Run East command.
         """
+        #Make sure there is an east exit
+        if not self._player.canMoveEast():
+            print "Cannot move East"
+            return
+
+        #Move East
         print "--------------------------------"
         print "         moving east"
         print "      ----------------->        "
         print ""
         print "--------------------------------"
 
-        #Move East
         self._player.moveEast()
 
         space = self._player.getLocation()

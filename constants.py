@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 """
 Constants for Lord of the Rings
 """
@@ -7,6 +9,7 @@ COMMAND_PROMPT = "> "
 #Character initialization
 STARTING_EXPERIENCE = 0
 STARTING_EQUIPMENT = []
+STARTING_LEVEL = 1
 
 #Character stat calculation
 HP_STAT = 20

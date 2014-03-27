@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 
 class SouthCommand(Command):
@@ -21,6 +23,12 @@ class SouthCommand(Command):
         """
         Run South command.
         """
+        #Make sure there is a south exit
+        if not self._player.canMoveSouth():
+            print "Cannot move South"
+            return
+
+        #Move South
         print "--------------------------------"
         print "         moving south"
         print "              ||                "
@@ -28,7 +36,6 @@ class SouthCommand(Command):
         print "              \/                "
         print ""
 
-        #Move South
         self._player.moveSouth()
 
         space = self._player.getLocation()

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 
 class UnequipCommand(Command):
@@ -22,21 +24,21 @@ class UnequipCommand(Command):
         """
         Unequips player with item in inventory.
         """
-        itemToEquip = raw_input("Which item do you want to unequip? \n")
+        itemToUnequip = raw_input("Which item do you want to unequip? \n")
         inventory = self._player.getInventory()
         equipped = self._player.getEquipped()
         
-        itemInventory = inventory.getItemByName(itemToEquip)
-        itemEquipment = equipped.getItemByName(itemToEquip)
+        itemInventory = inventory.getItemByName(itemToUnequip)
+        itemEquipment = equipped.getItemByName(itemToUnequip)
         
         #Checks if item is in inventory and is currently equipped
         if not itemInventory:
-            print "%s is not in your inventory!" %(itemToEquip)
+            print "%s is not in your inventory!" %itemToUnequip
             return
         
         if not itemEquipment:
-            print "%s is not currently equipped!" %(itemToEquip)
+            print "%s is not currently equipped!" %itemToUnequip
             return
 
         #Equips player with item
-        player.unequip(itemToEquip)
+        self._player.unequip(itemEquipment)

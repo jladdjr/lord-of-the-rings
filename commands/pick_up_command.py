@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 
 class PickUpCommand(Command):
@@ -28,12 +30,14 @@ class PickUpCommand(Command):
         item = items.getItemByName(itemToAdd)
         
         if not item:
-            print "Space does not contain item."
+            print "%s does not contain item." %space.getName()
             return
 
         #Adds item to inventory
         inventory = self._player.getInventory()
         inventory.addItem(item)
+        print ""
+        print "Added %s to inventory." %item.getName()
 
         #Removes item from space
         location.removeItem(item)

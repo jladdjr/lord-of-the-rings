@@ -26,7 +26,7 @@ class Parser(object):
         userInput = raw_input(constants.COMMAND_PROMPT)
         userInput = userInput.strip().lower()
         
-        #if userInput is n,s,e,w then do northCommand, southCommand, etc.
+        #If userInput is n, s, e, w then do northCommand, southCommand, etc.
         if userInput == "n":
             userInput = "north"
         if userInput == "s":

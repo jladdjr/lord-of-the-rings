@@ -6,17 +6,12 @@ from items.weapon import Weapon
 from items.armor import Armor
 from math import floor
 
-#TODO: Get startingInventory from GameLoader instead
-from items.starting_inventory import startingInventory
-#from items.starting_inventory import startingEquipment
-
 import constants
 
 class Player(object):
     """
     Represents the (human) player.
     """
-    
     def __init__(self, name, location):
         """
         Initializes the player.
@@ -26,7 +21,7 @@ class Player(object):
         """
         self._name      = name
         self._location  = location
-        self._inventory = ItemSet(startingInventory)
+        self._inventory = ItemSet()
 
         #Equip player with startingInventory
         self._equipped = ItemSet()
@@ -37,8 +32,13 @@ class Player(object):
 
         #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
-        self._level = 0
-        self._updateLevel()
+        self._level = constants.STARTING_LEVEL
+        
+        self._hp = self._level * constants.HP_STAT
+        self._maxHp = self._level * constants.HP_STAT
+        self._attack = self._level * constants.ATTACK_STAT
+
+        #Initialize items bonuses
         self._weaponAttack = 0
         self._armorDefense = 0
 
@@ -73,7 +73,7 @@ class Player(object):
 
         @param attack:     The attack player is to receive.
         """
-        self._hp = self._hp - max(attack - self._armorDefense, 0)
+        self._hp = max(self._hp - max(attack - self._armorDefense, 0), 0)
         
     def getExperience(self):
         """
@@ -110,22 +110,30 @@ class Player(object):
             #Player has leveled up. Updates player level and stats.
             print "%s leveled up! %s is now level %s" \
                   %(self._name, self._name, self._level)
-            self._hp = self._level * constants.HP_STAT
+            self._maxHp = self._level * constants.HP_STAT
             self._attack = self._level * constants.ATTACK_STAT
                   
     def getHp(self):
         """
-        Returns player Hp.
+        Returns player hp.
 
-        @return:    Player Hp.
+        @return:    Player hp.
         """
         return self._hp
+
+    def getMaxHp(self):
+        """
+        Returns player maximum hp.
+
+        @return:    Player maximum hp.
+        """
+        return self._maxHp
         
     def heal(self, amount):
         """
-        Allows player to heal up to maximum starting Hp.
+        Allows player to heal up to maximum starting hp.
 
-        @param amount:    The amount of Hp to be healed.
+        @param amount:    The amount of hp to be healed.
         """
         maxHp = self._level * constants.HP_STAT
 
@@ -152,10 +160,11 @@ class Player(object):
 
         @param item:    The item to be equipped.
         """
+        print ""
         if not (item in self._inventory) \
             or not (isinstance(item, Armor) or isinstance(item, Weapon)) \
             or item in self._equipped:
-            print "Cannot equip %s" %item
+            print "Cannot equip %s." %item.getName()
 
         else:
             self._equipped.addItem(item)
@@ -167,7 +176,7 @@ class Player(object):
                 self._weapon = item
                 self._weaponAttack = self._weapon.getAttack()
                     
-            print "%s equipped %s." %(self._name, item)
+            print "%s equipped %s." %(self._name, item.getName())
             
     def unequip(self, item):
         """
@@ -175,6 +184,7 @@ class Player(object):
 
         @param item:    The item to be unequipped.
         """
+        print ""
         if item in self._equipped:
             self._equipped.removeItem(item)
             
@@ -186,10 +196,10 @@ class Player(object):
                 self._weapon = None
                 self._weaponAttack = 0
                 
-            print "%s unequipped %s." %(self._name, item)
+            print "%s unequipped %s." %(self._name, item.getName())
             
         else:
-            print "Cannot unequip %s." %(item)
+            print "Cannot unequip %s." %item.getName()
 
     def getEquipped(self):
         """
@@ -206,7 +216,7 @@ class Player(object):
         @param item:   The item to be added to inventory.
         """
         if isinstance(item, Item) and (item not in self._inventory):
-            print "Added %s to inventory."
+            print "Added %s to inventory." %item.getName()
             self._inventory.addItem(item)
         else:
             print "Cannot add %s to inventory." %(item)
@@ -219,7 +229,59 @@ class Player(object):
         """
         return self._inventory
 
+    def canMoveNorth(self):
+        """
+        Determines if player can move north.
+
+        @return:    True if possible, false otherwise.
+        """
+        exit = self._location.getExit(constants.Direction.NORTH)
+
+        if exit:
+            return True
+        return False
+
+    def canMoveSouth(self):
+        """
+        Determines if player can move south.
+
+        @return:    True if possible, false otherwise.
+        """
+        exit = self._location.getExit(constants.Direction.SOUTH)
+
+        if exit:
+            return True
+        return False
+
+    def canMoveEast(self):
+        """
+        Determines if player can move east.
+
+        @return:    True if possible, false otherwise.
+        """
+        exit = self._location.getExit(constants.Direction.EAST)
+
+        if exit:
+            return True
+        return False
+
+    def canMoveWest(self):
+        """
+        Determines if player can move west.
+
+        @return:    True if possible, false otherwise.
+        """
+        exit = self._location.getExit(constants.Direction.WEST)
+
+        if exit:
+            return True
+        return False
+
+
     def moveNorth(self):
+        """
+        Moves player north one space.
+        """
         northSpace = self._location.getExit(constants.Direction.NORTH) 
         
         #If north space does not exist, do nothing
@@ -229,6 +291,9 @@ class Player(object):
         self._location = northSpace
 
     def moveSouth(self):
+        """
+        Moves player south one space.
+        """
         southSpace = self._location.getExit(constants.Direction.SOUTH)
 
         #If south space does not exist, do nothing
@@ -238,6 +303,9 @@ class Player(object):
         self._location = southSpace 
 
     def moveEast(self):
+        """
+        Moves player east one space.
+        """
         eastSpace = self._location.getExit(constants.Direction.EAST)
 
         #If east space does not exist, do nothing
@@ -247,6 +315,9 @@ class Player(object):
         self._location = eastSpace 
 
     def moveWest(self):
+        """
+        Moves player west one space.
+        """
         westSpace = self._location.getExit(constants.Direction.WEST)
 
         #If west space does not exist, do nothing

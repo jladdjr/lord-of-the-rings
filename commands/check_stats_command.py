@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor
@@ -41,11 +43,12 @@ class CheckStatsCommand(Command):
             elif isinstance(item, Weapon):
                 weaponsAttack = item.getAttack()
                 
-        total = attack + weaponsAttack
+        totalAttack = attack + weaponsAttack
                 
         print "%s's stats: \n" %name
-        print "%s is level %s and has %s experience." %(name, level, experience)
-        print "Hp: %s" %hp
-        print "Armor-based defense is %s" %defense
-        print "Character-based attack is %s; weapons bonus is %s for a total of %s" %(attack, weaponsAttack, total)
-        
+        print "\t%s is level %s and has %s experience." %(name, level, experience)
+        print "\t%s's Hp: %s" %(name, hp)
+        print "\n\tCharacter-based attack is %s; weapons bonus is %s" %(attack, weaponsAttack)
+        print "\tTotal attack is %s" %totalAttack
+        print "\tArmor-based defense is %s" %defense
+                

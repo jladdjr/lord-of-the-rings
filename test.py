@@ -77,7 +77,6 @@ class ItemTest(unittest.TestCase):
         errorMsg = "Expected item weight to be '%s'." % weight 
         self.assertEqual(item.getWeight(), weight, errorMsg)
 
-
 class ItemSetTest(unittest.TestCase):
     """
     Tests ItemSet class.
@@ -240,26 +239,37 @@ class PickUpTest(unittest.TestCase):
         from player import Player
         from items.item import Item
         from commands.pick_up_command import PickUpCommand
+        
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
         item = Item("Dagger", "A trusty blade", 2)
-        space.addItem(item)
         pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
         
-        #Assert item in space but not in inventory
+        space.addItem(item)
+
+        #Assert item in space but not in inventory and not in equipment
         self.assertTrue(space.containsItem(item), "Space should have item but does not.")
-        inventory = player.getInventory()
-        self.assertFalse(inventory.containsItem(item), "Player should not have item but does.")
         
+        inventory = player.getInventory()
+        self.assertFalse(inventory.containsItem(item), "Player should not have item but does in inventory.")
+        
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(item), "Player should not have item but does in equipment.")
+            
+        #Assert item in player inventory but not in space and not in equipment
         rawInputMock = MagicMock(return_value="Dagger")
         
         with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock):
             pickUpCmd.execute()
             
-        #Assert item in player inventory but not in space
         self.assertFalse(space.containsItem(item), "Space should not have item but does.")
+
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(item), "Player should not have item in equipment.")
+        
         inventory = player.getInventory()
         self.assertTrue(inventory.containsItem(item), "Player should have item but does not.")
+        
         
 class DropTest(unittest.TestCase):
     """
@@ -270,28 +280,36 @@ class DropTest(unittest.TestCase):
         from player import Player
         from items.weapon import Weapon
         from commands.drop_command import DropCommand
+        
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+
         player.addInventory(weapon)
+        player.addEquipped(weapon)
 
         #Asserts item in player inventory but not in space
         self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
+        
         inventory = player.getInventory()
         self.assertTrue(inventory.containsItem(weapon), "Inventory should have item but does not.")
 
-        rawInputMock = MagicMock(return_value="weapon")
-        
+        #Assert item in space but not in player inventory and not in equipment
+        rawInputMock = MagicMock(return_value="Dagger")
+
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
-        """    
-        #Assert item in space but not in player inventory
+            
         self.assertTrue(space.containsItemString("Dagger"), "Space should have item but does not.")
+        
         inventory = player.getInventory()
         self.assertFalse(inventory.containsItem(weapon), "Inventory should not have item but does.")
-        """
+        
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(weapon), "Equipment should not have item but does.")
+        
 class DescribeTest(unittest.TestCase):
     """
     Tests Describe class.
@@ -299,8 +317,8 @@ class DescribeTest(unittest.TestCase):
     def testExecute(self):
         from player import Player
         from space import Space
-        from commands.command import Command
         from commands.describe_command import DescribeCommand
+        
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
         descCmd = DescribeCommand("describe", "Gives description of space", player)
@@ -309,7 +327,7 @@ class DescribeTest(unittest.TestCase):
         #TODO: find a way to make sure that a print statement came out correctly.
         """
         self.assertEqual(descCmd.execute(), "Home of the Hobbits", \
-            "Describe command gave incorrect description.)
+            "Describe command gave incorrect description.")
         """
 
 class EquipTest(unittest.TestCase):
@@ -321,13 +339,16 @@ class EquipTest(unittest.TestCase):
         from space import Space
         from items.item import Item
         from items.weapon import Weapon
-        from commands.command import Command
         from commands.equip_command import EquipCommand
+
+        #Tests default states
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
 
         #Trying to equip item not in inventory
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
-        equipCmd = EquipCommand("equip", "Equips item in inventory to player", player)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
         item = Item("Charm", "Unknown effects", 1)
         weapon = Weapon("Dagger", "A trusty blade", 2, 2)
@@ -337,16 +358,14 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute()
         
         equipped = player.getEquipped()
-        
         self.assertFalse(equipped.containsItem(weapon), "Player equipped item not in inventory.")
         
         #Trying to equip item that cannot be equipped (e.g. item is not instance of Armor or Weapon)
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
-        equipCmd = EquipCommand("equip", "Equips item in inventory to player", player)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
         item = Item("Charm", "Unknown effects", 1)
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
 
         inventory = player.getInventory()
         inventory.addItem(item)
@@ -356,15 +375,13 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute()
         
         equipped = player.getEquipped()
-
         self.assertFalse(equipped.containsItem(item), "Player equipped item of Item class.")
 
         #Equipping item that can be equipped
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
-        equipCmd = EquipCommand("equip", "Equips item in inventory to player", player)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
-        item = Item("Charm", "Unknown effects", 1)
         weapon = Weapon("Dagger", "A trusty blade", 2, 2)
 
         inventory = player.getInventory()
@@ -378,6 +395,35 @@ class EquipTest(unittest.TestCase):
         
         self.assertTrue(equipped.containsItem(weapon), "Player failed to equip equipable item.")
         
+        #Equipping an item that is already equipped
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
+
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+
+        inventory = player.getInventory()
+        inventory.addItem(weapon)
+        
+        equipped = player.getEquipped()
+        equipped.addItem(weapon)
+        
+        rawInputMock = MagicMock(return_value="Dagger")
+        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
+            equipCmd.execute() 
+            
+        numberInInventory = 0
+        numberInEquipped = 0
+        for item in inventory._items:
+            if item == weapon:
+                numberInInventory += 1
+        for item in equipped._items:
+            if item == weapon:
+                numberInEquipped += 1
+            
+        self.assertEqual(inventory.count(), 1, "Equipping an item that is already equipped failed -- inventory problem.")
+        self.assertEqual(equipped.count(), 1, "Equipping an item that is already equipped failed -- equipment problem.")
+        
 class UnequipTest(unittest.TestCase):
     """
     Tests Unequip Command.
@@ -387,7 +433,6 @@ class UnequipTest(unittest.TestCase):
         from space import Space
         from items.item import Item
         from items.weapon import Weapon
-        from commands.command import Command
         from commands.unequip_command import UnequipCommand
 
         #Attempting to unequip item not currently equipped
@@ -409,7 +454,6 @@ class UnequipTest(unittest.TestCase):
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
-        item = Item("Charm", "Unknown effects", 1)
         weapon = Weapon("Dagger", "A trusty blade", 2, 2)
 
         player.equip(weapon)
@@ -419,7 +463,7 @@ class UnequipTest(unittest.TestCase):
             unequipCmd.execute()
 
         equipped = player.getInventory()
-        self.assertFalse(equipped.containsItem(weapon), "Failed to unequip item that it should have.") 
+        self.assertFalse(equipped.containsItem(weapon), "Failed to unequip item that it should have.")
             
 class ArmorTest(unittest.TestCase):
     """
@@ -473,69 +517,63 @@ class PlayerTest(unittest.TestCase):
     def testInit(self):
         from player import Player
         from space import Space
-        from items.item import Item
         from items.item_set import ItemSet
-        from items.weapon import Weapon
-        from items.armor import Armor
-        from items.starting_inventory import startingInventory
         import constants
 
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
-        blade = Item("Blade", "Appears to be dull", 1)
         
         #Test for correct initialization
-        self.assertEqual(player._inventory, player.getInventory(), "Starting inventory was not initialized correctly.")
-        self.assertEqual(player._level, 1, "Player level was not initialized correctly. it was %s" %player._level)
-        self.assertEqual(player._hp, constants.HP_STAT * player._level, "Player HP was not initialized correctly.")
-        self.assertEqual(player._attack, constants.ATTACK_STAT * player._level, "Player damage was not initialized correctly.")
+        self.assertEqual(player._name, "Frodo", "Player name did not initialize correctly.")
+        self.assertEqual(player._location, space, "Player location did not initialize correctly.")
+        
+        emptyList = []
+        self.assertEqual(player._inventory.getItems(), emptyList, "Player inventory was not initialized.%s")
+        self.assertEqual(player._equipped.getItems(), emptyList, "Player equipped was not initialized.")
+        
+        self.assertEqual(player._experience, constants.STARTING_EXPERIENCE, "Player experience was not initialized.")
+        self.assertEqual(player._level, constants.STARTING_LEVEL, "Player level was not initialized.")
+        
+        self.assertEqual(player._maxHp, constants.HP_STAT, "Player max Hp was not initialized.")
+        self.assertEqual(player._hp, constants.HP_STAT, "Player Hp was not initialized.")
+        self.assertEqual(player._attack, constants.ATTACK_STAT, "Player attack was not initialized.")
 
+        self.assertEqual(player._weaponAttack, 0, "Player attack bonus was not initialized.")
+        self.assertEqual(player._armorDefense, 0, "Player defense bonus was not initialized.")
+                         
     def testAttack(self):
         from player import Player
         from space import Space
-        from items.item import Item
-        from items.item_set import ItemSet
-        from items.weapon import Weapon
-        from items.armor import Armor
         from monsters.monster import Monster
-        from items.starting_inventory import startingInventory
-        import constants
 
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
         monster = Monster("Orc", "An orc.", 10, 1, 1)
         
-        #Check monster is undamaged
-        self.assertEqual(monster.getHp(), 10, "Monster HP did not initialize correctly.")
-
-        player.attack(monster)
+        #Check monster health default state
+        self.assertEqual(monster._hp, 10, "Monster Hp did not initialize correctly.")
         
         #Player attacks monster
-        actualHp = monster.getHp()
+        player.attack(monster)
+        actualHp = monster._hp
         expectedHp = 10 - (player._attack + player._weaponAttack) 
-        self.assertEqual(actualHp, expectedHp, "Monster attack failed.")
+        self.assertEqual(actualHp, expectedHp, "Monster attack failed to work correctly.")
 
     def testTakeDamage(self):
         from player import Player
         from space import Space
-        from items.item import Item
-        from items.item_set import ItemSet
-        from items.weapon import Weapon
-        from items.armor import Armor
         from monsters.monster import Monster
-        from items.starting_inventory import startingInventory
-        import constants
 
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
         monster = Monster("Orc", "An orc.", 10, 1, 1)
-
-        originalHp = player.getHp()
-        monster.attack(player)
+        monsterAttack = monster._attack
         
-        #Test player's takeAttack method
-        newHp = player.getHp()
-        self.assertTrue(originalHp > newHp, "Player takeAttack failed.")
+        #Test to see if Hp decreases after monster attack
+        originalHp = player._hp
+        monster.attack(player)
+        newHp = player._hp
+        self.assertTrue(newHp == originalHp - monsterAttack, "Player takeAttack method failed.")
 
     def testLevelUp(self):
         from player import Player
@@ -546,21 +584,22 @@ class PlayerTest(unittest.TestCase):
         from items.armor import Armor
         from stats import Stats
         from monsters.monster import Monster
+        from starting_inventory import startingInventory
         import constants
 
-        space = Space("shire", "Frodo's home")
+        space = Space()
         player = Player("Frodo", space)
 
         originalLevel = player.getLevel()
         originalHp = player.getHp()
-        originalDamage = player.getAttack()
+        originalDamage = player.getDamage()
         originalExperience = player.getExperience()
         
         player.increaseExperience(1000)
         
         newLevel = player.getLevel()
         newHp = player.getHp()
-        newDamage = player.getAttack()
+        newDamage = player.getDamage()
         newExperience = player.getExperience()
         
         self.assertTrue(newLevel > originalLevel, "Player did not level up.")
@@ -572,40 +611,34 @@ class PlayerTest(unittest.TestCase):
         #Heal where healing amount is greater than total amount possible
         from player import Player
         from space import Space
-        from items.item import Item
-        from items.weapon import Weapon
-        from items.armor import Armor
-        from items.starting_inventory import startingInventory
-        import constants
 
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
 
-        maxHp = player.getHp()
-        player.takeAttack(2)
-        player.heal(3)
+        maxHp = player._maxHp
+        attackAmount = 2
+        healAmount = 3
+        
+        player.takeAttack(attackAmount)
+        player.heal(healAmount)
 
-        self.assertTrue(maxHp == player._hp, "Healing testcase #1 failed.")
+        self.assertEqual(player._hp, maxHp, "Healing testcase #1 failed.")
 
         #Heal where healing amount is less than total amount possible
         from player import Player
         from space import Space
-        from items.item import Item
-        from items.weapon import Weapon
-        from items.armor import Armor
-        from items.starting_inventory import startingInventory
-        import constants
 
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)
 
-        maxHp = player.getHp()
-        player.takeAttack(5)
-        player.heal(3)
+        maxHp = player._maxHp
+        attackAmount = 3
+        healAmount = 2
+        
+        player.takeAttack(attackAmount)
+        player.heal(healAmount)
 
-        newHp = player.getHp()
-
-        self.assertTrue(newHp == maxHp - 2, "Healing testcase #2 failed.")
+        self.assertEqual(player._hp, maxHp - 1, "Healing testcase #2 failed.")
         
     def testEquipUnequip(self):
         from player import Player
@@ -613,8 +646,6 @@ class PlayerTest(unittest.TestCase):
         from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
-        from items.starting_inventory import startingInventory
-        import constants
         
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("Frodo", space)

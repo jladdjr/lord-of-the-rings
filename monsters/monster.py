@@ -71,7 +71,7 @@ class Monster(object):
         
         @return: Monster's HP.
         """
-        return self._hp
+        return self._Hp
         
     def getAttack(self):
         """

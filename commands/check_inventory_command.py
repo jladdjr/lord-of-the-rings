@@ -1,6 +1,9 @@
+#!/usr/bin/python
+
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor
+from items.potion import Potion
 
 class CheckInventoryCommand(Command):
     """
@@ -30,25 +33,30 @@ class CheckInventoryCommand(Command):
 
         totalWeight = 0
         
+        print "%s's inventory:\n" %playerName
         for item in inventoryList:
             itemName = item.getName()
             itemDescription = item.getDescription()
-            itemWeight = item.getWeight()
+            itemWeight = str(item.getWeight())
 
             if isinstance(item, Armor):
-                itemDefense = item.getDefense()
+                itemDefense = str(item.getDefense())
             elif isinstance(item, Weapon):
-                itemAttack = item.getAttack()
-
-            print "%s's inventory:\n" %playerName
-            print "%s:%s\t%s weights %s." (itemName, itemDescription, itemName, itemWeight)
+                itemAttack = str(item.getAttack())
+            elif isinstance(item, Potion):
+                itemHeal = str(item.getHealing())
+            
+            print "\t%s: %s" %(itemName, itemDescription)
+            print "\t%s weights %s." %(itemName, itemWeight)
 
             if isinstance(item, Armor):
-                print "%s has a defense of %s." %(itemName, itemDefense)
+                print "\t%s has a defense of %s." %(itemName, itemDefense)
             elif isinstance(item, Weapon):
-                print "%s has an attack value of %s."(itemName, itemAttack)
+                print "\t%s has an attack value of %s." %(itemName, itemAttack)
+            elif isinstance(item, Potion):
+                print "\t%s has a healing value of %s." %(itemName, itemHeal)
             print ""
 
-            totalWeight += itemWeight
+            totalWeight += int(itemWeight)
 
-        print "Total weight of inventory: %s" %totalWeight
+        print "\tTotal weight of inventory: %s" %totalWeight

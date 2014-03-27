@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 
 class NorthCommand(Command):
@@ -21,6 +23,12 @@ class NorthCommand(Command):
         """
         Run North command.
         """
+        #Make sure there is a north exit
+        if not self._player.canMoveNorth():
+            print "Cannot move North"
+            return
+
+        #Move North
         print "--------------------------------"
         print "         moving north"
         print "              /\                "
@@ -28,7 +36,6 @@ class NorthCommand(Command):
         print "              ||                "
         print ""
 
-        #Move North
         self._player.moveNorth()
 
         space = self._player.getLocation()

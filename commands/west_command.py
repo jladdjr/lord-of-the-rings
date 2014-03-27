@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from command import Command
 
 class WestCommand(Command):
@@ -21,13 +23,18 @@ class WestCommand(Command):
         """
         Run West command.
         """
+        #Make sure there is a west exit
+        if not self._player.canMoveWest():
+            print "Cannot move West"
+            return
+
+        #Move West
         print "--------------------------------"
         print "         moving west"
         print "      ----------------->        "
         print ""
         print "--------------------------------"
 
-        #Move West
         self._player.moveWest()
 
         space = self._player.getLocation()
