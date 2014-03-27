@@ -220,19 +220,40 @@ class Player(object):
         return self._inventory
 
     def moveNorth(self):
-        pass
-        #TODO: Consider replacing this with moveNorth(), moveSouth(), etc.
-        #      methods. (Or, create a move() method that takes a direction
-        #      (which should be defined in constants). -JDL
+        northSpace = self._location.getExit(constants.Direction.NORTH) 
+        
+        #If north space does not exist, do nothing
+        if not northSpace:
+            return
+        #..otherwise, move to new space 
+        self._location = northSpace
 
     def moveSouth(self):
-        pass
+        southSpace = self._location.getExit(constants.Direction.SOUTH)
+
+        #If south space does not exist, do nothing
+        if not southSpace:
+            return
+        #..otherwise, move to new space 
+        self._location = southSpace 
 
     def moveEast(self):
-        pass
+        eastSpace = self._location.getExit(constants.Direction.EAST)
+
+        #If east space does not exist, do nothing
+        if not eastSpace:
+            return
+        #..otherwise, move to new space 
+        self._location = eastSpace 
 
     def moveWest(self):
-        pass
+        westSpace = self._location.getExit(constants.Direction.WEST)
+
+        #If west space does not exist, do nothing
+        if not westSpace:
+            return
+        #..otherwise, move to new space 
+        self._location = westSpace 
 
     def getLocation(self):
         """

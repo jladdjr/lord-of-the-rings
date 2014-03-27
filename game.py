@@ -70,19 +70,19 @@ class Game(object):
         self._commandWords.addCommand("stats", checkStatsCmd)
   
         northCmd = NorthCommand("north", 
-                    "Moves the player to the space north of current space")
+                    "Moves the player to the space north of current space", self._player)
         self._commandWords.addCommand("north", northCmd)
         
         southCmd = SouthCommand("south", 
-                    "Moves the player to the space south of current space")
+                    "Moves the player to the space south of current space", self._player)
         self._commandWords.addCommand("south", southCmd)
         
         eastCmd = EastCommand("east", 
-                    "Moves the player to the space east of current space")
+                    "Moves the player to the space east of current space", self._player)
         self._commandWords.addCommand("east", eastCmd)
         
         westCmd = WestCommand("west", 
-                    "Moves the player to the space west of current space")
+                    "Moves the player to the space west of current space", self._player)
         self._commandWords.addCommand("west", westCmd)
         
         descCmd = DescribeCommand("describe", 

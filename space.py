@@ -137,6 +137,20 @@ class Space(object):
             oppositeDirection = self._oppositeDirection(direction)
             adjSpace._exits[oppositeDirection] = None
 
+    def getExit(self, direction):
+        """
+        Returns a reference to an adjacent space.
+        Returns None if no space exists in given direction.
+
+        @param direction:   Direction of adjacent space.
+                            Must be one of the directions defined in
+                            constants.Direction.
+        
+        @return:            Reference to space in given direction.
+        """
+        space = self._exits[direction]
+        return space
+
     def _isExit(self, exit):
         """
         Makes sure that a string represents a valid exit.
