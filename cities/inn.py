@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
-from cities.building import Building
+from building import Building
 
 class Inn(Building):
     """
-    Inns are in cities. Inns allow player to heal.
+    Inns are instances of the Building object.
+    Inns have a special method that allows player to heal.
     """
-    def __init__(self, name, description, greetings, cost):
+    def __init__(self, name, description, greetings):
         """
         Initializes inn object.
 
@@ -18,12 +19,14 @@ class Inn(Building):
         Building.__init__(self, name, description, greetings)
         self._cost = cost
         
-    def execute(self, player):
+    def enterBuilding(self, player):
         """
-        Executes inn object.
+        Player enters inn.
         """
         print self._greetings
         print "Cost to stay: %s." %self._cost
+
+		#TODO: Use _heal method to heal player.
     
     def getCost(self):
         """
@@ -32,3 +35,11 @@ class Inn(Building):
         @return:    Cost of using inn.
         """
         return self._cost
+
+	def _heal(self, player):
+		"""
+		Heals a player.
+
+		@param player:		The player.
+		"""
+		pass

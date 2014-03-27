@@ -2,16 +2,18 @@
 
 class Building(object):
     """
-    Buildings places player may visit in cities.
+    Generic Building object. Inns, Shops, Squares, etc. inherit from the Building object.      
+    These objects will also have their own special methods.
     """
     def __init__(self, name, description, greetings):
         """
-        Initializes parent buildings object.
+        Initializes Building object.
 
         @param name:           The name of the building.
         @param description:    A description of the building.
-        @param greetings:      The greetings the user gets as he enters building.
-        """        
+        @param greetings:      The greetings the user gets as (s)he enters a building.
+        """
+        
         self._name = name
         self._description = description
         self._greetings = greetings
