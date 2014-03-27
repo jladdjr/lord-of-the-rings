@@ -89,7 +89,7 @@ class Player(object):
 
         @param newExperience:    The experience player is to receive.
         """
-        self._experience += new_experience
+        self._experience += newExperience
         
     def getLevel(self):
         """

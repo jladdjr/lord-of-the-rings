@@ -1,20 +1,17 @@
 #!/usr/bin/python
 
-from building import Building
-
-class Inn(Building):
+class Building(object):
     """
-    Inns are instances of the Building object.
-    Inns have a special method that allows player to heal.
+    Generic Building object. Inns, Shops, Squares, etc. inherit from the Building object.      
+    These objects will also have their own special methods.
     """
     def __init__(self, name, description, greetings):
         """
         Initializes inn object.
 
-        @param name:           The name of the inn.
-        @param description:    A description of the inn.
-        @param greetings:      The greetings the user gets as he enters a inn.
-        @param talk:           What the local say when the user talks to the locale.
+        @param name:           The name of the building.
+        @param description:    A description of the building.
+        @param greetings:      The greetings the user gets as (s)he enters a building.
         """
         self._player = player
         
@@ -43,9 +40,4 @@ class Inn(Building):
         Prints a screen that represents a player greeting upon entering inn.
         """
         print self._greetings
-        
-    def heal(self):
-        """
-        Heals player.
-        """
-        
+
