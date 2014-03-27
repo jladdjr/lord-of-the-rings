@@ -1,19 +1,21 @@
 from command import Command
-import space_dictionary
-from player import Player
-import space
 
 class EastCommand(Command):
     """
     East command.
     """
-
-    def __init__(self, name, explanation):
+    def __init__(self, name, explanation, player):
         """
-        Initializes new north command.
+        Initializes new east command.
+
+        @param name:            Command's name.
+        @param explanation:     Description of what command does.
+        @param player:          Reference to command.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
+
+        self._player = player
 
     def execute(self):
         """
@@ -23,13 +25,14 @@ class EastCommand(Command):
         print "         moving east"
         print "      ----------------->        "
         print ""
-        #what is the current space?
-        self.current_space = Player.current_space
-        #what is north of the current space?
-        east_space = space_dictionary.dictionary[self.current_space]['east']
+        print "--------------------------------"
+
+        #Move East
+        self._player.moveEast()
+
+        space = self._player.getLocation()
+        name = space.getName()
+        description = space.getDescription()
         
-        print "Welcome to ",east_space
-        Player.current_space = east_space
-        self.current_space=east_space
-        print space.current_space.description
- 
+        print "Welcome to ", name 
+        print description 
