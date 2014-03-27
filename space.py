@@ -8,7 +8,7 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description):
+    def __init__(self, name, description, items = None, city = None):
         """
         Initialize a Space object.
         """
@@ -17,9 +17,10 @@ class Space(object):
                         Direction.EAST : None,
                         Direction.WEST : None }
 
-        self._items = ItemSet()
         self._name = name
         self._description = description
+        self._items = ItemSet()
+        self._city = city
 
     def getName(self):
         """
@@ -32,7 +33,13 @@ class Space(object):
         Returns description of the room.
         """
         return self._description
-
+        
+    def getItems(self):
+        """
+        Returns a string of times.
+        """
+        return self._items
+        
     def addItem(self, item):
         """
         Adds an item to the room.
@@ -69,17 +76,13 @@ class Space(object):
             
         return False
     
-    def getItemSet(self):
+    def getCity(self):
         """
-        Returns items contained by room.
-        (i.e. An ItemSet object).
-        
-        @return: An ItemSet object containing 
-        set of items found in room.
+        Returns city object.
         """
-        return self._items
+        return self._city
 
-    def createExit(self, direction, space, outgoingOnly=False):
+    def createExit(self, direction, space, outgoingOnly = False):
         """
         Create an exit to another space. By default,
         the method creates the appropriate exit

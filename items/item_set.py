@@ -106,23 +106,6 @@ class ItemSet(object):
  
     def __iter__(self):
         """
-        Provide an iterator for this set of items.
-
-
-        Allows you to create for loops using ItemSet objects:
-
-
-            >>> from item import Item
-            >>> from items import ItemSet
-            >>> item1 = Item("sword", "made by elves", 2)
-            >>> item2 = Item("helmet", "made by men", 1)
-            >>> item3 = Item("healing potion", "restores health", 1)
-            >>> myItemSet = ItemSet([item1, item2, item3])
-            >>> for item in myItemSet:
-            ...     print item.getName()
-            ... 
-            sword
-            helmet
-            healing potion
+        Provides an iterator for this set of items.
         """
         return iter(self._items)

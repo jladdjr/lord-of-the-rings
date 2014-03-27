@@ -7,13 +7,12 @@ class Building(object):
     """
     def __init__(self, name, description, greetings):
         """
-        Initializes inn object.
+        Initializes Building object.
 
         @param name:           The name of the building.
         @param description:    A description of the building.
         @param greetings:      The greetings the user gets as (s)he enters a building.
         """
-        self._player = player
         
         self._name = name
         self._description = description
@@ -39,5 +38,4 @@ class Building(object):
         """
         Prints a screen that represents a player greeting upon entering inn.
         """
-        print self._greetings
-
+        return self._greetings

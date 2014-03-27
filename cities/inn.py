@@ -14,38 +14,32 @@ class Inn(Building):
         @param name:           The name of the inn.
         @param description:    A description of the inn.
         @param greetings:      The greetings the user gets as he enters a inn.
-        @param talk:           What the local say when the user talks to the locale.
+        @param cost:           The cost of using the inn.
         """
-        self._player = player
+        Building.__init__(self, name, description, greetings)
+        self._cost = cost
         
-        self._name = name
-        self._description = description
-        self._greetings = greetings
-
-    def getName(self):
+    def enterBuilding(self, player):
         """
-        Returns name of inn.
-
-        @return:    The name of the inn.
-        """
-        return self._name
-
-    def getDescription(self):
-        """
-        Returns description of inn.
-
-        @return:    The description of the inn.
-        """
-        return self._description
-
-    def greetings(self):
-        """
-        Prints a screen that represents a player greeting upon entering inn.
+        Player enters inn.
         """
         print self._greetings
-        
-    def heal(self):
+        print "Cost to stay: %s." %self._cost
+
+		#TODO: Use _heal method to heal player.
+    
+    def getCost(self):
         """
-        Heals player.
-        """
+        Returns cost for using inn.
         
+        @return:    Cost of using inn.
+        """
+        return self._cost
+
+	def _heal(self, player):
+		"""
+		Heals a player.
+
+		@param player:		The player.
+		"""
+		pass
