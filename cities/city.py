@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-class Cities(object):
+class City(object):
     """
     Cities are the towns of the game. Cities may have inns, blacksmiths and people to talk to.
     """
-    def __init__(self, name, description, greetings, talk):
+    def __init__(self, name, description, greetings, buildings = None):
         """
         Initializes city object.
 
@@ -16,7 +16,7 @@ class Cities(object):
         self._name = name
         self._description = description
         self._greetings = greetings
-        self._talk = talk
+        self._buildings = buildings
 
     def getName(self):
         """
@@ -34,14 +34,14 @@ class Cities(object):
         """
         return self._description
 
-    def Greetings(self):
+    def greetings(self):
         """
         Prints a screen that represents a player greeting upon entering city.
         """
         print self._greetings
         
-    def Talk(self):
+    def getBuildings(self):
         """
-        Prints a string that represents what happens when player attempts to talk to the locale.
+        Returns list of building objects.
         """
-        print self._talk
+        return self._buildings
