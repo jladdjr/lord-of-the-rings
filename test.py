@@ -578,7 +578,6 @@ class PlayerTest(unittest.TestCase):
     def testLevelUp(self):
         from player import Player
         from space import Space
-<<<<<<< HEAD
         from math import floor
         import constants
 
@@ -596,35 +595,6 @@ class PlayerTest(unittest.TestCase):
         self.assertEqual(player._level, floor(player._experience/20) + 1, "Player did not level up.")
         self.assertEqual(player._maxHp, player._level * constants.HP_STAT, "Player Hp did not increase.")
         self.assertEqual(player._attack, player._level * constants.ATTACK_STAT, "Player damage did not increase.")
-=======
-        from items.item import Item
-        from items.item_set import ItemSet
-        from items.weapon import Weapon
-        from items.armor import Armor
-        from stats import Stats
-        from monsters.monster import Monster
-        import constants
-
-        space = Space("shire", "Frodo's home")
-        player = Player("Frodo", space)
-
-        originalLevel = player.getLevel()
-        originalHp = player.getHp()
-        originalDamage = player.getAttack()
-        originalExperience = player.getExperience()
-        
-        player.increaseExperience(1000)
-        
-        newLevel = player.getLevel()
-        newHp = player.getHp()
-        newDamage = player.getAttack()
-        newExperience = player.getExperience()
-        
-        self.assertTrue(newLevel > originalLevel, "Player did not level up.")
-        self.assertTrue(newHp > originalHp, "Player HP did not increase.")
-        self.assertTrue(newDamage > originalDamage, "Player damage did not increase.")
-        self.assertTrue(newExperience > originalExperience, "Player experience did not increase.")
->>>>>>> dmitriy-branch
 
     def testHeal(self):
         #Heal where healing amount is greater than total amount possible
