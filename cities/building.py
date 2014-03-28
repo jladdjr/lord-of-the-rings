@@ -7,35 +7,36 @@ class Building(object):
     """
     def __init__(self, name, description, greetings):
         """
-        Initializes Building object.
+        Initializes building object.
 
         @param name:           The name of the building.
         @param description:    A description of the building.
-        @param greetings:      The greetings the user gets as (s)he enters a building.
+        @param greetings:      The greetings the user gets as (s)he enters building.
         """
-        
         self._name = name
         self._description = description
         self._greetings = greetings
 
     def getName(self):
         """
-        Returns name of inn.
+        Returns name of building.
 
-        @return:    The name of the inn.
+        @return:    The name of the building.
         """
         return self._name
 
     def getDescription(self):
         """
-        Returns description of inn.
+        Returns description of building.
 
-        @return:    The description of the inn.
+        @return:    The description of the building.
         """
         return self._description
 
     def greetings(self):
         """
-        Prints a screen that represents a player greeting upon entering inn.
+        Prints a screen that represents a player greeting upon entering building.
+
+        @return:    The greetings player receives upon entering building.
         """
         return self._greetings

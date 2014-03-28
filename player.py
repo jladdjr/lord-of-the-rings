@@ -21,14 +21,11 @@ class Player(object):
         """
         self._name      = name
         self._location  = location
-        self._inventory = ItemSet()
+        self._money     = constants.STARTING_MONEY
 
-        #Equip player with startingInventory
+        #Initialize player inventory and equipment
+        self._inventory = ItemSet()
         self._equipped = ItemSet()
-        
-        #TODO: Chris add startingEquipment
-        #for item in startingEquipment:
-        #    self.equip(item)
 
         #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
@@ -144,7 +141,7 @@ class Player(object):
             
         self._hp += amountHealed
 
-        print "%s got healed by %s! Player health is now at %s" %(self._name, amountHealed, self._hp)
+        print "%s got healed by %s! %s's health is now at %s" %(self._name, amountHealed, self._name, self._hp)
         
     def getAttack(self):
         """
@@ -229,6 +226,34 @@ class Player(object):
         """
         return self._inventory
 
+    def getMoney(self):
+        """
+        Returns player's money.
+
+        @return:    Player's money.
+        """
+        return self._money
+
+    def increaseMoney(self, amount):
+        """
+        Increases player money.
+        """
+        if amount <= 0:
+            errorMsg = "Method increaseMoney() was given a negative value"
+            raise AssertionError(errorMsg)
+
+        self._money += amount
+        
+    def decreaseMoney(self, amount):
+        """
+        Decreases player money.
+        """
+        if amount <= 0:
+            errorMsg = "Method decreaseMoney() was given a negative value"
+            raise AssertionError(errorMsg)
+
+        self._money -= amount
+    
     def canMoveNorth(self):
         """
         Determines if player can move north.

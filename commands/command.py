@@ -4,7 +4,6 @@ class Command(object):
     """
     Parent class for all Command objects.
     """
-
     def __init__(self, name, explanation):
         """
         Initializes new command object.

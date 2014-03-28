@@ -12,6 +12,7 @@ from commands.help_command import HelpCommand
 from commands.quit_command import QuitCommand
 from commands.describe_command import DescribeCommand
 from commands.drop_command import DropCommand
+from commands.enter_command import EnterCommand
 from commands.pick_up_command import PickUpCommand
 from commands.equip_command import EquipCommand
 from commands.unequip_command import UnequipCommand
@@ -22,14 +23,39 @@ from commands.north_command import NorthCommand
 from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
 from commands.west_command import WestCommand
+import constants
 
 def getWorld():
-    sallyInn = Inn("Sally's Inn", "A place for strangers", "Hi welcome to Sally's Inn", 30)
-    hobbinton = City("Hobbinton", "Capital of the Shire", "Welcome to Hobbinton", [sallyInn])
-    shire = Space("Shire", "Home of the Hobbitses", city = hobbinton)
-    mordor = Space("Mordor", "Oppressive locale. Bad for health!")
-    shire.createExit(constants.Direction.NORTH, mordor)
+    sallyInn = Inn("Sally's Inn", "A place for strangers", "Hi welcome to Sally's Inn", 2)
+    hobbiton = City("Hobbiton", "Village in the Shire", "Welcome to Hobbinton", [sallyInn])
+    shire = Space("Shire", "Home of the Hobbitses", city = hobbiton)
+
+    """
+    oldForest = Space("Old Forest", "Home of Tom Bombadil")
+    bree = Space("Bree")
+    rivendell = City("Rivendell", "The last homely house east of the sea")
+    weatherHills = Space("Weather Hills")
+    rhudaur = Space("Rhudaur")
+    eregion = Space("Eregion")
+    dunland = Space("Dunland")
+    isengard = City("Isengard", "Fortress of Saruman")
+    fangorm = Space("Fangorm", "Mystic forest containing the Entmoot")
+    moria = Space("Moria", "Called \'Khazad-Dum\' by the dwarves"
+    helmsDeep = Space("Helm's Deep", "Fortress of Rohan")
+    lorein = Space("Lorein", "Refuge of the Elves")
+    enedwaith = Space("Enedwaith")
+    anfalas = Space("Anfalas")
+    osgiliath = Space("Osgiliath", "Past capital of Gondor, now in ruins")
+    minasTirith = Space("Minas Tirith", "City of the kings")
+    ithilien = Space("Ithilien")
+    orodruin = Space("Orodruin", "Mount Doom")
+    plateauOfGorgoroth = Space("Plateau of Gorgoroth", "Heart of Mordor")
+    baradDur = Space("Barad Dur", "Fortress of Sauron")
+    nurn = Space("Nurn")
     
+    mordor = Space("Mordor", "Oppressive locale. Bad for health!")
+    shire.createExit(constants.Direction.SOUTH, mordor)
+    """
     return shire
     
 def getStartingInventory():
@@ -69,6 +95,9 @@ def getCommandList(player):
    
     dropCmd = DropCommand("drop", "Drops an item from inventory into local environment.", player)
     commandWords.addCommand("drop", dropCmd)
+
+    enterCmd = EnterCommand("enter", "Allows player to enter a building.", player)
+    commandWords.addCommand("enter", enterCmd)
 
     pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.", player)
     commandWords.addCommand("pick up", pickupCmd)

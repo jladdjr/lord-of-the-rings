@@ -5,10 +5,8 @@ import factories.shop_factory
 
 class Shop(Building):
     """
-    Shops are instances of the Building object.
-    Shop have a special method that allows a player buy items.
+    Shops are buildings that allow player to buy items.
     """
-    
     def __init__(self, name, description, greetings, numItems, quality):
         """
         Initializes shop object.
@@ -19,36 +17,11 @@ class Shop(Building):
         @param numItems:       The number of items that can be bought at the shop.
         @apram quality:        The quality (0-100) of the shop. The higher the quality, the more effective the items that can be bought at this shop.
         """
-        self._player = player
+        Buildings.__init__(self, name, description, greetings)
         
-        self._name = name
-        self._description = description
-        self._greetings = greetings
         self._numItems = numItems
         self._quality = quality
         self._items = shop_factory.getItems(numItems, quality)
-
-    def getName(self):
-        """
-        Returns name of shop.
-
-        @return:    The name of the shop.
-        """
-        return self._name
-
-    def getDescription(self):
-        """
-        Returns description of shop.
-
-        @return:    The description of the shop.
-        """
-        return self._description
-
-    def greetings(self):
-        """
-        Prints a screen that represents a player greeting upon entering shop.
-        """
-        print self._greetings
 
     def getItems(self, numItems, quality):
         """
