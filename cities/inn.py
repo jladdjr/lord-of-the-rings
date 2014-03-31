@@ -39,9 +39,9 @@ class Inn(Building):
             choice = int(raw_input("Choice? "))
                                    
             if choice == 1:
-                if self._player.getMoney() >
-                print "%s was healed at %s cost! %s has %s remaining." \
-                      %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
+                if self._player.getMoney() > self._cost:
+                    print "%s was healed at %s cost! %s has %s remaining." \
+                    %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
                 self._heal(self._player)
                 self._player.decreaseMoney(self._cost)
                 break

@@ -3,6 +3,7 @@
 from space import Space
 from cities.city import City
 from cities.inn import Inn
+from cities.shop import Shop
 from player import Player
 from items.weapon import Weapon
 from items.armor import Armor
@@ -29,6 +30,9 @@ def getWorld():
     sallyInn = Inn("Sally's Inn", "A place for strangers", "Hi welcome to Sally's Inn", 2)
     hobbiton = City("Hobbiton", "Village in the Shire", "Welcome to Hobbinton", [sallyInn])
     shire = Space("Shire", "Home of the Hobbitses", city = hobbiton)
+    
+    smallShop = Shop("Small Shop", "A shack on the edge of Mordor", "Welcome to Shaq's small Shack on the edge of Mordor. Watch out! It's oppressive outside this shack.", 7, 80)
+    oppressorium = City("Oppressorium", "Oppressive City near Mordor!", "Oppression here", [smallShop])
 
     """
     oldForest = Space("Old Forest", "Home of Tom Bombadil")
@@ -52,10 +56,10 @@ def getWorld():
     plateauOfGorgoroth = Space("Plateau of Gorgoroth", "Heart of Mordor")
     baradDur = Space("Barad Dur", "Fortress of Sauron")
     nurn = Space("Nurn")
-    
-    mordor = Space("Mordor", "Oppressive locale. Bad for health!")
-    shire.createExit(constants.Direction.SOUTH, mordor)
     """
+    mordor = Space("Mordor", "Oppressive locale. Bad for health!", city = oppressorium)
+    shire.createExit(constants.Direction.SOUTH, mordor)
+    
     return shire
     
 def getStartingInventory():
