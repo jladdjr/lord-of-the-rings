@@ -7,7 +7,7 @@ class Potion(Item):
     """
     A class of potions.
     """
-    def __init__(self, name, description, weight, healing, cost):
+    def __init__(self, name, description, weight, healing):
         """
         Initializes potions class.
 
@@ -18,7 +18,6 @@ class Potion(Item):
         """
         Item.__init__(self, name, description, weight)
         self._healing = healing
-        self._cost = cost
 
     def getHealing(self):
         """
@@ -27,14 +26,6 @@ class Potion(Item):
         @return: Potion's healing stat.
         """
         return self._healing
-
-    def getCost(self):
-        """
-        Returns the potion's cost.
-
-        @return: The cost of potion.
-        """
-        return self._cost
 
     def getType(self):
         """

@@ -24,17 +24,9 @@ class EnterCommand(Command):
         """
         Allows player to enter a building.
         """
-        name = self._player.getName()
         space = self._player.getLocation()
         city = space.getCity()
-        cityName = city.getName()
         buildings = city.getBuildings()
-
-        #Display places player may enter
-        print "%s may enter the following in %s:" %(name, cityName)
-        for building in buildings:
-            print "\t%s" %building.getName()
-        print ""
 
         buildingToEnter = raw_input("Where would you like to go? ")
         building = city.getBuildingString(buildingToEnter)

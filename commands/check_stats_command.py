@@ -26,7 +26,6 @@ class CheckStatsCommand(Command):
         """
         Displays player stats.
         """
-        #Get player stats
         name = self._player.getName()
         experience = self._player.getExperience()
         level = self._player.getLevel()
@@ -35,8 +34,7 @@ class CheckStatsCommand(Command):
         attack = self._player.getAttack()
         weaponsAttack = 0
         defense = 0
-
-        #Get equipment bonuses
+        
         equipment = self._player.getEquipped()
         equipmentList = equipment.getItems()
         for item in equipmentList:
@@ -46,12 +44,11 @@ class CheckStatsCommand(Command):
                 weaponsAttack = item.getAttack()
                 
         totalAttack = attack + weaponsAttack
-
-        #Print player stats
+                
         print "%s's stats: \n" %name
         print "\t%s is level %s and has %s experience." %(name, level, experience)
-        print "\t%s's Hp: %s." %(name, hp)
-        print "\n\tCharacter-based attack is %s; weapons bonus is %s." %(attack, weaponsAttack)
-        print "\tTotal attack is %s." %totalAttack
-        print "\tArmor-based defense is %s." %defense
+        print "\t%s's Hp: %s" %(name, hp)
+        print "\n\tCharacter-based attack is %s; weapons bonus is %s" %(attack, weaponsAttack)
+        print "\tTotal attack is %s" %totalAttack
+        print "\tArmor-based defense is %s" %defense
                 

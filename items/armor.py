@@ -7,7 +7,7 @@ class Armor(Item):
     """
     Armor class.
     """
-    def __init__(self, name, description, weight, defense, cost):
+    def __init__(self, name, description, weight, defense):
         """
         Initializes armor class.
 
@@ -18,7 +18,6 @@ class Armor(Item):
         """
         Item.__init__(self, name, description, weight)
         self._defense = defense
-        self._cost = cost
 
     def getDefense(self):
         """
@@ -27,14 +26,6 @@ class Armor(Item):
         @return: Armor's defense.
         """
         return self._defense
-
-    def getCost(self):
-        """
-        Returns armor cost.
-
-        @return:    Armor cost
-        """
-        return self._cost
 
     def getType(self):
         """

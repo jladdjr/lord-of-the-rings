@@ -24,18 +24,10 @@ class PickUpCommand(Command):
         """
         Picks up an item from a room and adds it to inventory.
         """
-        name = self._player.getName()
-        location = self._player.getLocation()
-        locationItems = location.getItems()
-
-        #Prompt player for item selection
-        print "The following may be picked up by %s:" %name
-        for item in locationItems:
-            print "\t%s" %item.getName()
-        print ""
-        
         itemToAdd = raw_input("Which item do you want to pick up? ")
-        item = locationItems.getItemByName(itemToAdd)
+        location = self._player.getLocation()
+        items = location.getItemSet()
+        item = items.getItemByName(itemToAdd)
         
         if not item:
             print "%s does not contain item." %space.getName()
