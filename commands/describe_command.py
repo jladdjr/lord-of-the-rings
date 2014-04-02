@@ -44,7 +44,7 @@ class DescribeCommand(Command):
                 for building in buildings:
                     buildingName = building.getName()
                     buildingDescription = building.getDescription()
-                    print "%s: %s." %(buildingName, buildingDescription)
+                    print "\t%s: %s." %(buildingName, buildingDescription)
         
         #If space has items
         if len(itemsList) > 0:
