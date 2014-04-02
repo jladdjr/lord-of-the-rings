@@ -4,6 +4,7 @@ from items.item import Item
 from items.item_set import ItemSet
 from items.weapon import Weapon
 from items.armor import Armor
+from items.potion import Potion
 from math import floor
 
 import constants
@@ -101,6 +102,8 @@ class Player(object):
         Levels up player and updates player stats. 
         """
         #Checks to see if player has leveled up
+        if self._level == constants.MAX_LEVEL:
+            return
         if self._level != floor(self._experience/20) + 1:
             self._level = floor(self._experience/20) + 1
 
@@ -157,22 +160,31 @@ class Player(object):
 
         @param item:    The item to be equipped.
         """
-        print ""
+        #Check to see if item may be equipped
         if not (item in self._inventory) \
             or not (isinstance(item, Armor) or isinstance(item, Weapon)) \
             or item in self._equipped:
+            print ""
             print "Cannot equip %s." %item.getName()
 
+        #Update player to reflect equipment
         else:
-            self._equipped.addItem(item)
-            #Update player to reflect equipment
             if isinstance(item, Armor):
                 self._armor = item
                 self._armorDefense = self._armor.getDefense()
-            if isinstance(item, Weapon):
+            elif isinstance(item, Weapon):
                 self._weapon = item
                 self._weaponAttack = self._weapon.getAttack()
-                    
+
+            #Unequip currently equipped armor/weapon if necessary
+            for currentItem in self._equipped:
+                if isinstance(currentItem, Weapon) and isinstance(item, Weapon):  
+                    self.unequip(currentItem)
+                elif isinstance(currentItem, Armor) and isinstance(item, Armor):
+                    self.unequip(currentItem)
+                
+            self._equipped.addItem(item)
+            
             print "%s equipped %s." %(self._name, item.getName())
             
     def unequip(self, item):
@@ -198,6 +210,22 @@ class Player(object):
         else:
             print "Cannot unequip %s." %item.getName()
 
+    def getArmor(self):
+        """
+        Returns player armor.
+
+        @return:    Player's current armor.
+        """
+        return self._armor
+
+    def getWeapon(self):
+        """
+        Returns play weapon.
+
+        @return:    Player's current weapon.
+        """
+        return self._weapon
+
     def getEquipped(self):
         """
         Returns the player's currently equipped equipment.
@@ -212,11 +240,22 @@ class Player(object):
 
         @param item:   The item to be added to inventory.
         """
-        if isinstance(item, Item) and (item not in self._inventory):
+        if (isinstance(item, Item) or isinstance(item, Potion) or isinstance(item, Weapon) or isinstance(item, Armor)) and (item not in self._inventory):
             print "Added %s to inventory." %item.getName()
             self._inventory.addItem(item)
         else:
             print "Cannot add %s to inventory." %(item)
+
+    def removeInventory(self, item):
+        """
+        Removes an item from inventory. If item is currently equipped, unequips item.
+
+        @param item:   The item to be removed.
+        """
+        if item in self._inventory:
+            if item in self._equipped:
+                self.unequip(item)
+            self._inventory.removeItem(item)
     
     def getInventory(self):
         """

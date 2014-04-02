@@ -4,7 +4,7 @@ from cities.building import Building
 
 class Inn(Building):
     """
-    Inns are buildings that allow player to heal
+    Inns are buildings that allow player to heal.
     """
     def __init__(self, name, description, greetings, cost):
         """
@@ -26,27 +26,35 @@ class Inn(Building):
 
         print ""
         print "- - - %s - - -" %self._name
-        print self._greetings
+        print self._greetings + "."
         print "Cost to stay: %s." %self._cost
 
+        #Determine player choice
         choice = None
         while choice != 2:
             print """
-            Here are your options:
-            1) Heal
+            What would you like to do?:
+            1) Stay
             2) Leave
             """
             choice = int(raw_input("Choice? "))
-                                   
+
+            #Heal option   
             if choice == 1:
-                if self._player.getMoney() >
-                print "%s was healed at %s cost! %s has %s remaining." \
-                      %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
-                self._heal(self._player)
-                self._player.decreaseMoney(self._cost)
-                break
+                #Checks that player has enough money
+                if self._player.getMoney() >= self._cost:
+                    self._player.decreaseMoney(self._cost)
+                    #Actual healing operation
+                    self._heal(self._player)
+                    print "%s was healed at %s cost! %s has %s rubbles remaining." \
+                          %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
+                    break
+                
+            #Non-use option
             elif choice == 2:
-                print "Thanks for coming to %s" %self._name
+                print "Thanks for coming to %s." %self._name
+                
+            #For invalid input
             else:
                 print "Invalid choice."
     

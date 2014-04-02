@@ -33,6 +33,7 @@ class EquipCommand(Command):
         itemEquipment = equipped.getItemByName(itemToEquip)
         
         #Checks if item is in inventory and is not already equipped
+        print ""
         if not itemInventory:
             print "%s is not in your inventory!" %itemToEquip
             return
