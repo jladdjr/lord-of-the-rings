@@ -11,7 +11,7 @@ class City(object):
         @param name:           The name of the city.
         @param description:    A description of the city.
         @param greetings:      The greetings the user gets as he enters a city.
-        @param talk:           What the local say when the user talks to the locale.
+        @param buildings:      A list of the buildings in city.
         """
         self._name = name
         self._description = description
@@ -38,10 +38,20 @@ class City(object):
         """
         Prints a screen that represents a player greeting upon entering city.
         """
-        print self._greetings
+        return self._greetings
         
     def getBuildings(self):
         """
         Returns list of building objects.
         """
         return self._buildings
+
+    def getBuildingString(self, string):
+        """
+        Returns building object given string parameter.
+
+        @param:    Name of the building
+        """
+        for building in self._buildings:
+            if building.getName() == string:
+                return building

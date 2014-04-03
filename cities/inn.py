@@ -1,13 +1,12 @@
 #!/usr/bin/python
 
-from building import Building
+from cities.building import Building
 
 class Inn(Building):
     """
-    Inns are instances of the Building object.
-    Inns have a special method that allows player to heal.
+    Inns are buildings that allow player to heal.
     """
-    def __init__(self, name, description, greetings):
+    def __init__(self, name, description, greetings, cost):
         """
         Initializes inn object.
 
@@ -19,14 +18,45 @@ class Inn(Building):
         Building.__init__(self, name, description, greetings)
         self._cost = cost
         
-    def enterBuilding(self, player):
+    def execute(self, player):
         """
-        Player enters inn.
+        The events sequence upon player entering inn.
         """
-        print self._greetings
+        self._player = player
+
+        print ""
+        print "- - - %s - - -" %self._name
+        print self._greetings + "."
         print "Cost to stay: %s." %self._cost
 
-		#TODO: Use _heal method to heal player.
+        #Determine player choice
+        choice = None
+        while choice != 2:
+            print """
+            What would you like to do?:
+            1) Stay
+            2) Leave
+            """
+            choice = int(raw_input("Choice? "))
+
+            #Heal option   
+            if choice == 1:
+                #Checks that player has enough money
+                if self._player.getMoney() >= self._cost:
+                    self._player.decreaseMoney(self._cost)
+                    #Actual healing operation
+                    self._heal(self._player)
+                    print "%s was healed at %s cost! %s has %s rubbles remaining." \
+                          %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
+                    break
+                
+            #Non-use option
+            elif choice == 2:
+                print "Thanks for coming to %s." %self._name
+                
+            #For invalid input
+            else:
+                print "Invalid choice."
     
     def getCost(self):
         """
@@ -36,10 +66,14 @@ class Inn(Building):
         """
         return self._cost
 
-	def _heal(self, player):
-		"""
-		Heals a player.
+    def _heal(self, player):
+	"""
+	Heals player at a cost.
 
-		@param player:		The player.
-		"""
-		pass
+	@param player:	  The player object.
+	"""
+	maxHp = player.getMaxHp()
+	hp = player.getHp()
+	amountToHeal = maxHp - hp
+
+	player.heal(amountToHeal)

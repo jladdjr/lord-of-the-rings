@@ -10,10 +10,15 @@ COMMAND_PROMPT = "> "
 STARTING_EXPERIENCE = 0
 STARTING_EQUIPMENT = []
 STARTING_LEVEL = 1
+STARTING_MONEY = 20
 
 #Character stat calculation
 HP_STAT = 20
 ATTACK_STAT = 2
+MAX_LEVEL = 20
+
+#Game stats
+SELL_LOSS = .5
 
 #Direction enumeration
 class Direction(object):
