@@ -115,8 +115,6 @@ def getWorld():
     seaOfNurn = Space("Sea of Nurn", "")
     
     
-    smallShop = Shop("Small Shop", "A shack on the edge of Mordor", "Welcome to Shaq's small Shack on the edge of Mordor. Watch out! It's oppressive outside this shack.", 7, 80)
-    oppressorium = City("Oppressorium", "Oppressive City near Mordor!", "Oppression here", [smallShop])
     
 
     """

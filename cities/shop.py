@@ -8,8 +8,6 @@ from items.potion import Potion
 from factories.shop_factory import getItems
 import constants
 
-shop_factory = factories.shop_factory
-
 class Shop(Building):
     """
     Shops are buildings that allow player to buy items.

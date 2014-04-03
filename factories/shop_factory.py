@@ -161,4 +161,5 @@ def getItems(numItems, quality):
             #Generate potion
             potion = Potion(name, description, weight, healing, cost)
             items.append(potion)
+    
     return items
