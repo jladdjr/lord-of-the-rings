@@ -27,18 +27,24 @@ class Shop(Building):
         
         self._numItems = numItems
         self._quality = quality
+        #TODO: Don't import function directly; instead, qualify it with shop_factory.getItems()
         self._items = getItems(numItems, quality)
     
+    #TODO: Break this up using helper methods
+    #TODO: Rename to enter() or enterBuilding()
     def execute(self, player):
         """
         Returns the items in the shop.
         """
+        #TODO: Just use player
         self._player = player
         
+        #TODO: Add space after %
         print ""
         print "- - - %s - - -" %self._name
         print self._greetings + "."
 
+        #TODO: No magic numbers
         #Determine player choice
         choice = None
         while choice != 5:
@@ -113,9 +119,12 @@ class Shop(Building):
                 for item in self._items:
                     print "\t%s... with cost of %s." %(item.getName(), item.getCost())
                 print ""
+                #TODO: Use currency name from constanst.py instead
                 print "%s has %s rubles with which to spend." %(player.getName(), player.getMoney())
                 itemToPurchase = raw_input("Which item would you like to purchase? ")
                 #Check to find object associated with user-given string
+
+                #TODO: Consider replacing this code with containsItemWithName() (after Dmitriy pushes code for the method)
                 for item in self._items:
                     if itemToPurchase == item.getName():
                         #Check to see if player has enough money to purchase item
