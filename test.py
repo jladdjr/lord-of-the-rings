@@ -660,7 +660,39 @@ class PlayerTest(unittest.TestCase):
         self.assertFalse(newWeapon in player.getEquipped(), "Failed to unequip %s" %newWeapon)
         player.unequip(newArmor)
         self.assertFalse(newArmor in player.getEquipped(), "Failed to unequip %s" %newArmor)
-    
+class InnTest(unittest.TestCase):
+    """
+    Tests the healing ability of Inn Object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.inn import Inn
+        from cities.city import City
+
+        testinn = Inn("Chris' testing Inn", "Come test here", "hi", 5)
+        testcity = City("Test City", "testing city", "hello to testing city. see Chris' Inn", testinn)
+        space = Space("Shire", "Home of the Hobbits.", city = testcity)
+        player = Player("Frodo", space)
+        
+        #player's health is lowest possible to be alive
+        player._hp = 1
+        #player's money is equal to 10
+        player._money = 10
+
+        #Player chooses to stay at the inn
+        rawInputMock = MagicMock(return_value=1)
+        
+        with patch('cities.inn.raw_input', create=True, new=rawInputMock):
+            testinn.execute(player)
+        
+        #player's money should decrease by the cost of the inn, in our case 5.
+        self.assertEqual(player._money, 5, "Player's money not decreased by correct amount.")
+        
+        #player's health should increase to maximum.
+        self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
+        
+        
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()
