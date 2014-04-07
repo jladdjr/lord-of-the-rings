@@ -88,6 +88,19 @@ class ItemSet(object):
         """
         return (item in self._items)
 
+    def containsItemWithName(self, itemName):
+        """
+        Determines if item is contained in this collection.
+        
+        @param itemName: Items's name
+        
+        @return: True if item with givne name is present, False otherwise
+        """
+        for item in self._items:
+            if item._name == itemName:
+                return True
+        return False
+
     def count(self):
         """
         Returns the number of items.

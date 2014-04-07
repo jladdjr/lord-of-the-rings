@@ -95,7 +95,7 @@ class Shop(Building):
                 for item in inventory:
                     if item.getName() == itemToSell:
                         sellValue = constants.SELL_LOSS * item.getCost()
-                        choice = raw_input("Would you like to seel %s for %s rubbles? Response: y/n. " %(item.getName(), sellValue))
+                        choice = raw_input("Would you like to sell %s for %s rubles? Response: y/n. " %(item.getName(), sellValue))
                         if choice.lower() == "y":
                             player.removeInventory(item)
                             player.increaseMoney(sellValue)
