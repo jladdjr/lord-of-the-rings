@@ -736,7 +736,7 @@ class SquareDoesNotCrash(unittest.TestCase):
     def testInit(self):
         from player import Player
         from space import Space
-        from cities.shop import Shop
+        from cities.square import Square
         from cities.city import City
 
         testsquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
