@@ -728,6 +728,31 @@ class ShopSellItems(unittest.TestCase):
         
         #player's inventory should no longer include leather tunic.
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
+        
+class SquareDoesNotCrash(unittest.TestCase):
+    """
+    Tests the ability of Square Object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.shop import Shop
+        from cities.city import City
+
+        testsquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
+        testcity = City("Test City", "testing city", "hello to testing city. see Chris' Square", testsquare)
+        space = Space("Shire", "Home of the Hobbits.", city = testcity)
+        player = Player("Frodo", space)
+        
+        #Player chooses to: 1(talk), to Master Wang, 1(talk), to Miles, 2(Leave) the square
+        rawInputMock = MagicMock(side_effect = ["1", "Master Wang", "1", "Miles", "2"])
+        
+        with patch('cities.square.raw_input', create = True, new = rawInputMock):
+            testsquare.execute(player)
+        
+        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+        
 
 
 if __name__ == '__main__':
