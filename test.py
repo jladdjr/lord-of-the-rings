@@ -815,7 +815,7 @@ class SquareDoesNotCrash(unittest.TestCase):
         player = Player("Frodo", space)
         
         #Player chooses to: 1(talk), to Master Wang, 1(talk), to Miles, 2(Leave) the square
-        rawInputMock = MagicMock(side_effect = ["1", "Master Wang", "1", "Miles", "2"])
+        rawInputMock = MagicMock(side_effect = ["1", "Master Wang", "1", "Miles", "gobbledigook", "2"])
         
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
             testsquare.execute(player)
