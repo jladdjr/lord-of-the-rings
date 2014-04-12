@@ -40,3 +40,18 @@ class Building(object):
         @return:    The greetings player receives upon entering building.
         """
         return self._greetings
+
+    #TODO: Create enter() method here.
+    #      Leave it empty, but in the docstring mention that
+    #      it should be overwritten by the child class.
+    #      This helps developers know that the enter() method
+    #      is something all sub-classes of building should
+    #      have in common.
+
+    def enterBuilding(self, player):
+        """
+        This method should be overridden by every child class.
+
+        @player:    The player.
+        """
+        print "This method should be overwritten."

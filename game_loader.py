@@ -28,6 +28,7 @@ from commands.east_command import EastCommand
 from commands.west_command import WestCommand
 import constants
 
+#TODO: Only use 20 spaces
 def getWorld():
     sallyInn = Inn("Sally's Inn", "A place for strangers", "Hi welcome to Sally's Inn", 2)
     sallyShop = Shop("Sally's Shop", "Buy things", "We have strange wares", 4, 3)
