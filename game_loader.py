@@ -5,6 +5,7 @@ from cities.city import City
 from cities.inn import Inn
 from cities.square import Square
 from cities.shop import Shop
+from unique_place import UniquePlace
 from player import Player
 from items.weapon import Weapon
 from items.armor import Armor
