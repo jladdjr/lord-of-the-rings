@@ -157,6 +157,10 @@ class Player(object):
     def equip(self, item):
         """
         Allows a character to equip an item in inventory.
+        
+        Note: An item *must* be in the player's inventory
+        before it can be equipped. The item must also
+        be a piece of Armor or a Weapon.
 
         @param item:    The item to be equipped.
         """
@@ -166,26 +170,33 @@ class Player(object):
             or item in self._equipped:
             print ""
             print "Cannot equip %s." %item.getName()
+            return
 
-        #Update player to reflect equipment
-        else:
-            if isinstance(item, Armor):
-                self._armor = item
-                self._armorDefense = self._armor.getDefense()
-            elif isinstance(item, Weapon):
-                self._weapon = item
-                self._weaponAttack = self._weapon.getAttack()
+        #Unequip currently equipped armor/weapon if necessary
+        if isinstance(item, Armor):
+            self._armor = item
+            self._armorDefense = self._armor.getDefense()
+        elif isinstance(item, Weapon):
+            self._weapon = item
+            self._weaponAttack = self._weapon.getAttack()
 
-            #Unequip currently equipped armor/weapon if necessary
-            for currentItem in self._equipped:
-                if isinstance(currentItem, Weapon) and isinstance(item, Weapon):  
-                    self.unequip(currentItem)
-                elif isinstance(currentItem, Armor) and isinstance(item, Armor):
-                    self.unequip(currentItem)
-                
-            self._equipped.addItem(item)
+        for currentItem in self._equipped:
+            if isinstance(item, Weapon) and isinstance(currentItem, Weapon):  
+                self.unequip(currentItem)
+            elif isinstance(item, Armor) and isinstance(currentItem, Armor):
+                self.unequip(currentItem)
             
-            print "%s equipped %s." %(self._name, item.getName())
+        #Update player to reflect equipment
+        if isinstance(item, Armor):
+            self._armor = item
+            self._armorDefense = self._armor.getDefense()
+        elif isinstance(item, Weapon):
+            self._weapon = item
+            self._weaponAttack = self._weapon.getAttack()
+
+        self._equipped.addItem(item)
+        
+        print "%s equipped %s." %(self._name, item.getName())
             
     def unequip(self, item):
         """

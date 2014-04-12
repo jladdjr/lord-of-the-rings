@@ -285,10 +285,10 @@ class DropTest(unittest.TestCase):
         player = Player("Frodo", space)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
 
         player.addToInventory(weapon)
-        player.addEquipped(weapon)
+        player.equip(weapon)
 
         #Asserts item in player inventory but not in space
         self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
