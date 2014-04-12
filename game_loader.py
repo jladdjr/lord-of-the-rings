@@ -32,7 +32,7 @@ import constants
 def getWorld():
     sallyInn = Inn("Sally's Inn", "A place for strangers", "Hi welcome to Sally's Inn", 2)
     sallyShop = Shop("Sally's Shop", "Buy things", "We have strange wares", 4, 3)
-    chocoSquare = Square("Choco Square", "Lots of Hobbits", "Welcome to Choco Square", {"Samwise Gamgee": "Hi I'm Sam", "Jim Ladd Jr.": "Hi I'm Jim"})
+    chocoSquare = Square("Choco Square", "Lots of Hobbits", "Welcome to Choco Square", {"Samwise Gamgee": "Hi I'm Sam", "Jim Ladd Jr.": "Hi I'm Jim, the dear Ladd, friend of Master Wang"})
     nenuial = Space("Nenuial", "")
     northDowns = Space("North Downs", "")
     ettenmoors = Space("Ettenmoors", "")

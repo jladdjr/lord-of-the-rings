@@ -729,6 +729,101 @@ class ShopSellItems(unittest.TestCase):
         #player's inventory should no longer include leather tunic.
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
 
+class ShopPurchaseItems(unittest.TestCase):
+    """
+    Tests the ability to purchase items in the Shop Object:
+    1.) Purchasing an item player has money for
+    2.) Failing to purchase an item player does not have money for
+    3.) Failing to purchase invalid item
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.shop import Shop
+        from cities.city import City
+        from items.potion import Potion
+
+        testshop = Shop("Chris' testing Shop", "Come test here", "hi", 5, 10)
+        testcity = City("Test City", "testing city", "hello to testing city. see Chris' Shop", testshop)
+        space = Space("Shire", "Home of the Hobbits.", city = testcity)
+        player = Player("Frodo", space)
+        player_money = player._money
+       
+        #our shop should currently have 5 items (this was designed when it was created)
+        self.assertEqual(len(testshop._items), 5, "Our test shop was generated with the wrong number of items")
+
+        #add Potion to Shop inventory. weight=1, healing=5, cost=3.
+        testpotion = Potion ("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
+        testshop._items.append(testpotion)
+       
+        #player should start with 20 rubles
+        self.assertEqual(player._money, 20, "Player does not start with 20 rubles")
+       
+        #Player chooses to: 4(purchase item), to purchase medium potion of healing, 4(purchase item), 5(Quit) the shop
+        rawInputMock = MagicMock(side_effect = ["4", "Medium Potion of Healing", "5"])
+       
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testshop.execute(player)
+       
+        #player's money should decrease by the cost of medium potion, which is 3.
+        self.assertEqual(player._money, 17, "Player's money not decreased by correct amount. It is %s" %player._money)
+       
+        #player's inventory should include medium potion of healing.
+        self.assertTrue(player._inventory.containsItemWithName("Medium Potion of Healing"), "Medium Potion that was purchased was not added to inventory")
+
+        #add superduperlegendary Potion to Shop inventory. weight=1, healing=35, cost=28.
+        testpotion2 = Potion ("SuperDuperLegendary Potion of Healing", "A Wang concoction. Made by Master Wang.", 1, 35, 28)
+        testshop._items.append(testpotion2)
+
+        #Player chooses to: 4(purchase item), SuperDuperLegendary Potion of Healing, 4(purchase item) , fake item, 5(Quit) the shop
+        rawInputMock = MagicMock(side_effect = ["4", "SuperDuperLegendary Potion of Healing", "5"])
+       
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testshop.execute(player)
+       
+        #player's money should not decrease by the cost of SuperDuperLegendary Potion of Healing, which is 28.
+        self.assertEqual(player._money, 17, "Player's money should not be decreased from 17. Player can't buy SuperDuperLegendary Potion. It is currently %s" %player._money)
+       
+        #player's inventory should not include SuperDuperLegendary Potion of Healing.
+        self.assertFalse(player._inventory.containsItemWithName("SuperDuperLegendary Potion of Healing"), "SuperDuperLegendary Potion that was not purchased was added to inventory")
+
+        #Player chooses to: 4(purchase item), fake item, 5(Quit) the shop
+        rawInputMock = MagicMock(side_effect = ["4", "Fake Item", "5"])
+       
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testshop.execute(player)
+       
+        #player's money should not change.
+        self.assertEqual(player._money, 17, "Player's money should not be decreased when trying to purchase fake item. It is currently %s" %player._money)
+       
+        #player's inventory should not include Fake Item.
+        self.assertFalse(player._inventory.containsItemWithName("Fake Item"), "Fake Item that was not purchased was added to inventory")
+        
+class SquareDoesNotCrash(unittest.TestCase):
+    """
+    Tests the ability of Square Object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.square import Square
+        from cities.city import City
+
+        testsquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
+        testcity = City("Test City", "testing city", "hello to testing city. see Chris' Square", testsquare)
+        space = Space("Shire", "Home of the Hobbits.", city = testcity)
+        player = Player("Frodo", space)
+        
+        #Player chooses to: 1(talk), to Master Wang, 1(talk), to Miles, 2(Leave) the square
+        rawInputMock = MagicMock(side_effect = ["1", "Master Wang", "1", "Miles", "gobbledigook", "2"])
+        
+        with patch('cities.square.raw_input', create = True, new = rawInputMock):
+            testsquare.execute(player)
+        
+        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+        
+
 
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
