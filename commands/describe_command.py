@@ -45,6 +45,12 @@ class DescribeCommand(Command):
                     buildingName = building.getName()
                     buildingDescription = building.getDescription()
                     print "\t%s: %s." %(buildingName, buildingDescription)
+
+        #If space has one or more uniquePlace objects
+        uniquePlaces = location.getUniquePlaces()
+        for uniquePlace in uniquePlaces:
+            uniquePlaceName = uniquePlace.getName()
+            print "\n%s is contained in %s." %(uniquePlaceName, locationName)
         
         #If space has items
         if len(itemsList) > 0:

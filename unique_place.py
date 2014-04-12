@@ -16,4 +16,12 @@ class UniquePlace(object):
     
     def enterUniquePlace(self):
         print "Hello, and welcome to %s", self._name
+    
+    def getName(self):
+        """
+        returns the name of the uniquePlace
+        
+        @return:    the name of the uniquePlace.
+        """
+        return self._name
         
