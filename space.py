@@ -8,7 +8,7 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description, items = None, city = None):
+    def __init__(self, name, description, items = None, city = None, uniquePlace = None):
         """
         Initialize a Space object.
         """
@@ -21,6 +21,7 @@ class Space(object):
         self._description = description
         self._items = ItemSet()
         self._city = city
+        self._uniquePlace = uniquePlace
 
     def getName(self):
         """
@@ -81,6 +82,12 @@ class Space(object):
         Returns city object.
         """
         return self._city
+
+    def getUniquePlace(self):
+        """
+        Returns uniquePlace object.
+        """
+        return self._uniquePlace
 
     def createExit(self, direction, space, outgoingOnly = False):
         """
