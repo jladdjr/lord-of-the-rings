@@ -55,7 +55,7 @@ class Inn(Building):
                     self._player.decreaseMoney(self._cost)
                     #Actual healing operation
                     self._heal(self._player)
-                    print "%s was healed at %s cost! %s has %s rubbles remaining." \
+                    print "%s was healed at %s cost! %s has %s rubles remaining." \
                           %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
                     break
                 #TODO: Add else clause; if player doesn't have enough money, print a message to that effect so player

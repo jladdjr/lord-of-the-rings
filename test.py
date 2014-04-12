@@ -660,7 +660,76 @@ class PlayerTest(unittest.TestCase):
         self.assertFalse(newWeapon in player.getEquipped(), "Failed to unequip %s" %newWeapon)
         player.unequip(newArmor)
         self.assertFalse(newArmor in player.getEquipped(), "Failed to unequip %s" %newArmor)
-    
+class InnTest(unittest.TestCase):
+    """
+    Tests the healing ability of Inn Object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.inn import Inn
+        from cities.city import City
+
+        testinn = Inn("Chris' testing Inn", "Come test here", "hi", 5)
+        testcity = City("Test City", "testing city", "hello to testing city. see Chris' Inn", testinn)
+        space = Space("Shire", "Home of the Hobbits.", city = testcity)
+        player = Player("Frodo", space)
+                
+        #player's health is lowest possible to be alive
+        player._hp = 1
+        #player's money is equal to 10
+        player._money = 10
+
+        #Player chooses to stay at the inn
+        rawInputMock = MagicMock(return_value=1)
+        
+        with patch('cities.inn.raw_input', create=True, new=rawInputMock):
+            testinn.execute(player)
+        
+        #player's money should decrease by the cost of the inn, in our case 5.
+        self.assertEqual(player._money, 5, "Player's money not decreased by correct amount.")
+        
+        #player's health should increase to maximum.
+        self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
+        
+class ShopSellItems(unittest.TestCase):
+    """
+    Tests the ability to sell in the Shop Object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.shop import Shop
+        from cities.city import City
+        from items.armor import Armor
+
+        testshop = Shop("Chris' testing Shop", "Come test here", "hi", 5, 10)
+        testcity = City("Test City", "testing city", "hello to testing city. see Chris' Shop", testshop)
+        space = Space("Shire", "Home of the Hobbits.", city = testcity)
+        player = Player("Frodo", space)
+        player_money = player._money
+        
+        #create starting iventory
+        armor = Armor("Leather Tunic", "Travel cloak", 3, 1, 1)
+        
+        #add armor to player's inventory
+        inventory = player._inventory
+        player.addInventory(armor)
+        self.assertTrue(inventory.containsItemWithName("Leather Tunic"), "Leather Tunic not added to inventory")
+        
+        #Player chooses to: 3(sell items), to sell leather tunic, yes, 5(Quit) the shop
+        rawInputMock = MagicMock(side_effect = ["3", "Leather Tunic", "y", "5"])
+        
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testshop.execute(player)
+        
+        #player's money should increase by the half the cost of item, in our case this is half of 1, which is 0.5.
+        self.assertEqual(player._money, 20.5, "Player's money not increased by correct amount. It is %s" %player._money)
+        
+        #player's inventory should no longer include leather tunic.
+        self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
+
+
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()
