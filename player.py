@@ -234,7 +234,7 @@ class Player(object):
         """
         return self._equipped
     
-    def addInventory(self, item):
+    def addToInventory(self, item):
         """
         Adds an item to inventory.
 
@@ -246,7 +246,7 @@ class Player(object):
         else:
             print "Cannot add %s to inventory." %(item)
 
-    def removeInventory(self, item):
+    def removeFromInventory(self, item):
         """
         Removes an item from inventory. If item is currently equipped, unequips item.
 

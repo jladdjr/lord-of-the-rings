@@ -169,7 +169,7 @@ def getPlayer(world, startingInventory):
     player = Player("Russian", world)
 
     for item in startingInventory:
-        player.addInventory(item)
+        player.addToInventory(item)
     for item in startingInventory:
         player.equip(item)
         

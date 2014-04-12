@@ -103,7 +103,7 @@ class Shop(Building):
                         sellValue = constants.SELL_LOSS * item.getCost()
                         choice = raw_input("Would you like to sell %s for %s rubles? Response: y/n. " %(item.getName(), sellValue))
                         if choice.lower() == "y":
-                            player.removeInventory(item)
+                            player.removeFromInventory(item)
                             player.increaseMoney(sellValue)
                             self._items.append(item)
                             print "Sold %s for %s." %(item.getName(), sellValue)
@@ -133,7 +133,7 @@ class Shop(Building):
                             return
                         #Actual purchase execution
                         else:
-                            player.addInventory(item)
+                            player.addToInventory(item)
                             self._items.remove(item)
                             player.decreaseMoney(item.getCost())
                             print "%s puchased %s!" %(self._player.getName(), item.getName())
