@@ -21,17 +21,17 @@ class WestCommand(Command):
 
     def execute(self):
         """
-        Run West command.
+        Run west command.
         """
         #Make sure there is a west exit
         if not self._player.canMoveWest():
-            print "Cannot move West"
+            print "Cannot move west."
             return
 
         #Move West
         print "--------------------------------"
-        print "         moving west"
-        print "      ----------------->        "
+        print "         Moving West"
+        print "      <-----------------        "
         print ""
         print "--------------------------------"
 
@@ -41,5 +41,5 @@ class WestCommand(Command):
         name = space.getName()
         description = space.getDescription()
         
-        print "Welcome to ", name 
+        print "Welcome to %s." % name 
         print description 

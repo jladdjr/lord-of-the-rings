@@ -17,7 +17,6 @@ class EquipCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):
@@ -35,11 +34,11 @@ class EquipCommand(Command):
         #Checks if item is in inventory and is not already equipped
         print ""
         if not itemInventory:
-            print "%s is not in your inventory!" %itemToEquip
+            print "%s is not in your inventory!" % itemToEquip
             return
         
         if itemEquipment:
-            print "%s is already equipped!" %itemToEquip
+            print "%s is already equipped!" % itemToEquip
             return
 
         #Equips player with item

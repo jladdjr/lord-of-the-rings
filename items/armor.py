@@ -5,7 +5,7 @@ from items.item import Item
 
 class Armor(Item):
     """
-    Armor class.
+    Armor class. Armor inherits from Item and has the defining parameter, defense.
     """
     def __init__(self, name, description, weight, defense, cost):
         """
@@ -14,7 +14,8 @@ class Armor(Item):
         @param name:         The name of the item.
         @param description:  Armor description.
         @param weight:       Armor weight.
-        @param defense:      The defense stat of the piece of armor.
+        @param defense:      The defense stat of the piece of armor. Reduces the amount
+                             of damage that player receives by this amount. 
         """
         Item.__init__(self, name, description, weight)
         self._defense = defense
@@ -24,7 +25,7 @@ class Armor(Item):
         """
         Returns the item's defense stat.
 
-        @return: Armor's defense.
+        @return:    Armor's defense.
         """
         return self._defense
 
@@ -40,6 +41,6 @@ class Armor(Item):
         """
         Returns the item's type.
 
-        @return: Item's type.
+        @return:   Item's type.
         """
         return ItemType.ARMOR

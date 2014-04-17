@@ -40,6 +40,7 @@ class CommandWords(object):
         """
         if self.isCommand(name): 
             return self._commandWords[name]
+        
         return None
 
     def getCommandNames(self):
@@ -62,7 +63,7 @@ class CommandWords(object):
         @param name:        Name of command.
         """
         if not self.isCommand(name):
-            errorMsg = "Cannot remove '%s' from CommandWords; command not recognized."
+            errorMsg = "Cannot remove '%s' from CommandWords; command not recognized." % name
             raise AssertionError(errorMsg)
         del self._commandWords[name]
 

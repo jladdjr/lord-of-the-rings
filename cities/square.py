@@ -19,33 +19,35 @@ class Square(Building):
 
         self._talk = talk
         
-    def execute(self, player):
+    def enter(self, player):
         """
         The events sequence upon player entering square.
         """
-        self._player = player
-        numberPeople = len(self._talk)
+        numPeople = len(self._talk)
 
         print ""
-        print "- - - %s - - -" %self._name
+        print "- - - %s - - -" % self._name
         print self._greetings
         print ""
 
-        #Determine player choice
+        #User prompt
+        TALK = 1
+        LEAVE = 2
+        
         choice = None
-        while choice != 2:
-            print "There are %s people to talk to in %s:" %(numberPeople, self._name)
+        while choice != LEAVE:
+            print "There are %s people to talk to in %s:" % (numPeople, self._name)
             for person in self._talk:
-                print "\t %s" %person
+                print "\t %s" % person
             print """
-            Here are your options:
-            1) Talk
+            What would you like to do:
+            1) Talk to someone
             2) Leave
             """
 
             #Determine person player wants to talk to
             choice = int(raw_input("What is your choice? "))
-            if choice == 1:
+            if choice == TALK:
                 targetTalk = raw_input("Whom would you like to talk to? ")
                 
                 #Prints the string associated with that person
@@ -57,13 +59,14 @@ class Square(Building):
                 #If that person doesn't exist
                 else:
                     print ""
-                    print "Alas, %s could not be found in %s." %(targetTalk, self._name)
+                    print "Alas, %s could not be found in %s." % (targetTalk, self._name)
                     print ""
                     
             #The option to leave
-            elif choice == 2:
-                print "Leaving %s." %self._name
+            elif choice == LEAVE:
+                print "Leaving %s." % self._name
                 
             #For invalid choices
             else:
                 print "Invalid choice."
+                print ""

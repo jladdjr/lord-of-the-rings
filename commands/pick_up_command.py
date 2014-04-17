@@ -17,7 +17,6 @@ class PickUpCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):
@@ -29,23 +28,23 @@ class PickUpCommand(Command):
         locationItems = location.getItems()
 
         #Prompt player for item selection
-        print "The following may be picked up by %s:" %name
+        print "The following may be picked up by %s:" % name
         for item in locationItems:
-            print "\t%s" %item.getName()
+            print "\t%s" % item.getName()
         print ""
         
         itemToAdd = raw_input("Which item do you want to pick up? ")
         item = locationItems.getItemByName(itemToAdd)
         
         if not item:
-            print "%s does not contain item." %space.getName()
+            print "%s does not contain item." % space.getName()
             return
 
         #Adds item to inventory
         inventory = self._player.getInventory()
         inventory.addItem(item)
         print ""
-        print "Added %s to inventory." %item.getName()
+        print "Added %s to inventory." % item.getName()
 
         #Removes item from space
         location.removeItem(item)

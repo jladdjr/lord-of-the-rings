@@ -17,7 +17,6 @@ class EnterCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):
@@ -31,15 +30,15 @@ class EnterCommand(Command):
         buildings = city.getBuildings()
 
         #Display places player may enter
-        print "%s may enter the following in %s:" %(name, cityName)
+        print "%s may enter the following in %s:" % (name, cityName)
         for building in buildings:
-            print "\t%s" %building.getName()
+            print "\t%s" % building.getName()
         print ""
 
         buildingToEnter = raw_input("Where would you like to go? ")
         building = city.getBuildingString(buildingToEnter)
  
         if building:
-            building.execute(self._player)
+            building.enter(self._player)
         else:
             print "Building does not exist."
