@@ -691,6 +691,8 @@ class InnTest(unittest.TestCase):
         
         #player's health should increase to maximum.
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
+
+#TODO make test for verifying the stats of items in the shop, and put into 1 shop test class with multiple methods
         
 class ShopSellItems(unittest.TestCase):
     """
@@ -728,6 +730,12 @@ class ShopSellItems(unittest.TestCase):
         
         #player's inventory should no longer include leather tunic.
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
+        
+        #Player chooses to: gobbledigook, 5(Quit) the shop
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "5"])
+        
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testshop.execute(player)
 
 class ShopPurchaseItems(unittest.TestCase):
     """
@@ -759,7 +767,7 @@ class ShopPurchaseItems(unittest.TestCase):
         #player should start with 20 rubles
         self.assertEqual(player._money, 20, "Player does not start with 20 rubles")
        
-        #Player chooses to: 4(purchase item), to purchase medium potion of healing, 4(purchase item), 5(Quit) the shop
+        #Player chooses to: 4(purchase item), to purchase medium potion of healing, 4(purchase item), gobbledigook, 5(Quit) the shop
         rawInputMock = MagicMock(side_effect = ["4", "Medium Potion of Healing", "5"])
        
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
@@ -799,6 +807,12 @@ class ShopPurchaseItems(unittest.TestCase):
         #player's inventory should not include Fake Item.
         self.assertFalse(player._inventory.containsItemWithName("Fake Item"), "Fake Item that was not purchased was added to inventory")
         
+        #Player chooses to: gobbledigook, 5(Quit) the shop
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "5"])
+       
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testshop.execute(player)
+        
 class SquareDoesNotCrash(unittest.TestCase):
     """
     Tests the ability of Square Object.
@@ -819,6 +833,23 @@ class SquareDoesNotCrash(unittest.TestCase):
         
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
             testsquare.execute(player)
+        
+        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+        
+
+class UniquePlace(unittest.TestCase):
+    """
+    Tests the ability of UniquePlace Object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from unique_place import UniquePlace
+
+        testuniqueplace = UniquePlace("Chris' unique testing room", "Come test here")
+        space = Space("Shire", "Home of the Hobbits.", uniquePlaces = [testuniqueplace])
+        player = Player("Frodo", space)
         
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
