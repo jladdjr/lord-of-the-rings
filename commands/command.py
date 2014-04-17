@@ -31,6 +31,6 @@ class Command(object):
         Default execute method. By default,
         does nothing.
 
-        This method should be overridden by child class.
+        This method should be overridden by child classes.
         """
         pass

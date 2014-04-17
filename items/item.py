@@ -4,7 +4,7 @@ from constants import ItemType
 
 class Item(object):
     """
-    A generic item. May be held by a player or exist in a room.
+    A generic item. May be held by a player, exist in a room, etc.
 
     Direct use of this class is discouraged. Instead, create a 
     subclass of Item based on its type (e.g. Potion, Weapon, Armor).
@@ -20,7 +20,7 @@ class Item(object):
         if (not name) or (not description) or (not weight):
             raise AssertionError("Item must have name, description, and weight.")
         if weight < 1:
-            errorMsg = "Invalid weight for item (%s); weight must be positive integer." %weight
+            errorMsg = "Invalid weight for item (%s); weight must be positive integer." % weight
             raise AssertionError(errorMsg)
 
         self._name = name

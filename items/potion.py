@@ -5,7 +5,7 @@ from items.item import Item
 
 class Potion(Item):
     """
-    A class of potions.
+    A class of potions. Potions have the defining parameter, healing. 
     """
     def __init__(self, name, description, weight, healing, cost):
         """
@@ -14,7 +14,8 @@ class Potion(Item):
         @param name:          Name of portion.
         @param description:   Description of potion.
         @param weight:        Weight of weapon.
-        @param healing:       Healing stat of weapon.
+        @param healing:       Healing stat of weapon. Player heals by the maximum
+                              of this amount when player uses potion.
         """
         Item.__init__(self, name, description, weight)
         self._healing = healing

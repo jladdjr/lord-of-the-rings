@@ -12,12 +12,11 @@ class DropCommand(Command):
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
-        @param player:       The player object
+        @param player:       The player object.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):
@@ -28,9 +27,9 @@ class DropCommand(Command):
         inventory = self._player.getInventory()
         
         #Print inventory contents
-        print "The following may be dropped by %s:" %name
+        print "The following may be dropped by %s:" % name
         for item in inventory:
-            print "\t%s" %item.getName()
+            print "\t%s" % item.getName()
         print ""
         
         itemToRemove = raw_input("Which item do you want to drop? \n")
@@ -42,11 +41,11 @@ class DropCommand(Command):
 
         #Checks if item is in inventory
         if not item:
-            print "%s is not in your inventory!" %itemToRemove
+            print "%s is not in your inventory!" % itemToRemove
             return
 
-        print "Dropping %s" %itemToRemove
-        print "Unequipping %s" %itemToRemove
+        print "Dropping %s" % itemToRemove
+        print "Unequipping %s" % itemToRemove
         
         inventory.removeItem(item)
         

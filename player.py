@@ -38,6 +38,7 @@ class Player(object):
 
         #Initialize items bonuses
         self._weaponAttack = 0
+        self._totalAttack = self._attack + self._weaponAttack
         self._armorDefense = 0
 
     def getName(self):
@@ -63,7 +64,7 @@ class Player(object):
         
         @return:          Sum of player attack and weapon attack.
         """
-        return self._attack + self._weaponAttack
+        return self._totalAtack
 
     def takeAttack(self, attack):
         """
@@ -93,7 +94,7 @@ class Player(object):
         """
         Return's player level.
         
-        @return:     Return's player level.
+        @return:      Player level.
         """
         return self._level
         
@@ -109,9 +110,10 @@ class Player(object):
 
             #Player has leveled up. Updates player level and stats.
             print "%s leveled up! %s is now level %s" \
-                  %(self._name, self._name, self._level)
+                  % (self._name, self._name, self._level)
             self._maxHp = self._level * constants.HP_STAT
             self._attack = self._level * constants.ATTACK_STAT
+            self._totalAttack = self._attack + self._weaponAttack
                   
     def getHp(self):
         """
@@ -135,57 +137,68 @@ class Player(object):
 
         @param amount:    The amount of hp to be healed.
         """
-        maxHp = self._level * constants.HP_STAT
-
-        if maxHp - self._hp < amount:
+        #If amount that player may be healed is less than amount possible
+        if self._maxHp - self._hp < amount:
             amountHealed = maxHp - self._hp
+        #If amount that player may be healed is equal to or more than amount possible
         else:
             amountHealed = amount
             
         self._hp += amountHealed
 
-        print "%s got healed by %s! %s's health is now at %s" %(self._name, amountHealed, self._name, self._hp)
-        
-    def getAttack(self):
-        """
-        Returns player attack.
-        
-        @return:    Player attack.
-        """
-        return self._attack
+        print "%s got healed by %s! %s's health is now at %s" % (self._name, amountHealed, self._name, self._hp)
 
     def equip(self, item):
         """
         Allows a character to equip an item in inventory.
+        
+        Note: An item *must* be in the player's inventory
+        before it can be equipped. The item must also
+        be a piece of Armor or a Weapon.
 
         @param item:    The item to be equipped.
         """
+
+		#TODO: Need to revisit the logic of this method.
+		#      The method should take advantage of the unequip() method
+        #      now that it exists.
+        #
+        #      After that change, review the overall logic
+        #      to make sure it makes sense.
+
         #Check to see if item may be equipped
         if not (item in self._inventory) \
             or not (isinstance(item, Armor) or isinstance(item, Weapon)) \
             or item in self._equipped:
             print ""
             print "Cannot equip %s." %item.getName()
+            return
 
-        #Update player to reflect equipment
-        else:
-            if isinstance(item, Armor):
-                self._armor = item
-                self._armorDefense = self._armor.getDefense()
-            elif isinstance(item, Weapon):
-                self._weapon = item
-                self._weaponAttack = self._weapon.getAttack()
+        #Unequip currently equipped armor/weapon if necessary
+        if isinstance(item, Armor):
+            self._armor = item
+            self._armorDefense = self._armor.getDefense()
+        elif isinstance(item, Weapon):
+            self._weapon = item
+            self._weaponAttack = self._weapon.getAttack()
 
-            #Unequip currently equipped armor/weapon if necessary
-            for currentItem in self._equipped:
-                if isinstance(currentItem, Weapon) and isinstance(item, Weapon):  
-                    self.unequip(currentItem)
-                elif isinstance(currentItem, Armor) and isinstance(item, Armor):
-                    self.unequip(currentItem)
-                
-            self._equipped.addItem(item)
+        for currentItem in self._equipped:
+            if isinstance(item, Weapon) and isinstance(currentItem, Weapon):  
+                self.unequip(currentItem)
+            elif isinstance(item, Armor) and isinstance(currentItem, Armor):
+                self.unequip(currentItem)
             
-            print "%s equipped %s." %(self._name, item.getName())
+        #Update player to reflect equipment
+        if isinstance(item, Armor):
+            self._armor = item
+            self._armorDefense = self._armor.getDefense()
+        elif isinstance(item, Weapon):
+            self._weapon = item
+            self._weaponAttack = self._weapon.getAttack()
+
+        self._equipped.addItem(item)
+        
+        print "%s equipped %s." %(self._name, item.getName())
             
     def unequip(self, item):
         """
@@ -198,25 +211,17 @@ class Player(object):
             self._equipped.removeItem(item)
             
             #Update player to reflect equipment
-            if isinstance(item, Armor):
-                self._armor = None
-                self._armorDefense = 0
             if isinstance(item, Weapon):
                 self._weapon = None
                 self._weaponAttack = 0
+            if isinstance(item, Armor):
+                self._armor = None
+                self._armorDefense = 0
                 
-            print "%s unequipped %s." %(self._name, item.getName())
+            print "%s unequipped %s." % (self._name, item.getName())
             
         else:
-            print "Cannot unequip %s." %item.getName()
-
-    def getArmor(self):
-        """
-        Returns player armor.
-
-        @return:    Player's current armor.
-        """
-        return self._armor
+            print "Cannot unequip %s." % item.getName()
 
     def getWeapon(self):
         """
@@ -226,6 +231,14 @@ class Player(object):
         """
         return self._weapon
 
+    def getArmor(self):
+        """
+        Returns player armor.
+
+        @return:    Player's current armor.
+        """
+        return self._armor
+
     def getEquipped(self):
         """
         Returns the player's currently equipped equipment.
@@ -234,19 +247,19 @@ class Player(object):
         """
         return self._equipped
     
-    def addInventory(self, item):
+    def addToInventory(self, item):
         """
         Adds an item to inventory.
 
         @param item:   The item to be added to inventory.
         """
-        if (isinstance(item, Item) or isinstance(item, Potion) or isinstance(item, Weapon) or isinstance(item, Armor)) and (item not in self._inventory):
-            print "Added %s to inventory." %item.getName()
+        if (isinstance(item, Item) and (item not in self._inventory)):
+            print "Added %s to inventory." % item.getName()
             self._inventory.addItem(item)
         else:
-            print "Cannot add %s to inventory." %(item)
+            print "Cannot add %s to inventory." % item
 
-    def removeInventory(self, item):
+    def removeFromInventory(self, item):
         """
         Removes an item from inventory. If item is currently equipped, unequips item.
 
@@ -351,7 +364,7 @@ class Player(object):
         #If north space does not exist, do nothing
         if not northSpace:
             return
-        #..otherwise, move to new space 
+        #...otherwise, move to new space 
         self._location = northSpace
 
     def moveSouth(self):
@@ -363,7 +376,7 @@ class Player(object):
         #If south space does not exist, do nothing
         if not southSpace:
             return
-        #..otherwise, move to new space 
+        #...otherwise, move to new space 
         self._location = southSpace 
 
     def moveEast(self):
@@ -375,7 +388,7 @@ class Player(object):
         #If east space does not exist, do nothing
         if not eastSpace:
             return
-        #..otherwise, move to new space 
+        #...otherwise, move to new space 
         self._location = eastSpace 
 
     def moveWest(self):
@@ -387,7 +400,7 @@ class Player(object):
         #If west space does not exist, do nothing
         if not westSpace:
             return
-        #..otherwise, move to new space 
+        #...otherwise, move to new space 
         self._location = westSpace 
 
     def getLocation(self):

@@ -6,7 +6,7 @@ from items.armor import Armor
 
 class CheckStatsCommand(Command):
     """
-    Prints player stats.
+    Displays player stats.
     """
     def __init__(self, name, explanation, player):
         """
@@ -14,12 +14,11 @@ class CheckStatsCommand(Command):
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
-        @param player:       The player object
+        @param player:       The player object.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):
@@ -40,18 +39,19 @@ class CheckStatsCommand(Command):
         equipment = self._player.getEquipped()
         equipmentList = equipment.getItems()
         for item in equipmentList:
-            if isinstance(item, Armor):
-                defense = item.getDefense()
-            elif isinstance(item, Weapon):
+            if isinstance(item, Weapon):
                 weaponsAttack = item.getAttack()
+            elif isinstance(item, Armor):
+                defense = item.getDefense()
                 
         totalAttack = attack + weaponsAttack
 
         #Print player stats
-        print "%s's stats: \n" %name
-        print "\t%s is level %s and has %s experience." %(name, level, experience)
-        print "\t%s's Hp: %s." %(name, hp)
-        print "\n\tCharacter-based attack is %s; weapons bonus is %s." %(attack, weaponsAttack)
-        print "\tTotal attack is %s." %totalAttack
-        print "\tArmor-based defense is %s." %defense
+        print "%s's stats: \n" % name
+        print "\t%s is level %s and has %s experience." % (name, level, experience)
+        print "\t%s's Hp: %s." % (name, hp)
+        print ""
+        print "\tCharacter-based attack is %s; weapons bonus is %s." % (attack, weaponsAttack)
+        print "\tTotal attack is %s." % totalAttack
+        print "\tArmor-based defense is %s." % defense
                 

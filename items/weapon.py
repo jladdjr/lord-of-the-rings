@@ -1,10 +1,11 @@
 #!/usr/bin/python
+
 from constants import ItemType 
 from items.item import Item
 
 class Weapon(Item):
     """
-    A class of weapons.
+    A class of weapons. Weapon inherits from Item and has the defining parameter, attack.
     """
     def __init__(self, name, description, weight, attack, cost):
         """
@@ -13,7 +14,8 @@ class Weapon(Item):
         @param name:          Name of weapon.
         @param description:   Description of weapon.
         @param weight:        Weight of weapon.
-        @param attack:        Attack stat of weapon.
+        @param attack:        Attack stat of weapon. Player damage increases by this
+                              amount when weapon is equipped.
         """
         Item.__init__(self, name, description, weight)
         self._attack = attack
