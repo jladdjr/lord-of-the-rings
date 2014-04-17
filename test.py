@@ -743,6 +743,7 @@ class ShopPurchaseItems(unittest.TestCase):
     1.) Purchasing an item player has money for
     2.) Failing to purchase an item player does not have money for
     3.) Failing to purchase invalid item
+    4.) Not crashing when user input is gobbledigook
     """
     def testInit(self):
         from player import Player
