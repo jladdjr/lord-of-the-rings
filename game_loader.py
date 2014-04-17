@@ -42,7 +42,8 @@ def getWorld():
     erebor = Space("Erebor", "")
     
     hobbiton = City("Hobbiton", "Village in the Shire", "Welcome to Hobbinton", [sallyInn, sallyShop, chocoSquare])
-    shire = Space("Shire", "Home of the Hobbitses", city = hobbiton)
+    tombombadilhouse = UniquePlace("Tom Bobbadil's House", "Tom lives here.")
+    shire = Space("Shire", "Home of the Hobbitses", city = hobbiton, uniquePlaces = [tombombadilhouse])
     oldForest = Space("Old Forest", "")
     weatherHills = Space("Weather Hills", "")
     trollshows = Space("Trollshows", "")
