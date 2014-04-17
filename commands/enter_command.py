@@ -29,17 +29,27 @@ class EnterCommand(Command):
         city = space.getCity()
         cityName = city.getName()
         buildings = city.getBuildings()
+        uniquePlaces = space.getUniquePlaces()
 
         #Display places player may enter
         print "%s may enter the following in %s:" %(name, cityName)
         for building in buildings:
             print "\t%s" %building.getName()
         print ""
+        
+        print "Also, you may enter: \n"
+        
+        for uniquePlace in uniquePlaces:
+            print "\t %s" %uniquePlace.getName()
 
-        buildingToEnter = raw_input("Where would you like to go? ")
-        building = city.getBuildingString(buildingToEnter)
- 
+        placeToEnter = raw_input("Where would you like to go? ")
+        building = city.getBuildingString(placeToEnter)
+        
         if building:
             building.execute(self._player)
         else:
             print "Building does not exist."
+        
+        for uniquePlace in uniquePlaces:
+            if uniquePlace.getName() == placeToEnter:
+                uniquePlace.enterUniquePlace()
