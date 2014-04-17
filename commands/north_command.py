@@ -25,12 +25,12 @@ class NorthCommand(Command):
         """
         #Make sure there is a north exit
         if not self._player.canMoveNorth():
-            print "Cannot move North"
+            print "Cannot move North."
             return
 
         #Move North
         print "--------------------------------"
-        print "         moving north"
+        print "         Moving North"
         print "              /\                "
         print "              ||                "
         print "              ||                "
@@ -42,5 +42,5 @@ class NorthCommand(Command):
         name = space.getName()
         description = space.getDescription()
         
-        print "Welcome to ", name 
+        print "Welcome to %s." % name 
         print description 

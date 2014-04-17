@@ -1,10 +1,12 @@
+#!/usr/bin/python
+
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor
 
 class CheckEquipmentCommand(Command):
     """
-    Prints player equipment and details equipment stats.
+    Displays player equipment and details equipment stats.
     """
     def __init__(self, name, explanation, player):
         """
@@ -16,8 +18,7 @@ class CheckEquipmentCommand(Command):
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
-
-        #Finish initializing help-specific settings
+        
         self._player = player
 
     def execute(self):
@@ -38,16 +39,16 @@ class CheckEquipmentCommand(Command):
         equipment = sortedEquipment
 
         #Prints currently equipped items
-        print "%s's currently equipped items:\n" %playerName
+        print "%s's currently equipped items:\n" % playerName
         
         for item in equipment:
-            nameItem = item.getName()
+            itemName = item.getName()
             if isinstance(item, Weapon):
                 attack = item.getAttack()
-                print "\tWeapon: %s." %nameItem
-                print "\t%s yields a %s attack bonus." %(nameItem, attack)
+                print "\tWeapon: %s." % itemName
+                print "\t%s yields a %s attack bonus." % (nameItem, attack)
             elif isinstance(item, Armor):
                 defense = item.getDefense()
-                print "\tArmor: %s." %nameItem
-                print "\t%s yields a %s defense bonus." %(nameItem, defense)
+                print "\tArmor: %s." % itemName
+                print "\t%s yields a %s defense bonus." % (nameItem, defense)
             print ""

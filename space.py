@@ -11,6 +11,11 @@ class Space(object):
     def __init__(self, name, description, items = None, city = None):
         """
         Initialize a Space object.
+
+        @param name:          The name of space.
+        @param description:   The description of space.
+        @param items:         Any items included in space.
+        @param city:          Any cities included in space (Minas Tirith).
         """
         self._exits = { Direction.NORTH : None,
                         Direction.SOUTH : None,
@@ -161,7 +166,6 @@ class Space(object):
         Makes sure that a string represents a valid exit.
 
         @param direction:   Name of exit.
-
         @return:            True if valid exit, False otherwise.
         """
         availableExits = self._exits.keys()
@@ -174,7 +178,6 @@ class Space(object):
         Returns the opposite direction. (e.g. North is opposite of South)
 
         @param direction:   A direction (from constants.Direction)
-        
         @return:            Opposite direction (from constants.Direction)
         """
         if direction == Direction.NORTH:

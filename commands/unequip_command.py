@@ -17,7 +17,6 @@ class UnequipCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):
@@ -33,11 +32,11 @@ class UnequipCommand(Command):
         
         #Checks if item is in inventory and is currently equipped
         if not itemInventory:
-            print "%s is not in your inventory!" %itemToUnequip
+            print "%s is not in your inventory!" % itemToUnequip
             return
         
         if not itemEquipment:
-            print "%s is not currently equipped!" %itemToUnequip
+            print "%s is not currently equipped!" % itemToUnequip
             return
 
         #Equips player with item

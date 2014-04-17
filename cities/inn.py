@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 from cities.building import Building
+import constants
 
 class Inn(Building):
     """
-    Inns are buildings that allow player to heal.
+    Inns are buildings that allow player to heal for a cost.
     """
     def __init__(self, name, description, greetings, cost):
         """
@@ -12,51 +13,57 @@ class Inn(Building):
 
         @param name:           The name of the inn.
         @param description:    A description of the inn.
-        @param greetings:      The greetings the user gets as he enters a inn.
+        @param greetings:      The greetings the user gets as he enters the inn.
         @param cost:           The cost of using the inn.
         """
         Building.__init__(self, name, description, greetings)
         self._cost = cost
         
-    def execute(self, player):
+    def enter(self, player):
         """
         The events sequence upon player entering inn.
         """
         self._player = player
+        cost = self.getCost()
 
         print ""
-        print "- - - %s - - -" %self._name
+        print "- - - %s - - -" % self.getName()
         print self._greetings + "."
-        print "Cost to stay: %s." %self._cost
+        print "Cost to stay: %s." % cost
 
         #Determine player choice
+        STAY = 1
+        LEAVE = 2
+        
         choice = None
-        while choice != 2:
+        while choice != LEAVE:
             print """
-            What would you like to do?:
+            What you like to stay for the night?:
             1) Stay
             2) Leave
             """
             choice = int(raw_input("Choice? "))
 
             #Heal option   
-            if choice == 1:
-                #Checks that player has enough money
-                if self._player.getMoney() >= self._cost:
-                    self._player.decreaseMoney(self._cost)
+            if choice == STAY:
+                #Money check and transfer
+                if self._player.getMoney() >= cost:
+                    self._player.decreaseMoney(cost)
                     #Actual healing operation
                     self._heal(self._player)
-                    print "%s was healed at %s cost! %s has %s rubbles remaining." \
-                          %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
+                    print "%s was healed at %s cost! %s has %s %s remaining." \
+                          % (self._player.getName(), cost, self._player.getName(), self._player.getMoney(), constants.CURRENCY)
                     break
+                else:
+                    print "%s have enough money." % self._player.getName()
                 
             #Non-use option
-            elif choice == 2:
-                print "Thanks for coming to %s." %self._name
+            elif choice == LEAVE:
+                print "Thanks for coming to %s." % self._name
                 
             #For invalid input
             else:
-                print "Invalid choice."
+                print "What?"
     
     def getCost(self):
         """
@@ -68,7 +75,7 @@ class Inn(Building):
 
     def _heal(self, player):
 	"""
-	Heals player at a cost.
+	Heals player to maxHp.
 
 	@param player:	  The player object.
 	"""

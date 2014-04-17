@@ -4,7 +4,7 @@ from command import Command
 
 class CheckMoneyCommand(Command):
     """
-    Prints player money.
+    Displays player money.
     """
     def __init__(self, name, explanation, player):
         """
@@ -17,7 +17,6 @@ class CheckMoneyCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):
@@ -27,5 +26,4 @@ class CheckMoneyCommand(Command):
         money = self._player.getMoney()
         name = self._player.getName()
 
-        print "%s currently has %s total money!" %(name, money)
-                
+        print "%s currently has %s rubbles!" % (name, money)

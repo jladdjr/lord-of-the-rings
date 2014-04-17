@@ -4,7 +4,6 @@ class Monster(object):
     """
     A generic monster to be used as a parent for specific future monster classes.
     """
-
     def __init__(self, name, description, hp, attack, experience):
         """
         Initializes an item object.
@@ -26,7 +25,7 @@ class Monster(object):
         self._description = description
         self._hp = hp
         self._attack = attack
-        self.experience = experience
+        self._experience = experience
 
     def attack(self, target):
         """
@@ -35,10 +34,6 @@ class Monster(object):
         @param target:      Target to attack.
         """
         target.takeAttack(self._attack)
-
-        #TODO: Probably want BattleEngine to be responsible for 
-        #reporting battle events.
-        print "%s attacked %s for %s attack!" %(self._name, target, self._attack)
         
     def takeAttack(self, attack): 
         """
@@ -47,7 +42,6 @@ class Monster(object):
         @param attack:      Amount of attack taken.
         """
         self._hp -= attack
-        print "%s took %s attack!" %(self._name, attack)
 
     def getName(self):
         """
