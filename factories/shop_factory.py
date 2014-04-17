@@ -150,7 +150,7 @@ def genArmor(quality, randDesc):
     elif 10 <= quality < 15:
         suffix = "of Battle"
     else:
-        prefix = "of Honor"
+        suffix = "of Honor"
     #Generate armor type
     if quality < 5:
         type = "Leather Cloak"

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
 from space import Space
 from cities.city import City
@@ -33,18 +33,19 @@ import constants
 def getWorld():
     #Hobbiton - The Shire
     #Inn
-    description = "A place for strangers"
-    greeting = "Welcome to our inn! I'm Sally of the Tokinsville Baggins Clan"
+    description = "A place for strangers."
+    greeting = "Welcome to our inn! I'm Sally of the Tokinsville Baggins Clan."
     sallyInn = Inn("Sally's Inn", description, greeting, 2)
     #Shop
-    description = "Exotic selection by hobbit standards"
-    greeting = "We have strange wares"
+    description = "Exotic selection by hobbit standards."
+    greeting = "We have strange wares."
     sallyShop = Shop("Sally's Shop", description, greeting, 4, 3)
     #Square
-    description = "Lots of hobbits, mostly gossip"
+    description = "Lots of hobbits, mostly gossip."
     greeting = "Did you hear the latest news on Lobelia Baggins?"
-    talk = {"Lobelia Baggins": "Get lost!", "Naftel Took": "News has broken out that Lobelia is making an inquiry on Bag End", "Amaranth Brandybuck": "Nice weather isn't it?", "Balbo Baggins": "The word on the street is that Lobelia is trying to acquire the Baggins estate!", "Ferdinand Took": "I wonder when Gandalf will visit?"}
+    talk = {"Lobelia Baggins": "Get lost!", "Naftel Took": "News has broken out that Lobelia is making an attempt on Bag End....", "Amaranth Brandybuck": "Nice weather isn't it?", "Balbo Baggins": "The word on the street is that Lobelia is trying to acquire the Baggins estate!", "Ferdinand Took": "I wonder when Gandalf will visit?"}
     hobbitonSquare = Square("Hobbiton Square", description, greeting, talk)
+    tombombadilhouse = UniquePlace("Tom Bombadil's House", "Tom lives here.")
     #City
     description = """Hobbiton is a village in the central regions of the
     Shire within the borders of the Westfarthing. Hobbiton is located
@@ -52,7 +53,6 @@ def getWorld():
     neighboring village of Bywater.
     """
     hobbiton = City("Hobbiton", description, "Did you hear the latest news?", [sallyInn, sallyShop, hobbitonSquare])
-    tombombadilhouse = UniquePlace("Tom Bombadil's House", "Tom lives here.")
     #The Shire
     description = """
     The Shire is divided into four farthings, North, South, East and West;
@@ -64,7 +64,7 @@ def getWorld():
     well-suited for farming. One of its chief products is Shire
     Leaf, grown especially in the warmer regions of the Southfarthing.
     """
-    shire = Space("Shire", description, city = hobbiton, uniquePlaces = [tombombadilhouse])
+    shire = Space("Shire", description, city = hobbiton, uniquePlaces = [tombombadilhouse]))
 
     #tomBombadil = Place
     #The Old Forest
@@ -82,7 +82,7 @@ def getWorld():
     Weather Hills was the name among Men for the north-south range of hills
     that lay in central Eriador and in ancient times marked part of the
     border between the lands of Arthedain and Rhudaur. Weathertop, or
-    Amon SÃ»l, lays at the southern end of this range.
+    Amon Sûl, lays at the southern end of this range.
     """
     weatherHills = Space("Weather Hills", description)
 
@@ -97,16 +97,16 @@ def getWorld():
     #Misty Mountains - Rivendell
     #Inn
     description = "A relaxing stay in the scenic Misty Mountains!"
-    greeting = "Welcome to Misty Mountain Inn! Let us host you tonight..."
+    greeting = "Welcome to Misty Mountain Inn! Let us host you tonight...."
     mistyInn = Inn("Misty Mountain Inn", description, greeting, 5) 
     #Shop
     description = "New Elvenware! Look like your favorite elf!"
-    greeting = "Welcome to ElvenWares! Here we have the latest in elven gadgetry"
+    greeting = "Welcome to ElvenWares! Here we have the latest in elven gadgetry."
     elvenWares = Shop("ElvenWares", description, greeting, 4, 6)
     #Square
-    description = "Hotshots only"
-    greeting = "We've been waiting for your arrival..."
-    talk = {"Elrond": "Don't you think about marrying my daughter", "Legolas": "What do you think about my hair?", "Aragorn": "Check out these knife tricks!", "Gimli": "I bet I can eat more hotdogs than you", "Gandalf": "Did you know I have the Ring of Fire?"}
+    description = "Hotshots only."
+    greeting = "We've been waiting for your arrival...."
+    talk = {"Elrond": "Don't you think about marrying my daughter....", "Legolas": "What do you think about my hair?", "Aragorn": "Check out these knife tricks!", "Gimli": "I bet I can eat more hotdogs than you.", "Gandalf": "Did you know I have the Ring of Fire?"}
     councilOfElrond = Square("Council of Elrond", description, greeting, talk)
     #City
     description = """
@@ -140,28 +140,31 @@ def getWorld():
     highPass = Space("High Pass", description, city = goblinTown)
 
     #Mirkwood - Elvenking's Halls
-    """
     #Inn
-    description = ""
-    greeting = ""
-     = Inn("", description, greeting, 5)
+    description = "A woodland experience...."
+    greeting = "Welcome to Elvenking's Inn!"
+    elvenkingsInn = Inn("Elvenking's Inn", description, greeting, 5)
     #Shop
-    description = ""
-    greeting = ""
-     = Shop("", description, greeting, 5, 4)
+    description = "Your local ElvenWares!"
+    greeting = "Great variety of elven gadgetry available!"
+    elvenWares = Shop("ElvenWares", description, greeting, 7, 10)
     #Square
-    description = ""
-    greeting = ""
-    talk = {}
-     = Square("", description, greeting, talk)
-    """
+    description = "Drinks on Thrandruil!"
+    greeting = "You can't outdrink an elf!"
+    talk = {"Cananthir": "Gaaalaaaagh....", "Curufin": "Don't mind Canathir, he's had a rough life", "Daeron": "Let's drink away our sorrows", "Ecthelion": "Glaaaaaaack....", "Earwen": "[Ignores you]"}
+    elvenkingsTavern = Square("Elvenking's Tavern", description, greeting, talk)
+    #Square
+    description = "Thrandruil's throne room."
+    greeting = "What makes you think that you belong here?"
+    talk = {"Thranduil": "Hmmph! I'm elvenking!", "Angrod": "Much gnashing of teeth here. You probably won't find what you're looking for.", "Aredhel": "Hmmph! Humans!", "Argon": "Hmmph! Didn't you know that you're wearing yesterday's ElvenWare?", "Beleg": "Hmmph! Dress in better ElvenWare!"}
+    elvenkingsThrone = Square("Elvenking's Throne", description, greeting, talk)
     #City
     description = """The Elvenking's Halls is the cave system in northern
     Mirkwood in which King Thranduil and many of the Elves of Mirkwood
     live.
     """
-    greeting = ""
-    elvenkingsHalls = City("Elvenking's Halls", description, greeting)
+    greeting = "Welcome to Elvenking's Halls! Thranduil resides here."
+    elvenkingsHalls = City("Elvenking's Halls", description, greeting, [elvenkingsInn, elvenWares, elvenkingsTavern, elvenkingsThrone])
     #Mirkwood
     description = """Mirkwood or the Forest of Great Fear is a great
     forest in Rhovanion. Mirkwood is once called Greenwood the Great
@@ -169,21 +172,19 @@ def getWorld():
     mirkwood = Space("Mirkwood", description, city = elvenkingsHalls)
 
     #Barrow Downs - Bree
-    """
     #Inn
-    description = ""
-    greeting = ""
-     = Inn("", description, greeting, 5)
+    description = "A quiet inn, tucked away in the outskirts of Bree."
+    greeting = "Hi I'm Linda, the innkeeper."
+    lindasInn = Inn("Linda's Inn", description, greeting, 5)
     #Shop
-    description = ""
-    greeting = ""
-     = Shop("", description, greeting, 5, 4)
+    description = "COME GET YOUR ORC-KILLING GEAR HERE!"
+    greeting = "HI I'M HANK!!! KILL ORCS!!!!!"
+    hanksBattleGear = Shop("Hank's Battle Gear", description, greeting, 10, 4)
     #Square
-    description = ""
-    greeting = ""
-    talk = {}
-     = Square("", description, greeting, talk)
-    """
+    description = "A noisy hole in the wall known for quarrels."
+    greeting = "[You are greeted with silence. Two people stare at you briefly \n before turning back to their drinks.]"
+    talk = {"Bill Ferny": "I hear there's been Nazgul in these parts.", "Harry Goatleaf": "The entire town is scared of Nazgul....", "Henry Thistlewool": "The shadow has descended upon these parts.", "Dudo Baggins": "What am I even doing here?", "Estella Brandybuck": "Time to go home I think...."}
+    fourCorners = Square("Four Corners", description, greeting, talk)
     #City
     description = """Bree was settled in the early Third Age, in the
     realm Cardolan. Though the Princes of Cardolan claimed it, Bree
@@ -191,7 +192,7 @@ def getWorld():
     for many centuries. 
     """
     greeting = "Nazgul have been visiting the area at night!"
-    bree = City("Bree", description, greeting)
+    bree = City("Bree", description, greeting, [lindasInn, hanksBattleGear, fourCorners])
     #Barrow Downs
     description = """Barrow-downs or Tyrn Gorthad is a series of low
     hills east of the Shire, behind the Old Forest and west of the
@@ -222,33 +223,13 @@ def getWorld():
     """
     swanfleet = Space("Swanfleet", description)
     
-    hobbiton = City("Hobbiton", "Village in the Shire", "Welcome to Hobbinton", [sallyInn, sallyShop, chocoSquare])
-    shire = Space("Shire", "Home of the Hobbitses", city = hobbiton)
-    oldForest = Space("Old Forest", "")
-    weatherHills = Space("Weather Hills", "")
-    trollshows = Space("Trollshows", "")
-    minstyMountainsTwo = Space("Misty Mountains - Two", "")
-    highPass = Space("High Pass", "")
-    
-    sarnFord = Space("Sarn Ford", "")
-    barrowDowns = Space("Barrow Downs", "")
-    southDowns = Space("South Downs", "")
-    bruinen = Space("Bruinen", "")
-    mistyMountainsThree = Space("Misty Mountains - Three", "")
-    
-    cardolan = Space("Cardolan", "")
-    mitheithel = Space("Mitheithel", "")
-    mistyMountainsFour = Space("Misty Mountains - Four", "")
-    
-    tharbad = Space("Tharbad", "")
-    swanfleet = Space("Swanfleet", "")
-    moria = Space("Moria", "")
-    mistyMountainsFive = Space("Misty Mountains - Five", "")
-    
-    enedwaith = Space("Enedwaith", "")
-    mistyMountainsSix = Space("Misty Mountains - Six", "")
-    lorein = Space("Lorein", "")
-    dolGuldor = Space("Dol Guldor", "")
+    #Dunland
+    description = """Dunland is the land of the Dunlendings. Dunland means
+    Hill Land in the language of neighbouring Rohan, whose people named it
+    after arriving in nearby Calenardhon in the later Third Age. It is a
+    land of the wild men.
+    """
+    dunland = Space("Mitheithel", description)
 
     #chamberOfMazarbul = Place
     #Moria - The Seventh Level
@@ -270,35 +251,33 @@ def getWorld():
     moria = Space("Moria", description, city = theSeventhLevel)
 
     #Lorien - Caras Galadhon
-    """
     #Inn
-    description = ""
-    greeting = ""
-     = Inn("", description, greeting, 5)
+    description = "Nested between the rivers Anduin and Silverlode."
+    greeting = "I hope you enjoy your stay at ElvenWaters."
+    elvenWaters = Inn("ElvenWaters Inn", description, greeting, 5)
     #Shop
-    description = ""
-    greeting = ""
-     = Shop("", description, greeting, 5, 4)
+    description = "ElvenWares! Lots of great elven gear!"
+    greeting = "Welcome to ElvenWares! We have lots of rare collectibles!"
+    elvenWares = Shop("ElvenWares", description, greeting, 11, 6)
     #Square
-    description = ""
-    greeting = ""
-    talk = {}
-     = Square("", description, greeting, talk)
-    """
+    description = "For prophesy as well as plain old fashioned vanity."
+    greeting = "I've been waiting for you...."
+    talk = {"Galadriel": "Check out this new ElvenWare! How do you think I look?"}
+    galadrielsMirror = Square("Galadriel's Mirror", description, greeting, talk)
     #City
     description = """Caras Galadhon is a city located in Lorien. Its inhabitants
     dwell in large flets in the trees, reached by white ladders. On the top
     of the hill in the greatest of trees, are the house of Celeborn and Galadriel.
     """
-    greeting = ""
-    lorein = City("Lorein", description, greeting)
+    greeting = "Welcome to Caras Galdhon! Celeborn and Galadriel reside here."
+    carasGaladhon = City("Caras Galadhon", description, greeting, [elvenWaters, elvenWares, galadrielsMirror])
     #Lorien
     description = """Lothlorien is a kingdom of Silvan Elves on the
     eastern side of the Hithaeglir. It is considered one of the most
     beautiful places in Middle-earth and has the only mallorn-trees
     east of the sea.
     """
-    lorien = Space("Lorien", description, city = lorein)
+    lorien = Space("Lorien", description, city = carasGaladhon)
 
     #entmoot = Place
     #Fangorn
@@ -344,27 +323,25 @@ def getWorld():
     calenardhon = Space("Calenardhon", description)
 
     #Westfold - Helm's Deep
-    """
     #Inn
-    description = ""
-    greeting = ""
-     = Inn("", description, greeting, 5)
+    description = "Where people go to sober up."
+    greeting = "[No one is there to greet you.]"
+    sobrietyRoom = Inn("Sobriety Room", description, greeting, 0)
     #Shop
-    description = ""
-    greeting = ""
-     = Shop("", description, greeting, 5, 4)
+    description = "The Armory [read: booze shop]."
+    greeting = "We got every poison under the sun...."
+    theArmory = Shop("The Armory", description, greeting, 10, 8)
     #Square
-    description = ""
-    greeting = ""
-    talk = {}
-     = Square("", description, greeting, talk)
-    """
+    description = "Mass drunkenness."
+    greeting = "[Everyone is passed out.]"
+    talk = {"Erkenbrand": "Ughhhhhhh....", "Gambling the Old": "Merrrrrrrrrrrrr...."}
+    helmsDeepCommons = Square("Helms Deep Commons", description, greeting, talk)
     #City
     description = """Helm's Deep is a large valley gorge in northwestern
     Ered Nimrais below the Thrihyrne. It is the name of the whole
     defensive system including its major defensive structure, the Hornburg.
     """
-    greeting = ""
+    greeting = "Welcome to Helm's Deep! WHOOO!!! PARTY!."
     helmsDeep = City("Helm's Deep", description, greeting)
     #Westfold
     description = """The Westfold is the western part of Rohan, close to
@@ -502,33 +479,36 @@ def getWorld():
     orodruin = Space("orodruin", description)
 
     #Anorien - Minas Tirith
-    """
     #Inn
-    description = ""
-    greeting = ""
-     = Inn("", description, greeting, 5)
+    description = "Home of elite Gondorian healers."
+    greeting = "Welcome to the Houses of Healing. What can I do for you?"
+    housesOfHealing = Inn("Houses of Healing", description, greeting, 5)
     #Shop
-    description = ""
-    greeting = ""
-     = Shop("", description, greeting, 5, 4)
+    description = "An elite armory, used by Gondorian royalty."
+    greeting = "Welcome to the Smithy of Kings! We have forged legendary blades...."
+    smithyOfKings = Shop("Smithy of Kings", description, greeting, 15, 12)
     #Square
-    description = ""
-    greeting = ""
-    talk = {}
-     = Square("", description, greeting, talk)
-    """
+    description = "Minas Tirith commons."
+    greeting = "Welcome to our square. This place used to be a lot more lively."
+    talk = {"Calmacil": "Would you like to buy some fruit?", "Castamir": "Everyone is afriad.", "Ciryandil": "Orcish raids have been increasing in the outlying lands....", "Minalcar": "I wonder what we can do with Mordor....", "Narmacil": "I wonder if the king will return", "Tarondor": "I hope Rohan will bring aid.", "Atanatar": "Word has it that Mordor is preparing to attack."}
+    citySquare = Square("Market Square", description, greeting, talk)
+    #Square
+    description = "Home to Gondorian royalty."
+    greeting = "Denethor would like to see you...."
+    talk = {"Denethor": "What do you think Sauron will do next?", "Faramir": "The lands recently stolen by Sauron should be retaken....", "Boromir": "Nice ring. Give it to me!", "Prince Imrahil": "Sauron plans on moving soon....", "Swan Knight": "The men are afraid. The land is covered in shadow...."}
+    towerOfEcthelion = Square("Tower of Ecthelion", description, greeting, talk)
     #City
     description = """Minas Tirith is a city of Gondor originally called Minas Anor.
     From T.A. 1640 onwards it became the capital of the South-kingdom and the seat of
     its Kings and ruling Stewards.
     """
-    greeting = ""
-    minasTirith = City("Minas Tirith", description, greeting)
+    greeting = "Welcome to the last stronghold of the West, Minas Tirith."
+    minasTirith = City("Minas Tirith", description, greeting, [housesOfHealing, citySquare, towerOfEcthelion, smithyOfKings])
     #Anorien
     description = """Anorien is the fiefdom of Gondor containing Minas Tirith, the
     capital of Gondor. Originally known as Minas Anor, it replaced the Osgiliath
     as capital of Gondor as Osgiliath was overun.
-    """ 
+    """
     anorien = Space("Anorien", description, city = minasTirith)
 
     #argonath = Place
@@ -576,7 +556,7 @@ def getWorld():
     greeting = ""
     minasMorgul = City("Minas Morgul", description, greeting)
     #Ephel Duath
-    description = """The Ephel DÃºath, or the Mountains of Shadow, are a range of
+    description = """The Ephel Dúath, or the Mountains of Shadow, are a range of
     mountains that guard Mordor's western and southern borders.
     """
     ephelDuath = Space("Ephel Duath", description, city = minasMorgul)
@@ -615,26 +595,24 @@ def getWorld():
 
     #Lossamarch - Pelargir
     #Inn
-    """
-    description = ""
-    greeting = ""
-     = Inn("", description, greeting, 5)
+    description = "Beach resort along Gondor's finest coast!"
+    greeting = "Hey bro! Welcome to Sunnyside Inn!"
+    sunnysideInn = Inn("Sunnyside Inn", description, greeting, 5)
     #Shop
-    description = ""
-    greeting = ""
-     = Shop("", description, greeting, 5, 4)
+    description = "Beach accessories and paraphernalia."
+    greeting = "Hey dude, let's hit the beach later!"
+    palmTreeHut = Shop("Palm Tree Hut", description, greeting, 14, 6)
     #Square
-    description = ""
-    greeting = ""
-    talk = {}
-     = Square("", description, greeting, talk)
-    """
+    description = "Class-three waves and hot chicks!"
+    greeting = "Bro, did you see those waves?"
+    talk = {"Gondorian bro #1": "Bro, let's hit the beach!", "Gondorian bro #2": "Bro! Let's just chill for awhile... bro?", "Gondorian bro #3": "Bro! I hear there's going to be a party later tonight.", "Gondorian chick #1": "Bro, I have a boyfriend....", "Gondorian chick #2": "Bro, what are you doing later?"}
+    beach = Square("Pelargir Beach", description, greeting, talk)
     #City
     description = """One of the oldest cities in Middle Earth, Pelargir served
     as chief haven of the faithful as Numenorians migrated to Middle Earth to
     escape persecution. In later years, Pelargir served as chief port of Gondor.
     """
-    greeting = ""
+    greeting = "Enjoy a relaxing stay at Pelargir, port city of Gondor."
     pelargir = City("Pelargir", description, greeting)
     #Lossamarch
     description = """Lossarnach is a region and fiefdom in Southern Gondor. Known
