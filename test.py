@@ -130,7 +130,7 @@ class ItemSetTest(unittest.TestCase):
         self.assertTrue(self._items.containsItem(antidote), errorMsg)
 
         errorMsg = "ItemSet.containsItemWithName() failed to identify existing item."
-        self.assertTrue(self._items.containsItemWithName("antidote", errorMsg)
+        self.assertTrue(self._items.containsItemWithName("antidote", errorMsg))
 
         #Remove item
         self._items.removeItem(antidote)
@@ -381,10 +381,10 @@ class SpaceTest(unittest.TestCase):
 
         #Test getExit method
         errorMsg = "getExit() returned incorrect value."
-        self.assertTrue(space.getExit("north", north, errorMsg)
-        self.assertTrue(space.getExit("south", south, errorMsg)
-        self.assertTrue(space.getExit("east", east, errorMsg)
-        self.assertTrue(space.getExit("west", west, errorMsg)
+        self.assertTrue(space.getExit("north"), north, errorMsg)
+        self.assertTrue(space.getExit("south"), south, errorMsg)
+        self.assertTrue(space.getExit("east"), east, errorMsg)
+        self.assertTrue(space.getExit("west"), west, errorMsg)
 
         #Test clearExit() method
         errorMsg = "Port should have been cleared but was not."
@@ -705,7 +705,7 @@ class EquipTest(unittest.TestCase):
         equipped.addItem(armor)
 
         #Pretest
-        self.assertEqual(len(equipped), 2 "Player is supposed to have two equipped items but lists more.")
+        self.assertEqual(len(equipped), 2, "Player is supposed to have two equipped items but lists more.")
                         
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
@@ -716,7 +716,7 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute() 
 
         #Test still only two equipped items
-        self.assertEqual(len(equipped), 2 "Player is supposed to have two equipped items but lists more.")
+        self.assertEqual(len(equipped), 2, "Player is supposed to have two equipped items but lists more.")
                         
 class UnequipTest(unittest.TestCase):
     """
@@ -769,7 +769,7 @@ class UnequipTest(unittest.TestCase):
 
         equipped = player.getInventory()
         self.assertFalse(equipped.containsItem(weapon), "Failed to unequip item that it should have.")
-        self.assertFalse(equipped.containsItem(armor), "Failed to unequip item that it should have.")++
+        self.assertFalse(equipped.containsItem(armor), "Failed to unequip item that it should have.")
 
 class UsePotionTest(unittest.TestCase):
     """
@@ -1267,7 +1267,7 @@ class ShopSellItems(unittest.TestCase):
         self.assertTrue(armor in testShop._items, errorMsg)
 
         #Item prices are normal prices, not sell value
-        errorMsg = "Item costs were not set back to where htey were supposed to be.
+        errorMsg = "Item costs were not set back to where they were supposed to be."
         for item in testShop._items:
             self.assertEqual(item._cost, COST, errorMsg) 
         
@@ -1306,7 +1306,7 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertEqual(len(testShop._items), 5, "Our test shop was generated with the wrong number of items")
         errorMsg = "Items in shop inventory are of wrong type."
         for item in testShop._items:
-            self.assertTrue(isinstance(item, weapon) or isinstance(item, armor) or instance(item, weapon)), errorMsg)
+            self.assertTrue(isinstance(item, weapon) or isinstance(item, armor) or instance(item, weapon), errorMsg)
 
         #Add Potion to Shop inventory with weight=1, healing=5, cost=3
         testPotion = Potion("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
