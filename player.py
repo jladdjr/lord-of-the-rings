@@ -37,9 +37,10 @@ class Player(object):
         self._attack = self._level * constants.ATTACK_STAT
 
         #Initialize items bonuses
-        self._weaponAttack = 0
+        self._weaponAttack = constants.STARTING_WEAPON_ATTACK
+        self._armorDefense = constants.STARTING_ARMOR_DEFENSE
+
         self._totalAttack = self._attack + self._weaponAttack
-        self._armorDefense = 0
 
     def getName(self):
         """
@@ -102,9 +103,10 @@ class Player(object):
         """
         Levels up player and updates player stats. 
         """
-        #Checks to see if player has leveled up
+        #Checks to see if player is max level
         if self._level == constants.MAX_LEVEL:
             return
+        #Checks to see if player has leveled up
         if self._level != floor(self._experience/20) + 1:
             self._level = floor(self._experience/20) + 1
 
@@ -139,14 +141,12 @@ class Player(object):
         """
         #If amount that player may be healed is less than amount possible
         if self._maxHp - self._hp < amount:
-            amountHealed = maxHp - self._hp
+            amountHealed = self._maxHp - self._hp
         #If amount that player may be healed is equal to or more than amount possible
         else:
             amountHealed = amount
             
         self._hp += amountHealed
-
-        print "%s got healed by %s! %s's health is now at %s" % (self._name, amountHealed, self._name, self._hp)
 
     def equip(self, item):
         """
@@ -290,7 +290,7 @@ class Player(object):
         """
         Increases player money.
         """
-        if amount <= 0:
+        if amount < 0:
             errorMsg = "Method increaseMoney() was given a negative value"
             raise AssertionError(errorMsg)
 

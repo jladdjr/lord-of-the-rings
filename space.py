@@ -8,7 +8,7 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description, items = None, city = None, uniquePlaces = None):
+    def __init__(self, name, description, items = None, city = None, uniquePlace = None):
         """
         Initialize a Space object.
 
@@ -17,9 +17,9 @@ class Space(object):
 
         @keyword items:         (Optional) Items found in the space.
                                 May be a reference to a single item or an ItemSet.
-        @keyword city:          (Optional) Reference to unique place(s).
+        @keyword city:          (Optional) Reference to the city objects in space.
                                 May be a reference to an object or a list.
-        @keyword uniquePlaces:  (Optional) Reerence to city/cities. 
+        @keyword uniquePlace:  (Optional) Reference to the unique places in Middle Earth. 
                                 May be a reference to an object or a list.
 
         """
@@ -36,7 +36,7 @@ class Space(object):
         #      (self._items = items)
         self._items = ItemSet()
         self._city = city
-        self._uniquePlaces = uniquePlaces
+        self._uniquePlace = uniquePlace
 
     def getName(self):
         """
@@ -113,14 +113,14 @@ class Space(object):
         """
         return self._city
 
-    def getUniquePlaces(self):
+    def getUniquePlace(self):
         """
         Returns uniquePlace object(s).
 
         @return:    Reference to unique place(s).
                     May be reference to single unique place or list of unique places.
         """
-        return self._uniquePlaces
+        return self._uniquePlace
 
     def createExit(self, direction, space, outgoingOnly = False):
         """
@@ -195,6 +195,14 @@ class Space(object):
         """
         space = self._exits[direction]
         return space
+
+    def getExits(self):
+        """
+        Returns dictionary of direction-space pairs.
+
+        @return:            Dictionary of direction-space pairs.
+        """
+        return self._exits
 
     def _isExit(self, exit):
         """

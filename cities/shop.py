@@ -35,8 +35,8 @@ class Shop(Building):
         Returns the items in the shop.
         """
         print ""
-        print "- - - %s - - -" %self._name
-        print self._greetings + "."
+        print "- - - %s - - -" % self._name
+        print self._greetings
 
         #Determines and runs player choice
         CHECK_ITEMS = 1

@@ -31,7 +31,7 @@ class Inn(Building):
 
         print ""
         print "- - - %s - - -" % self.getName()
-        print self._greetings + "."
+        print self._greetings
         print "Cost to stay: %s." % cost
 
         #Determine player choice

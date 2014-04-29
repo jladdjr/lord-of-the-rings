@@ -3,6 +3,7 @@
 from command import Command
 from space import Space
 from player import Player
+from cities.city import City
 
 class DescribeCommand(Command):
     """
@@ -34,27 +35,30 @@ class DescribeCommand(Command):
         #Give space name and description
         print "%s: %s" % (locationName, description)
 
-        #If space has a city
+        #If space contains a city/cities
         if location.getCity():
             city = location.getCity()
-            cityName = city.getName()
-            print "\n%s is contained in %s." % (cityName, locationName)
-            
-            #If city has buildings
-            if city.getBuildings():
-                buildings = city.getBuildings()
-                print "\nBuildings in %s:" % cityName
-                for building in buildings:
-                    buildingName = building.getName()
-                    buildingDescription = building.getDescription()
-                    print "\t%s: %s." % (buildingName, buildingDescription)
+            #For single cities...
+            if isinstance(city, City):
+                cityName = city.getName()
+                cityDescription = city.getDescription()
+                print "%s is contained in %s." % (cityName, locationName)
+                print "%s: %s" % (cityName, cityDescription)
+            #For multiple cities...
+            if isinstance(city, list):
+                for specificCity in city:
+                    cityName = specificCity.getName()
+                    cityDescription = specificCity.getDescription()
+                    print "%s is contained in %s." % (cityName, locationName)
+                    print "%s: %s" % (cityName, cityDescription) 
      
         #If space has one or more uniquePlace objects
-        uniquePlaces = location.getUniquePlaces()
-        for uniquePlace in uniquePlaces:
+        if location.getUniquePlace():
+            uniquePlace = location.getUniquePlace()
             uniquePlaceName = uniquePlace.getName()
-            print "\n%s is contained in %s." %(uniquePlaceName, locationName)
-   
+            uniquePlaceDescription = uniquePlace.getDescription()
+            print "%s is contained in %s." % (uniquePlaceName, locationName)
+            print "%s: %s" % (uniquePlaceName, uniquePlaceDescription)
    
         #If space has items
         if len(itemsList) > 0:

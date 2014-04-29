@@ -1,44 +1,36 @@
 #!/usr/bin/python
 
-class City(object):
+from place import Place
+
+class City(Place):
     """
     Cities are the towns of the game. Cities may have inns, blacksmiths and people to talk to.
     """
-    def __init__(self, name, description, greetings, buildings = None):
+    def __init__(self, name, description, greeting, buildings = None):
         """
         Initializes city object.
 
         @param name:           The name of the city.
         @param description:    A description of the city.
-        @param greetings:      The greetings the user gets as he enters the city.
+        @param greeting:       The greeting the user gets as he enters the city.
         @param buildings:      A list of the buildings in the city.
         """
-        self._name = name
-        self._description = description
-        self._greetings = greetings
+        Place.__init__(self, name, description, greeting)
+
         self._buildings = buildings
-
-    def getName(self):
+        
+    def returnCity(self, name):
         """
-        Returns name of city.
-
-        @return:    The name of the city.
+        Returns the city object, given the name of the city.
+        
+        @param name:    The name of city.
+        
+        @return:        The city object.
         """
-        return self._name
-
-    def getDescription(self):
-        """
-        Returns description of city.
-
-        @return:    The description of the city.
-        """
-        return self._description
-
-    def greetings(self):
-        """
-        Returns the string that represents a player greeting upon entering the city.
-        """
-        return self._greetings
+        if name == self._name:
+            return self
+            
+        return None
         
     def getBuildings(self):
         """
