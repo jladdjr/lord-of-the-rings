@@ -83,7 +83,7 @@ class Space(object):
         """
         return self._city
 
-    def getUniquePlaces(self):
+    def getUniquePlace(self):
         """
         Returns uniquePlace object(s).
         """

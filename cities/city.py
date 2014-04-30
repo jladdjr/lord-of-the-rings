@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
-class City(object):
+from place import Place
+
+class City(Place):
     """
+    Cities inherit from the Place parent class.
     Cities are the towns of the game. Cities may have inns, blacksmiths and people to talk to.
     """
     def __init__(self, name, description, greetings, buildings = None):
@@ -17,22 +20,6 @@ class City(object):
         self._description = description
         self._greetings = greetings
         self._buildings = buildings
-
-    def getName(self):
-        """
-        Returns name of city.
-
-        @return:    The name of the city.
-        """
-        return self._name
-
-    def getDescription(self):
-        """
-        Returns description of city.
-
-        @return:    The description of the city.
-        """
-        return self._description
 
     def greetings(self):
         """
