@@ -104,15 +104,18 @@ class Shop(Building):
     def sellItems(self, player):
         #User prompt
         inventory = player.getInventory()
+        sellableItems = []
         print "Current inventory:"
         for item in player.getInventory():
-            sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
-            print "\t%s... with sell value: %s %s." % (item.getName(), sellValue, constants.CURRENCY)
+            if isinstance(item, Weapon) or isinstance(item, Armor):
+                sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
+                print "\t%s... with sell value: %s %s." % (item.getName(), sellValue, constants.CURRENCY)
+                sellableItems.append(item)
         print ""
 
         itemToSell = raw_input("Which item would you like to sell? ")
         #Finds if item exists in inventory
-        for item in inventory:
+        for item in sellableItems:
             if item.getName() == itemToSell:
                 #Actual sale execution
                 choice = raw_input("Would you like to sell %s for %s rubbles? Response: yes/no. " % (item.getName(), sellValue))
