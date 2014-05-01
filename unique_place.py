@@ -14,5 +14,3 @@ class UniquePlace(Place):
         @param description:    A description of the UniquePlace.
         """
         Place.__init__(self, name, description, greeting)
-
-    

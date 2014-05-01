@@ -27,7 +27,7 @@ class CheckEquipmentCommand(Command):
         """
         playerName = self._player.getName()
         equipment = self._player.getEquipped()
-
+        
         #Sorts items
         sortedEquipment = []
         for item in equipment:
@@ -46,9 +46,9 @@ class CheckEquipmentCommand(Command):
             if isinstance(item, Weapon):
                 attack = item.getAttack()
                 print "\tWeapon: %s." % itemName
-                print "\t%s yields a %s attack bonus." % (nameItem, attack)
+                print "\t%s yields a %s attack bonus." % (itemName, attack)
             elif isinstance(item, Armor):
                 defense = item.getDefense()
                 print "\tArmor: %s." % itemName
-                print "\t%s yields a %s defense bonus." % (nameItem, defense)
+                print "\t%s yields a %s defense bonus." % (itemName, defense)
             print ""

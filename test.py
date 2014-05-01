@@ -130,7 +130,7 @@ class ItemSetTest(unittest.TestCase):
         self.assertTrue(self._items.containsItem(antidote), errorMsg)
 
         errorMsg = "ItemSet.containsItemWithName() failed to identify existing item."
-        self.assertTrue(self._items.containsItemWithName("antidote", errorMsg))
+        self.assertTrue(self._items.containsItemWithName("antidote"), errorMsg)
 
         #Remove item
         self._items.removeItem(antidote)
@@ -194,7 +194,7 @@ class SpaceTest(unittest.TestCase):
 
         #Create space
         space = Space("shire", "Home of the Hobbits.")
-        items = space.getItemSet()
+        items = space.getItems()
 
         #Assert space initially empty
         errorMsg = "New space contains items; should be empty" 
@@ -245,7 +245,7 @@ class SpaceTest(unittest.TestCase):
 
         #Assert city in space
         errorMsg = "Space should contain city but does not."
-        self.assertEqual(newYork.getCity(), city, errorMsg)
+        self.assertEqual(newYork.getCity(), newYorkCity, errorMsg)
 
     def testUniquePlace(self):
         from space import Space
@@ -255,7 +255,7 @@ class SpaceTest(unittest.TestCase):
         dmitriyHouse = UniquePlace("Dmitriy's House", "Lots of vodka", "[knocks once]")
 
         #Create space
-        chocolateMountain = space("Chocolate Mountain", "Chocolate rain here", "Welcome", uniquePlace = dmitriyHouse)
+        chocolateMountain = Space("Chocolate Mountain", "Chocolate rain here", "Welcome", uniquePlace = dmitriyHouse)
         
         #Assert uniquePlace in space
         errorMsg = "Space should contain uniquePlace but does not."
@@ -275,27 +275,27 @@ class SpaceTest(unittest.TestCase):
         space = Space("Shire", "Home of the hobbits", "Hobbits live here")
         player = Player("Russian", space)
         
-        north = NorthCommand("North", "Moves player north", player)
-        south = SouthCommand("South", "Moves player south", player)
-        east = EastCommand("East", "Moves player east", player)
-        west = WestCommand("West", "Moves player west", player)
+        northCmd = NorthCommand("North", "Moves player north", player)
+        southCmd = SouthCommand("South", "Moves player south", player)
+        eastCmd = EastCommand("East", "Moves player east", player)
+        westCmd = WestCommand("West", "Moves player west", player)
         
         #Non-movement case - ports not created
         errorMsg = "Player should still be in space but is not."
 
-        north.execute()
+        northCmd.execute()
         self.assertEqual(player.getLocation(), space, errorMsg)
         player._location = space
 
-        south.execute()
+        southCmd.execute()
         self.assertEqual(player.getLocation(), space, errorMsg)
         player._location = space
 
-        east.execute()
+        eastCmd.execute()
         self.assertEqual(player.getLocation(), space, errorMsg)
         player._location = space
 
-        west.execute()
+        westCmd.execute()
         self.assertEqual(player.getLocation(), space, errorMsg)
         player._location = Space
 
@@ -310,21 +310,21 @@ class SpaceTest(unittest.TestCase):
         space.createExit("east", east, outgoingOnly = False)
         space.createExit("west", west, outgoingOnly = False)
 
-        #Test getExit method
+        #Test getExit method for destination spaces
         errorMsg = "getExit() test failed."
         self.assertEqual(north.getExit("south"), space, errorMsg)
         self.assertEqual(south.getExit("north"), space, errorMsg)
         self.assertEqual(east.getExit("west"), space, errorMsg)
         self.assertEqual(west.getExit("east"), space, errorMsg)
 
-        #Test ports created using _isExit()
+        #Test ports created using _isExit() for space
         errorMsg = "Ports are supposed to be created but are not - tested using _isExit()."
         self.assertEqual(space._isExit("north"), True, errorMsg)
         self.assertEqual(space._isExit("south"), True, errorMsg)
         self.assertEqual(space._isExit("east"), True, errorMsg)
         self.assertEqual(space._isExit("west"), True, errorMsg)
 
-        #Test ports created without using methods for Space
+        #Test ports created without using direct access for Space
         from constants import Direction
         errorMsg = "Ports are supposed to be created but are not - by direct attribute access."
         self.assertEqual(space._exits[Direction.North], north, errorMsg)
@@ -332,63 +332,49 @@ class SpaceTest(unittest.TestCase):
         self.assertEqual(space._exits[Direction.East], east, errorMsg)
         self.assertEqual(space._exits[Direction.West], west, errorMsg)
 
-        #Test ports created without using methods for destination spaces
+        #Test ports created without using direct access for destination Spaces
         errorMsg = "Two-way ports were supposed to have been created but were not - by direct attribute access."
-        self.assertEqual(north._exits[Direction.South], south, errorMsg)
-        self.assertEqual(south._exits[Direction.North], north, errorMsg)
-        self.assertEqual(east._exits[Direction.West], west, errorMsg)
-        self.assertEqual(west._exits[Direction.East], east, errorMsg)
+        self.assertEqual(north._exits[Direction.South], space, errorMsg)
+        self.assertEqual(south._exits[Direction.North], space, errorMsg)
+        self.assertEqual(east._exits[Direction.West], space, errorMsg)
+        self.assertEqual(west._exits[Direction.East], space, errorMsg)
                                       
         #Test two-way movement
-        north.execute()
+        northCmd.execute()
         errorMsg = "Player should be in north space but is not."
         self.assertEqual(player.getLocation(), north, errorMsg)
-        south.execute()
+        southCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
         player._location = space
 
-        south.execute()
+        southCmd.execute()
         errorMsg = "Player should be in south space but is not."
         self.assertEqual(player.getLocation(), south, errorMsg)
         player._location = space
-        north.execute()
+        northCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
         
-        east.execute()
+        eastCmd.execute()
         errorMsg = "Player should be in east space but is not."
         self.assertEqual(player.getLocation(), east, errorMsg)
         player._location = space
-        west.execute()
+        westCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
         
-        west.execute()
+        westCmd.execute()
         errorMsg = "Player should be in west space but is not."
         self.assertEqual(player.getLocation(), west, errorMsg)
         player._location = space
-        east.execute()
+        eastCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
-        
-        #Test _isExit() method - when there are ports
-        errorMsg = "_isExit() failed to return the correct port - ports exist."
-        self.assertTrue(space._isExit("north"), north, errorMsg)
-        self.assertTrue(space._isExit("south"), south, errorMsg)
-        self.assertTrue(space._isExit("east"), east, errorMsg)
-        self.assertTrue(space._isExit("west"), west, errorMsg)
-
-        #Test getExit method
-        errorMsg = "getExit() returned incorrect value."
-        self.assertTrue(space.getExit("north"), north, errorMsg)
-        self.assertTrue(space.getExit("south"), south, errorMsg)
-        self.assertTrue(space.getExit("east"), east, errorMsg)
-        self.assertTrue(space.getExit("west"), west, errorMsg)
 
         #Test clearExit() method
         errorMsg = "Port should have been cleared but was not."
-        
+
         space.clearExit("north")
         self.assertTrue(space._exits[Direction.North], None, errorMsg)
                         
@@ -422,10 +408,10 @@ class SpaceTest(unittest.TestCase):
         space = Space("Shire", "Home of the hobbits", "Hobbits live here")
         player = Player("Russian", space)
         
-        north = NorthCommand("North", "Moves player north", player)
-        south = SouthCommand("South", "Moves player south", player)
-        east = EastCommand("East", "Moves player east", player)
-        west = WestCommand("West", "Moves player west", player)
+        northCmd = NorthCommand("North", "Moves player north", player)
+        southCmd = SouthCommand("South", "Moves player south", player)
+        eastCmd = EastCommand("East", "Moves player east", player)
+        westCmd = WestCommand("West", "Moves player west", player)
         
         north = Space("North Space", "Very cold", "Welcome")
         south = Space("South Space", "Very warm", "Welcome")
@@ -439,35 +425,35 @@ class SpaceTest(unittest.TestCase):
         space.createExit("west", west, outgoingOnly = True)
 
         #Test one-way movement
-        north.execute()
+        northCmd.execute()
         errorMsg = "Player should be in north space but is not."
         self.assertEqual(player.getLocation(), north, errorMsg)
-        south.execute()
+        southCmd.execute()
         errorMsg = "Player should be in north space but is not."
         self.assertEqual(player.getLocation(), north, errorMsg)
         player._location = space
 
-        south.execute()
+        southCmd.execute()
         errorMsg = "Player should be in south space but is not."
         self.assertEqual(player.getLocation(), south, errorMsg)
         player._location = space
-        north.execute()
+        northCmd.execute()
         errorMsg = "Player should be in south but is not."
         self.assertEqual(player.getLocation(), south, errorMsg)
         
-        east.execute()
+        eastCmd.execute()
         errorMsg = "Player should be in east space but is not."
         self.assertEqual(player.getLocation(), east, errorMsg)
         player._location = space
-        west.execute()
+        westCmd.execute()
         errorMsg = "Player should be in east but is not."
         self.assertEqual(player.getLocation(), east, errorMsg)
         
-        west.execute()
+        westCmd.execute()
         errorMsg = "Player should be in west space but is not."
         self.assertEqual(player.getLocation(), west, errorMsg)
         player._location = space
-        east.execute()
+        eastCmd.execute()
         errorMsg = "Player should be in west but is not."
         self.assertEqual(player.getLocation(), west, errorMsg)
 
@@ -705,7 +691,7 @@ class EquipTest(unittest.TestCase):
         equipped.addItem(armor)
 
         #Pretest
-        self.assertEqual(len(equipped), 2, "Player is supposed to have two equipped items but lists more.")
+        self.assertEqual(equipped.count(), 2, "Player is supposed to have two equipped items but lists more.")
                         
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
@@ -754,7 +740,7 @@ class UnequipTest(unittest.TestCase):
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
 
         player.equip(weapon)
         player.equip(armor)
@@ -776,7 +762,7 @@ class UsePotionTest(unittest.TestCase):
     Tests UsePotion command.
     """
     def testExecute(self):
-        from commands.use_potion import UsePotionCommand
+        from commands.use_potion_command import UsePotionCommand
         from space import Space
         from player import Player
         from items.potion import Potion
@@ -1218,7 +1204,6 @@ class ShopSellItems(unittest.TestCase):
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", city = testCity)
         player = Player("Frodo", space)
-        playerMoney = player._money
         
         #Create starting iventory
         COST = 1
@@ -1306,7 +1291,7 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertEqual(len(testShop._items), 5, "Our test shop was generated with the wrong number of items")
         errorMsg = "Items in shop inventory are of wrong type."
         for item in testShop._items:
-            self.assertTrue(isinstance(item, weapon) or isinstance(item, armor) or instance(item, weapon), errorMsg)
+            self.assertTrue(isinstance(item, Weapon) or isinstance(item, Armor) or instance(item, Potion), errorMsg)
 
         #Add Potion to Shop inventory with weight=1, healing=5, cost=3
         testPotion = Potion("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
@@ -1410,7 +1395,7 @@ class UniquePlace(unittest.TestCase):
         from unique_place import UniquePlace
 
         testuniqueplace = UniquePlace("Chris' unique testing room", "Come test here", "Hi")
-        space = Space("Shire", "Home of the Hobbits.", uniquePlaces = [testuniqueplace])
+        space = Space("Shire", "Home of the Hobbits.", uniquePlace = testuniqueplace)
         player = Player("Frodo", space)
         
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.

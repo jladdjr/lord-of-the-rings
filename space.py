@@ -231,7 +231,7 @@ class Space(object):
             return Direction.NORTH
         elif direction == Direction.EAST:
             return Direction.WEST
-        elif direciton == Direction.WEST:
+        elif direction == Direction.WEST:
             return Direction.EAST
         else:
             raise AssertionError("Not a valid direction: %s" % direction)

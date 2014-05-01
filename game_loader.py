@@ -30,6 +30,7 @@ from commands.north_command import NorthCommand
 from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
 from commands.west_command import WestCommand
+import items.unique_items
 import constants
 
 def getWorld():
@@ -706,11 +707,7 @@ def getStartingInventory():
 
     @return:   A list of the items.
     """
-    weapon = Weapon("Rock", "Really heavy", 2, 1000, 1)
-    armor = Armor("Leather Tunic", "Travel cloak", 3, 1, 1)
-    potion = Potion("Vodka", "Good for health", 1, 1, 1)
-
-    startingInventory = [weapon, armor, potion]
+    startingInventory = items.unique_items.startingInventory
     
     return startingInventory
 
