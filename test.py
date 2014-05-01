@@ -227,7 +227,7 @@ class SpaceTest(unittest.TestCase):
         self.assertTrue(space.containsItem(bow), errorMsg)
 
         #Get room's items. Assert only bow exists
-        items = space.getItemSet()
+        items = space.getItems()
         self.assertEqual(items.count(), 1, "Room should contain exactly one item.")
         self.assertFalse(items.containsItem(blade), 
                 "Blade found in room (even though it was removed).")
@@ -259,7 +259,7 @@ class SpaceTest(unittest.TestCase):
         
         #Assert uniquePlace in space
         errorMsg = "Space should contain uniquePlace but does not."
-        self.assertEqual(chocolateMountain.getUniquePlace(), uniquePlace, errorMsg)
+        self.assertEqual(chocolateMountain.getUniquePlace(), dmitriyHouse, errorMsg)
 
     def testMovement(self):
         """
@@ -431,28 +431,27 @@ class SpaceTest(unittest.TestCase):
         southCmd.execute()
         errorMsg = "Player should be in north space but is not."
         self.assertEqual(player.getLocation(), north, errorMsg)
+        
         player._location = space
-
         southCmd.execute()
         errorMsg = "Player should be in south space but is not."
         self.assertEqual(player.getLocation(), south, errorMsg)
-        player._location = space
         northCmd.execute()
         errorMsg = "Player should be in south but is not."
         self.assertEqual(player.getLocation(), south, errorMsg)
         
+        player._location = space
         eastCmd.execute()
         errorMsg = "Player should be in east space but is not."
         self.assertEqual(player.getLocation(), east, errorMsg)
-        player._location = space
         westCmd.execute()
         errorMsg = "Player should be in east but is not."
         self.assertEqual(player.getLocation(), east, errorMsg)
         
+        player._location = space
         westCmd.execute()
         errorMsg = "Player should be in west space but is not."
         self.assertEqual(player.getLocation(), west, errorMsg)
-        player._location = space
         eastCmd.execute()
         errorMsg = "Player should be in west but is not."
         self.assertEqual(player.getLocation(), west, errorMsg)
@@ -702,7 +701,7 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute() 
 
         #Test still only two equipped items
-        self.assertEqual(len(equipped), 2, "Player is supposed to have two equipped items but lists more.")
+        self.assertEqual(equipped.count(), 2, "Player is supposed to have two equipped items but lists more.")
                         
 class UnequipTest(unittest.TestCase):
     """
@@ -781,7 +780,7 @@ class UsePotionTest(unittest.TestCase):
         player._inventory.addItem(potion)
         
         rawInputMock = MagicMock(return_value="Enormous Potion")
-        with patch('commands.use_potion.raw_input', create = True, new = rawInputMock):
+        with patch('commands.use_potion_command.raw_input', create = True, new = rawInputMock):
             usePotionCmd.execute()
             
         errorMsg = "Inventory still contains potion when it should not."
@@ -1291,7 +1290,7 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertEqual(len(testShop._items), 5, "Our test shop was generated with the wrong number of items")
         errorMsg = "Items in shop inventory are of wrong type."
         for item in testShop._items:
-            self.assertTrue(isinstance(item, Weapon) or isinstance(item, Armor) or instance(item, Potion), errorMsg)
+            self.assertTrue(isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Potion), errorMsg)
 
         #Add Potion to Shop inventory with weight=1, healing=5, cost=3
         testPotion = Potion("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
@@ -1312,9 +1311,9 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Medium Potion that was purchased was not added to inventory."
         self.assertTrue(player._inventory.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is in equipped."
-        self.asssertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        self.assertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is still in shop wares."
-        self.asssertFalse(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        self.assertFalse(testPotion in testShop._items, errorMsg)
         
         #Add SuperDuperLegendary Potion to Shop inventory with weight=1, healing=35, cost=28
         testPotion2 = Potion("SuperDuperLegendary Potion of Healing", "A Wang concoction. Made by Master Wang.", 1, 35, 28)
@@ -1330,12 +1329,12 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertEqual(player._money, 17, errorMsg)
        
         #Test item not in inventory, not in equipped, in shop wares
-        errorMsg = "Medium Potion that was purchased was added to inventory."
+        errorMsg = "Medium Potion that was purchased was added to inventory. %s" %player._inventory._items
         self.assertFalse(player._inventory.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is in equipped."
-        self.asssertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        self.assertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is no longer in shop wares."
-        self.asssertTrue(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        self.assertTrue(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
 
         #Player chooses to: 4(purchase item), input "Fake Item", 5(quit the shop)
         rawInputMock = MagicMock(side_effect = ["4", "Fake Item", "5"])
@@ -1350,9 +1349,9 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Medium Potion that was purchased was added to inventory."
         self.assertFalse(player._inventory.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is in equipped."
-        self.asssertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        self.assertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is in shop wares."
-        self.asssertFalse(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        self.assertFalse(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
         
         #Player chooses to: gobbledigook, 5(Quit) the shop
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "5"])
