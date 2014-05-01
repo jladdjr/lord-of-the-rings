@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 from command import Command
+from items.weapon import Weapon
+from items.armor import Armor
+from items.item_set import ItemSet
 
 class EquipCommand(Command):
     """
@@ -23,23 +26,30 @@ class EquipCommand(Command):
         """
         Equips player with item in inventory.
         """
-        itemToEquip = raw_input("Which item do you want to equip? \n")
-        
         inventory = self._player.getInventory()
         equipped = self._player.getEquipped()
+        equippable = ItemSet()
         
-        itemInventory = inventory.getItemByName(itemToEquip)
-        itemEquipment = equipped.getItemByName(itemToEquip)
-        
-        #Checks if item is in inventory and is not already equipped
+        #User prompt
+        print "%s may equip:" % self._player.getName()
+        for item in inventory:
+            if (isinstance(item, Weapon) or isinstance(item, Armor)) and \
+               item not in equipped:
+                print "\t%s" % item.getName()
+                equippable.addItem(item)
         print ""
-        if not itemInventory:
-            print "%s is not in your inventory!" % itemToEquip
+
+        if equippable.count() == 0:
+            print "No equippable items in inventory."
             return
         
-        if itemEquipment:
-            print "%s is already equipped!" % itemToEquip
-            return
+        itemToEquip = raw_input("Which item do you want to equip? ")
 
-        #Equips player with item
-        self._player.equip(itemInventory)
+        #Equip item
+        for item in inventory:
+            if item.getName() == itemToEquip:
+                equipped.addItem(item)
+                print "%s equipped %s!" % (self._player.getName(), item.getName())
+                break
+        else:
+            print "Cannot equip %s!" % itemToEquip

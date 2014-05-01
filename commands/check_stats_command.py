@@ -32,8 +32,7 @@ class CheckStatsCommand(Command):
         
         hp = self._player.getHp()
         attack = self._player.getAttack()
-        weaponsAttack = 0
-        defense = 0
+        totalAttack = self._player.getTotalAttack()
 
         #Get equipment bonuses
         equipment = self._player.getEquipped()
@@ -43,8 +42,6 @@ class CheckStatsCommand(Command):
                 weaponsAttack = item.getAttack()
             elif isinstance(item, Armor):
                 defense = item.getDefense()
-                
-        totalAttack = attack + weaponsAttack
 
         #Print player stats
         print "%s's stats: \n" % name

@@ -56,16 +56,23 @@ class Player(object):
 
         @param target:    The target player is to attack.
         """
-        self._totalAttack = self._attack + self._weaponAttack
         target.takeAttack(self._totalAttack)
         
     def getAttack(self):
         """
-        Gets a player's total attack power (including items).
+        Gets a player's total attack power (excluding items).
         
-        @return:          Sum of player attack and weapon attack.
+        @return:          Base player attack.
         """
-        return self._totalAtack
+        return self._attack
+
+    def getTotalAttack(self):
+        """
+        Gets player's total attack power (including items).
+
+        @return:          Player attack + weapon attack.
+        """
+        return self._totalAttack
 
     def takeAttack(self, attack):
         """
@@ -195,6 +202,7 @@ class Player(object):
         elif isinstance(item, Weapon):
             self._weapon = item
             self._weaponAttack = self._weapon.getAttack()
+            self._totalAttack = self._attack + self._weaponAttack
 
         self._equipped.addItem(item)
         
@@ -214,6 +222,7 @@ class Player(object):
             if isinstance(item, Weapon):
                 self._weapon = None
                 self._weaponAttack = 0
+                self._totalAttack = self._attack + self._weaponAttack
             if isinstance(item, Armor):
                 self._armor = None
                 self._armorDefense = 0

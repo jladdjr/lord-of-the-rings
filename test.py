@@ -1329,7 +1329,7 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertEqual(player._money, 17, errorMsg)
        
         #Test item not in inventory, not in equipped, in shop wares
-        errorMsg = "Medium Potion that was purchased was added to inventory. %s" %player._inventory._items
+        errorMsg = "Medium Potion that was purchased was added to inventory."
         self.assertFalse(player._inventory.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is in equipped."
         self.assertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
