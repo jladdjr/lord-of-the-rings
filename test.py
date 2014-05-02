@@ -702,7 +702,56 @@ class EquipTest(unittest.TestCase):
 
         #Test still only two equipped items
         self.assertEqual(equipped.count(), 2, "Player is supposed to have two equipped items but lists more.")
-                        
+
+    def testExecutePlayerStatsWeapon(self):
+        from player import Player
+        from space import Space
+        from items.weapon import Weapon
+        from commands.equip_command import EquipCommand
+        import constants
+        
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
+
+        weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
+
+        #Create defaults
+        defaultAttack = player._level * constants.ATTACK_STAT
+
+        rawInputMock = MagicMock(return_value="Sword of the Spirit")
+        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
+            equipCmd.execute() 
+
+        #Test for change
+        errorMsg = "Player._attack changed with weapon equip when it should not have."
+        self.assertEqual(player._attack, defaultAttack, errorMsg)
+        errorMsg = "player._weaponAttack not updated to correct value."
+        self.assertEqual(player._weaponAttack, weapon._attack, errorMsg)
+        errorMsg = "Player._totalAttack not updated to correct value."
+        self.assertEqual(player._totalAttack, defaultAttack + weapon._attack, errorMsg)
+
+    def testExecutePlayerStatsArmor(self):
+        from player import Player
+        from space import Space
+        from items.armor import Armor
+        from commands.equip_command import EquipCommand
+        import constants
+        
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
+
+        armor = Armor("Shield of Faith", "For quenching fiery darts", 1, 1, 1)
+
+        rawInputMock = MagicMock(return_value="Shield of Faith")
+        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
+            equipCmd.execute() 
+
+        #Test for change
+        errorMsg = "Player._armorDefense stat was not updated correctly."
+        self.assertEqual(player._armorDefense, armor._defense, errorMsg)
+                         
 class UnequipTest(unittest.TestCase):
     """
     Tests Unequip Command.
@@ -755,6 +804,56 @@ class UnequipTest(unittest.TestCase):
         equipped = player.getInventory()
         self.assertFalse(equipped.containsItem(weapon), "Failed to unequip item that it should have.")
         self.assertFalse(equipped.containsItem(armor), "Failed to unequip item that it should have.")
+
+    def testExecutePlayerStatsWeapon(self):
+        from player import Player
+        from space import Space
+        from items.weapon import Weapon
+        from commands.unequip_command import UnequipCommand
+        import constants
+        
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
+
+        weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
+
+        #Setup
+        player.equip(weapon)
+        
+        rawInputMock = MagicMock(return_value="Sword of the Spirit")
+        with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
+            unequipCmd.execute() 
+
+        #Test for change
+        errorMsg = "player._weaponAttack should be zero but it is not."
+        self.assertEqual(player._weaponAttack, 0, errorMsg)
+        errorMsg = "player._totalAttack should be attack but it is not."
+        self.assertEqual(player._totalAttack, player._attack, errorMsg)
+        
+    def testExecutePlayerStatsArmor(self):
+        from player import Player
+        from space import Space
+        from items.armor import Armor
+        from commands.unequip_command import UnequipCommand
+        import constants
+        
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
+
+        armor = Armor("Shield of Faith", "For quenching fiery darts", 1, 1, 1)
+        
+        #Setup
+        player.equip(armor)
+        
+        rawInputMock = MagicMock(return_value="Shield of Faith")
+        with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
+            unequipCmd.execute() 
+
+        #Test for change
+        errorMsg = "player._armorDefense should be zero after unequip but is not."
+        self.assertEqual(player._armorDefense, 0, errorMsg)
 
 class UsePotionTest(unittest.TestCase):
     """

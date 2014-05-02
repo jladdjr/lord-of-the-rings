@@ -182,13 +182,13 @@ class Player(object):
             return
 
         #Unequip currently equipped armor/weapon if necessary
-        if isinstance(item, Armor):
-            self._armor = item
-            self._armorDefense = self._armor.getDefense()
-        elif isinstance(item, Weapon):
+        if isinstance(item, Weapon):
             self._weapon = item
             self._weaponAttack = self._weapon.getAttack()
-
+        elif isinstance(item, Armor):
+            self._armor = item
+            self._armorDefense = self._armor.getDefense()
+        
         for currentItem in self._equipped:
             if isinstance(item, Weapon) and isinstance(currentItem, Weapon):  
                 self.unequip(currentItem)
