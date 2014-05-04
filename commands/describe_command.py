@@ -37,28 +37,35 @@ class DescribeCommand(Command):
         #Give space name and description
         print "%s: %s." %(locationName, description)
 
-        #pdb.set_trace()
-        #If space has one city:
-        if isinstance(city,City):
-            cityName = city.getName()
-            print "\n%s is contained in %s" %(cityName, locationName)
-        
-        #if space has multiple cities (and the variable city is actually a list of cities):
-        elif isinstance(city,list):
-            for eachCity in city:
-                eachCityName = eachCity.getName()
-                print "\n%s is contained in %s." %(eachCityName, locationName)
+        #if there are no cities or uniquePlaces in this space
+        if not city and not uniquePlace:
+            print "%s has no places for you to enter!" % locationName
 
-        #If space has one uniquePlace object
-        if isinstance(uniquePlace, UniquePlace):
-            uniquePlaceName = uniquePlace.getName() 
-            print "\n%s is contained in %s." %(uniquePlaceName, locationName)           
-        
-        #if space has multiple uniquePlaces (the the variable uniquePlace is actually a list of uniquePlaces)
-        if isinstance(uniquePlace, list):
-            for eachUniquePlace in uniquePlace:
-                eachUniquePlaceName = eachUniquePlace.getName()
-                print "\n%s is contained in %s." %(eachUniquePlaceName, locationName)
+        #if there is at least 1 city or uniquePlace
+        else:
+            print "The following are contained in %s: \n" % locationName
+
+            #If space has one city:
+            if isinstance(city,City):
+                cityName = city.getName()
+                print "%s" % cityName
+            
+            #if space has multiple cities (and the variable city is actually a list of cities):
+            elif isinstance(city,list):
+                for eachCity in city:
+                    eachCityName = eachCity.getName()
+                    print "%s" % eachCityName
+
+            #If space has one uniquePlace object
+            if isinstance(uniquePlace, UniquePlace):
+                uniquePlaceName = uniquePlace.getName() 
+                print "%s" % uniquePlaceName           
+            
+            #if space has multiple uniquePlaces (the the variable uniquePlace is actually a list of uniquePlaces)
+            if isinstance(uniquePlace, list):
+                for eachUniquePlace in uniquePlace:
+                    eachUniquePlaceName = eachUniquePlace.getName()
+                    print "%s" % eachUniquePlaceName
         
         #If space has items
         if len(itemsList) > 0:
