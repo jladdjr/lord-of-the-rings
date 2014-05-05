@@ -8,6 +8,7 @@ from cities.square import Square
 from cities.shop import Shop
 from unique_place import UniquePlace
 from player import Player
+from items.item import Item
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
@@ -46,8 +47,11 @@ def getWorld():
     #Square
     description = "Lots of hobbits; mostly gossip."
     greeting = "Did you hear the latest news on Lobelia Baggins?"
-    talk = {"Lobelia Baggins": "Get lost!", "Naftel Took": "Exciting news about Lobelia!", "Amaranth Brandybuck": "Nice weather isn't it?", "Balbo Baggins": "The word on the street is that Lobelia is trying to acquire the Baggins estate!", "Ferdinand Took": "I wonder when Gandalf will visit?"}
-    hobbitonSquare = Square("Hobbiton Square", description, greeting, talk)
+    talk = {"Lobelia Baggins": "Get lost!", "Naftel Took": "Going adventuring are ya? Here's my walking cane.", "Amaranth Brandybuck": "Nice weather isn't it?", "Balbo Baggins": "The word on the street is that Lobelia is trying to acquire the Baggins estate!", "Ferdinand Took": "I wonder when Gandalf will visit?"}
+    walkingCane = Item("Walking Cane", "Dubiously helpful", 1)
+    tea = Potion("Tea", "A delightful refreshment", 1, 1, 1)
+    items = {"Naftel Took": walkingCane, "Amaranth Brandybuck": tea}
+    hobbitonSquare = Square("Hobbiton Square", description, greeting, talk, items)
     #City
     description = """Hobbiton is a village in the central regions of the
     Shire within the borders of the Westfarthing. Hobbiton is located

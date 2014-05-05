@@ -18,24 +18,29 @@ leatherCloak = Armor("Leather Cloak", "Travel Tunic", 1, 2, 1)
 vodka = Potion("Vodka", "Good for health", 1, 1, 1)
 startingInventory = [sting, theOneRing, leatherCloak, vodka]
 
+#TODO: implement these somehow
+"""
 #Rivendell
 mithrilVest = Armor("Mithril Vest", "Gift from Bilbo", 1, 5, 0)
 shardsOfNarsil = Item("Shards of Narsil", "The sword that Isildur used to cut the One Ring from Sauron", 2)
+rivendellItems = [mithrilVest, shardsOfNarsil]
 
 #Lorien
 elvenCloak = Armor("Elven Cloak", "Gifts from Galadriel", 0, 4, 25)
 phialOfGaladriel = Item("Phial of Galadriel", "'May it be a light for you in dark places...'", 0)
+loreinItems = [elvenCloak, phialOfGaladriel]
 
 #Minas Tirith
 anduril = Weapon("Anduril - The Flame of the West", "The sword once broken, now reforged", 2, 20, 50)
 
-#Miscellaneous
+#Miscellaneous 
 keysOfOrthanc = Item("Keys to Orthanc", "Two gigantic black keys needed to gain entry to the Tower of Orthanc", 1)
 windbeam = Item("Windbeam", "The Horn of Elendil", 1)
 palatir = Item("Palatir", "Stones of Seeing", 4)
 narya = Item("Nanya", "Elven Ring of Fire", 0)
 nenya = Item("Nenya", "Elven Ring of Water", 0)
 vilya = Item("Vilya", "Elven Ring of Air", 0)
+"""
 
 #General unique weapons
 scepterOfAnnuminas = Weapon("Scepter of Annuminas", "Held by the Kings of Arnor", 3, 25, 30)
@@ -57,3 +62,14 @@ ringil = Weapon("Ringil", "Sindarin: 'Cold Spark'", 10, 15, 20)
 crownOfElendil = Armor("Crown of Elendil", "A brilliant crown worn by the Kings of Gondor", 2, 10, 30)
 ironCrown = Armor("Iron Crown", "Forged by Morgoth to hold the Silmaril", 2, 10, 30)
 helmOfHador = Armor("Helm of Hador", "A helmet owned by the Royal House of Hador", 2, 10, 30)
+tarhelmCrown = Armor("TarnHelm Crown", "Straight from Tristram", 2, 10, 10)
+snowclash = Armor("Snowclash Battle Belt", "Straight from Tristram", 2, 10, 10)
+razortail = Armor("Razortail Sharkskin", "Straight from Tristram", 2, 10, 10)
+nightsmoke = Armor("Nightsmoke", "Straight from Tristram", 2, 10, 10)
+peasantCrown = Armor("Peasant Crown", "Straight from Tristram", 2, 10, 10)
+crownOfThieves = Armor("Crown of Thieves", "Straight from Tristram", 2, 10, 10)
+harlequinCrestShako = Armor("Harlequin Crest Shako", "Straight from Tristram", 2, 10, 10)
+
+findableUniques = [scepterOfAnnuminas, aeglos, glamdring ,arglachel, angrist, anguirel, ananruth, belthronding,
+                   dramborleg, grond, guthwine, herugrim, orchrist, ringil, crownOfElendil, ironCrown, helmOfHador,
+                   tarhelmCrown, snowclash, razortail, nightsmoke, peasantCrown, crownOfThieves, harlequinCrestShako]

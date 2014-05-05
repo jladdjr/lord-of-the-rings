@@ -6,7 +6,7 @@ class Square(Building):
     """
     Squares are public spaces that allow players to interface with city folk.
     """
-    def __init__(self, name, description, greetings, talk = None):
+    def __init__(self, name, description, greetings, talk = None, items = None):
         """
         Initializes square object.
 
@@ -18,6 +18,7 @@ class Square(Building):
         Building.__init__(self, name, description, greetings)
 
         self._talk = talk
+        self._items = items
         
     def enter(self, player):
         """
@@ -47,8 +48,15 @@ class Square(Building):
             elif choice in self._talk:
                 print ""
                 print self._talk[choice] + "."
+                
+                #If item still in self._items, give player item
+                if self._items[choice]:
+                    item = self._items[choice]
+                    print "Received %s from %s" % (item.getName(), choice)
+                    player.addToInventory(item)
+                    self._items[choice] = None
                 print ""
-
+                    
             #If person doesn't exist
             elif choice not in self._talk:
                 print ""

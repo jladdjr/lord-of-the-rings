@@ -4,6 +4,7 @@ import random
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+from items.unique_items import findableUniques
 import constants
 
 def getItems(numItems, quality):
@@ -28,8 +29,11 @@ def getItems(numItems, quality):
         elif .3 <= randType < .6:
             item = genArmor(quality, randDesc)
             items.append(item)
-        else:
+        elif .6 <= randType < .975:
             item = genPotion(quality, randDesc)
+            items.append(item)
+        else:
+            item = random.choice(findableUniques)
             items.append(item)
 
     return items
