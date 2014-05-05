@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from items.item import Item
 from cities.building import Building
 
 class Square(Building):
@@ -48,13 +49,21 @@ class Square(Building):
             elif choice in self._talk:
                 print ""
                 print self._talk[choice] + "."
-                
-                #If item still in self._items, give player item
+
+                #If item in self._items, give player item
                 if self._items[choice]:
-                    item = self._items[choice]
-                    print "Received %s from %s" % (item.getName(), choice)
-                    player.addToInventory(item)
-                    self._items[choice] = None
+                    gift = self._items[choice]
+                    #If entry is single item
+                    if isinstance(gift, Item):
+                        print "Received %s from %s." % (gift.getName(), choice)
+                        player.addToInventory(item)
+                        self._items[choice] = None
+                    #If entry is a list
+                    elif isinstance(gift, list):
+                        for item in gift:
+                            print "Received %s from %s." % (item.getName(), choice)
+                            player.addToInventory(item)
+                        self._items[choice] = None
                 print ""
                     
             #If person doesn't exist
