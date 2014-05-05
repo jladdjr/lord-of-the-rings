@@ -23,9 +23,6 @@ class Inn(Building):
         """
         The events sequence upon player entering inn.
         """
-
-        #TODO: No need to create a _player attribute here;
-        #      You can just use 'player' throughout the method.
         self._player = player
         cost = self.getCost()
 
@@ -35,20 +32,13 @@ class Inn(Building):
         print "Cost to stay: %s." % cost
 
         #Determine player choice
-        STAY = 1
-        LEAVE = 2
-        
         choice = None
-        while choice != LEAVE:
-            print """
-            Would you like to stay for the night?:
-            1) Stay
-            2) Leave
-            """
-            choice = int(raw_input("Choice? "))
-
+        while choice != "no":
+            print ""
+            choice = raw_input("Would you like to stay for the night? Reponse: 'yes' or 'no.' ")
+            
             #Heal option   
-            if choice == STAY:
+            if choice == "yes":
                 #Money check and transfer
                 if self._player.getMoney() >= cost:
                     self._player.decreaseMoney(cost)
@@ -57,16 +47,17 @@ class Inn(Building):
                     print "%s was healed at %s cost! %s has %s %s remaining." \
                           % (self._player.getName(), cost, self._player.getName(), self._player.getMoney(), constants.CURRENCY)
                     break
+                #Not enough money
                 else:
                     print "%s have enough money." % self._player.getName()
                 
             #Non-use option
-            elif choice == LEAVE:
+            elif choice == "no":
                 print "Thanks for coming to %s." % self._name
                 
             #For invalid input
             else:
-                print "What?"
+                print "'What?'"
     
     def getCost(self):
         """
