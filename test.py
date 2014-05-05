@@ -978,7 +978,8 @@ class PlayerTest(unittest.TestCase):
 
         self.assertEqual(player._weaponAttack, constants.STARTING_WEAPON_ATTACK, "Player attack bonus was not initialized.")
         self.assertEqual(player._armorDefense, constants.STARTING_ARMOR_DEFENSE, "Player defense bonus was not initialized.")
-                         
+        self.assertEqual(player._totalAttack, player._attack + player._weaponAttack, "Player ._totalAttack did not initiate correctly.")
+        
     def testAttack(self):
         from player import Player
         from space import Space
@@ -1024,6 +1025,35 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "Underkill testcase in testTakeDamage() failed."
         self.assertEqual(player._hp, 1, errorMsg)
 
+    def testTakeDamageArmor(self):
+        from player import Player
+        from space import Space
+        from monsters.monster import Monster
+        from items.armor import Armor
+        
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("Frodo", space)
+        armor = Armor("Shield of Faith", "Quenches fiery darts", 2, 2, 2)
+        player.equip(armor)
+
+        #Testcase - armorDefense is more than attack
+        player._hp = 10
+        player.takeAttack(1)
+        errorMsg = "Testcase - armorDefense is more than attack failed."
+        self.assertEqual(player._hp, 10, errorMsg)
+        
+        #Testcase - armorDefense is attack
+        player._hp = 10
+        player.takeAttack(2)
+        errorMsg = "Testcase - armorDefense is attack failed."
+        self.assertEqual(player._hp, 10, errorMsg)
+        
+        #Testcase - armorDefense is less than attack
+        player._hp = 10
+        player.takeAttack(3)
+        errorMsg = "Testcase - armorDefense is less than attack failed."
+        self.assertEqual(player._hp, 9, errorMsg)
+        
     def testIncreaseExperience(self):
         from player import Player
         from space import Space
@@ -1125,6 +1155,14 @@ class PlayerTest(unittest.TestCase):
         player.addToInventory(newWeapon)
         player.addToInventory(newArmor)
 
+        #Pretest player-specific items-based attributes
+        errorMsg = "_weaponAttack should be 0 but it is not."
+        self.assertEqual(player._weaponAttack, 0, errorMsg)
+        errorMsg = "armorDefense should be 0 but it is not."
+        self.assertEqual(player._armorDefense, 0, errorMsg)
+        errorMsg = "totalAttack should be simply attack but it is not."
+        self.assertEqual(player._totalAttack, player._attack, errorMsg)
+
         #Attempt to equip new items
         player.equip(newItem)
         self.assertFalse(newItem in player.getEquipped(), "Equipped %s and should not have." % newItem)
@@ -1132,6 +1170,14 @@ class PlayerTest(unittest.TestCase):
         self.assertTrue(newWeapon in player.getEquipped(), "Failed to equip %s" % newWeapon)
         player.equip(newArmor)
         self.assertTrue(newArmor in player.getEquipped(), "Failed to equip %s" % newArmor)
+
+        #Posttest player-specific items-based attributes
+        errorMsg = "_weaponAttack should be 0 but it is not."
+        self.assertEqual(player._weaponAttack, weapon.getAttack(), errorMsg)
+        errorMsg = "_armorDefense should be 0 but it is not."
+        self.assertEqual(player._armorDefense, armor.getDefenses(), errorMsg)
+        errorMsg = "_totalAttack should have been updated but was not."
+        self.assertEqual(player._totalAttack, player._attack + weapon.getAttack(), errorMsg)
         
         #Attempt to unequip items
         player.unequip(newWeapon)
@@ -1139,6 +1185,14 @@ class PlayerTest(unittest.TestCase):
         player.unequip(newArmor)
         self.assertFalse(newArmor in player.getEquipped(), "Failed to unequip %s" % newArmor)
 
+        #Check to see that item-specific attributes are reset to pre-equip figures
+        errorMsg = "_weaponAttack should be 0 but it is not - unequip."
+        self.assertEqual(player._weaponAttack, 0, errorMsg)
+        errorMsg = "armorDefense should be 0 but it is not - unequip."
+        self.assertEqual(player._armorDefense, 0, errorMsg)
+        errorMsg = "totalAttack should be simply attack but it is not - unequip."
+        self.assertEqual(player._totalAttack, player._attack, errorMsg)
+        
     def addToInventory(self):
         from player import Player
         from space import Space
@@ -1216,6 +1270,14 @@ class PlayerTest(unittest.TestCase):
         self.assertFalse(newItem in player._equipped, errorMsg)
         self.assertFalse(newWeapon in player._equipped, errorMsg)
         self.assertFalse(newArmor in player._equipped, errorMsg)
+
+        #Test that item-specific character attributes are reset to original values
+        errorMsg = "_weaponAttack should be 0 but it is not."
+        self.assertEqual(player._weaponAttack, 0, errorMsg)
+        errorMsg = "_armorDefense should be 0 but it is not."
+        self.assertEqual(player._armorDefense, 0, errorMsg)
+        errorMsg = "_totalAttack should be player._attack but it is not."
+        self.assertEqual(player._totalAttack, player._attack, errorMsg)
 
     def canMoveDirection(self):
         """
