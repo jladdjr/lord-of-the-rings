@@ -56,7 +56,7 @@ class Square(Building):
                     #If entry is single item
                     if isinstance(gift, Item):
                         print "Received %s from %s." % (gift.getName(), choice)
-                        player.addToInventory(item)
+                        player.addToInventory(gift)
                         self._items[choice] = None
                     #If entry is a list
                     elif isinstance(gift, list):
