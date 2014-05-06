@@ -4,15 +4,18 @@ class Command(object):
     """
     Parent class for all Command objects.
     """
-    def __init__(self, name, explanation):
+    def __init__(self, name, explanation, time = False):
         """
         Initializes new command object.
 
-        @param name:        Command name.
-        @param explanation: Explanation of command.
+        @param name:          Command name.
+        @param explanation:   Explanation of command.
+        @param time:          True if time passes with command.
+                              False otherwise.
         """
         self._name = name
         self._explanation = explanation
+        self._time = time
 
     def getName(self):
         """
@@ -25,6 +28,12 @@ class Command(object):
         Returns command's explanation.
         """
         return self._explanation
+
+    def getTime(self):
+        """
+        Returns time parameter of command.
+        """
+        return self._time
 
     def execute(self):
         """

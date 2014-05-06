@@ -8,20 +8,22 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description, items = None, city = None, uniquePlace = None):
+    def __init__(self, name, description, items = None, city = None, uniquePlace = None, probabilityBattle = 0, battleDifficulty = 0):
         """
         Initialize a Space object.
 
-        @param name:            Name of space.
-        @param description:     Description of space.
+        @param name:                     Name of space.
+        @param description:              Description of space.
 
-        @keyword items:         (Optional) Items found in the space.
-                                May be a reference to a single item or an ItemSet.
-        @keyword city:          (Optional) Reference to the city objects in space.
-                                May be a reference to an object or a list.
-        @keyword uniquePlace:  (Optional) Reference to the unique places in Middle Earth. 
-                                May be a reference to an object or a list.
-
+        @keyword items:                  (Optional) Items found in the space.
+                                         May be a reference to a single item or an ItemSet.
+        @keyword city:                   (Optional) Reference to the city objects in space.
+                                         May be a reference to an object or a list.
+        @keyword uniquePlace:            (Optional) Reference to the unique places in Middle Earth. 
+                                         May be a reference to an object or a list.
+        @keyword probabilityBattle:      (Optional) Probability between 0-1 that a random battle
+                                         will occur between commands in space.
+        @keyword battleDifficulty:       Parameter between 1-20 that determines battle difficulty.
         """
         self._exits = { Direction.NORTH : None,
                         Direction.SOUTH : None,
@@ -37,6 +39,8 @@ class Space(object):
         self._items = ItemSet()
         self._city = city
         self._uniquePlace = uniquePlace
+        self._probabilityBattle = probabilityBattle
+        self._battleDifficulty = battleDifficulty
 
     def getName(self):
         """
@@ -121,6 +125,23 @@ class Space(object):
                     May be reference to single unique place or list of unique places.
         """
         return self._uniquePlace
+
+    def getProbabilityBattle(self):
+        """
+        Returns probability of random battle.
+
+        @return:    The probability that a random battle occurs.
+        """
+        return self._probabilityBattle
+
+    def getBattleDifficulty(self):
+        """
+        Returns difficulty attribute of space.
+        Difficulty ranges between 0-20.
+
+        @return:    The difficulty parameter of Space.
+        """
+        return self._battleDifficulty
 
     def createExit(self, direction, space, outgoingOnly = False):
         """

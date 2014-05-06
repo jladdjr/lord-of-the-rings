@@ -31,6 +31,7 @@ from commands.north_command import NorthCommand
 from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
 from commands.west_command import WestCommand
+from battle_engine.battle_engine import doBattle
 import items.unique_items
 import constants
 
@@ -798,3 +799,6 @@ def getCommandList(player):
     commandWords.addCommand("describe", descCmd)
 
     return commandWords
+
+def createBattleEngine():
+    

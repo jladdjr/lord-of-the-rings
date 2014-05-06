@@ -38,7 +38,7 @@ class Direction(object):
     EAST  = 'east'
     WEST  = 'west'
 
-#Type enumeration
+#Item type enumeration
 class ItemType(object):
     """
     When a new item is created, its type should
@@ -49,3 +49,15 @@ class ItemType(object):
     WEAPON  = 3
     POTION  = 4
 
+#Region type enumeration
+class RegionType(object):
+    """
+    The region types in Middle Earth.
+    """
+    ERIADOR     = 1
+    HIGH_PASS   = 2
+    ENEDWAITH   = 3
+    RHOVANION   = 4
+    ROHAN       = 5
+    GONDOR      = 6
+    MORDOR      = 7
