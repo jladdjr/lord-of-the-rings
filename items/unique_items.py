@@ -18,20 +18,70 @@ leatherCloak = Armor("Leather Cloak", "Travel Tunic", 1, 2, 1)
 vodka = Potion("Vodka", "Good for health", 1, 1, 1)
 startingInventory = [sting, theOneRing, leatherCloak, vodka]
 
-#TODO: implement these somehow
-"""
-#Rivendell
-mithrilVest = Armor("Mithril Vest", "Gift from Bilbo", 1, 5, 0)
-shardsOfNarsil = Item("Shards of Narsil", "The sword that Isildur used to cut the One Ring from Sauron", 2)
-rivendellItems = [mithrilVest, shardsOfNarsil]
+#Hobbiton Square
+walkingCane = Item("Walking Cane", "Dubiously helpful", 1)
+tea = Potion("Tea", "A delightful refreshment", 1, 1, 1)
+newspaper = Item("The Shire Newspaper", "Mostly tabloids... about hobbits", 1)
+hobbitonSquareItems = {"Naftel Took": walkingCane, "Amaranth Brandybuck": [tea, newspaper]}
 
-#Lorien
+#Council of Elrond
+legolasHair = Item("Legolas' Hair", "Industrial applications", 0)
+mithrilVest = Armor("Mithril Vest", "Gift from Bilbo", 1, 5, 0)
+anduril = Weapon("Anduril - The Flame of the West", "The sword once broken, now reforged", 2, 20, 50)
+councilOfElrondItems = {"Elrond": [mithrilVest, anduril], "Legolas": legolasHair}
+
+#The Pit
+water = Potion("Water", "For sobering up", 1, 5, 1)
+elvenRum = Potion("Elven Rum", "Bad for non-elves", 1, 5, -5)
+thePitItems = {"Curufin": water, "Daeron": elvenRum}
+
+#Elvenking's Throne
+sweetNewElvenWare = Armor("Sweet New ElvenWare", "The latest from Mirkwood", 10, 5, 10)
+elvenkingsThroneItems = {"Beleg": sweetNewElvenWare}
+
+#Prancing Pony
+tea = Potion("Tea", "Left by Dudo", 2, 2, 1)
+bulletin = Item("Nazgul Bulletin", "The people of Bree are scared of Nazgul", 0)
+prancingPonyItems = {"Harry Goatleaf": bulletin, "Dudo Baggins": tea}
+
+#Galadriel's Mirror
 elvenCloak = Armor("Elven Cloak", "Gifts from Galadriel", 0, 4, 25)
 phialOfGaladriel = Item("Phial of Galadriel", "'May it be a light for you in dark places...'", 0)
-loreinItems = [elvenCloak, phialOfGaladriel]
+galadrielsMirrorItems = {"Galadriel": [elvenCloak, phialOfGaladriel]}
 
-#Minas Tirith
-anduril = Weapon("Anduril - The Flame of the West", "The sword once broken, now reforged", 2, 20, 50)
+#Helm's Deep Commons
+vodka = Potion("Koskenkorva", "Rohirric Poisons", 1, 5, 0)
+vodka2 = Potion("Luksusowa", "Budget Vodka", 1, 4, 0)
+helmsDeepCommonsItems = {"Erkenbrand": vodka, "Gambling the Old": vodka2}
+
+#Edoras Commons
+tea = Potion("Tea", "For sharing stories over", 1, 5, 1)
+tea2 = Potion("Soda", "'Risque' in this community", 1, 5, 1)
+newspaper = Item("Newspaper", "Full of clippings. Mostly for reminiscing", 1)
+edorasCommonsItems = {"Helm Gammerhand": tea, "Frealaf Hildeson": tea2, "Brytta Leofa": newspaper}
+
+#Auburn Square Commons
+russianTea = Potion("Russian Tea", "Very rare", 1, 5, 1)
+freePizza = Potion("Free Pizza", "Tombstones though", 1, 10, 1)
+chineseHandouts = Item("Chinese Handouts", "Poor quality", 1)
+auburnSquareCommons = {"Dmitriy": russianTea, "Jim 'The Dear Ladd' Jr.": freePizza, "Chris 'Chocolate Rain' Wang": chineseHandouts}
+
+#Market Square
+fruitSamples = Potion("Fruit Samples", "Meagerly", 1, 2, 0)
+foodHoards = Potion("Food Hoards", "It appears that some people are stocking up", 3, 10, 2)
+negativeThinking = Item("Negative Thinking", "Not something you want", 15)
+marketSquareItems = {"Calmacil": fruitSamples ,"Atanatar": foodHoards, "Castamir": negativeThinking}
+
+#Tower of Echelion
+palatir = Item("Palatir", "Strange orb-like thing", 10)
+niceSword = Weapon("Nice Sword", "Very Nice!", 3, 15, 4)
+towerOfEchelionItems = {"Denethor": palatir, "Prince Imrahil": niceSword}
+
+#Beach
+draagz = Item("Draagz", "Bad for health... and illegal", 15)
+vodka = Potion("Vodka", "From the Gondorian heartland", 10, 5, 10)
+flowersAndTrinkets = Potion("Flowers And Trinkets", "Massive mental health bonuses", 10, 5, 10)
+beachItems = {"Gondorian bro #3": draagz, "Gondorian bro #2": flowersAndTrinkets}
 
 #Miscellaneous 
 keysOfOrthanc = Item("Keys to Orthanc", "Two gigantic black keys needed to gain entry to the Tower of Orthanc", 1)
@@ -40,7 +90,6 @@ palatir = Item("Palatir", "Stones of Seeing", 4)
 narya = Item("Nanya", "Elven Ring of Fire", 0)
 nenya = Item("Nenya", "Elven Ring of Water", 0)
 vilya = Item("Vilya", "Elven Ring of Air", 0)
-"""
 
 #General unique weapons
 scepterOfAnnuminas = Weapon("Scepter of Annuminas", "Held by the Kings of Arnor", 3, 25, 30)
@@ -70,6 +119,6 @@ peasantCrown = Armor("Peasant Crown", "Straight from Tristram", 2, 10, 10)
 crownOfThieves = Armor("Crown of Thieves", "Straight from Tristram", 2, 10, 10)
 harlequinCrestShako = Armor("Harlequin Crest Shako", "Straight from Tristram", 2, 10, 10)
 
-findableUniques = [scepterOfAnnuminas, aeglos, glamdring ,arglachel, angrist, anguirel, ananruth, belthronding,
+findableUniques = [scepterOfAnnuminas, aeglos, glamdring, arglachel, angrist, anguirel, ananruth, belthronding,
                    dramborleg, grond, guthwine, herugrim, orchrist, ringil, crownOfElendil, ironCrown, helmOfHador,
                    tarhelmCrown, snowclash, razortail, nightsmoke, peasantCrown, crownOfThieves, harlequinCrestShako]

@@ -48,17 +48,15 @@ def getWorld():
     description = "Lots of hobbits; mostly gossip."
     greeting = "Did you hear the latest news on Lobelia Baggins?"
     talk = {"Lobelia Baggins": "Get lost!", "Naftel Took": "Going adventuring are ya? Here's my walking cane.", "Amaranth Brandybuck": "Nice weather isn't it?", "Balbo Baggins": "The word on the street is that Lobelia is trying to acquire the Baggins estate!", "Ferdinand Took": "I wonder when Gandalf will visit?"}
-    walkingCane = Item("Walking Cane", "Dubiously helpful", 1)
-    tea = Potion("Tea", "A delightful refreshment", 1, 1, 1)
-    items = {"Naftel Took": walkingCane, "Amaranth Brandybuck": tea}
-    hobbitonSquare = Square("Hobbiton Square", description, greeting, talk, items)
+    hobbitonSquare = Square("Hobbiton Square", description, greeting, talk, items.unique_items.hobbitonSquareItems)
     #City
     description = """Hobbiton is a village in the central regions of the
     Shire within the borders of the Westfarthing. Hobbiton is located
     on both sides of the Water approximately a mile northwest of the
     neighboring village of Bywater.
     """
-    hobbiton = City("Hobbiton", description, "Did you hear the latest news?", [sallyInn, sallyShop, hobbitonSquare])
+    greeting = "'Have you heard the news?'"
+    hobbiton = City("Hobbiton", description, greeting, [sallyInn, sallyShop, hobbitonSquare])
     #The Shire
     description = """
     The Shire is divided into four farthings, North, South, East and West;
@@ -120,8 +118,8 @@ def getWorld():
     #Square
     description = "Hotshots only."
     greeting = "We've been waiting for your arrival...."
-    talk = {"Elrond": "Don't you think about marrying my daughter....", "Legolas": "What do you think about my hair?", "Aragorn": "Check out these knife tricks!", "Gimli": "I bet I can eat more hotdogs than you.", "Gandalf": "Did you know I have the Ring of Fire?"}
-    councilOfElrond = Square("Council of Elrond", description, greeting, talk)
+    talk = {"Elrond": "The sword that was broken... now reforged!", "Legolas": "What do you think about my hair?", "Aragorn": "Check out these knife tricks!", "Gimli": "I bet I can eat more hotdogs than you.", "Gandalf": "Did you know I have the Ring of Fire?"}
+    councilOfElrond = Square("Council of Elrond", description, greeting, talk, items.unique_items.councilOfElrondItems)
     #City
     description = """
     Rivendell, also known as Imladris, is an Elven outpost in Middle-earth.
@@ -167,12 +165,12 @@ def getWorld():
     description = "Drinks on Thrandruil!"
     greeting = "You arrive to find a mass of drunken elves."
     talk = {"Cananthir": "Gaaalaaaagh....", "Curufin": "Don't mind Canathir, he's had a rough life", "Daeron": "Let's drink to Legolas!", "Ecthelion": "Glaaaaaaack....", "Earwen": "[Ignores you.]"}
-    thePit = Square("The Pit", description, greeting, talk)
+    thePit = Square("The Pit", description, greeting, talk, items.unique_items.thePitItems)
     #Square
     description = "Thrandruil's throne room."
     greeting = "What makes you think that you belong here?"
     talk = {"Thranduil": "Hmmph! I'm elvenking!", "Angrod": "Much gnashing of teeth here. You probably won't find what you're looking for.", "Aredhel": "Hmmph! Humans!", "Argon": "Hmmph! Didn't you know that you're wearing yesterday's ElvenWare?", "Beleg": "Hmmph! Dress in better ElvenWare!"}
-    elvenkingsThrone = Square("Elvenking's Throne", description, greeting, talk)
+    elvenkingsThrone = Square("Elvenking's Throne", description, greeting, talk, items.unique_items.elvenkingsThroneItems)
     #City
     description = """The Elvenking's Halls is the cave system in northern
     Mirkwood in which King Thranduil and many of the Elves of Mirkwood
@@ -199,7 +197,7 @@ def getWorld():
     description = "A noisy hole in the wall known for quarrels."
     greeting = "You are greeted with silence. Two people stare at you briefly \nbefore turning back to their drinks."
     talk = {"Bill Ferny": "I hear there's been Nazgul in these parts.", "Harry Goatleaf": "The entire town is scared of Nazgul....", "Henry Thistlewool": "The shadow has descended upon these parts....", "Dudo Baggins": "What am I even doing here?", "Estella Brandybuck": "Time to go home I think...."}
-    prancingPony = Square("Prancing Pony", description, greeting, talk)
+    prancingPony = Square("Prancing Pony", description, greeting, talk, items.unique_items.prancingPonyItems)
     #City
     description = """Bree was settled in the early Third Age, in the
     realm Cardolan. Though the Princes of Cardolan claimed it, Bree
@@ -286,7 +284,7 @@ def getWorld():
     description = "For prophesy as well as plain old-fashioned vanity."
     greeting = "A strange sight: Galadriel's mirror as well as Galadriel herself!"
     talk = {"Galadriel": "Check out this new ElvenWare! How do you think I look?"}
-    galadrielsMirror = Square("Galadriel's Mirror", description, greeting, talk)
+    galadrielsMirror = Square("Galadriel's Mirror", description, greeting, talk, items.unique_items.galadrielsMirrorItems)
     #City
     description = """Caras Galadhon is a city located in Lorien. Its inhabitants
     dwell in large flets in the trees, reachable by white ladders. On the top
@@ -363,7 +361,7 @@ def getWorld():
     description = "Mass drunkenness."
     greeting = "Everyone is passed out."
     talk = {"Erkenbrand": "Ughhhhhhh....", "Gambling the Old": "Merrrrrrrrrrrrr...."}
-    helmsDeepCommons = Square("Helms Deep Commons", description, greeting, talk)
+    helmsDeepCommons = Square("Helms Deep Commons", description, greeting, talk, items.unique_items.helmsDeepCommonsItems)
     #City
     description = """Helm's Deep is a large valley gorge in northwestern
     Ered Nimrais below the Thrihyrne. It is the name of the whole
@@ -412,7 +410,7 @@ def getWorld():
     description = "Home of bingo and other festivities."
     greeting = "How are you sonnie?"
     talk = {"Helm Gammerhand": "What is this 'War of the Ring' you speak of?", "Brytta Leofa": "Back in my day, we fought against a guy named Morgoth. I bet you've never even heard of Morgoth.", "Morwen Steelsheen": "You youngsters are so impatient these days. Always rushing off into battles that you don't need to be involved in....", "Frealaf Hildeson": "I have no idea what you're talking about with this 'Sauron' business."}
-    edorasCommons = Square("Edoras Commons", description, greeting, talk)
+    edorasCommons = Square("Edoras Commons", description, greeting, talk, items.unique_items.edorasCommonsItems)
     #City
     description = """Rohan's first capital was at Aldburg in the Folde
     until Eorl the Young's son Brego built Edoras. It is Rohan's
@@ -433,7 +431,7 @@ def getWorld():
     description = "For late-night programming, among other things."
     greeting = "What the heck is going on?"
     talk = {"Dmitriy": "The isomorphic properties of this list lends itself to three-tailed development.", "Jim 'The Dear Ladd' Jr.": "???", "Chris 'Chocolate Rain' Wang": "I am from China."}
-    auburnSquare = Square("Auburn Square Commons", description, greeting, talk)
+    auburnSquare = Square("Auburn Square Commons", description, greeting, talk, items.unique_items.auburnSquareCommons)
     #City
     description = """Aldburg was built by Eorl in the region known as the Folde,
     east of Edoras. The Kings of Rohan moved to Edoras after Brego, son of Eorl,
@@ -515,19 +513,19 @@ def getWorld():
     description = "Minas Tirith commons."
     greeting = "Welcome to our square. This place used to be a lot more lively."
     talk = {"Calmacil": "Would you like to buy some fruit?", "Castamir": "Everyone is afraid.", "Ciryandil": "Orcish raids have been increasing in the outlying lands....", "Minalcar": "I wonder what we can do with Mordor....", "Narmacil": "I wonder if the king will return", "Tarondor": "I hope Rohan will bring aid.", "Atanatar": "Word has it that Mordor is preparing to attack."}
-    citySquare = Square("Market Square", description, greeting, talk)
+    marketSquare = Square("Market Square", description, greeting, talk, items.unique_items.marketSquareItems)
     #Square
     description = "Home to Gondorian royalty."
     greeting = "Denethor would like to see you...."
     talk = {"Denethor": "What do you think Sauron will do next?", "Faramir": "The lands recently stolen by Sauron should be retaken....", "Boromir": "Nice ring. Give it to me!", "Prince Imrahil": "Sauron plans on moving soon....", "Swan Knight": "The men are afraid. The land is covered in shadow...."}
-    towerOfEcthelion = Square("Tower of Ecthelion", description, greeting, talk)
+    towerOfEcthelion = Square("Tower of Ecthelion", description, greeting, talk, items.unique_items.towerOfEchelionItems)
     #City
     description = """Minas Tirith is a city of Gondor originally called Minas Anor.
     From T.A. 1640 onwards it became the capital of the South-kingdom and the seat of
     its Kings and ruling Stewards.
     """
     greeting = "Welcome to the last stronghold of the West, Minas Tirith."
-    minasTirith = City("Minas Tirith", description, greeting, [housesOfHealing, citySquare, towerOfEcthelion, smithyOfKings])
+    minasTirith = City("Minas Tirith", description, greeting, [housesOfHealing, marketSquare, towerOfEcthelion, smithyOfKings])
     #Anorien
     description = """Anorien is the fiefdom of Gondor containing Minas Tirith, the
     capital of Gondor. Originally known as Minas Anor, it replaced Osgiliath
@@ -633,7 +631,7 @@ def getWorld():
     description = "Class-three waves and hot chicks!"
     greeting = "Bro, did you see those waves?"
     talk = {"Gondorian bro #1": "Bro, let's hit the beach!", "Gondorian bro #2": "Bro! Let's just chill for awhile... bro?", "Gondorian bro #3": "Bro! I hear there's going to be a party later tonight.", "Gondorian chick #1": "Bro, I have a boyfriend....", "Gondorian chick #2": "Bro, what are you doing later?"}
-    beach = Square("Pelargir Beach", description, greeting, talk)
+    beach = Square("Pelargir Beach", description, greeting, talk, items.unique_items.beachItems)
     #City
     description = """One of the oldest cities in Middle Earth, Pelargir served
     as chief haven of the faithful as Numenorians migrated to Middle Earth to
