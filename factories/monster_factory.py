@@ -2,12 +2,12 @@
 
 from monsters.monster import Monster
 
-def getMonster(number, region, difficulty):
+def getMonsters(number, region, difficulty):
     """
     Generates enemies for the battle sequence.
 
     @param number:      The number of monsters to generate.
-    @param type:        The type of monsters to generate.
+    @param region:      The region of the map Player is currently in.
     @param difficulty:  The number of enemies to generate.
     """
     monsters = []
@@ -17,7 +17,7 @@ def getMonster(number, region, difficulty):
         health = difficulty * 2
         attack = difficulty * 3
         experience = difficulty
-        monster = Monster("Jerk", "Total j@ck@$$", monsterHealth, monsterAttack, experience)
+        monster = Monster("Jerk", "Total j@ck@$$", health, attack, experience)
         monsters.append(monster)
 
     return monsters

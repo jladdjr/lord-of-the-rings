@@ -2,6 +2,7 @@
 
 from parser import Parser
 import game_loader
+import battle_engine
 import random
 
 class Game(object):
@@ -17,7 +18,6 @@ class Game(object):
         startingInventory = game_loader.getStartingInventory()
         self._player = game_loader.getPlayer(self._world, startingInventory)
         self._commandList = game_loader.getCommandList(self._player)
-        self._battleEngine = game_loader.battleEngine(self._player)
 
         #Creates parser
         self._parser = Parser(self._commandList)
@@ -26,7 +26,7 @@ class Game(object):
         """
         Executes main game loop.
         """
-        message = """
+        splashScreen = """
  __                                  __                   ______        
 |  \                                |  \                 /      \       
 | $$        ______    ______    ____| $$        ______  |  $$$$$$\      
@@ -64,7 +64,7 @@ class Game(object):
                                      \$$    $$                          
                                       \$$$$$$
         """
-        print message
+        print splashScreen
         print "An adventure game where Russian tries to take on the hoards of Mordor."
         print "A little help from Dear Ladd Jr., Miles, Seth, and C-$ on the way."
         print "...~Money~..."
@@ -77,8 +77,16 @@ class Game(object):
 
     def _nextTurn(self):
         """
-        Executes next turn and then determines whether a random battle should occur.
+        Determines if a random battle should occur and then executes
+        the random battle before executing player command. 
         """
+        #Determines if random battle will occur
+        currentLocation = self._player.getLocation()
+        battleProbability = currentLocation.getBattleProbability()
+        if random.random() < battleProbability:
+            #Call on battleobject to resolve battle
+            battle_engine.battle(self._player)
+        
         #Executes next command
         nextCommand = self._parser.getNextCommand()
         
@@ -88,11 +96,3 @@ class Game(object):
         else:
             errorMsg = "Failed to receive command from parser."
             raise AssertionError(errorMsg)
-
-        #For random battles
-        currentLocation = self._player.getLocation()
-        probabilityBattle = space.getProbabilityBattle()
-        if random.random() < probabilityBattle:
-            #Call on battleobject to resolve battle
-            self._battleEngine(self._player)
-        

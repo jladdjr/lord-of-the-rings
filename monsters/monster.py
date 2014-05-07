@@ -37,11 +37,12 @@ class Monster(object):
         
     def takeAttack(self, attack): 
         """
-        Simulates taking attack from attack.
+        Simulates taking an attack.
+        Hp is floored at zero.
 
         @param attack:      Amount of attack taken.
         """
-        self._hp -= attack
+        self._hp = max(self._hp - attack, 0)
 
     def getName(self):
         """
@@ -65,7 +66,7 @@ class Monster(object):
         
         @return: Monster's HP.
         """
-        return self._Hp
+        return self._hp
         
     def getAttack(self):
         """
