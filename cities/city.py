@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 from place import Place
+from cities.building import Building
+import pdb
 
 class City(Place):
     """
@@ -42,5 +44,45 @@ class City(Place):
         for building in self._buildings:
             if building.getName() == string:
                 return building
-    def enter(self):
+    def createDictionaryOfBuildings(self):
+        """
+        Creates a dictionary of building objects. The keys are the building name that references the building object.
+        """
+        
+        dictionary = {}
+        #if there is 1 building
+        if isinstance(self._buildings, Building):
+            dictionary[self._buildings.getName()] = self._buildings
+        #if there are multiple buildings
+        elif isinstance(self._buildings,list):
+            for building in self._buildings:
+                dictionary[building.getName()] = building
+        return dictionary
+    
+    def enter(self, player):  
         print "Entering %s" % self._name
+        print "\n %s \n" % self._description
+        print "You have found the following:"
+        
+        #if there is 1 building
+        if isinstance(self._buildings,Building):
+            print "\t %s" % self._buildings.getName()
+        #if there are multiple buildings
+        elif isinstance(buildings,list):
+            for building in self._buildings:
+                print "\t %s" % self._building.getName()
+            
+        dictionary = self.createDictionaryOfBuildings()        
+        
+        #pdb.set_trace()
+        print "If you would like to go to one of these, then type the name. Otherwise, type 'leave city'"
+        command = raw_input("What would you like to do?")
+        
+        while (command not in dictionary.keys()) or (command == 'leave city'):
+            if command == 'leave city':
+                break
+            else:
+                print "I did not recognize that. Try again. \n"
+                command = raw_input("What would you like to do? \n")
+        else:
+            dictionary[command].enter(player)

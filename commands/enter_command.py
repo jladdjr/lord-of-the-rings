@@ -107,4 +107,5 @@ class EnterCommand(Command):
                 print "\nThat name does not match the names of any of the places here. Try again, or type 'stop' to stop entering a place.\n"
             placeToEnter = raw_input("Which of these would you like to enter?\n")
         else:
-            dictionary[placeToEnter].enter()
+            print "\n"
+            dictionary[placeToEnter].enter(self._player)

@@ -19,7 +19,7 @@ class Inn(Building):
         self._cost = cost
         
     #TODO: Rename to enterBuilder() or just enter()
-    def execute(self, player):
+    def enter(self, player):
         """
         The events sequence upon player entering inn.
         """

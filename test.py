@@ -839,6 +839,30 @@ class SquareDoesNotCrash(unittest.TestCase):
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
         
 
+class City(unittest.TestCase):
+    """
+    Tests the ability of City Object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from cities.inn import Inn
+
+        testInn = Inn("Seth n Breakfast Test Inn", "testing inn", "Come test here", 3)
+        testCity = City("TestCity","Chris' unique testing city", "Come test here", buildings = testInn)
+        space = Space("Shire", "Home of the Hobbits.", city = testCity)
+        player = Player("Frodo", space)
+        
+        #Player enters city and Inn
+        rawInputMock = MagicMock(side_effect = ["Seth n Breakfast Test Inn"])
+        
+        with patch('cities.city.raw_input', create = True, new = rawInputMock):
+            testCity.enter(player)
+        
+        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+        
 class UniquePlace(unittest.TestCase):
     """
     Tests the ability of UniquePlace Object.
