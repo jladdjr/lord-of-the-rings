@@ -42,3 +42,5 @@ class City(Place):
         for building in self._buildings:
             if building.getName() == string:
                 return building
+    def enter(self):
+        print "Entering %s" % self._name
