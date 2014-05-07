@@ -63,26 +63,30 @@ class City(Place):
         print "Entering %s" % self._name
         print "\n %s \n" % self._description
         print "You have found the following:"
+
+        dictionary = self.createDictionaryOfBuildings()
         
         #if there is 1 building
         if isinstance(self._buildings,Building):
             print "\t %s" % self._buildings.getName()
         #if there are multiple buildings
-        elif isinstance(buildings,list):
+        elif isinstance(self._buildings,list):
             for building in self._buildings:
-                print "\t %s" % self._building.getName()
-            
-        dictionary = self.createDictionaryOfBuildings()        
+                print "\t %s" % building.getName()
         
         #pdb.set_trace()
         print "If you would like to go to one of these, then type the name. Otherwise, type 'leave city'"
         command = raw_input("What would you like to do?")
         
-        while (command not in dictionary.keys()) or (command == 'leave city'):
-            if command == 'leave city':
-                break
+        while (command in dictionary.keys()) or (command not in dictionary.keys()):
+            if command in dictionary.keys():
+                dictionary[command].enter(player)
+                command = raw_input("What would you like to do now?\n")
             else:
-                print "I did not recognize that. Try again. \n"
+                print "I did not recognize that. Try again. Type 'leave city' to leave city \n"
                 command = raw_input("What would you like to do? \n")
+                if command == 'leave city':
+                    break
         else:
-            dictionary[command].enter(player)
+            pass
+

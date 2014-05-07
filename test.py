@@ -854,14 +854,11 @@ class City(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", city = testCity)
         player = Player("Frodo", space)
         
-        #Player enters city and Inn
-        rawInputMock = MagicMock(side_effect = ["Seth n Breakfast Test Inn"])
+        #Player enters city and Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
+        rawInputMock = MagicMock(side_effect = ["Seth n Breakfast Test Inn", "2","Seth n Breakfast Test Inn", "2",'leave city' ])
         
         with patch('cities.city.raw_input', create = True, new = rawInputMock):
             testCity.enter(player)
-        
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
-        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
         
 class UniquePlace(unittest.TestCase):
     """
