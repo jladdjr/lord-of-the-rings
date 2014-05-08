@@ -879,6 +879,21 @@ class UniquePlace(unittest.TestCase):
         
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+"""
+class EnterCommand(unittest.TestCase):
+    """
+    Tests the ability of Enter Command.
+    """
+    def testEnterSpaceWithNoCityOrUniquePlace(self):
+        from space import Space
+        from commands.enter_command import EnterCommand
+        
+        #Player chooses to "gobbledigook", enter, "Jdlskfjsd City"
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City"])
+        
+        with patch('commands.enter_command.raw_input', create = True, new = rawInputMock):
+                EnterCommand.execute()
+"""        
 
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
