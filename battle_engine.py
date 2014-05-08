@@ -1,7 +1,9 @@
 #!/usr/bin/python
 
-import factories.monster_factory
 import random
+
+import constants
+import factories.monster_factory
 
 def battle(player):
     """
@@ -13,11 +15,14 @@ def battle(player):
     location = player.getLocation()
     monsterDifficulty = location.getBattleDifficulty()
 
+    #TODO: Magic number
     number = 3 * monsterDifficulty
+    #TODO: Add support for regions
     region = "Doesn't matter right now"
     difficulty = monsterDifficulty
 
     #Create variables for victory sequence
+    #TODO: Magic number
     experience = 55 * number * monsterDifficulty
     money = 3 * number * monsterDifficulty
 
@@ -43,6 +48,7 @@ def battle(player):
             usePotionCmd.execute()
         #Attempt run
         elif choice == 'run':
+            #TODO: Magic number
             if random.random() < .3:
                 print "You ran away succesfully!"
                 return
