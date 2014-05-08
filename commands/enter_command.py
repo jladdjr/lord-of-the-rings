@@ -3,7 +3,6 @@
 from command import Command
 from cities.city import City
 from unique_place import UniquePlace
-import pdb
 
 class EnterCommand(Command):
     """
@@ -52,6 +51,7 @@ class EnterCommand(Command):
                 for eachUniquePlace in uniquePlace:
                     print "\t%s" %eachUniquePlace.getName()
                 print ""
+    
     def createDictionaryOfPlaces(self):
         """
         Creates a dictionary of places that are within the space. The keys are the names of the places and reference the actual places. 
@@ -71,14 +71,13 @@ class EnterCommand(Command):
         
         #add uniquePlaces to dictionary
         if isinstance(uniquePlace,UniquePlace):
-            dicitonary[uniquePlace.getName()] = uniquePlace
+            dictionary[uniquePlace.getName()] = uniquePlace
         elif isinstance(uniquePlace,list):
             for eachUniquePlace in uniquePlace:
                 dictionary[eachUniquePlace.getName()] = eachUniquePlace
         
         return dictionary
-        
-
+    
     def execute(self):
         """
         Allows player to enter a city or uniquePlace.

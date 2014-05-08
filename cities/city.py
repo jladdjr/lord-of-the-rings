@@ -50,12 +50,13 @@ class City(Place):
         """
         
         dictionary = {}
+        buildings = self.getBuildings()
         #if there is 1 building
-        if isinstance(self._buildings, Building):
-            dictionary[self._buildings.getName()] = self._buildings
+        if isinstance(buildings, Building):
+            dictionary[buildings.getName()] = buildings
         #if there are multiple buildings
-        elif isinstance(self._buildings,list):
-            for building in self._buildings:
+        elif isinstance(buildings,list):
+            for building in buildings:
                 dictionary[building.getName()] = building
         return dictionary
     
@@ -63,24 +64,27 @@ class City(Place):
         """
         The method for printing buildings in the city
         """
+        
+        buildings = self.getBuildings()
         #If there is 1 building
-        if isinstance(self._buildings, Building):
-            print "\t %s" % self._buildings.getName()
+        if isinstance(buildings, Building):
+            print "\t %s\n" % buildings.getName()
         #If there are multiple buildings
-        elif isinstance(self._buildings, list):
-            for building in self._buildings:
+        elif isinstance(buildings, list):
+            for building in buildings:
                 print "\t %s" % building.getName()
+            print"\n"
     
     def enter(self, player):  
         """
         The method for entering the buildings in the city.
-        @param player       The current player
+        @param: player       The current player
         """
 
         buildingDictionary = self.createDictionaryOfBuildings()
 
-        print "Entering %s" % self._name
-        print "\n %s \n" % self._description
+        print "Entering %s" % self.getName()
+        print "\n %s \n" % self.getDescription()
 
         while True:
             print "You have found the following:"
@@ -88,11 +92,12 @@ class City(Place):
             #Print list of buildings
             self.printBuildings()
             
-            print "If you would like to go to a building, then type the name. Otherwise, type 'leave city'"
+            print "To go to a building type its name. Otherwise, type 'leave city'"
             command = raw_input("Where would you like to go?\n")
             
             #If player chooses to leave the city
             if command == 'leave city':
+                print "Leaving %s.\n" % self.getName()
                 return
             #If player selects something other than to leave the city
             while True:
@@ -100,14 +105,9 @@ class City(Place):
                     #Enter building
                     buildingDictionary[command].enter(player)
                     #Player has left building, and chooses what to do next
-                    print "\nYou are now back in %s." % self._name
+                    print "\nYou are now back in %s." % self.getName()
                     break
                 else:
-                    print "\nI did not recognize that. Try again. Type 'leave city' to leave %s.\nWhile in %s you may enter:" %(self._name, self._name)
-                    #Print list of buildings
-                    self.printBuildings()
-                                    
-                    command = raw_input("Where would you like to go? \n")
-                    if command == 'leave city':
-                        break
+                    print "\nI did not recognize %s. Try again." % command
+                    break
 

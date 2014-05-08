@@ -2,7 +2,6 @@
 
 import unittest
 from mock import (MagicMock, patch)
-import pdb
 
 class GameTest(unittest.TestCase):
     """
@@ -873,13 +872,13 @@ class UniquePlace(unittest.TestCase):
         from space import Space
         from unique_place import UniquePlace
 
-        testuniqueplace = UniquePlace("Chris' unique testing room", "Come test here")
-        space = Space("Shire", "Home of the Hobbits.", uniquePlaces = [testuniqueplace])
+        testUniquePlace = UniquePlace("Chris' unique testing room", "Come test here")
+        space = Space("Shire", "Home of the Hobbits.", uniquePlaces = testuniqueplace)
         player = Player("Frodo", space)
         
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
-"""
+
 class EnterCommand(unittest.TestCase):
     """
     Tests the ability of Enter Command.
@@ -887,13 +886,79 @@ class EnterCommand(unittest.TestCase):
     def testEnterSpaceWithNoCityOrUniquePlace(self):
         from space import Space
         from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
         
-        #Player chooses to "gobbledigook", enter, "Jdlskfjsd City"
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City"])
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("the Funlaps", space)
+        testEnterCommand = EnterCommand("Test Enter Command","Tests Entering", player)
+        
+        #Player chooses to "gobbledigook", enter, "Jdlskfjsd City", stop entering a city
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
         
         with patch('commands.enter_command.raw_input', create = True, new = rawInputMock):
-                EnterCommand.execute()
-"""        
+                testEnterCommand.execute()
+        
+        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+    
+    def testEnterSpaceWithThreeCitiesAndOneUniquePlace(self):
+        from space import Space
+        from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
+        
+        testCity1 = City("Jim's Mobile Fun City","Jim's unique testing city", "Come test here")
+        testCity2 = City("Seth's Sans-Shabbiness Shack Sh-City","Seth's unique testing city", "Come test here")
+        testCity3 = City("Miles' Magical Cookie Jail City","Miles' unique testing city", "Come test here")
+        testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here")
+        space = Space("Shire", "Home of the Hobbits.", 
+                            city = [testCity1, testCity2, testCity3], uniquePlaces = testUniquePlace)
+        player = Player("the Funlaps", space)
+        
+        testEnterCommand = EnterCommand("Test Enter Command","Tests Entering", player)
+        
+        #Player chooses to go to testCity1, leave, testCity2, leave, testCity3, leave, testUniquePlace, stop
+        spaceInputMock = MagicMock(side_effect = 
+                ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
+                "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place",  "stop"])
+        cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city"])
+        
+        with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
+            with patch('cities.city.raw_input', create = True, new = cityInputMock):
+                testEnterCommand.execute()
+        
+        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+
+class DescribeCommand(unittest.TestCase):
+    """
+    Tests the ability of Describe Command.
+    """
+    def testDescribeCommandDoesNotCrash(self):
+        from space import Space
+        from commands.describe_command import DescribeCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
+        
+        testCity = City("Master Wang's Oriental Fun City","Chris' unique testing city", "Come test here")
+        testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.")
+        space = Space("Shire", "Home of the Hobbits.", city = testCity)
+        player = Player("the Baginses", space)
+        testDescribeCommand = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        
+        #Player chooses to "gobbledigook", describe, "gobbledigook"
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
+        
+        with patch('commands.describe_command.raw_input', create = True, new = rawInputMock):
+                testDescribeCommand.execute()
+        
+        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"

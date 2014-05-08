@@ -64,7 +64,7 @@ def getWorld():
     well-suited for farming. One of its chief products is Shire
     Leaf, grown especially in the warmer regions of the Southfarthing.
     """
-    shire = Space("Shire", description, city = hobbiton, uniquePlaces = [tombombadilhouse]))
+    shire = Space("Shire", description, city = hobbiton, uniquePlaces = tombombadilhouse)
 
     #tomBombadil = Place
     #The Old Forest
