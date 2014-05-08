@@ -2,7 +2,6 @@
 
 from place import Place
 from cities.building import Building
-import pdb
 
 class City(Place):
     """
@@ -15,8 +14,8 @@ class City(Place):
 
         @param name:           The name of the city.
         @param description:    A description of the city.
-        @param greetings:      The greetings the user gets as he enters a city.
-        @param buildings:      A list of the buildings in city.
+        @param greetings:      The greetings the user gets as he enters the city.
+        @param buildings:      A list of the buildings in the city.
         """
         self._name = name
         self._description = description
@@ -25,13 +24,13 @@ class City(Place):
 
     def greetings(self):
         """
-        Prints a screen that represents a player greeting upon entering city.
+        Returns the string that represents a player greeting upon entering the city.
         """
         return self._greetings
         
     def getBuildings(self):
         """
-        Returns list of building objects.
+        Returns the list of building objects.
         """
         return self._buildings
 
@@ -39,7 +38,7 @@ class City(Place):
         """
         Returns building object given string parameter.
 
-        @param:    Name of the building
+        @param:    Name of the building.
         """
         for building in self._buildings:
             if building.getName() == string:

@@ -15,7 +15,6 @@ class HelpCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._commandWords = commandWords
 
     def execute(self):

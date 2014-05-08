@@ -1,10 +1,12 @@
 #!/usr/bin/python
 
 """
-Constants for Lord of the Rings
+Constants for Lord of the Rings.
 """
 
+#Game constants
 COMMAND_PROMPT = "> "
+CURRENCY = "rubles"
 
 #TODO: Define currency here. Have other classes reference the currency string given here.
 
@@ -19,8 +21,10 @@ HP_STAT = 20
 ATTACK_STAT = 2
 MAX_LEVEL = 20
 
-#Game stats
-SELL_LOSS = .5
+#Items stats
+SELL_LOSS_PERCENTAGE = .5
+WEAPON_COST = 1
+ARMOR_COST = 2
 
 #Direction enumeration
 class Direction(object):

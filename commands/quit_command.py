@@ -19,9 +19,9 @@ class QuitCommand(Command):
         Run Help command.
         """
         #Confirm quit
-        response = raw_input( "Are you sure you want to quit? (y/n): ")
+        response = raw_input( "Are you sure you want to quit? (yes/no): ")
         response = response.strip().lower()
 
-        if 'y' in response:
-            print "Exiting.."
+        if 'yes' in response:
+            print "Exiting...."
             exit(0)

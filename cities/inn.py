@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 from cities.building import Building
+import constants
 
 class Inn(Building):
     """
-    Inns are buildings that allow player to heal.
+    Inns are buildings that allow player to heal for a cost.
     """
     def __init__(self, name, description, greetings, cost):
         """
@@ -12,13 +13,12 @@ class Inn(Building):
 
         @param name:           The name of the inn.
         @param description:    A description of the inn.
-        @param greetings:      The greetings the user gets as he enters a inn.
+        @param greetings:      The greetings the user gets as he enters the inn.
         @param cost:           The cost of using the inn.
         """
         Building.__init__(self, name, description, greetings)
         self._cost = cost
         
-    #TODO: Rename to enterBuilder() or just enter()
     def enter(self, player):
         """
         The events sequence upon player entering inn.
@@ -27,22 +27,21 @@ class Inn(Building):
         #TODO: No need to create a _player attribute here;
         #      You can just use 'player' throughout the method.
         self._player = player
+        cost = self.getCost()
 
-        #TODO: Add space after using % for string replacement
         print ""
-        print "- - - %s - - -" % self._name
+        print "- - - %s - - -" % self.getName()
         print self._greetings + "."
-        print "Cost to stay: %s." % self._cost
+        print "Cost to stay: %s." % cost
 
-        #TODO: In all building classes, avoid using magic numbers. Use constants instead.
         #Determine player choice
-        choice = None
         STAY = 1
         LEAVE = 2
-
+        
+        choice = None
         while choice != LEAVE:
             print """
-            What would you like to do?:
+            Would you like to stay for the night?:
             1) Stay
             2) Leave
             """
@@ -50,16 +49,16 @@ class Inn(Building):
 
             #Heal option   
             if choice == STAY:
-                #Checks that player has enough money
-                if self._player.getMoney() >= self._cost:
-                    self._player.decreaseMoney(self._cost)
+                #Money check and transfer
+                if self._player.getMoney() >= cost:
+                    self._player.decreaseMoney(cost)
                     #Actual healing operation
                     self._heal(self._player)
-                    print "%s was healed at %s cost! %s has %s rubles remaining." \
-                          %(self._player.getName(), self._cost, self._player.getName(), self._player.getMoney())
+                    print "%s was healed at %s cost! %s has %s %s remaining." \
+                          % (self._player.getName(), cost, self._player.getName(), self._player.getMoney(), constants.CURRENCY)
                     break
-                #TODO: Add else clause; if player doesn't have enough money, print a message to that effect so player
-                #      knows why nothing happened.
+                else:
+                    print "%s have enough money." % self._player.getName()
                 
             #Non-use option
             elif choice == LEAVE:
@@ -67,7 +66,7 @@ class Inn(Building):
                 
             #For invalid input
             else:
-                print "Invalid choice."
+                print "What?"
     
     def getCost(self):
         """
@@ -79,7 +78,7 @@ class Inn(Building):
 
     def _heal(self, player):
         """
-        Heals player at a cost.
+        Heals player to maxHp.
 
         @param player:	  The player object.
         """

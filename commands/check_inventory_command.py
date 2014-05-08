@@ -8,7 +8,7 @@ from items.potion import Potion
 
 class CheckInventoryCommand(Command):
     """
-    Prints player inventory and details item stats.
+    Displays player inventory and details item stats.
     """
     def __init__(self, name, explanation, player):
         """
@@ -21,7 +21,6 @@ class CheckInventoryCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
 
     def execute(self):

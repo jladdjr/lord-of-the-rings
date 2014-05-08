@@ -20,7 +20,6 @@ class EnterCommand(Command):
         #Call parent's init method
         Command.__init__(self, name, explanation)
 
-        #Finish initializing help-specific settings
         self._player = player
     
     def displayPlacesToEnter(self):

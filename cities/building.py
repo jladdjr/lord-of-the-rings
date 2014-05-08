@@ -2,7 +2,7 @@
 
 class Building(object):
     """
-    Generic Building object. Inns, Shops, Squares, etc. inherit from the Building object.      
+    Generic Building object. Building children include Inns, Shops, and Squares.      
     These objects will also have their own special methods.
     """
     def __init__(self, name, description, greetings):
@@ -35,23 +35,18 @@ class Building(object):
 
     def greetings(self):
         """
-        Prints a screen that represents a player greeting upon entering building.
+        Returns the string that represents player greeting upon entering building.
 
         @return:    The greetings player receives upon entering building.
         """
         return self._greetings
 
-    #TODO: Create enter() method here.
-    #      Leave it empty, but in the docstring mention that
-    #      it should be overwritten by the child class.
-    #      This helps developers know that the enter() method
-    #      is something all sub-classes of building should
-    #      have in common.
-
-    def enterBuilding(self, player):
+    def enter(self, player):
         """
-        This method should be overridden by every child class.
+        Default enter method. By default, does nothing.
 
-        @player:    The player.
+        This method should be overridden by child class.
+
+        @param player:   The player object.
         """
-        print "This method should be overwritten."
+        pass

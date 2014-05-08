@@ -11,6 +11,17 @@ class Space(object):
     def __init__(self, name, description, items = None, city = None, uniquePlaces = None):
         """
         Initialize a Space object.
+
+        @param name:            Name of space.
+        @param description:     Description of space.
+
+        @keyword items:         (Optional) Items found in the space.
+                                May be a reference to a single item or an ItemSet.
+        @keyword city:          (Optional) Reference to unique place(s).
+                                May be a reference to an object or a list.
+        @keyword uniquePlaces:  (Optional) Reerence to city/cities. 
+                                May be a reference to an object or a list.
+
         """
         self._exits = { Direction.NORTH : None,
                         Direction.SOUTH : None,
@@ -19,6 +30,10 @@ class Space(object):
 
         self._name = name
         self._description = description
+        #TODO: Need to add items passed into method; items is currently ignored.
+        #      Will need to check if items refers to single object or to an ItemSet.
+        #      If it points to an ItemSet, you can just set self._items to that ItemSet. 
+        #      (self._items = items)
         self._items = ItemSet()
         self._city = city
         self._uniquePlaces = uniquePlaces
@@ -26,18 +41,24 @@ class Space(object):
     def getName(self):
         """
         Returns the name of the room.
+
+        @return:    Name of the room.
         """
         return self._name
 
     def getDescription(self):
         """
         Returns description of the room.
+
+        @return:    Description of room.
         """
         return self._description
         
     def getItems(self):
         """
         Returns a string of times.
+
+        @return:    Items in Space (as ItemSet).
         """
         return self._items
         
@@ -62,6 +83,8 @@ class Space(object):
         Determines if room contains an item.
 
         @param item:    Item object to search for.
+
+        @return:    True if item is contained in Space, False otherwise.
         """
         return self._items.containsItem(item)
 
@@ -70,7 +93,11 @@ class Space(object):
         Determines if room contains an item.
 
         @param item:     The string associated with the name of the item that we are looking for.
+
+        @return:    True if item is contained in Space, False otherwise.
         """
+        #TODO: Use ItemSet's containsItemWithName() instead here. 
+
         for item in self._items:
             if item.getName() == string:
                 return True
@@ -80,12 +107,18 @@ class Space(object):
     def getCity(self):
         """
         Returns city object.
+
+        @return:    Reference to cit(ies).
+                    May be reference to single city or list of cities.
         """
         return self._city
 
     def getUniquePlace(self):
         """
         Returns uniquePlace object(s).
+
+        @return:    Reference to unique place(s).
+                    May be reference to single unique place or list of unique places.
         """
         return self._uniquePlaces
 

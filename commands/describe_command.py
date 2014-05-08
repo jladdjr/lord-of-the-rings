@@ -6,16 +6,18 @@ from player import Player
 from cities.city import City
 from unique_place import UniquePlace
 
-import pdb
 
 class DescribeCommand(Command):
     """
-    Describe the current space.
+    Describes the current space.
     """
-
     def __init__(self, name, explanation, player):
         """
         Initializes new describe command.
+
+        @param name:         The name of player.
+        @param explanation:  Explanation of player.
+        @param player:       The player object.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
@@ -35,7 +37,7 @@ class DescribeCommand(Command):
         uniquePlace = location.getUniquePlace()
         
         #Give space name and description
-        print "%s: %s." %(locationName, description)
+        print "%s: %s" % (locationName, description)
 
         #if there are no cities or uniquePlaces in this space
         if not city and not uniquePlace:
@@ -69,6 +71,6 @@ class DescribeCommand(Command):
         
         #If space has items
         if len(itemsList) > 0:
-            print "\nItems contained in %s:" %locationName
+            print "\nItems contained in %s:" % locationName
             for item in itemsList:
-                print "\t%s" %item.getName()
+                print "\t%s" % item.getName()

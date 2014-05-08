@@ -286,10 +286,10 @@ class DropTest(unittest.TestCase):
         player = Player("Frodo", space)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
 
-        player.addInventory(weapon)
-        player.addEquipped(weapon)
+        player.addToInventory(weapon)
+        player.equip(weapon)
 
         #Asserts item in player inventory but not in space
         self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
@@ -644,9 +644,9 @@ class PlayerTest(unittest.TestCase):
         newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3)
         newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4)
         
-        player.addInventory(newItem)
-        player.addInventory(newWeapon)
-        player.addInventory(newArmor)
+        player.addToInventory(newItem)
+        player.addToInventory(newWeapon)
+        player.addToInventory(newArmor)
 
         #Attempt to equip new items
         player.equip(newItem)
@@ -717,7 +717,7 @@ class ShopSellItems(unittest.TestCase):
         
         #add armor to player's inventory
         inventory = player._inventory
-        player.addInventory(armor)
+        player.addToInventory(armor)
         self.assertTrue(inventory.containsItemWithName("Leather Tunic"), "Leather Tunic not added to inventory")
         
         #Player chooses to: 3(sell items), to sell leather tunic, yes, 5(Quit) the shop
