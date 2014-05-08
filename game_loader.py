@@ -68,7 +68,7 @@ def getWorld():
     well-suited for farming. One of its chief products is Shire
     Leaf, grown especially in the warmer regions of the Southfarthing.
     """
-    shire = Space("Shire", description, city = hobbiton)
+    shire = Space("Shire", description, constants.RegionType.ERIADOR, city = hobbiton)
 
     #The Old Forest - Tom Bombadil's House
     #Unique Place
@@ -82,7 +82,7 @@ def getWorld():
     has been known to play tricks on travelers in response to its
     massive deforestation. 
     """
-    oldForest = Space("Old Forest", description, uniquePlace = tomBombadil)
+    oldForest = Space("Old Forest", description, constants.RegionType.ERIADOR, uniquePlace = tomBombadil)
 
     #The Weather Hills - Weathertop
     #Unique Place
@@ -96,7 +96,7 @@ def getWorld():
     border between the lands of Arthedain and Rhudaur. Weathertop, or
     Amon Sûl, lays at the southern end of this range.
     """
-    weatherHills = Space("Weather Hills", description, uniquePlace = weathertop)
+    weatherHills = Space("Weather Hills", description, constants.RegionType.ERIADOR, uniquePlace = weathertop)
 
     #Trollshaws
     description = """
@@ -104,7 +104,7 @@ def getWorld():
     the Rivers Hoarwell and Loudwater. They were the haunt of Trolls, three
     of which waylaid Bilbo and his companions during the Quest of Erebor.
     """
-    trollshaws = Space("Trollshaws", description)
+    trollshaws = Space("Trollshaws", description, constants.RegionType.ERIADOR)
 
     #Misty Mountains - Rivendell
     #Inn
@@ -134,7 +134,7 @@ def getWorld():
     River Anduin in the east. It runs 795 miles (1,280 kilometers) from
     Mount Gundabad in the far north to Methedras in the south.
     """
-    mistyMountains = Space("Misty Mountains", description, city = rivendell)
+    mistyMountains = Space("Misty Mountains", description, constants.RegionType.ERIADOR, city = rivendell)
 
     #High Pass - Goblintown
     #Unique Place
@@ -150,7 +150,7 @@ def getWorld():
     On its western end is the refuge of Rivendell and from there the
     Great East Road climbs into the mountains until it reaches Goblin-town.
     """
-    highPass = Space("High Pass", description, uniquePlace = goblinTown)
+    highPass = Space("High Pass", description, constants.RegionType.ERIADOR, uniquePlace = goblinTown)
 
     #Mirkwood - Elvenking's Halls
     #Inn
@@ -182,7 +182,7 @@ def getWorld():
     description = """Mirkwood or the Forest of Great Fear is a great
     forest in Rhovanion. Mirkwood is once called Greenwood the Great
     and later became the Wood of Greenleaves."""
-    mirkwood = Space("Mirkwood", description, city = elvenkingsHalls)
+    mirkwood = Space("Mirkwood", description, constants.RegionType.ERIADOR, city = elvenkingsHalls)
 
     #Barrow Downs - Bree
     #Inn
@@ -212,14 +212,14 @@ def getWorld():
     village of Bree. Many of the hills are crowned with megaliths
     and barrows.
     """
-    barrowDowns = Space("Barrow Downs", description, city = bree)
+    barrowDowns = Space("Barrow Downs", description, constants.RegionType.ERIADOR, city = bree)
 
     #Bruinen
     description = """Bruinen or Loudwater is a river in eastern Eriador.
     It begins with two tributaries flowing from the western slopes of the
     Misty Mountains.
     """
-    bruinen = Space("Bruinen", description)
+    bruinen = Space("Bruinen", description, constants.RegionType.ERIADOR)
 
     #Mitheithel - Tharbad
     #Unique Place
@@ -230,7 +230,7 @@ def getWorld():
     description = """Mitheithel is the long river that rises in a place
     in the icy north of Middle-earth called Hoarwell.
     """
-    mitheithel = Space("Mitheithel", description, uniquePlace = tharbad)
+    mitheithel = Space("Mitheithel", description, constants.RegionType.ERIADOR, uniquePlace = tharbad)
 
     #Swanfleet - Ost In Edhil
     #Unique Place
@@ -244,7 +244,7 @@ def getWorld():
     eastern Eriador where the lower reaches of the Glanduin flows
     before it joins Mitheithel. Swanfleet is an inland delta.
     """
-    swanfleet = Space("Swanfleet", description, uniquePlace = ostInEdhil)
+    swanfleet = Space("Swanfleet", description, constants.RegionType.ERIADOR, uniquePlace = ostInEdhil)
     
     #Dunland
     description = """Dunland is the land of the Dunlendings. Dunland means
@@ -252,7 +252,7 @@ def getWorld():
     after arriving in nearby Calenardhon in the later Third Age. It is a
     land of wild men.
     """
-    dunland = Space("Mitheithel", description)
+    dunland = Space("Mitheithel", description, constants.RegionType.ERIADOR)
 
     #Moria - The Seventh Level
     #Unique Place
@@ -269,7 +269,7 @@ def getWorld():
     for many thousands of years, a thriving Dwarvish community created the
     greatest city ever known.
     """
-    moria = Space("Moria", description, uniquePlace = theSeventhLevel)
+    moria = Space("Moria", description, constants.RegionType.ERIADOR, uniquePlace = theSeventhLevel)
 
     #Lorien - Caras Galadhon
     #Inn
@@ -298,7 +298,7 @@ def getWorld():
     beautiful places in Middle-earth and has the only mallorn-trees
     east of the sea.
     """
-    lorien = Space("Lorien", description, city = carasGaladhon)
+    lorien = Space("Lorien", description, constants.RegionType.ERIADOR, city = carasGaladhon)
 
     #Fangorn - Derningle
     #Unique Place
@@ -311,7 +311,7 @@ def getWorld():
     of that range. It gains notoriety for its Ents. The forest, known as
     Entwood in Rohan, was named after its oldest Ent, Fangorn.
     """
-    fangorn = Space("Fangorn", description, uniquePlace = derningle)
+    fangorn = Space("Fangorn", description, constants.RegionType.ERIADOR, uniquePlace = derningle)
 
     #The Wold
     description = """The Wold is the northernmost and least populated part
@@ -322,7 +322,7 @@ def getWorld():
     cattle. In recent years, these men have fled in response to frequent
     attacks by orcish raiders.
     """
-    theWold = Space("The Wold", description)
+    theWold = Space("The Wold", description, constants.RegionType.ERIADOR)
 
     #Field of Celebrant
     description = """The Field of Celebrant lies between the Rivers Anduin
@@ -330,7 +330,7 @@ def getWorld():
     Battle of the Field of Celebrant where the men of Rohan rose up to
     aid Gondor happened here.
     """
-    fieldOfCelebrant = Space("Field of Celebrant", description)
+    fieldOfCelebrant = Space("Field of Celebrant", description, constants.RegionType.ERIADOR)
 
     #Calenardhon - Isenguard
     #Unique Place
@@ -346,7 +346,7 @@ def getWorld():
     within a valley at the southern end of the Misty Mountains near the Gap
     of Rohan.
     """   
-    calenardhon = Space("Calenardhon", description, uniquePlace = isenguard)
+    calenardhon = Space("Calenardhon", description, constants.RegionType.ERIADOR, uniquePlace = isenguard)
 
     #Westfold - Helm's Deep
     #Inn
@@ -375,27 +375,27 @@ def getWorld():
     The North-South Road runs through the Westfold from the Fords of Isen
     to Edoras. Its strongpoint is Helm's Deep.
     """
-    westfold = Space("Westfold", description, city = helmsDeep)
+    westfold = Space("Westfold", description, constants.RegionType.ERIADOR, city = helmsDeep)
 
     #Westemnet
     description = """The Eastemnet is part of Rohan. It is an area of
     wide, grassy plains east of the Entwash River.
     """ 
-    westemnet = Space("West Emmet", description)
+    westemnet = Space("West Emmet", description, constants.RegionType.ERIADOR)
 
     #Eastemnet
     description = """The Eastemnet is part of Rohan. It contains
     wide, grassy plains and is east of the Entwash and west of
     the Great River, Anduin.
     """ 
-    eastemnet = Space("East Emmet", description)
+    eastemnet = Space("East Emmet", description, constants.RegionType.ERIADOR)
 
     #Emyn Muil
     description = """Emyn Muil is a range of hills south of the Brown
     Lands and north of Nindalf. The Anduin cuts through these hills
     and pools in Nen Hithoel.
     """ 
-    emynMuil = Space("Emyn Muil", description)
+    emynMuil = Space("Emyn Muil", description, constants.RegionType.ERIADOR)
 
     #Eastfold - Edoras
     #Inn
@@ -444,7 +444,7 @@ def getWorld():
     by the Mering Stream and Snowbourn River, it contains the city of
     Edoras.
     """
-    eastfold = Space("Eastfold", description, city = [edoras, aldburg])
+    eastfold = Space("Eastfold", description, constants.RegionType.ERIADOR, city = [edoras, aldburg])
 
     #Nindalf
     description = """The swamps of Nindalf or Wetwang lie to the south of
@@ -452,7 +452,7 @@ def getWorld():
     inland delta of Entwash. The Dead Marshes lie further east and are
     an extension of Nindalf.
     """ 
-    nindalf = Space("Nimdalf", description)
+    nindalf = Space("Nimdalf", description, constants.RegionType.ERIADOR)
 
     #Dead Marshes - Morannon
     #Unique Place
@@ -466,7 +466,7 @@ def getWorld():
     description = """The Dead Marshes are an area of swampland east of the
     Dagorlad plain. It is the site of the ancient Battle of Dagorlad.
     """ 
-    deadMarshes = Space("Dead Marshes", description, uniquePlace = morannon)
+    deadMarshes = Space("Dead Marshes", description, constants.RegionType.ERIADOR, uniquePlace = morannon)
 
     #Valley of Udun - Isenmouthe
     #Unique Place
@@ -483,7 +483,7 @@ def getWorld():
     It lies between Cirith Gorgor and Isenmouthe and is traversed
     by large armies of Sauron in times of war.
     """
-    udun = Space("Udun", description, uniquePlace = isenmouthe)
+    udun = Space("Udun", description, constants.RegionType.ERIADOR, uniquePlace = isenmouthe)
     
     #Cair Andros
     description = """Cair Andros, meaning "Ship of the Long-Foam," is an
@@ -491,14 +491,14 @@ def getWorld():
     of Osgiliath.  It is of paramount importance to Gondor because it
     prevents the enemy from crossing the river and entering into Anorien.
     """ 
-    cairAndros = Space("Cair Andros", description, greeting)
+    cairAndros = Space("Cair Andros", description, constants.RegionType.ERIADOR, greeting)
 
     #Orodruin
     description = """Mount Doom, also known as Orodruin and Amon Amarth, is
     the volcano in Mordor where the One Ring was forged. It is the only place
     that the One Ring may be destroyed.
     """
-    orodruin = Space("Orodruin", description)
+    orodruin = Space("Orodruin", description, constants.RegionType.ERIADOR)
 
     #Anorien - Minas Tirith
     #Inn
@@ -531,7 +531,7 @@ def getWorld():
     capital of Gondor. Originally known as Minas Anor, it replaced Osgiliath
     as capital of Gondor as Osgiliath became lost to Sauron.
     """
-    anorien = Space("Anorien", description, city = minasTirith)
+    anorien = Space("Anorien", description, constants.RegionType.ERIADOR, city = minasTirith)
 
     #Anduin - Argonath
     #Unique Place
@@ -565,7 +565,7 @@ def getWorld():
     Langflood by the ancestors of the Rohirrim, the Great River of Wilderland in
     the Westron of Rivendell and the Shire, and simply the Great River in Gondor.
     """
-    anduin = Space("Anduin", description, city = osgiliath, uniquePlace = argonath)
+    anduin = Space("Anduin", description, constants.RegionType.ERIADOR, city = osgiliath, uniquePlace = argonath)
 
     #Ephel Duath - Minas Morgul
     #Unique Place
@@ -582,7 +582,7 @@ def getWorld():
     description = """The Ephel Dúath, or the Mountains of Shadow, are a range of
     mountains that guard Mordor's western and southern borders.
     """
-    ephelDuath = Space("Ephel Duath", description, uniquePlace = minasMorgul)
+    ephelDuath = Space("Ephel Duath", description, constants.RegionType.ERIADOR, uniquePlace = minasMorgul)
 
     #Cirith Ungol - Tower of Cirith Ungol
     #Unique Place
@@ -600,7 +600,7 @@ def getWorld():
     Tower of Cirith Ungol, built by the Men of Gondor after the War of the Last
     Alliance of Elves and Men.
     """
-    cirithUngol = Space("Cirith Ungol", description, uniquePlace = towerOfCirithUngol)
+    cirithUngol = Space("Cirith Ungol", description, constants.RegionType.ERIADOR, uniquePlace = towerOfCirithUngol)
 
     #Plateau of Gorgoth - Barad Dur
     #Unique Place
@@ -616,7 +616,7 @@ def getWorld():
     Mordor. Gorgoroth is the location of the mines and forges which supply Mordor's
     armies with weapons and armor.
     """
-    plateauOfGorgoth = Space("Plateau of Gorgoth", description, uniquePlace = baradDur)
+    plateauOfGorgoth = Space("Plateau of Gorgoth", description, constants.RegionType.ERIADOR, uniquePlace = baradDur)
 
     #Lossamarch - Pelargir
     #Inn
@@ -643,13 +643,13 @@ def getWorld():
     description = """Lossarnach is a region and fiefdom in Southern Gondor. Known
     as the Vale of flowers, it is a fertile region lying south of the White Mountains.
     """ 
-    lossamarch = Space("Lossamarch", description, city = pelargir)
+    lossamarch = Space("Lossamarch", description, constants.RegionType.ERIADOR, city = pelargir)
 
     #Ithilien
     description = """Ithilien iss the region and fiefdom of Gondor bordering Mordor
     from the southwest.
     """ 
-    ithilien = Space("Ithilien", description)
+    ithilien = Space("Ithilien", description, constants.RegionType.ERIADOR)
 
     #Connections: East-West
     shire.createExit("east", oldForest, outgoingOnly = False)

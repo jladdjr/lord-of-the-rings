@@ -14,6 +14,10 @@ def getMonsters(number, region, difficulty):
 
     #Spawn monsters
     for monster in range(number):
+        print region
+        if region == 1:
+            monster = Monster("Drunk hobbit", "Total j@ck@$$", 2, 2, 2)
+            monsters.append(monster)
         health = difficulty * 2
         attack = difficulty * 3
         experience = difficulty

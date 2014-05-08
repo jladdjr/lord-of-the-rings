@@ -18,7 +18,7 @@ def battle(player):
     #TODO: Magic number
     number = 3 * monsterDifficulty
     #TODO: Add support for regions
-    region = "Doesn't matter right now"
+    region = location.getRegionType()
     difficulty = monsterDifficulty
 
     #Create variables for victory sequence
@@ -35,6 +35,7 @@ def battle(player):
 
     #Battle sequence
     while len(monsters) != 0:
+        #User prompt
         print "Monsters:"
         for monster in monsters:
             print "\t%s: %s" % (monster.getName(), monster.getDescription())
@@ -59,10 +60,10 @@ def battle(player):
             print "Huh?"
         print ""
         
-        #Monsters attack now.
+        #Monsters attack phase
         monsterAttackPhase(player, monsters)
 
-    #Battle end sequence - loot received
+    #Battle end sequence9 - loot received
     endSequence(player, experience, money)
 
 def playerAttackPhase(player, monsters):
@@ -98,7 +99,7 @@ def playerAttackPhase(player, monsters):
             #No need to keep iterating through monsters
             break
     else:
-        print "%s looks at you in confusion." % player.getname()
+        print "%s looks at you in confusion." % player.getName()
 
 def monsterAttackPhase(player, monsters):
     """
@@ -123,8 +124,17 @@ def endSequence(player, experience, money):
     @param experience:  The experience player should increase by.
     @param money:       The money that player should receive.
     """
+    #Calculate splash screen variables
+    lengthBar = len("%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience))
+    bar = "$"*lengthBar
+    victoryDeclaration = "Enemies are vanguished!"
+    victoryDeclaration = victoryDeclaration.center(lengthBar, " ")
+    
+    #Run battle sequence clean
     player.increaseMoney(money)
     player.increaseExperience(experience)
-    print "Enemies are vanguished!"
-    print "%s gains %s money and %s experience!" % (player.getName(), money, experience)
+    print bar
+    print victoryDeclaration
+    print "%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience)
+    print bar
     

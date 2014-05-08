@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from constants import Direction
+from constants import RegionType
 from items.item_set import ItemSet
 
 class Space(object):
@@ -8,7 +9,7 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description, items = None, city = None, uniquePlace = None, battleProbability = 1, battleDifficulty = 1):
+    def __init__(self, name, description, regionType, items = None, city = None, uniquePlace = None, battleProbability = 1, battleDifficulty = 1):
         """
         Initialize a Space object.
 
@@ -32,6 +33,7 @@ class Space(object):
 
         self._name = name
         self._description = description
+        self._regionType = regionType
         #TODO: Need to add items passed into method; items is currently ignored.
         #      Will need to check if items refers to single object or to an ItemSet.
         #      If it points to an ItemSet, you can just set self._items to that ItemSet. 
@@ -57,6 +59,14 @@ class Space(object):
         @return:    Description of room.
         """
         return self._description
+        
+    def getRegionType(self):
+        """
+        Returns the regionType of the space.
+        
+        @return:    The regionType of space.
+        """
+        return self._regionType
         
     def getItems(self):
         """
