@@ -82,9 +82,8 @@ class EnterCommand(Command):
 
     def execute(self):
         """
-        Allows player to enter a building.
+        Allows player to enter a city or uniquePlace.
         """
-        #pdb.set_trace()
         #show the places that player may enter
         self.displayPlacesToEnter()
         

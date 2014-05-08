@@ -17,7 +17,7 @@ class UniquePlace(Place):
         self._name = name
         self._description = description
     
-    def enterUniquePlace(self):
+    def enter(self, player):
         print "Hello, and welcome to %s" % self._name
 
         

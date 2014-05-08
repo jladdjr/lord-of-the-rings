@@ -2,6 +2,7 @@
 
 import unittest
 from mock import (MagicMock, patch)
+import pdb
 
 class GameTest(unittest.TestCase):
     """
@@ -854,11 +855,14 @@ class City(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", city = testCity)
         player = Player("Frodo", space)
         
-        #Player enters city and Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
-        rawInputMock = MagicMock(side_effect = ["Seth n Breakfast Test Inn", "2","Seth n Breakfast Test Inn", "2",'leave city' ])
+        #Player chooses to "gobbledigook", enter Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
+        cityInputMock = MagicMock(side_effect = ["gobbledigook", "Seth n Breakfast Test Inn", 
+                                                "Seth n Breakfast Test Inn", 'leave city' ])
+        innInputMock = MagicMock(side_effect = ["2", "2"])
         
-        with patch('cities.city.raw_input', create = True, new = rawInputMock):
-            testCity.enter(player)
+        with patch('cities.city.raw_input', create = True, new = cityInputMock):
+            with patch('cities.inn.raw_input', create = True, new = innInputMock):
+                testCity.enter(player)
         
 class UniquePlace(unittest.TestCase):
     """
@@ -875,8 +879,6 @@ class UniquePlace(unittest.TestCase):
         
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
-        
-
 
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
