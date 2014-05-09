@@ -1,34 +1,30 @@
 #!/usr/bin/python
 
-class Monster(object):
+from monsters.monster import Monster
+
+class Nazgul(Monster):
     """
     A generic monster to be used as a parent for specific future monster classes.
     """
-    def __init__(self, name, description, hp, attack, experience, attackString = None, deathString = None):
+    def __init__(self, hp, attack, experience):
         """
-        Initializes an item object.
+        Initializes a Nazgul monster. Inherits from Monster.
 
-        @param name:           Name of monster.
-        @param description:    Description of monster.
         @param hp:             Hit points of monster.
         @param attack:         Attack stat of monster.
         @param experience:     Experienced gained for defeating monster.
-        @param attackString:   The string associated with monsterAttack. For instance, Miles
-                               "got really pissed and started charging around."
-        @param deathString:    The string that gets printed with monster death. For instance,
-                               "Miles decided that he's had enough and went back to bed."
         """
         if hp < 1 or attack < 1 or experience < 1:
             errorMsg = "Invalid base stats for monster; stats must be positive integers."
             raise AssertionError(errorMsg)
 
-        self._name = name
-        self._description = description
+        self._name = "Nazgul"
+        self._description = "Masked riders and servants of Sauron."
         self._hp = hp
         self._attack = attack
         self._experience = experience
-        self._attackString = attackString
-        self._deathString = deathString
+        self._attackString = "Cleaved at you"
+        self._deathString = "Ran off!"
         
     def getName(self):
         """

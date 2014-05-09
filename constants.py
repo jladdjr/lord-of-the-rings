@@ -8,8 +8,6 @@ Constants for Lord of the Rings.
 COMMAND_PROMPT = "> "
 CURRENCY = "rubles"
 
-#TODO: Define currency here. Have other classes reference the currency string given here.
-
 #Character initialization
 STARTING_EXPERIENCE = 0
 STARTING_EQUIPMENT = []

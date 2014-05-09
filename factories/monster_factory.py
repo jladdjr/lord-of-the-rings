@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from monsters.monster import Monster
+from constants import RegionType
 
 def getMonsters(number, region, difficulty):
     """
@@ -14,10 +15,23 @@ def getMonsters(number, region, difficulty):
 
     #Spawn monsters
     for monster in range(number):
-        print region
-        if region == 1:
-            monster = Monster("Drunk hobbit", "Total j@ck@$$", 2, 2, 2)
-            monsters.append(monster)
+        if region == RegionType.ERIADOR:
+            pass
+        elif region == RegionType.HIGH_PASS:
+            pass
+        elif region == RegionType.ENEDWAITH:
+            pass
+        elif region == RegionType.RHOVANION:
+            pass
+        elif region == RegionType.ROHAN:
+            pass
+        elif region == RegionType.GONDOR:
+            pass
+        elif region == RegionType.MORDOR:
+            pass
+        else:
+            errorMsg = "Unsupported region type for monster spawn."
+            raise AssertionError(errorMsg)
         health = difficulty * 2
         attack = difficulty * 3
         experience = difficulty
