@@ -16,6 +16,9 @@ class UniquePlace(Place):
         """
         self._name = name
         self._description = description
+        
+        #Call parent class init function
+        Place.__init__(self,name, description)
     
     def enter(self, player):
         print "Hello, and welcome to %s" % self._name

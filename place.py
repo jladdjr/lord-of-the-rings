@@ -29,3 +29,10 @@ class Place(object):
         @return:    The description of the place.
         """
         return self._description
+    def enter(self, player):
+        """
+        Parent enter method. Should we overridden by children classes.
+        
+        @param player:  The current player.
+        """
+        print "This enter method should be overridden by child class"

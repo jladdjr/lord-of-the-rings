@@ -21,6 +21,9 @@ class City(Place):
         self._description = description
         self._greetings = greetings
         self._buildings = buildings
+        
+        #Call parent's init method
+        Place.__init__(self, name, description)
 
     def greetings(self):
         """
@@ -46,7 +49,8 @@ class City(Place):
     
     def createDictionaryOfBuildings(self):
         """
-        Creates a dictionary of building objects. The keys are the building name that references the building object.
+        Creates a dictionary of building objects. The keys are 
+        the building names that references the building object.
         """
         
         dictionary = {}
