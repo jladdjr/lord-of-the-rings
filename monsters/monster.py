@@ -4,29 +4,24 @@ class Monster(object):
     """
     A generic monster to be used as a parent for specific future monster classes.
     """
-    def __init__(self, name, description, hp, attack, experience, attackString = None, deathString = None):
+    def __init__(self, name, description, stats, attackString, deathString):
         """
         Initializes an item object.
 
         @param name:           Name of monster.
         @param description:    Description of monster.
-        @param hp:             Hit points of monster.
-        @param attack:         Attack stat of monster.
-        @param experience:     Experienced gained for defeating monster.
+        @param stats:          3-element list of Monster stats including attack, hp,
+                               and experience (in that order).
         @param attackString:   The string associated with monsterAttack. For instance, Miles
                                "got really pissed and started charging around."
         @param deathString:    The string that gets printed with monster death. For instance,
                                "Miles decided that he's had enough and went back to bed."
         """
-        if hp < 1 or attack < 1 or experience < 1:
-            errorMsg = "Invalid base stats for monster; stats must be positive integers."
-            raise AssertionError(errorMsg)
-
         self._name = name
         self._description = description
-        self._hp = hp
-        self._attack = attack
-        self._experience = experience
+        self._hp = stats[0]
+        self._attack = stats[1]
+        self._experience = stats[2]
         self._attackString = attackString
         self._deathString = deathString
         
@@ -95,7 +90,7 @@ class Monster(object):
         """
         return self._attackString
 
-    def getdeathString(self):
+    def getDeathString(self):
         """
         Gets monster's death string.
 

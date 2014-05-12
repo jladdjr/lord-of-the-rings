@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+from monsters.troll import Troll
+from monsters.nazgul import Nazgul
+
 """
 Constants for Lord of the Rings.
 """
@@ -59,3 +62,40 @@ class RegionType(object):
     ROHAN       = 5
     GONDOR      = 6
     MORDOR      = 7
+
+#Region base spawn
+class RegionBaseSpawn(object):
+    """
+    Region base spawn.
+    """
+    ERIADOR     = 2
+    HIGH_PASS   = 2
+    ENEDWAITH   = 3
+    RHOVANION   = 4
+    ROHAN       = 5
+    GONDOR      = 6
+    MORDOR      = 7
+
+#Region monster distribution
+class RegionMonsterDistribution(object):
+    """
+    Region monster distribution.
+    """
+    ERIADOR =     {Troll: .25,
+                   Nazgul: 1,
+    HIGH_PASS =   {Goblin: .8,
+                   GoblinChieftan: 1}
+
+#Monster base stats
+"""
+Monster base stats. Stats are a 3-element list
+whose elements are: hp, attack, and experience. 
+"""
+MONSTER_STATS = {Troll:             [1, 1, 1],
+                 Nazgul:            [1, 1, 1],
+                 Goblin:            [1, 1, 1],
+                 GoblinChieftan:}   [1, 1, 1]}
+    
+#Battle constants
+RUN_PROBABILITY_SUCCESS = .3
+BATTLE_EARNINGS = 4

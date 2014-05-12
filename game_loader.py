@@ -82,7 +82,7 @@ def getWorld():
     has been known to play tricks on travelers in response to its
     massive deforestation. 
     """
-    oldForest = Space("Old Forest", description, constants.RegionType.ERIADOR, uniquePlace = tomBombadil)
+    oldForest = Space("Old Forest", description, constants.RegionType.HIGH_PASS, uniquePlace = tomBombadil)
 
     #The Weather Hills - Weathertop
     #Unique Place

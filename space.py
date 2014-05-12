@@ -9,7 +9,7 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description, regionType, items = None, city = None, uniquePlace = None, battleProbability = 1, battleDifficulty = 1):
+    def __init__(self, name, description, region, items = None, city = None, uniquePlace = None, battleProbability = 1, battleBonusDifficulty = 0):
         """
         Initialize a Space object.
 
@@ -24,7 +24,12 @@ class Space(object):
                                          May be a reference to an object or a list.
         @keyword battleProbability:      (Optional) Probability between 0-1 that a random battle
                                          will occur between commands in space.
-        @keyword battleDifficulty:       Parameter between 1-20 that determines battle difficulty.
+        @keyword battleBonusDifficulty:  Parameter between 0-1 that is used to determine battle bonus difficulty.
+                                         Parameter represents the percentage increase over default stats and
+                                         number spawn.
+
+                                         For instance, if battleBonusDifficulty = .5, stats will be set to 150%
+                                         of default and number of monsters will be 150% base number spawn.
         """
         self._exits = { Direction.NORTH : None,
                         Direction.SOUTH : None,
@@ -33,7 +38,7 @@ class Space(object):
 
         self._name = name
         self._description = description
-        self._regionType = regionType
+        self._region = region
         #TODO: Need to add items passed into method; items is currently ignored.
         #      Will need to check if items refers to single object or to an ItemSet.
         #      If it points to an ItemSet, you can just set self._items to that ItemSet. 
@@ -42,7 +47,7 @@ class Space(object):
         self._city = city
         self._uniquePlace = uniquePlace
         self._battleProbability = battleProbability
-        self._battleDifficulty = battleDifficulty
+        self._battleBonusDifficulty = battleBonusDifficulty
 
     def getName(self):
         """
@@ -60,13 +65,13 @@ class Space(object):
         """
         return self._description
         
-    def getRegionType(self):
+    def getRegion(self):
         """
-        Returns the regionType of the space.
+        Returns the region of the space.
         
-        @return:    The regionType of space.
+        @return:    The region of space.
         """
-        return self._regionType
+        return self._region
         
     def getItems(self):
         """
@@ -144,14 +149,14 @@ class Space(object):
         """
         return self._battleProbability
 
-    def getBattleDifficulty(self):
+    def getBattleBonusDifficulty(self):
         """
-        Returns difficulty attribute of space.
-        Difficulty ranges between 0-20.
+        Returns bonus difficulty attribute of space.
+        Difficulty ranges between 0 and 1, inclusive.
 
         @return:    The difficulty parameter of Space.
         """
-        return self._battleDifficulty
+        return self._battleBonusDifficulty
 
     def createExit(self, direction, space, outgoingOnly = False):
         """

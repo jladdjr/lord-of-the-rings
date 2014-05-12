@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-import random
-
 import constants
 import factories.monster_factory
+from commands.use_potion_command import UsePotionCommand
+
+import random
 
 def battle(player):
     """
@@ -11,23 +12,31 @@ def battle(player):
 
     @param player:     The player object.
     """
-    #Create variables for monster_factory
     location = player.getLocation()
-    monsterDifficulty = location.getBattleDifficulty()
+    region = location.getRegion()
+    bonusDifficulty = location.getBattleBonusDifficulty()
 
-    #TODO: Magic number
-    number = 3 * monsterDifficulty
-    #TODO: Add support for regions
-    region = location.getRegionType()
-    difficulty = monsterDifficulty
-
-    #Create variables for victory sequence
-    #TODO: Magic number
-    experience = 55 * number * monsterDifficulty
-    money = 3 * number * monsterDifficulty
-
+    #Get region base spawn
+    if region == 1:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
+    elif region == 2:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
+    elif region == 3:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH   
+    elif region == 4:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
+    elif region == 5:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
+    elif region == 6:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
+    elif region == 7:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
+    else:
+        errorMsg = "Invalid region - region base monster determination."
+        raise AssertionError(errorMsg)
+    
     #Spawn monsters
-    monsters = factories.monster_factory.getMonsters(number, region, difficulty)
+    monsters = factories.monster_factory.getMonsters(number, region, bonusDifficulty)
 
     #User prompt
     print "Zonkle-tronks! Wild monsters appeared!"
@@ -40,17 +49,17 @@ def battle(player):
         for monster in monsters:
             print "\t%s: %s" % (monster.getName(), monster.getDescription())
         print ""
-        choice = raw_input("You may: 'attack', 'potion', 'run.' ")
+        choice = raw_input("You may: 'attack', 'use potion', 'run.' ")
         #Attack
         if choice == 'attack':
-            playerAttackPhase(player, monsters)
+            earnings = playerAttackPhase(player, monsters, bonusDifficulty)
         #Use potion - TODO
-        elif choice == "potion":
-            usePotionCmd.execute()
+        elif choice == "use potion":
+            usePotion(player)
         #Attempt run
         elif choice == 'run':
             #TODO: Magic number
-            if random.random() < .3:
+            if random.random() < constants.RUN_PROBABILITY_SUCCESS:
                 print "You ran away succesfully!"
                 return
             else:
@@ -63,18 +72,27 @@ def battle(player):
         #Monsters attack phase
         monsterAttackPhase(player, monsters)
 
-    #Battle end sequence9 - loot received
-    endSequence(player, experience, money)
+    #Battle end sequence - loot received
+    endSequence(player, earnings)
 
-def playerAttackPhase(player, monsters):
+def playerAttackPhase(player, monsters, bonusDifficulty):
     """
     When the user gets to attack a single monster object.
     If monster health is reduced to zero, monster is removed
     from battle.
 
-    @param player:      The player object.
-    @param monsters:    The list of monster objects.
+    Additionally, experience and money is calculated for winnings.
+
+    @param player:        The player object.
+    @param monsters:      The list of monster objects.
+
+    @return experience:   The experience Player is to receive upon winning the battle.
+    @return money:        The money Player is to receive upon winning the battle.
     """
+    #Starting battle earnings - by default, 0
+    money      = 0
+    experience = 0
+
     #Solicit attack target
     target = raw_input("Whom? ")
     print ""
@@ -89,7 +107,10 @@ def playerAttackPhase(player, monsters):
                 print "%s has %s hp remaining." % (monster.getName(), monster.getHp())
             #If monster has died
             else:
-                print "%s was cleaved in two!" % monster.getName()
+                print "%s" % monster.getDeathString()
+                #Generate earnings from winning battle
+                money += constants.BATTLE_EARNINGS * monster.getExperience() * (1 + bonusDifficulty)
+                experience += monster.getExperience() * (1 + bonusDifficulty)
                 #Remove monster from monsters list
                 for monster in monsters:
                     if monster.getName() == target:
@@ -100,6 +121,8 @@ def playerAttackPhase(player, monsters):
             break
     else:
         print "%s looks at you in confusion." % player.getName()
+        
+    return money, experience
 
 def monsterAttackPhase(player, monsters):
     """
@@ -111,12 +134,22 @@ def monsterAttackPhase(player, monsters):
     #Monsters attack
     for monster in monsters:
         monster.attack(player)
-        print "%s attacked %s for %s damage!" % (monster.getName(), player.getName(), monster.getAttack())
+        print "%s %s for %s damage!" % (monster.getName(), monster.getAttackString(), monster.getAttack())
         print "%s has %s hp remaining." % (player.getName(), player.getHp())
         #TODO: Check to see if player is still alive
     print ""
 
-def endSequence(player, experience, money):
+def usePotion(player):
+    """
+    Creates an additiona UsePotionCommand object
+    for battle purposes only.
+
+    @param player:   The player object.
+    """
+    usePotionCmd = UsePotionCommand(" ", " ", player)
+    usePotionCmd.execute()
+    
+def endSequence(player, earnings):
     """
     Battle cleanup - player experience and money increases, etc.
 
@@ -124,15 +157,18 @@ def endSequence(player, experience, money):
     @param experience:  The experience player should increase by.
     @param money:       The money that player should receive.
     """
+    money = earnings[0]
+    experience = earnings[1]
     #Calculate splash screen variables
     lengthBar = len("%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience))
-    bar = "$"*lengthBar
+    bar = "$" * lengthBar
     victoryDeclaration = "Enemies are vanguished!"
-    victoryDeclaration = victoryDeclaration.center(lengthBar, " ")
+    victoryDeclaration = victoryDeclaration.center(lengthBar)
     
-    #Run battle sequence clean
+    #Run end battle sequence
     player.increaseMoney(money)
     player.increaseExperience(experience)
+    
     print bar
     print victoryDeclaration
     print "%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience)
