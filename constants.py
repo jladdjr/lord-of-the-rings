@@ -2,6 +2,8 @@
 
 from monsters.troll import Troll
 from monsters.nazgul import Nazgul
+from monsters.goblin import Goblin
+from monsters.great_goblin import GreatGoblin
 
 """
 Constants for Lord of the Rings.
@@ -82,9 +84,9 @@ class RegionMonsterDistribution(object):
     Region monster distribution.
     """
     ERIADOR =     {Troll: .25,
-                   Nazgul: 1,
+                   Nazgul: 1}
     HIGH_PASS =   {Goblin: .8,
-                   GoblinChieftan: 1}
+                   GreatGoblin: 1}
 
 #Monster base stats
 """
@@ -94,7 +96,7 @@ whose elements are: hp, attack, and experience.
 MONSTER_STATS = {Troll:             [1, 1, 1],
                  Nazgul:            [1, 1, 1],
                  Goblin:            [1, 1, 1],
-                 GoblinChieftan:}   [1, 1, 1]}
+                 GreatGoblin:       [1, 1, 1]}
     
 #Battle constants
 RUN_PROBABILITY_SUCCESS = .3
