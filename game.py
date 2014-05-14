@@ -13,13 +13,17 @@ class Game(object):
         """
         Initializes new game.
         """
-        print "Game loading...."
+        print "...Game Loading..."
+        print "..."
+        
         #Initializes game objects
         self._world = game_loader.getWorld()
         startingInventory = game_loader.getStartingInventory()
         self._player = game_loader.getPlayer(self._world, startingInventory)
         self._commandList = game_loader.getCommandList(self._player)
-        print "Loading complete."
+        
+        print "..."
+        print "$$$Loading Complete$$$"
         
         #Creates parser
         self._parser = Parser(self._commandList)
