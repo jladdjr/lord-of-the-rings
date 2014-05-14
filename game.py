@@ -79,22 +79,27 @@ class Game(object):
 
     def _nextTurn(self):
         """
-        Determines if a random battle should occur and then executes
-        the random battle before executing player command. 
+        Gets nextCommand from player. If nextCommand involves a passing
+        of time, there is a chance that a random battle will occur before
+        nextCommand is executed.
         """
-        #Determines if random battle will occur
-        currentLocation = self._player.getLocation()
-        battleProbability = currentLocation.getBattleProbability()
-        if random.random() < battleProbability:
-            #Call on battleobject to resolve battle
-            battle_engine.battle(self._player)
-        
         #Executes next command
         nextCommand = self._parser.getNextCommand()
         
         if nextCommand is not None:
+            #If passing of time... chance a random battle will occur
+            if nextCommand.getTime() == True:
+                #Determines if random battle will occur
+                currentLocation = self._player.getLocation()
+                battleProbability = currentLocation.getBattleProbability()
+                if random.random() < battleProbability:
+                    #Call on battleobject to resolve battle
+                    battle_engine.battle(self._player)
+
+            #Then execute nextCommand
             nextCommand.execute()
             print ""
+            
         else:
             errorMsg = "Failed to receive command from parser."
             raise AssertionError(errorMsg)

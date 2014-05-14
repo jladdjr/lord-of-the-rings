@@ -168,6 +168,7 @@ def endSequence(player, earnings):
     #Run end battle sequence
     player.increaseMoney(money)
     player.increaseExperience(experience)
+    #TODO: add items to victory sequence
     
     print bar
     print victoryDeclaration

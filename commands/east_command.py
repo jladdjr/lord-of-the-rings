@@ -18,7 +18,8 @@ class EastCommand(Command):
         Command.__init__(self, name, explanation)
 
         self._player = player
-
+        self._time = True
+        
     def execute(self):
         """
         Run east command.
