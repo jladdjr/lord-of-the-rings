@@ -25,16 +25,6 @@ class Parser(object):
         """
         userInput = raw_input(constants.COMMAND_PROMPT)
         userInput = userInput.strip().lower()
-        
-        #If userInput is n, s, e, w then do northCommand, southCommand, etc.
-        if userInput == "n":
-            userInput = "north"
-        if userInput == "s":
-            userInput = "south"
-        if userInput == "e":
-            userInput = "east"
-        if userInput == "w":
-            userInput = "west"
 
         while not self._commandRecognized(userInput):
             print "Command '%s' not recognized. Type 'help' for help." % userInput
