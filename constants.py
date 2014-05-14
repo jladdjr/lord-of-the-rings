@@ -57,26 +57,30 @@ class RegionType(object):
     """
     The region types in Middle Earth.
     """
-    ERIADOR     = 1
-    HIGH_PASS   = 2
-    ENEDWAITH   = 3
-    RHOVANION   = 4
-    ROHAN       = 5
-    GONDOR      = 6
-    MORDOR      = 7
+    ERIADOR       = 1
+    BARROW_DOWNS  = 2
+    HIGH_PASS     = 3
+    ENEDWAITH     = 4
+    EREGION       = 5
+    RHOVANION     = 6
+    ROHAN         = 7
+    GONDOR        = 8
+    MORDOR        = 9
 
 #Region base spawn
 class RegionBaseSpawn(object):
     """
     Region base spawn.
     """
-    ERIADOR     = 2
-    HIGH_PASS   = 2
-    ENEDWAITH   = 3
-    RHOVANION   = 4
-    ROHAN       = 5
-    GONDOR      = 6
-    MORDOR      = 7
+    ERIADOR       = 1
+    BARROW_DOWNS  = 2
+    HIGH_PASS     = 3
+    ENEDWAITH     = 4
+    EREGION       = 5
+    RHOVANION     = 6
+    ROHAN         = 7
+    GONDOR        = 8
+    MORDOR        = 9
 
 #Region monster distribution
 class RegionMonsterDistribution(object):

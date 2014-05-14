@@ -1561,6 +1561,8 @@ class UniquePlace(unittest.TestCase):
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
+
+
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()
