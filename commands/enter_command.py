@@ -23,14 +23,14 @@ class EnterCommand(Command):
     
     def _displayPlacesToEnter(self):
         """
-        Displays the possible places (Cities or UniquePlaces) that player may enter
+        Displays the possible places (Cities or UniquePlaces) that player may enter.
         """
         playerName = self._player.getName()
         space = self._player.getLocation()
         city = space.getCity()
         uniquePlace = space.getUniquePlace()
         
-        #If there are no cities or uniquePlaces
+        #If there are no cities or unique places
         if not (city or uniquePlace):
             print "No places to enter."
         #Otherwise print the possible places to enter
@@ -56,7 +56,8 @@ class EnterCommand(Command):
     
     def _createDictionaryOfPlaces(self):
         """
-        Creates a dictionary of places that are within the space. The keys are the names of the places and reference the actual places. 
+        Creates a dictionary of places that are within the space. 
+        The keys are the names of the places and reference the actual places. 
         """
         space = self._player.getLocation()
         city = space.getCity()
@@ -87,7 +88,8 @@ class EnterCommand(Command):
         #Show the places that player may enter
         self._displayPlacesToEnter()
         
-        #Create a dictionary of places within space. Keys are the names of places that reference the actual places
+        #Create a dictionary of places within space. 
+        #Keys are the names of places that reference the actual places
         dictionary = self._createDictionaryOfPlaces()
         
         space = self._player.getLocation()

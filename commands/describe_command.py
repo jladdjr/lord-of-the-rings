@@ -30,14 +30,14 @@ class DescribeCommand(Command):
         """
         location = self._player.getLocation()
         locationName = location.getName()
-        description = location.getDescription()
+        locationDescription = location.getDescription()
         items = location.getItems()
         itemsList = items.getItems()
         city = location.getCity()
         uniquePlace = location.getUniquePlace()
         
-        #Give space name and description
-        print "%s: %s" % (locationName, description)
+        #Give space name and locationDescription
+        print "%s: %s" % (locationName, locationDescription)
 
         #If there are no cities or uniquePlaces in this space
         if not city and not uniquePlace:
@@ -63,7 +63,8 @@ class DescribeCommand(Command):
                 uniquePlaceName = uniquePlace.getName() 
                 print "%s" % uniquePlaceName           
             
-            #If space has multiple uniquePlaces (the the variable uniquePlace is actually a list of uniquePlaces)
+            #If space has multiple uniquePlaces (the the variable uniquePlace is 
+            #actually a list of uniquePlaces)
             if isinstance(uniquePlace, list):
                 for eachUniquePlace in uniquePlace:
                     eachUniquePlaceName = eachUniquePlace.getName()

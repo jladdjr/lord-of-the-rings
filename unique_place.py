@@ -19,6 +19,9 @@ class UniquePlace(Place):
         Place.__init__(self, name, description)
     
     def enter(self, player):
-        print "Hello, and welcome to %s" % self._name
+        """
+        Enter unique place.
 
-        
+        @param player:  The current player.
+        """
+        print "Hello, and welcome to %s" % self._name
