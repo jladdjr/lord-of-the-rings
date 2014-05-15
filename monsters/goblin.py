@@ -19,4 +19,4 @@ class Goblin(Monster):
         self._attack = stats[1]
         self._experience = stats[2]
         self._attackString = "slice and diced"
-        self._deathString = "Went back home."
+        self._deathString = "\"I'm going back home.\""

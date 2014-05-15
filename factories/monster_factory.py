@@ -18,10 +18,14 @@ def getMonsters(number, region, bonusDifficulty):
     #Calculate number of monsterse to spawn
     if region == constants.RegionType.ERIADOR:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
+    elif region == constants.RegionType.BARROW_DOWNS:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS   
     elif region == constants.RegionType.HIGH_PASS:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
     elif region == constants.RegionType.ENEDWAITH:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
+    elif region == constants.RegionType.EREGION:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.EREGION
     elif region == constants.RegionType.RHOVANION:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION
     elif region == constants.RegionType.ROHAN:
@@ -52,7 +56,10 @@ def getMonsters(number, region, bonusDifficulty):
                     monster = Monster(modifiedStats)
                     monsters.append(monster)
                     break
-                    
+
+        elif region == constants.RegionType.BARROW_DOWNS:
+            pass
+        
         elif region == constants.RegionType.HIGH_PASS:
             #Determine which monster is to be spawned
             randomNum = random.random()
@@ -70,6 +77,8 @@ def getMonsters(number, region, bonusDifficulty):
                     break
                 
         elif region == constants.RegionType.ENEDWAITH:
+            pass
+        elif region == constants.RegionType.EREGION:
             pass
         elif region == constants.RegionType.RHOVANION:
             pass

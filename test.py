@@ -194,7 +194,7 @@ class SpaceTest(unittest.TestCase):
         bow = Item("bow", "long bow", 2) 
 
         #Create space
-        space = Space("shire", "Home of the Hobbits.", "Mordor")
+        space = Space("shire", "Home of the Hobbits.", 1)
         items = space.getItems()
 
         #Assert space initially empty
@@ -233,6 +233,15 @@ class SpaceTest(unittest.TestCase):
         self.assertFalse(items.containsItem(blade), 
                 "Blade found in room (even though it was removed).")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
+
+    def testRegionType(self):
+        from space import Space
+        import constants
+
+        space = Space("West Emnet", "Horses for riding", "Rohan")
+
+        errorMsg = "Space regionType test failed."
+        self.assertEquals(space.getRegionType(), "Rohan", errorMsg)
 
     def testCities(self):
         from space import Space
@@ -273,7 +282,7 @@ class SpaceTest(unittest.TestCase):
         from commands.west_command import WestCommand
         from commands.east_command import EastCommand
         
-        space = Space("Shire", "Home of the hobbits", "Mordor")
+        space = Space("Shire", "Home of the hobbits", 1)
         player = Player("Russian", space)
         
         northCmd = NorthCommand("North", "Moves player north", player)
@@ -406,7 +415,7 @@ class SpaceTest(unittest.TestCase):
         from commands.west_command import WestCommand
         from commands.east_command import EastCommand
         
-        space = Space("Shire", "Home of the hobbits", "Mordor")
+        space = Space("Shire", "Home of the hobbits", 1)
         player = Player("Russian", space)
         
         northCmd = NorthCommand("North", "Moves player north", player)
@@ -467,7 +476,7 @@ class PickUpTest(unittest.TestCase):
         from items.item import Item
         from commands.pick_up_command import PickUpCommand
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         item = Item("Dagger", "A trusty blade", 2)
         pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
@@ -509,7 +518,7 @@ class DropTest(unittest.TestCase):
         from items.weapon import Weapon
         from commands.drop_command import DropCommand
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
@@ -549,7 +558,7 @@ class DropTest(unittest.TestCase):
         from items.weapon import Weapon
         from commands.drop_command import DropCommand
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
@@ -588,7 +597,7 @@ class DescribeTest(unittest.TestCase):
         from space import Space
         from commands.describe_command import DescribeCommand
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         descCmd = DescribeCommand("describe", "Gives description of space", player)
 
@@ -611,7 +620,7 @@ class EquipTest(unittest.TestCase):
         from items.armor import Armor
         from commands.equip_command import EquipCommand
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
         
@@ -633,7 +642,7 @@ class EquipTest(unittest.TestCase):
         self.assertFalse(equipped.containsItem(armor), "Player equipped item not in inventory.")
         
         #Trying to equip item that cannot be equipped (e.g. item is not instance of Armor or Weapon)
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -650,7 +659,7 @@ class EquipTest(unittest.TestCase):
         self.assertFalse(equipped.containsItem(item), "Player equipped item of Item class.")
 
         #Equipping item that can be equipped
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -675,7 +684,7 @@ class EquipTest(unittest.TestCase):
         self.assertTrue(equipped.containsItem(armor), "Player failed to equip equipable item.")
         
         #Equipping an item that is already equipped
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -711,7 +720,7 @@ class EquipTest(unittest.TestCase):
         from commands.equip_command import EquipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -739,7 +748,7 @@ class EquipTest(unittest.TestCase):
         from commands.equip_command import EquipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -766,7 +775,7 @@ class UnequipTest(unittest.TestCase):
         from commands.unequip_command import UnequipCommand
 
         #Attempting to unequip item not currently equipped
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
@@ -785,7 +794,7 @@ class UnequipTest(unittest.TestCase):
         ###TODO: FIND SOME WAY TO MAKE SURE THAT PRINT STATEMENT PRINTED
         
         #Attempting to unequip item that may be unequipped
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
@@ -813,7 +822,7 @@ class UnequipTest(unittest.TestCase):
         from commands.unequip_command import UnequipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
@@ -839,7 +848,7 @@ class UnequipTest(unittest.TestCase):
         from commands.unequip_command import UnequipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
@@ -866,7 +875,7 @@ class UsePotionTest(unittest.TestCase):
         from player import Player
         from items.potion import Potion
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         inventory = player.getInventory()
         usePotionCmd = UsePotionCommand("use potion", "Uses potion in inventory.", player)
@@ -958,7 +967,7 @@ class PlayerTest(unittest.TestCase):
         from items.item_set import ItemSet
         import constants
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         
         #Test for correct initialization
@@ -986,7 +995,7 @@ class PlayerTest(unittest.TestCase):
         from space import Space
         from monsters.monster import Monster
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         MONSTER_HEALTH = 10
@@ -1008,7 +1017,7 @@ class PlayerTest(unittest.TestCase):
         from space import Space
         from monsters.monster import Monster
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         
         #When attack is more than maxHp
@@ -1032,7 +1041,7 @@ class PlayerTest(unittest.TestCase):
         from monsters.monster import Monster
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
         armor = Armor("Shield of Faith", "Quenches fiery darts", 2, 2, 2)
         player.equip(armor)
@@ -1060,7 +1069,7 @@ class PlayerTest(unittest.TestCase):
         from space import Space
         import constants
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         #Test starting experience
@@ -1079,7 +1088,7 @@ class PlayerTest(unittest.TestCase):
         from math import floor
         import constants
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         #Determine default player stats
@@ -1111,7 +1120,7 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         attackAmount = 2
@@ -1126,7 +1135,7 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
 
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         attackAmount = 3
@@ -1145,7 +1154,7 @@ class PlayerTest(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         newItem = Item("Chainik Reakettle", "Makes good tea", 1)
@@ -1201,7 +1210,7 @@ class PlayerTest(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         newItem = Item("Chainik Reakettle", "Makes good tea", 1)
@@ -1235,7 +1244,7 @@ class PlayerTest(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         newItem = Item("Chainik Reakettle", "Makes good tea", 1)
@@ -1287,7 +1296,7 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
         
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
         north = Space("North Space", "Very cold", "Welcome")
@@ -1327,7 +1336,7 @@ class InnTest(unittest.TestCase):
 
         testInn = Inn("Chris' Testing Inn", "Come test here", "Hi", 5)
         testCity = City("Test City", "testing city", "Hello to testing city. See Chris' Inn", testInn)
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
+        space = Space("Shire", "Home of the Hobbits.", 1, city = testCity)
         player = Player("Frodo", space)
                 
         #Player's health is lowest possible to be alive
@@ -1363,7 +1372,7 @@ class ShopSellItems(unittest.TestCase):
 
         testShop = Shop("Chris' testing shop", "Come test here", "Hi", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
+        space = Space("Shire", "Home of the Hobbits.", 1, city = testCity)
         player = Player("Frodo", space)
         
         #Create starting iventory
@@ -1445,7 +1454,7 @@ class ShopPurchaseItems(unittest.TestCase):
 
         testShop = Shop("Chris' testing Shop", "Come test here", "Hi", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
+        space = Space("Shire", "Home of the Hobbits.", 1, city = testCity)
         player = Player("Frodo", space)
        
         #Our shop should currently have 5 items (this was designed when it was created)
@@ -1534,7 +1543,7 @@ class SquareDoesNotCrash(unittest.TestCase):
 
         testsquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
         testcity = City("Test City", "testing city", "hello to testing city. see Chris' Square", testsquare)
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testcity)
+        space = Space("Shire", "Home of the Hobbits.", 1, city = testcity)
         player = Player("Frodo", space)
         
         #Player chooses to: 1(talk), to Master Wang, 1(talk), to Miles, 2(Leave) the square
@@ -1556,7 +1565,7 @@ class UniquePlace(unittest.TestCase):
         from unique_place import UniquePlace
 
         testuniqueplace = UniquePlace("Chris' unique testing room", "Come test here", "Hi")
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", uniquePlace = testuniqueplace)
+        space = Space("Shire", "Home of the Hobbits.", 1, uniquePlace = testuniqueplace)
         player = Player("Frodo", space)
         
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
@@ -1604,6 +1613,117 @@ def monster(unittest.TestCase):
         monster.takeAttack(1000)
         errorMsg = "monster.takeAttack() testcase #2 failed"
         self.assertEqual(monster._hp, 0, errorMsg)
+
+def monsterFactory(unittest.TestCase):
+    """
+    Tests monster factory.
+
+    Pieces:
+    -Tests default monster creation, that monsters are in fact created.
+    -Testing difficulty feature - that default stats are implemented when
+    difficulty set to zero.
+    -Testing difficulty feature - that monster stat increases as
+    percentage over default. For instance, difficulty = 1 should result
+    in monsters with 200% base monster stats.
+    -Testing difficulty feature - that when difficulty = 0, "number" param
+    is the number of monsters created.
+    -Testing difficulty feature - that when difficulty != 0, "number" param
+    results in % increase in monster spawn. So for instance, if default
+    spawn is three and difficulty = 1, spawn gets a 100% increase in number.
+    Monsters spawned would be six in this case.
+    -Testing that different regional spawns work.
+
+    Note to reader: params for getMonsters are: number of monsters, region,
+    and difficulty.
+    """
+    from factories.monster_factory import getMonsters
+    from monsters.monster import Monster
+    from monsters.troll import Troll
+    from monsters.nazgul import Nazgul
+    from monsters.goblin import Goblin
+    from monsters.great_goblin import GreatGoblin
+    import constants
+    
+    #Tests default monster creation, that monsters are in fact created.
+    monsters = getMonsters(3, 1, 0)
+    errorMsg = "getMonsters did not spawn Monster objects."
+    for monster in monsters:
+        self.assertTrue((isinstance(monster, Monster), errorMsg)
+
+    #Testing difficulty feature - that default stats are implemented when
+    #difficulty is set to zero.
+    """
+    Mocked up monster distribution of ERIADOR such that Trolls are spawned 100%
+    of the time. getMonsters is to spawn three monsters using the newly mocked
+    up monster distribution. 
+    """
+    constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
+    monsters = getMonsters(3, 1, 0)
+    for monster in monsters:
+        errorMsg = "monster._hp was not initiated correctly."
+        self.assertEqual(monster._hp, constants.MONSTER_STATS[Troll][0], errorMsg)
+        errorMsg = "monster._attack was not initiated correctly."
+        self.assertEqual(monster._attack, constants.MONSTER_STATS[Troll][1], errorMsg)
+        errorMsg = "monster._experience was not initiated correctly."
+        self.assertEqual(monster._attack, constants.MONSTER_STATS[Troll][2], errorMsg)
+
+    #-Testing difficulty feature - that monster stat increases as
+    #percentage over default. For instance, difficulty = 1 should result
+    #in monsters with 200% base monster stats.
+    """
+    Mocked up monster distribution of EERIADOR such that Trolls are spawned 100%
+    of the time. getMonsters is to spawn three Trolls from ERIADOR with bonusDifficulty
+    set to 100%. Newly spawned monsters should have 200% default stats. 
+    """
+    constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
+    monsters = getMonsters(3, 1, 1)
+    for monster in monsters:
+        errorMsg = "monster._hp was not initiated correctly."
+        self.assertEqual(monster._hp, 2 * constants.MONSTER_STATS[Troll][0], errorMsg)
+        errorMsg = "monster._attack was not initiated correctly."
+        self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][1], errorMsg)
+        errorMsg = "monster._experience was not initiated correctly."
+        self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][2], errorMsg)
+    
+    #-Testing difficulty feature - that when difficulty = 0, "number" param
+    #is the number of monsters created.
+    """
+    Params: number = 3, region = 1 (ERIADOR), difficulty = 0.
+    """
+    monsters = getMonsters(3, 1, 0)
+    
+    errorMsg = "getMonsters did not spawn three monsters."
+    self.assertEqual(len(monsters), 3, errorMsg)
+        
+    -#Testing difficulty feature - that when difficulty != 0, "number" param
+    #results in % increase in monster spawn. So for instance, if default
+    #spawn is three and difficulty = 1, spawn gets a 100% increase in number.
+    #Monsters spawned would be six in this case.
+    """
+    Params: number = 3, region = 1 (ERIADOR), difficulty = 1.
+
+    Six monsters should be spawned (3 + (3 * 100%)).
+    """
+    monsters = getMonsters(3, 1, 1)
+    
+    errorMsg = "getMonsters did not spawn three monsters."
+    self.assertEqual(len(monsters), 6, errorMsg)
+
+    #-Testing that different regional spawns work.
+    """
+    Params for monstersEriador(3 (monsters), 1 (ERIADOR), 0 (difficulty)).
+    Params for monstersEriador(3 (monsters), 2 (HIGH_PASS), 0 (difficulty)).
+    """
+    constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: .25, Nazgul: 1})
+    constants.RegionMonsterDistribution.BARROW_DOWNS = MagicMock(side_effect = {Goblin: .8, GreatGoblin: 1})
+    
+    monstersEriador = getMonsters(3, 1, 0)
+    monstersBarrowDowns = getMonsters(3, 2, 0)
+    for monster in monstersEriador:
+        errorMsg = "Monster spawn for Eriador was outside of Eriador's monster distribution."
+        self.assertTrue(isinstance(monster, Troll) or isinstance(monster, Nazgul), errorMsg)
+        errorMsg = "Monster spawn for high Pass was outside of High Pass's monster distribution."
+        self.assertTrue(isinstance(monster, Goblin) or isinstance(monster, GreatGoblin), errorMsg)
 
     
         
