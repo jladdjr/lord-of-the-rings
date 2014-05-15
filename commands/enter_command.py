@@ -21,38 +21,40 @@ class EnterCommand(Command):
 
         self._player = player
     
-    def displayPlacesToEnter(self):
+    def _displayPlacesToEnter(self):
         """
-        Displays the possible places (Cities or uniquePlaces) that player may enter
+        Displays the possible places (Cities or UniquePlaces) that player may enter
         """
-        name = self._player.getName()
+        playerName = self._player.getName()
         space = self._player.getLocation()
         city = space.getCity()
         uniquePlace = space.getUniquePlace()
         
-        #if there are no cities or uniquePlaces
+        #If there are no cities or uniquePlaces
         if not (city or uniquePlace):
             print "No places to enter."
-        #otherwise print the possible places to enter
+        #Otherwise print the possible places to enter
         else:
-            print "%s may enter the following cities:" % self._player.getName()
             if isinstance(city, City):
-                print "\t%s" %city.getName()
-            elif isinstance(city,list):
+                print "%s may enter the following city:" % playerName
+                print "\t%s" % city.getName()
+            elif isinstance(city, list):
+                print "%s may enter the following cities:" % playerName
                 for eachCity in city:
-                    print "\t%s" %eachCity.getName()
+                    print "\t%s" % eachCity.getName()
                 print ""
 
         #Display uniquePlaces that player may enter
-            print "%s may also enter the following:" % self._player.getName()
             if isinstance(uniquePlace, UniquePlace):
-                print "\t%s" %uniquePlace.getName()
-            elif isinstance(uniquePlace,list):
+                print "%s may also enter the following:" % playerName
+                print "\t%s" % uniquePlace.getName()
+            elif isinstance(uniquePlace, list):
+                print "%s may also enter the following:" % playerName
                 for eachUniquePlace in uniquePlace:
-                    print "\t%s" %eachUniquePlace.getName()
+                    print "\t%s" % eachUniquePlace.getName()
                 print ""
     
-    def createDictionaryOfPlaces(self):
+    def _createDictionaryOfPlaces(self):
         """
         Creates a dictionary of places that are within the space. The keys are the names of the places and reference the actual places. 
         """
@@ -63,16 +65,16 @@ class EnterCommand(Command):
         dictionary = {}
         
         #add cities to dictionary
-        if isinstance(city,City):
+        if isinstance(city, City):
             dictionary[city.getName()] = city
-        elif isinstance(city,list):
+        elif isinstance(city, list):
             for eachCity in city:
                 dictionary[eachCity.getName()] = eachCity
         
         #add uniquePlaces to dictionary
-        if isinstance(uniquePlace,UniquePlace):
+        if isinstance(uniquePlace, UniquePlace):
             dictionary[uniquePlace.getName()] = uniquePlace
-        elif isinstance(uniquePlace,list):
+        elif isinstance(uniquePlace, list):
             for eachUniquePlace in uniquePlace:
                 dictionary[eachUniquePlace.getName()] = eachUniquePlace
         
@@ -82,26 +84,26 @@ class EnterCommand(Command):
         """
         Allows player to enter a city or uniquePlace.
         """
-        #show the places that player may enter
-        self.displayPlacesToEnter()
+        #Show the places that player may enter
+        self._displayPlacesToEnter()
         
-        #create a dictionary of places within space. Keys are the names of places that reference the actual places
-        dictionary = self.createDictionaryOfPlaces()
+        #Create a dictionary of places within space. Keys are the names of places that reference the actual places
+        dictionary = self._createDictionaryOfPlaces()
         
         space = self._player.getLocation()
         city = space.getCity()
         uniquePlace = space.getUniquePlace()
         
-        #if there is no place to enter
+        #If there is no place to enter
         if not (city or uniquePlace):
-            pass
-        #entering the place that the player chooses to enter
+            return
+        #Entering the place that the player chooses to enter
         placeToEnter = raw_input("Which of these would you like to enter?\n")
         while (placeToEnter not in dictionary.keys()) or placeToEnter == 'stop':
             if placeToEnter == 'stop':
-                break
-            else: 
-                print "\nThat name does not match the names of any of the places here. Try again, or type 'stop' to stop entering a place.\n"
+                break 
+            print "\nThat name does not match the names of any of the places here."
+            print "Try again, or type 'stop' to stop entering a place.\n"
             placeToEnter = raw_input("Which of these would you like to enter?\n")
         else:
             print "\n"

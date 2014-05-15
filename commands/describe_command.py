@@ -39,21 +39,21 @@ class DescribeCommand(Command):
         #Give space name and description
         print "%s: %s" % (locationName, description)
 
-        #if there are no cities or uniquePlaces in this space
+        #If there are no cities or uniquePlaces in this space
         if not city and not uniquePlace:
             print "%s has no places for you to enter!" % locationName
 
-        #if there is at least 1 city or uniquePlace
+        #If there is at least 1 city or uniquePlace
         else:
             print "The following are contained in %s: \n" % locationName
 
             #If space has one city:
-            if isinstance(city,City):
+            if isinstance(city, City):
                 cityName = city.getName()
                 print "%s" % cityName
             
             #if space has multiple cities (and the variable city is actually a list of cities):
-            elif isinstance(city,list):
+            elif isinstance(city, list):
                 for eachCity in city:
                     eachCityName = eachCity.getName()
                     print "%s" % eachCityName

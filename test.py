@@ -843,7 +843,7 @@ class SquareDoesNotCrash(unittest.TestCase):
 
 class City(unittest.TestCase):
     """
-    Tests the ability of City Object.
+    Tests the ability of City object.
     """
     def testInit(self):
         from player import Player
@@ -851,7 +851,7 @@ class City(unittest.TestCase):
         from cities.city import City
         from cities.inn import Inn
 
-        testInn = Inn("Seth n Breakfast Test Inn", "testing inn", "Come test here", 3)
+        testInn = Inn("Seth n Breakfast Test Inn", "Testing inn", "Come test here", 3)
         testCity = City("TestCity","Chris' unique testing city", "Come test here", buildings = testInn)
         space = Space("Shire", "Home of the Hobbits.", city = testCity)
         player = Player("Frodo", space)
@@ -893,7 +893,7 @@ class EnterCommand(unittest.TestCase):
         
         space = Space("Shire", "Home of the Hobbits.")
         player = Player("the Funlaps", space)
-        testEnterCommand = EnterCommand("Test Enter Command","Tests Entering", player)
+        testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
         
         #Player chooses to "gobbledigook", enter, "Jdlskfjsd City", stop entering a city
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
@@ -912,20 +912,20 @@ class EnterCommand(unittest.TestCase):
         from cities.city import City
         from unique_place import UniquePlace
         
-        testCity1 = City("Jim's Mobile Fun City","Jim's unique testing city", "Come test here")
-        testCity2 = City("Seth's Sans-Shabbiness Shack Sh-City","Seth's unique testing city", "Come test here")
-        testCity3 = City("Miles' Magical Cookie Jail City","Miles' unique testing city", "Come test here")
+        testCity1 = City("Jim's Mobile Fun City", "Jim's unique testing city", "Come test here")
+        testCity2 = City("Seth's Sans-Shabbiness Shack Sh-City", "Seth's unique testing city", "Come test here")
+        testCity3 = City("Miles' Magical Cookie Jail City", "Miles' unique testing city", "Come test here")
         testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here")
         space = Space("Shire", "Home of the Hobbits.", 
                             city = [testCity1, testCity2, testCity3], uniquePlaces = testUniquePlace)
-        player = Player("the Funlaps", space)
+        player = Player("The Funlaps", space)
         
-        testEnterCommand = EnterCommand("Test Enter Command","Tests Entering", player)
+        testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
         
         #Player chooses to go to testCity1, leave, testCity2, leave, testCity3, leave, testUniquePlace, stop
         spaceInputMock = MagicMock(side_effect = 
                 ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
-                "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place",  "stop"])
+                "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place", "stop"])
         cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city"])
         
         with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
@@ -947,10 +947,10 @@ class DescribeCommand(unittest.TestCase):
         from cities.city import City
         from unique_place import UniquePlace
         
-        testCity = City("Master Wang's Oriental Fun City","Chris' unique testing city", "Come test here")
+        testCity = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
         testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.")
         space = Space("Shire", "Home of the Hobbits.", city = testCity)
-        player = Player("the Baginses", space)
+        player = Player("The Baginses", space)
         testDescribeCommand = DescribeCommand("Test Describe Command", "Tests Describing", player)
         
         #Player chooses to "gobbledigook", describe, "gobbledigook"

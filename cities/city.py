@@ -6,8 +6,11 @@ from cities.building import Building
 class City(Place):
     """
     Cities inherit from the Place parent class.
-    Cities are the towns of the game. Cities may have inns, blacksmiths and people to talk to.
+    Cities may have inns, shops or squares that player may enter and do other things.
     """
+    #Call parent's init method
+    Place.__init__(self, name, description)
+    
     def __init__(self, name, description, greetings, buildings = None):
         """
         Initializes city object.
@@ -21,9 +24,7 @@ class City(Place):
         self._description = description
         self._greetings = greetings
         self._buildings = buildings
-        
-        #Call parent's init method
-        Place.__init__(self, name, description)
+
 
     def greetings(self):
         """
@@ -47,24 +48,26 @@ class City(Place):
             if building.getName() == string:
                 return building
     
-    def createDictionaryOfBuildings(self):
+    def _createDictionaryOfBuildings(self):
         """
         Creates a dictionary of building objects. The keys are 
         the building names that references the building object.
+        
+        @return:    The dictionary of buildings contained in City
         """
         
-        dictionary = {}
+        buildingDictionary = {}
         buildings = self.getBuildings()
         #if there is 1 building
         if isinstance(buildings, Building):
-            dictionary[buildings.getName()] = buildings
+            buildingDictionary[buildings.getName()] = buildings
         #if there are multiple buildings
-        elif isinstance(buildings,list):
+        elif isinstance(buildings, list):
             for building in buildings:
-                dictionary[building.getName()] = building
-        return dictionary
+                buildingDictionary[building.getName()] = building
+        return buildingDictionary
     
-    def printBuildings(self):
+    def _printBuildings(self):
         """
         The method for printing buildings in the city
         """
@@ -82,10 +85,10 @@ class City(Place):
     def enter(self, player):  
         """
         The method for entering the buildings in the city.
-        @param: player       The current player
+        @param player:       The current player
         """
 
-        buildingDictionary = self.createDictionaryOfBuildings()
+        buildingDictionary = self._createDictionaryOfBuildings()
 
         print "Entering %s" % self.getName()
         print "\n %s \n" % self.getDescription()
@@ -94,7 +97,7 @@ class City(Place):
             print "You have found the following:"
             
             #Print list of buildings
-            self.printBuildings()
+            self._printBuildings()
             
             print "To go to a building type its name. Otherwise, type 'leave city'"
             command = raw_input("Where would you like to go?\n")
