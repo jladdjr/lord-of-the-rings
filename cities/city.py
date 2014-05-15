@@ -8,9 +8,6 @@ class City(Place):
     Cities inherit from the Place parent class.
     Cities may have inns, shops or squares that player may enter and do other things.
     """
-    #Call parent's init method
-    Place.__init__(self, name, description)
-    
     def __init__(self, name, description, greetings, buildings = None):
         """
         Initializes city object.
@@ -20,8 +17,9 @@ class City(Place):
         @param greetings:      The greetings the user gets as he enters the city.
         @param buildings:      A list of the buildings in the city.
         """
-        self._name = name
-        self._description = description
+        #Call parent's init method
+        Place.__init__(self, name, description)
+        
         self._greetings = greetings
         self._buildings = buildings
 
