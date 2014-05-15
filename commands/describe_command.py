@@ -52,7 +52,7 @@ class DescribeCommand(Command):
                 cityName = city.getName()
                 print "%s" % cityName
             
-            #if space has multiple cities (and the variable city is actually a list of cities):
+            #If space has multiple cities (and the variable city is actually a list of cities):
             elif isinstance(city, list):
                 for eachCity in city:
                     eachCityName = eachCity.getName()
@@ -63,7 +63,7 @@ class DescribeCommand(Command):
                 uniquePlaceName = uniquePlace.getName() 
                 print "%s" % uniquePlaceName           
             
-            #if space has multiple uniquePlaces (the the variable uniquePlace is actually a list of uniquePlaces)
+            #If space has multiple uniquePlaces (the the variable uniquePlace is actually a list of uniquePlaces)
             if isinstance(uniquePlace, list):
                 for eachUniquePlace in uniquePlace:
                     eachUniquePlaceName = eachUniquePlace.getName()

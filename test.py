@@ -675,9 +675,9 @@ class InnTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", city = testcity)
         player = Player("Frodo", space)
                 
-        #player's health is lowest possible to be alive
+        #Player's health is lowest possible to be alive
         player._hp = 1
-        #player's money is equal to 10
+        #Player's money is equal to 10
         player._money = 10
 
         #Player chooses to stay at the inn
@@ -686,10 +686,10 @@ class InnTest(unittest.TestCase):
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testinn.enter(player)
         
-        #player's money should decrease by the cost of the inn, in our case 5.
+        #Player's money should decrease by the cost of the inn, in our case 5.
         self.assertEqual(player._money, 5, "Player's money not decreased by correct amount.")
         
-        #player's health should increase to maximum.
+        #Player's health should increase to maximum.
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
 
 #TODO make test for verifying the stats of items in the shop, and put into 1 shop test class with multiple methods
@@ -711,26 +711,24 @@ class ShopSellItems(unittest.TestCase):
         player = Player("Frodo", space)
         player_money = player._money
         
-        #create starting iventory
+        #Create starting iventory
         armor = Armor("Leather Tunic", "Travel cloak", 3, 1, 1)
         
-        #add armor to player's inventory
+        #Add armor to player's inventory
         inventory = player._inventory
         player.addToInventory(armor)
         self.assertTrue(inventory.containsItemWithName("Leather Tunic"), "Leather Tunic not added to inventory")
         
-        #import pdb
-        #pdb.set_trace()
         #Player chooses to: 3(sell items), to sell leather tunic, yes, 5(Quit) the shop
         rawInputMock = MagicMock(side_effect = ["3", "Leather Tunic", "yes", "5"])
         
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testshop.enter(player)
         
-        #player's money should increase by the half the cost of item; in our case this is half of 1, which is 0.5.
+        #Player's money should increase by the half the cost of item; in our case this is half of 1, which is 0.5.
         self.assertEqual(player._money, 20.5, "Player's money not increased by correct amount. It is %s" %player._money)
         
-        #player's inventory should no longer include leather tunic.
+        #Player's inventory should no longer include leather tunic.
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
         
         #Player chooses to: gobbledigook, 5(Quit) the shop
@@ -760,14 +758,14 @@ class ShopPurchaseItems(unittest.TestCase):
         player = Player("Frodo", space)
         player_money = player._money
        
-        #our shop should currently have 5 items (this was designed when it was created)
+        #Our shop should currently have 5 items (this was designed when it was created)
         self.assertEqual(len(testshop._items), 5, "Our test shop was generated with the wrong number of items")
 
-        #add Potion to Shop inventory. weight=1, healing=5, cost=3.
+        #Add Potion to Shop inventory. weight=1, healing=5, cost=3.
         testpotion = Potion ("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
         testshop._items.append(testpotion)
        
-        #player should start with 20 rubles
+        #Player should start with 20 rubles
         self.assertEqual(player._money, 20, "Player does not start with 20 rubles")
        
         #Player chooses to: 4(purchase item), to purchase medium potion of healing, 4(purchase item), gobbledigook, 5(Quit) the shop
@@ -776,13 +774,13 @@ class ShopPurchaseItems(unittest.TestCase):
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testshop.enter(player)
        
-        #player's money should decrease by the cost of medium potion, which is 3.
+        #Player's money should decrease by the cost of medium potion, which is 3.
         self.assertEqual(player._money, 17, "Player's money not decreased by correct amount. It is %s" %player._money)
        
-        #player's inventory should include medium potion of healing.
+        #Player's inventory should include medium potion of healing.
         self.assertTrue(player._inventory.containsItemWithName("Medium Potion of Healing"), "Medium Potion that was purchased was not added to inventory")
 
-        #add superduperlegendary Potion to Shop inventory. weight=1, healing=35, cost=28.
+        #Add superduperlegendary Potion to Shop inventory. weight=1, healing=35, cost=28.
         testpotion2 = Potion ("SuperDuperLegendary Potion of Healing", "A Wang concoction. Made by Master Wang.", 1, 35, 28)
         testshop._items.append(testpotion2)
 
@@ -792,10 +790,10 @@ class ShopPurchaseItems(unittest.TestCase):
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testshop.enter(player)
        
-        #player's money should not decrease by the cost of SuperDuperLegendary Potion of Healing, which is 28.
+        #Player's money should not decrease by the cost of SuperDuperLegendary Potion of Healing, which is 28.
         self.assertEqual(player._money, 17, "Player's money should not be decreased from 17. Player can't buy SuperDuperLegendary Potion. It is currently %s" %player._money)
        
-        #player's inventory should not include SuperDuperLegendary Potion of Healing.
+        #Player's inventory should not include SuperDuperLegendary Potion of Healing.
         self.assertFalse(player._inventory.containsItemWithName("SuperDuperLegendary Potion of Healing"), "SuperDuperLegendary Potion that was not purchased was added to inventory")
 
         #Player chooses to: 4(purchase item), fake item, 5(Quit) the shop
@@ -804,10 +802,10 @@ class ShopPurchaseItems(unittest.TestCase):
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testshop.enter(player)
        
-        #player's money should not change.
+        #Player's money should not change.
         self.assertEqual(player._money, 17, "Player's money should not be decreased when trying to purchase fake item. It is currently %s" %player._money)
        
-        #player's inventory should not include Fake Item.
+        #Player's inventory should not include Fake Item.
         self.assertFalse(player._inventory.containsItemWithName("Fake Item"), "Fake Item that was not purchased was added to inventory")
         
         #Player chooses to: gobbledigook, 5(Quit) the shop
@@ -837,7 +835,7 @@ class SquareDoesNotCrash(unittest.TestCase):
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
             testsquare.enter(player)
         
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
         
 
@@ -878,7 +876,7 @@ class UniquePlace(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", uniquePlaces = testUniquePlace)
         player = Player("Frodo", space)
         
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
 class EnterCommand(unittest.TestCase):
@@ -901,7 +899,7 @@ class EnterCommand(unittest.TestCase):
         with patch('commands.enter_command.raw_input', create = True, new = rawInputMock):
                 testEnterCommand.execute()
         
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
     
     def testEnterSpaceWithThreeCitiesAndOneUniquePlace(self):
@@ -932,7 +930,7 @@ class EnterCommand(unittest.TestCase):
             with patch('cities.city.raw_input', create = True, new = cityInputMock):
                 testEnterCommand.execute()
         
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
 class DescribeCommand(unittest.TestCase):
@@ -959,7 +957,7 @@ class DescribeCommand(unittest.TestCase):
         with patch('commands.describe_command.raw_input', create = True, new = rawInputMock):
                 testDescribeCommand.execute()
         
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
 if __name__ == '__main__':

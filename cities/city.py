@@ -56,10 +56,10 @@ class City(Place):
         
         buildingDictionary = {}
         buildings = self.getBuildings()
-        #if there is 1 building
+        #If there is 1 building
         if isinstance(buildings, Building):
             buildingDictionary[buildings.getName()] = buildings
-        #if there are multiple buildings
+        #If there are multiple buildings
         elif isinstance(buildings, list):
             for building in buildings:
                 buildingDictionary[building.getName()] = building

@@ -64,14 +64,14 @@ class EnterCommand(Command):
         
         dictionary = {}
         
-        #add cities to dictionary
+        #Add cities to dictionary
         if isinstance(city, City):
             dictionary[city.getName()] = city
         elif isinstance(city, list):
             for eachCity in city:
                 dictionary[eachCity.getName()] = eachCity
         
-        #add uniquePlaces to dictionary
+        #Add uniquePlaces to dictionary
         if isinstance(uniquePlace, UniquePlace):
             dictionary[uniquePlace.getName()] = uniquePlace
         elif isinstance(uniquePlace, list):
