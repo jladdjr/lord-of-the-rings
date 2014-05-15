@@ -191,7 +191,7 @@ class SpaceTest(unittest.TestCase):
 
         #Create space
         space = Space("shire", "Home of the Hobbits.")
-        items = space.getItemSet()
+        items = space.getItems()
 
         #Assert space initially empty
         errorMsg = "New space contains items; should be empty" 
@@ -211,7 +211,7 @@ class SpaceTest(unittest.TestCase):
         self.assertTrue(space.containsItem(bow), errorMsg)
 
         #Get room's items. Assert blade and bow exist
-        items = space.getItemSet()
+        items = space.getItems()
         self.assertEqual(items.count(), 2, "Room should contain exactly two items.")
         self.assertTrue(items.containsItem(blade), "Could not find blade in room's set of items.")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
@@ -224,7 +224,7 @@ class SpaceTest(unittest.TestCase):
         self.assertTrue(space.containsItem(bow), errorMsg)
 
         #Get room's items. Assert only bow exists
-        items = space.getItemSet()
+        items = space.getItems()
         self.assertEqual(items.count(), 1, "Room should contain exactly one item.")
         self.assertFalse(items.containsItem(blade), 
                 "Blade found in room (even though it was removed).")
@@ -351,7 +351,7 @@ class EquipTest(unittest.TestCase):
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
         item = Item("Charm", "Unknown effects", 1)
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 1)
 
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
@@ -382,7 +382,7 @@ class EquipTest(unittest.TestCase):
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 1)
 
         inventory = player.getInventory()
         inventory.addItem(weapon)
@@ -400,7 +400,7 @@ class EquipTest(unittest.TestCase):
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 1)
 
         inventory = player.getInventory()
         inventory.addItem(weapon)
@@ -441,7 +441,7 @@ class UnequipTest(unittest.TestCase):
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
         item = Item("Charm", "Unknown effects", 1)
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 1)
 
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
@@ -454,7 +454,7 @@ class UnequipTest(unittest.TestCase):
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2)
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 1)
 
         player.equip(weapon)
 
@@ -472,7 +472,7 @@ class ArmorTest(unittest.TestCase):
     def testInit(self):
         from items.armor import Armor
         
-        shield = Armor("Shield", "A cheap shield", 2, 3)
+        shield = Armor("Shield", "A cheap shield", 2, 3, 1)
 
         #Tests that shield initialized correctly
         self.assertEqual(shield.getName(), "Shield", "Name did not initialize correctly.")
@@ -487,7 +487,7 @@ class WeaponTest(unittest.TestCase):
     def testInit(self):
         from items.weapon import Weapon
 
-        sword = Weapon("Sword", "A cheap sword", 1, 3)
+        sword = Weapon("Sword", "A cheap sword", 1, 3, 1)
 
         #Tests for correct initialization
         self.assertEqual(sword.getName(), "Sword", "Name did not initialize correctly.")
@@ -502,7 +502,7 @@ class Potion(unittest.TestCase):
     def testInit(self):
         from items.potion import Potion
 
-        potion = Potion("Potion", "A small potion", 1, 10)
+        potion = Potion("Potion", "A small potion", 1, 10, 1)
         
         #Tests for correct initialization
         self.assertEqual(potion.getName(), "Potion", "Name did not initialize correctly.")
@@ -640,8 +640,8 @@ class PlayerTest(unittest.TestCase):
         player = Player("Frodo", space)
 
         newItem = Item("Chainik Reakettle", "Makes good tea", 1)
-        newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3)
-        newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4)
+        newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 2)
+        newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
         
         player.addToInventory(newItem)
         player.addToInventory(newWeapon)
@@ -675,21 +675,21 @@ class InnTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", city = testcity)
         player = Player("Frodo", space)
                 
-        #player's health is lowest possible to be alive
+        #Player's health is lowest possible to be alive
         player._hp = 1
-        #player's money is equal to 10
+        #Player's money is equal to 10
         player._money = 10
 
         #Player chooses to stay at the inn
         rawInputMock = MagicMock(return_value=1)
         
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
-            testinn.execute(player)
+            testinn.enter(player)
         
-        #player's money should decrease by the cost of the inn, in our case 5.
+        #Player's money should decrease by the cost of the inn, in our case 5.
         self.assertEqual(player._money, 5, "Player's money not decreased by correct amount.")
         
-        #player's health should increase to maximum.
+        #Player's health should increase to maximum.
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
 
 #TODO make test for verifying the stats of items in the shop, and put into 1 shop test class with multiple methods
@@ -711,31 +711,31 @@ class ShopSellItems(unittest.TestCase):
         player = Player("Frodo", space)
         player_money = player._money
         
-        #create starting iventory
+        #Create starting iventory
         armor = Armor("Leather Tunic", "Travel cloak", 3, 1, 1)
         
-        #add armor to player's inventory
+        #Add armor to player's inventory
         inventory = player._inventory
         player.addToInventory(armor)
         self.assertTrue(inventory.containsItemWithName("Leather Tunic"), "Leather Tunic not added to inventory")
         
         #Player chooses to: 3(sell items), to sell leather tunic, yes, 5(Quit) the shop
-        rawInputMock = MagicMock(side_effect = ["3", "Leather Tunic", "y", "5"])
+        rawInputMock = MagicMock(side_effect = ["3", "Leather Tunic", "yes", "5"])
         
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
-            testshop.execute(player)
+            testshop.enter(player)
         
-        #player's money should increase by the half the cost of item, in our case this is half of 1, which is 0.5.
+        #Player's money should increase by the half the cost of item; in our case this is half of 1, which is 0.5.
         self.assertEqual(player._money, 20.5, "Player's money not increased by correct amount. It is %s" %player._money)
         
-        #player's inventory should no longer include leather tunic.
+        #Player's inventory should no longer include leather tunic.
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
         
         #Player chooses to: gobbledigook, 5(Quit) the shop
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "5"])
         
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
-            testshop.execute(player)
+            testshop.enter(player)
 
 class ShopPurchaseItems(unittest.TestCase):
     """
@@ -758,29 +758,29 @@ class ShopPurchaseItems(unittest.TestCase):
         player = Player("Frodo", space)
         player_money = player._money
        
-        #our shop should currently have 5 items (this was designed when it was created)
+        #Our shop should currently have 5 items (this was designed when it was created)
         self.assertEqual(len(testshop._items), 5, "Our test shop was generated with the wrong number of items")
 
-        #add Potion to Shop inventory. weight=1, healing=5, cost=3.
+        #Add Potion to Shop inventory. weight=1, healing=5, cost=3.
         testpotion = Potion ("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
         testshop._items.append(testpotion)
        
-        #player should start with 20 rubles
+        #Player should start with 20 rubles
         self.assertEqual(player._money, 20, "Player does not start with 20 rubles")
        
         #Player chooses to: 4(purchase item), to purchase medium potion of healing, 4(purchase item), gobbledigook, 5(Quit) the shop
         rawInputMock = MagicMock(side_effect = ["4", "Medium Potion of Healing", "5"])
        
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
-            testshop.execute(player)
+            testshop.enter(player)
        
-        #player's money should decrease by the cost of medium potion, which is 3.
+        #Player's money should decrease by the cost of medium potion, which is 3.
         self.assertEqual(player._money, 17, "Player's money not decreased by correct amount. It is %s" %player._money)
        
-        #player's inventory should include medium potion of healing.
+        #Player's inventory should include medium potion of healing.
         self.assertTrue(player._inventory.containsItemWithName("Medium Potion of Healing"), "Medium Potion that was purchased was not added to inventory")
 
-        #add superduperlegendary Potion to Shop inventory. weight=1, healing=35, cost=28.
+        #Add superduperlegendary Potion to Shop inventory. weight=1, healing=35, cost=28.
         testpotion2 = Potion ("SuperDuperLegendary Potion of Healing", "A Wang concoction. Made by Master Wang.", 1, 35, 28)
         testshop._items.append(testpotion2)
 
@@ -788,31 +788,31 @@ class ShopPurchaseItems(unittest.TestCase):
         rawInputMock = MagicMock(side_effect = ["4", "SuperDuperLegendary Potion of Healing", "5"])
        
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
-            testshop.execute(player)
+            testshop.enter(player)
        
-        #player's money should not decrease by the cost of SuperDuperLegendary Potion of Healing, which is 28.
+        #Player's money should not decrease by the cost of SuperDuperLegendary Potion of Healing, which is 28.
         self.assertEqual(player._money, 17, "Player's money should not be decreased from 17. Player can't buy SuperDuperLegendary Potion. It is currently %s" %player._money)
        
-        #player's inventory should not include SuperDuperLegendary Potion of Healing.
+        #Player's inventory should not include SuperDuperLegendary Potion of Healing.
         self.assertFalse(player._inventory.containsItemWithName("SuperDuperLegendary Potion of Healing"), "SuperDuperLegendary Potion that was not purchased was added to inventory")
 
         #Player chooses to: 4(purchase item), fake item, 5(Quit) the shop
         rawInputMock = MagicMock(side_effect = ["4", "Fake Item", "5"])
        
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
-            testshop.execute(player)
+            testshop.enter(player)
        
-        #player's money should not change.
+        #Player's money should not change.
         self.assertEqual(player._money, 17, "Player's money should not be decreased when trying to purchase fake item. It is currently %s" %player._money)
        
-        #player's inventory should not include Fake Item.
+        #Player's inventory should not include Fake Item.
         self.assertFalse(player._inventory.containsItemWithName("Fake Item"), "Fake Item that was not purchased was added to inventory")
         
         #Player chooses to: gobbledigook, 5(Quit) the shop
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "5"])
        
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
-            testshop.execute(player)
+            testshop.enter(player)
         
 class SquareDoesNotCrash(unittest.TestCase):
     """
@@ -833,12 +833,36 @@ class SquareDoesNotCrash(unittest.TestCase):
         rawInputMock = MagicMock(side_effect = ["1", "Master Wang", "1", "Miles", "gobbledigook", "2"])
         
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
-            testsquare.execute(player)
+            testsquare.enter(player)
         
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
         
 
+class City(unittest.TestCase):
+    """
+    Tests the ability of City object.
+    """
+    def testInit(self):
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from cities.inn import Inn
+
+        testInn = Inn("Seth n Breakfast Test Inn", "Testing inn", "Come test here", 3)
+        testCity = City("TestCity","Chris' unique testing city", "Come test here", buildings = testInn)
+        space = Space("Shire", "Home of the Hobbits.", city = testCity)
+        player = Player("Frodo", space)
+        
+        #Player chooses to "gobbledigook", enter Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
+        cityInputMock = MagicMock(side_effect = ["gobbledigook", "Seth n Breakfast Test Inn", 
+                                                "Seth n Breakfast Test Inn", 'leave city' ])
+        innInputMock = MagicMock(side_effect = ["2", "2"])
+        
+        with patch('cities.city.raw_input', create = True, new = cityInputMock):
+            with patch('cities.inn.raw_input', create = True, new = innInputMock):
+                testCity.enter(player)
+        
 class UniquePlace(unittest.TestCase):
     """
     Tests the ability of UniquePlace Object.
@@ -848,14 +872,93 @@ class UniquePlace(unittest.TestCase):
         from space import Space
         from unique_place import UniquePlace
 
-        testuniqueplace = UniquePlace("Chris' unique testing room", "Come test here")
-        space = Space("Shire", "Home of the Hobbits.", uniquePlaces = [testuniqueplace])
+        testUniquePlace = UniquePlace("Chris' unique testing room", "Come test here")
+        space = Space("Shire", "Home of the Hobbits.", uniquePlaces = testUniquePlace)
         player = Player("Frodo", space)
         
-        #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
-        
 
+class EnterCommand(unittest.TestCase):
+    """
+    Tests the ability of Enter Command.
+    """
+    def testEnterSpaceWithNoCityOrUniquePlace(self):
+        from space import Space
+        from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
+        
+        space = Space("Shire", "Home of the Hobbits.")
+        player = Player("the Funlaps", space)
+        testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
+        
+        #Player chooses to "gobbledigook", enter, "Jdlskfjsd City", stop entering a city
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
+        
+        with patch('commands.enter_command.raw_input', create = True, new = rawInputMock):
+                testEnterCommand.execute()
+        
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+    
+    def testEnterSpaceWithThreeCitiesAndOneUniquePlace(self):
+        from space import Space
+        from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
+        
+        testCity1 = City("Jim's Mobile Fun City", "Jim's unique testing city", "Come test here")
+        testCity2 = City("Seth's Sans-Shabbiness Shack Sh-City", "Seth's unique testing city", "Come test here")
+        testCity3 = City("Miles' Magical Cookie Jail City", "Miles' unique testing city", "Come test here")
+        testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here")
+        space = Space("Shire", "Home of the Hobbits.", 
+                            city = [testCity1, testCity2, testCity3], uniquePlaces = testUniquePlace)
+        player = Player("The Funlaps", space)
+        
+        testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
+        
+        #Player chooses to go to testCity1, leave, testCity2, leave, testCity3, leave, testUniquePlace, stop
+        spaceInputMock = MagicMock(side_effect = 
+                ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
+                "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place", "stop"])
+        cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city"])
+        
+        with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
+            with patch('cities.city.raw_input', create = True, new = cityInputMock):
+                testEnterCommand.execute()
+        
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+
+class DescribeCommand(unittest.TestCase):
+    """
+    Tests the ability of Describe Command.
+    """
+    def testDescribeCommandDoesNotCrash(self):
+        from space import Space
+        from commands.describe_command import DescribeCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
+        
+        testCity = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
+        testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.")
+        space = Space("Shire", "Home of the Hobbits.", city = testCity)
+        player = Player("The Baginses", space)
+        testDescribeCommand = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        
+        #Player chooses to "gobbledigook", describe, "gobbledigook"
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
+        
+        with patch('commands.describe_command.raw_input', create = True, new = rawInputMock):
+                testDescribeCommand.execute()
+        
+        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
+        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"

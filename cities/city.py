@@ -1,8 +1,12 @@
 #!/usr/bin/python
 
-class City(object):
+from place import Place
+from cities.building import Building
+
+class City(Place):
     """
-    Cities are the towns of the game. Cities may have inns, blacksmiths and people to talk to.
+    Cities inherit from the Place parent class.
+    Cities may have inns, shops or squares that player may enter and do other things.
     """
     def __init__(self, name, description, greetings, buildings = None):
         """
@@ -13,26 +17,12 @@ class City(object):
         @param greetings:      The greetings the user gets as he enters the city.
         @param buildings:      A list of the buildings in the city.
         """
-        self._name = name
-        self._description = description
+        #Call parent's init method
+        Place.__init__(self, name, description)
+        
         self._greetings = greetings
         self._buildings = buildings
 
-    def getName(self):
-        """
-        Returns name of city.
-
-        @return:    The name of the city.
-        """
-        return self._name
-
-    def getDescription(self):
-        """
-        Returns description of city.
-
-        @return:    The description of the city.
-        """
-        return self._description
 
     def greetings(self):
         """
@@ -55,5 +45,74 @@ class City(object):
         for building in self._buildings:
             if building.getName() == string:
                 return building
-        else:
-            return None
+    
+    def _createDictionaryOfBuildings(self):
+        """
+        Creates a dictionary of building objects. The keys are 
+        the building names that references the building object.
+        
+        @return:    The dictionary of buildings contained in City
+        """
+        
+        buildingDictionary = {}
+        buildings = self.getBuildings()
+        #If there is 1 building
+        if isinstance(buildings, Building):
+            buildingDictionary[buildings.getName()] = buildings
+        #If there are multiple buildings
+        elif isinstance(buildings, list):
+            for building in buildings:
+                buildingDictionary[building.getName()] = building
+        return buildingDictionary
+    
+    def _printBuildings(self):
+        """
+        The method for printing buildings in the city
+        """
+        
+        buildings = self.getBuildings()
+        #If there is 1 building
+        if isinstance(buildings, Building):
+            print "\t %s\n" % buildings.getName()
+        #If there are multiple buildings
+        elif isinstance(buildings, list):
+            for building in buildings:
+                print "\t %s" % building.getName()
+            print"\n"
+    
+    def enter(self, player):  
+        """
+        The method for entering the buildings in the city.
+        @param player:       The current player
+        """
+
+        buildingDictionary = self._createDictionaryOfBuildings()
+
+        print "Entering %s" % self.getName()
+        print "\n %s \n" % self.getDescription()
+
+        while True:
+            print "You have found the following:"
+            
+            #Print list of buildings
+            self._printBuildings()
+            
+            print "To go to a building type its name. Otherwise, type 'leave city'"
+            command = raw_input("Where would you like to go?\n")
+            
+            #If player chooses to leave the city
+            if command == 'leave city':
+                print "Leaving %s.\n" % self.getName()
+                return
+            #If player selects something other than to leave the city
+            while True:
+                if command in buildingDictionary.keys():
+                    #Enter building
+                    buildingDictionary[command].enter(player)
+                    #Player has left building, and chooses what to do next
+                    print "\nYou are now back in %s." % self.getName()
+                    break
+                else:
+                    print "\nI did not recognize %s. Try again." % command
+                    break
+

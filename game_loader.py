@@ -64,7 +64,8 @@ def getWorld():
     well-suited for farming. One of its chief products is Shire
     Leaf, grown especially in the warmer regions of the Southfarthing.
     """
-    shire = Space("Shire", description, city = hobbiton, uniquePlaces = [tombombadilhouse]))
+    shire = Space("Shire", description)
+    #shire = Space("Shire", description, city = hobbiton, uniquePlaces = tombombadilhouse)
 
     #tomBombadil = Place
     #The Old Forest
@@ -82,7 +83,7 @@ def getWorld():
     Weather Hills was the name among Men for the north-south range of hills
     that lay in central Eriador and in ancient times marked part of the
     border between the lands of Arthedain and Rhudaur. Weathertop, or
-    Amon Sûl, lays at the southern end of this range.
+    Amon SÃ»l, lays at the southern end of this range.
     """
     weatherHills = Space("Weather Hills", description)
 
@@ -556,7 +557,7 @@ def getWorld():
     greeting = ""
     minasMorgul = City("Minas Morgul", description, greeting)
     #Ephel Duath
-    description = """The Ephel Dúath, or the Mountains of Shadow, are a range of
+    description = """The Ephel DÃºath, or the Mountains of Shadow, are a range of
     mountains that guard Mordor's western and southern borders.
     """
     ephelDuath = Space("Ephel Duath", description, city = minasMorgul)

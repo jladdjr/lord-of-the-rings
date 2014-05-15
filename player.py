@@ -139,7 +139,7 @@ class Player(object):
         """
         #If amount that player may be healed is less than amount possible
         if self._maxHp - self._hp < amount:
-            amountHealed = maxHp - self._hp
+            amountHealed = self._maxHp - self._hp
         #If amount that player may be healed is equal to or more than amount possible
         else:
             amountHealed = amount
