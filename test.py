@@ -15,7 +15,8 @@ class GameTest(unittest.TestCase):
         helpCommand = MagicMock()
         helpCommand.execute = MagicMock()
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
-
+        
+        #Game._nextTurn() called
         g._nextTurn()
         self.assertTrue(helpCommand.execute.called, "Game._nextTurn() failed to execute command")
 
@@ -1561,8 +1562,51 @@ class UniquePlace(unittest.TestCase):
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
+def monster(unittest.TestCase):
+    """
+    Tests Monster class.
+    """
+    def testMonster(self):
+        from monsters.monster import Monster
 
+        monster = Monster("Jack", "@$$", [10, 5, 7], "Moof", "Meep"]
 
+        #Test monster initialized correctly
+        errorMsg = "monster._name should be 'Jack'"
+        self.assertEqual(monster._name, "Jack", errorMsg)
+        errorMsg = "monster._description should be '@$$'"
+        self.assertEqual(monster._description, "@$$", errorMsg)
+        errorMsg = "monster._hp should be 10"
+        self.assertEqual(monster._hp, 10, errorMsg)
+        errorMsg = "monster._attack should be 5"
+        self.assertEqual(monster._attack, 5, errorMsg)
+        errorMsg = "monster._experience should be 7"
+        self._assertEqual(monster._experience, 7, errorMsg)
+        errorMsg = "monster._attackString", "Moof", errorMsg)
+        self._assertEqual(monster._attackString, "Moof", errorMsg)
+        errorMsg = "monster._deathString", "Meep", errorMsg)
+        self._assertEqual(monster._deathString, "Meep", errorMsg)
+        
+        #Test monster.attack()
+        player = MagicMock()
+        player.takeAttack() = MagicMock
+        
+        monster.attack(player)
+        errorMsg = "monster.attack() failed to carry attack to player."
+        self.assertTrue(player.takeAttack.called, errorMsg)
+
+        #Test monster.takeAttack() - attack is less than total hp
+        monster.takeAttack(3)
+        errorMsg = "monster.takeAttack() testcase #1 failed."
+        self.assertEqual(monster._hp, 2, errorMsg)
+
+        #Test monster.takeAttack() - attack is more than total hp
+        monster.takeAttack(1000)
+        errorMsg = "monster.takeAttack() testcase #2 failed"
+        self.assertEqual(monster._hp, 0, errorMsg)
+
+    
+        
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()
