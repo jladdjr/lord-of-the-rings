@@ -7,8 +7,6 @@ class UniquePlace(Place):
     A unique place inherits from the Place parent class.
     A unique place on the map. Different from cities, but exists within a space.
     """
-    #Call parent class init function
-    Place.__init__(self, name, description)
         
     def __init__(self, name, description):
         """
