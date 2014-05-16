@@ -93,10 +93,13 @@ class Player(object):
     def increaseExperience(self, newExperience):
         """
         Allows player to receive additional experience.
+        Runs _upsateLevel() upon receiving additional
+        experience.
 
         @param newExperience:    The experience player is to receive.
         """
         self._experience += newExperience
+        self._updateLevel()
         
     def getLevel(self):
         """
@@ -116,9 +119,10 @@ class Player(object):
         #Checks to see if player has leveled up
         if self._level != floor(self._experience/20) + 1:
             self._level = floor(self._experience/20) + 1
+            self._level = int(self._level)
 
             #Player has leveled up. Updates player level and stats.
-            print "%s leveled up! %s is now level %s" \
+            print "\n%s leveled up! %s is now level %s!" \
                   % (self._name, self._name, self._level)
             self._maxHp = self._level * constants.HP_STAT
             self._attack = self._level * constants.ATTACK_STAT

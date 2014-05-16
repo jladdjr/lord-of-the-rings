@@ -1598,11 +1598,11 @@ def monster(unittest.TestCase):
         
         #Test monster.attack()
         player = MagicMock()
-        player.takeAttack() = MagicMock
+        player.takeAttack() = MagicMock()
         
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
-        self.assertTrue(player.takeAttack.called, errorMsg)
+        self.assertTrue(player.takeAttack.assert_called_with(5), errorMsg)
 
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
@@ -1622,111 +1622,158 @@ def monsterFactory(unittest.TestCase):
     -Tests default monster creation, that monsters are in fact created.
     -Testing difficulty feature - that default stats are implemented when
     difficulty set to zero.
-    -Testing difficulty feature - that monster stat increases as
+    -Testing difficulty feature - that monster stats increase as
     percentage over default. For instance, difficulty = 1 should result
     in monsters with 200% base monster stats.
-    -Testing difficulty feature - that when difficulty = 0, "number" param
-    is the number of monsters created.
-    -Testing difficulty feature - that when difficulty != 0, "number" param
-    results in % increase in monster spawn. So for instance, if default
-    spawn is three and difficulty = 1, spawn gets a 100% increase in number.
-    Monsters spawned would be six in this case.
-    -Testing that different regional spawns work.
+    -Testing difficulty feature - that default monster spawn occurs when
+    difficulty is set to zero.
+    -Testing difficulty feature - that monster spawn increases as a percentage
+    over default. For instance, difficulty = 1 should result in a 100% increase
+    in monster spawn over base. 
+    -Testing that regional spawns work: that monster spawn reflects
+    regional monster distributions held in constants. 
 
-    Note to reader: params for getMonsters are: number of monsters, region,
-    and difficulty.
+    Note params for getMonster: getMonsters(number, region, difficulty).
     """
-    from factories.monster_factory import getMonsters
-    from monsters.monster import Monster
-    from monsters.troll import Troll
-    from monsters.nazgul import Nazgul
-    from monsters.goblin import Goblin
-    from monsters.great_goblin import GreatGoblin
-    import constants
-    
-    #Tests default monster creation, that monsters are in fact created.
-    monsters = getMonsters(3, 1, 0)
-    errorMsg = "getMonsters did not spawn Monster objects."
-    for monster in monsters:
-        self.assertTrue((isinstance(monster, Monster), errorMsg)
-
-    #Testing difficulty feature - that default stats are implemented when
-    #difficulty is set to zero.
-    """
-    Mocked up monster distribution of ERIADOR such that Trolls are spawned 100%
-    of the time. getMonsters is to spawn three monsters using the newly mocked
-    up monster distribution. 
-    """
-    constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
-    monsters = getMonsters(3, 1, 0)
-    for monster in monsters:
-        errorMsg = "monster._hp was not initiated correctly."
-        self.assertEqual(monster._hp, constants.MONSTER_STATS[Troll][0], errorMsg)
-        errorMsg = "monster._attack was not initiated correctly."
-        self.assertEqual(monster._attack, constants.MONSTER_STATS[Troll][1], errorMsg)
-        errorMsg = "monster._experience was not initiated correctly."
-        self.assertEqual(monster._attack, constants.MONSTER_STATS[Troll][2], errorMsg)
-
-    #-Testing difficulty feature - that monster stat increases as
-    #percentage over default. For instance, difficulty = 1 should result
-    #in monsters with 200% base monster stats.
-    """
-    Mocked up monster distribution of EERIADOR such that Trolls are spawned 100%
-    of the time. getMonsters is to spawn three Trolls from ERIADOR with bonusDifficulty
-    set to 100%. Newly spawned monsters should have 200% default stats. 
-    """
-    constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
-    monsters = getMonsters(3, 1, 1)
-    for monster in monsters:
-        errorMsg = "monster._hp was not initiated correctly."
-        self.assertEqual(monster._hp, 2 * constants.MONSTER_STATS[Troll][0], errorMsg)
-        errorMsg = "monster._attack was not initiated correctly."
-        self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][1], errorMsg)
-        errorMsg = "monster._experience was not initiated correctly."
-        self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][2], errorMsg)
-    
-    #-Testing difficulty feature - that when difficulty = 0, "number" param
-    #is the number of monsters created.
-    """
-    Params: number = 3, region = 1 (ERIADOR), difficulty = 0.
-    """
-    monsters = getMonsters(3, 1, 0)
-    
-    errorMsg = "getMonsters did not spawn three monsters."
-    self.assertEqual(len(monsters), 3, errorMsg)
+    def defaultMonsterCreation(self):
+        #Tests default monster creation, that monsters are in fact created.
+        from factories.monster_factory import getMonsters
+        from monsters.monster import Monster
         
-    -#Testing difficulty feature - that when difficulty != 0, "number" param
-    #results in % increase in monster spawn. So for instance, if default
-    #spawn is three and difficulty = 1, spawn gets a 100% increase in number.
-    #Monsters spawned would be six in this case.
-    """
-    Params: number = 3, region = 1 (ERIADOR), difficulty = 1.
-
-    Six monsters should be spawned (3 + (3 * 100%)).
-    """
-    monsters = getMonsters(3, 1, 1)
-    
-    errorMsg = "getMonsters did not spawn three monsters."
-    self.assertEqual(len(monsters), 6, errorMsg)
-
-    #-Testing that different regional spawns work.
-    """
-    Params for monstersEriador(3 (monsters), 1 (ERIADOR), 0 (difficulty)).
-    Params for monstersEriador(3 (monsters), 2 (HIGH_PASS), 0 (difficulty)).
-    """
-    constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: .25, Nazgul: 1})
-    constants.RegionMonsterDistribution.BARROW_DOWNS = MagicMock(side_effect = {Goblin: .8, GreatGoblin: 1})
-    
-    monstersEriador = getMonsters(3, 1, 0)
-    monstersBarrowDowns = getMonsters(3, 2, 0)
-    for monster in monstersEriador:
-        errorMsg = "Monster spawn for Eriador was outside of Eriador's monster distribution."
-        self.assertTrue(isinstance(monster, Troll) or isinstance(monster, Nazgul), errorMsg)
-        errorMsg = "Monster spawn for high Pass was outside of High Pass's monster distribution."
-        self.assertTrue(isinstance(monster, Goblin) or isinstance(monster, GreatGoblin), errorMsg)
-
-    
+        monsters = getMonsters(3, 1, 0)
+        errorMsg = "Nothing was created in initial monster creation test."
+        self.assertTrue(len(monsters) != 0, errorMsg)
         
+        for monster in monsters:
+            errorMsg = "getMonsters did not spawn Monster objects."
+            self.assertTrue((isinstance(monster, Monster), errorMsg)
+
+    def defaultStatGeneration(self):
+        #Testing difficulty feature - that default stats are implemented when
+        #difficulty set to zero.
+        """
+        Mocked up monster spawn distribution of ERIADOR such that Trolls are spawned
+        100% of the time. getMonsters is to spawn three Trolls using the newly mocked
+        up monster distribution.
+        """
+        from factories.monster_factory import getMonsters
+        from monsters.troll import Troll
+        import constants
+        
+        #TODO: research that this actually works.
+        constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
+        monsters = getMonsters(3, 1, 0)
+        for monster in monsters:
+            errorMsg = "monster._hp was not initiated correctly."
+            self.assertEqual(monster._hp, constants.MONSTER_STATS[Troll][0], errorMsg)
+            errorMsg = "monster._attack was not initiated correctly."
+            self.assertEqual(monster._attack, constants.MONSTER_STATS[Troll][1], errorMsg)
+            errorMsg = "monster._experience was not initiated correctly."
+            self.assertEqual(monster._attack, constants.MONSTER_STATS[Troll][2], errorMsg)
+            
+    def difficultyBonusStats(self):
+        #-Testing difficulty feature - that monster stats increase as
+        #percentage over default. For instance, difficulty = 1 should result
+        #in monsters with 200% base monster stats.
+        """
+        Mocked up monster distribution of ERIADOR such that Trolls are spawned 100%
+        of the time. getMonsters is to spawn Trolls with 200% base stats. 
+        """
+        from factories.monster_factory import getMonsters
+        from monsters.troll import Troll
+        import constants
+        
+        #TODO: research that this actually works.
+        constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
+        monsters = getMonsters(3, 1, 1)
+        for monster in monsters:
+            errorMsg = "monster._hp was not initiated correctly."
+            self.assertEqual(monster._hp, 2 * constants.MONSTER_STATS[Troll][0], errorMsg)
+            errorMsg = "monster._attack was not initiated correctly."
+            self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][1], errorMsg)
+            errorMsg = "monster._experience was not initiated correctly."
+            self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][2], errorMsg)
+            
+    def defaultSpawnNumber(self):    
+        #-Testing difficulty feature - that default monster spawn occurs when
+        #difficulty is set to zero.
+        """
+        Params: number = 3, region = 1 (ERIADOR), difficulty = 0.
+        """
+        from factories.monster_factory import getMonsters
+        
+        monsters = getMonsters(3, 1, 0)
+        
+        errorMsg = "getMonsters did not spawn three monsters."
+        self.assertEqual(len(monsters), 3, errorMsg)
+
+    def difficultyBonusSpawn(self):
+        #-Testing difficulty feature - that monster spawn increases as a percentage
+        #over default. For instance, difficulty = 1 should result in a 100% increase
+        #in monster spawn over base. 
+        """
+        Params: number = 3, region = 1 (ERIADOR), difficulty = 1.
+
+        Six monsters should be spawned: (3 + (3 * 100%)).
+        """
+        from factories.monster_factory import getMonsters
+        
+        monsters = getMonsters(3, 1, 1)
+        
+        errorMsg = "getMonsters did not spawn six monsters."
+        self.assertEqual(len(monsters), 6, errorMsg)
+
+    def regionalSpawn(self):
+        #-Testing that regional spawns work: that monster spawn reflects
+        #regional monster distributions held in constants. 
+        """
+        Tests that monsters of each type in a region's distribution
+        spawn, given a large enough sample size.
+        """
+        from factories.monster_factory import getMonsters
+        from monsters.troll import Troll
+        from monsters.nazgul import Nazgul
+        from monsters.goblin import Goblin
+        from monsters.great_goblin import GreatGoblin
+        import constants
+            
+        #TODO: make sure that mock up of PDF works.
+        constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: .25, Nazgul: 1})
+        constants.RegionMonsterDistribution.HIGH_PASS = MagicMock(side_effect = {Goblin: .8, GreatGoblin: 1})
+
+        monstersEriador = getMonsters(500, 1, 0)
+        monstersHighPass = getMonsters(500, 3, 0)
+
+        numberNazgul = 0
+        numberTroll = 0
+        for monster in monstersEriador:
+            if isinstance(monster, Nazgul):
+                numberNazgul += 1
+            elif isinstance(monster, Troll):
+                numberTroll += 1
+            else:
+                raise AssertionError("Invalid monster spawn")
+
+        errorMsg = "No nazgul spawned."
+        self.assertTrue(numberNazgul != 0, errorMsg)
+        errorMsg = "No trolls spawned."
+        self.assertTrue(numberTroll != 0, errorMsg)
+
+        numberGoblin = 0
+        numberGreatGoblin = 0
+        for monster in monstersHighPass:
+            if isinstance(monster, Goblin):
+                numberGoblin += 1
+            elif isinstance(monster, GreatGoblin):
+                numberGreatGoblin += 1
+            else:
+                raise AssertionError("Invalid monster spawn")
+
+        errorMsg = "No goblins spawned."
+        self.assertTrue(numberGoblin != 0, errorMsg)
+        errorMsg = "No great goblins spawned."
+        self.assertTrue(numberGreatGoblin != 0, errorMsg)
+
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()

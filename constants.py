@@ -97,8 +97,8 @@ class RegionMonsterDistribution(object):
 Monster base stats. Stats are a 3-element list
 whose elements are: hp, attack, and experience. 
 """
-MONSTER_STATS = {Troll:             [1, 1, 1],
-                 Nazgul:            [1, 1, 1],
+MONSTER_STATS = {Troll:             [1, 1, 100],
+                 Nazgul:            [1, 1, 100],
                  Goblin:            [1, 1, 1],
                  GreatGoblin:       [1, 1, 1]}
     

@@ -165,13 +165,12 @@ def endSequence(player, earnings):
     victoryDeclaration = "Enemies are vanguished!"
     victoryDeclaration = victoryDeclaration.center(lengthBar)
     
-    #Run end battle sequence
-    player.increaseMoney(money)
-    player.increaseExperience(experience)
     #TODO: add items to victory sequence
     
     print bar
     print victoryDeclaration
     print "%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience)
+    player.increaseMoney(money)
+    player.increaseExperience(experience)
     print bar
     
