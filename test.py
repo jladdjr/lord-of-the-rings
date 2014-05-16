@@ -15,7 +15,7 @@ class GameTest(unittest.TestCase):
         helpCommand = MagicMock()
         helpCommand.execute = MagicMock()
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
-        
+
         #Game._nextTurn() called
         g._nextTurn()
         self.assertTrue(helpCommand.execute.called, "Game._nextTurn() failed to execute command")
@@ -1660,8 +1660,7 @@ def monsterFactory(unittest.TestCase):
         from monsters.troll import Troll
         import constants
         
-        #TODO: research that this actually works.
-        constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
+        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Troll: 1})
         monsters = getMonsters(3, 1, 0)
         for monster in monsters:
             errorMsg = "monster._hp was not initiated correctly."
@@ -1683,8 +1682,7 @@ def monsterFactory(unittest.TestCase):
         from monsters.troll import Troll
         import constants
         
-        #TODO: research that this actually works.
-        constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: 1})
+        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Troll: 1})
         monsters = getMonsters(3, 1, 1)
         for monster in monsters:
             errorMsg = "monster._hp was not initiated correctly."
@@ -1737,9 +1735,10 @@ def monsterFactory(unittest.TestCase):
         from monsters.great_goblin import GreatGoblin
         import constants
             
-        #TODO: make sure that mock up of PDF works.
-        constants.RegionMonsterDistribution.ERIADOR = MagicMock(side_effect = {Troll: .25, Nazgul: 1})
-        constants.RegionMonsterDistribution.HIGH_PASS = MagicMock(side_effect = {Goblin: .8, GreatGoblin: 1})
+        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Troll: .25,
+                   Nazgul: 1})
+        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Goblin: .8,
+                   GreatGoblin: 1})
 
         monstersEriador = getMonsters(500, 1, 0)
         monstersHighPass = getMonsters(500, 3, 0)
@@ -1773,7 +1772,8 @@ def monsterFactory(unittest.TestCase):
         self.assertTrue(numberGoblin != 0, errorMsg)
         errorMsg = "No great goblins spawned."
         self.assertTrue(numberGreatGoblin != 0, errorMsg)
-
+    
+    
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()
