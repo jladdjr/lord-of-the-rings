@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 import unittest
+
+import xmlrunner
 from mock import (MagicMock, patch)
 
 class GameTest(unittest.TestCase):
@@ -962,4 +964,4 @@ class DescribeCommand(unittest.TestCase):
 
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
