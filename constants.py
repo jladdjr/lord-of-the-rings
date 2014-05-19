@@ -61,7 +61,7 @@ class RegionType(object):
     BARROW_DOWNS  = 2
     HIGH_PASS     = 3
     ENEDWAITH     = 4
-    EREGION       = 5
+    MORIA         = 5
     RHOVANION     = 6
     ROHAN         = 7
     GONDOR        = 8
@@ -76,7 +76,7 @@ class RegionBaseSpawn(object):
     BARROW_DOWNS  = 2
     HIGH_PASS     = 3
     ENEDWAITH     = 4
-    EREGION       = 5
+    MORIA         = 5
     RHOVANION     = 6
     ROHAN         = 7
     GONDOR        = 8
@@ -87,18 +87,53 @@ class RegionMonsterDistribution(object):
     """
     Region monster distribution.
     """
-    ERIADOR =     {Troll: .25,
-                   Nazgul: 1}
-    HIGH_PASS =   {Goblin: .8,
-                   GreatGoblin: 1}
-
+    ERIADOR       = {Nazgul:            1}
+    """
+    BARROW_DOWNS  = {BarrowWight:      .1,
+                     KingOfTheBarrows: .9}
+    HIGH_PASS     = {Goblin:           .8,
+                     GreatGoblin:       1}
+    ENEDWAITH     = {WargRider:        .1,
+                     UrukHai:          .2,
+                     UrukHaiArcher:    .25,
+                     EliteUrukHai:     .3,
+                     Dunlending:       .4}
+    MORIA         = {Orc:              .1,
+                     OrcArcher:        .2,
+                     Troll:            .3}
+    RHOVANION     = {Nazgul:           .1,
+                     Orc:              .2,
+                     OrcArcher:        .3}
+    ROHAN         = {WargRider:        .1,
+                     UrukHai:          .2,
+                     UrukHaiArcher:    .25,
+                     EliteUrukHai:     .3,
+                     Dunlending:       .4}
+    GONDOR        = {OrcII:            .1,
+                     OrcArcherII:      .2,
+                     TrollII:          .25,
+                     SiegeWorks:       .3,
+                     Nazgul:           .4,
+                     Dragon:           .45,
+                     CorsairOfUmbar:   .46,
+                     ArmoredMumakil:   .5,
+                     HaradrimArcher:   .6}
+    MORDOR        = {OrcIII:           .1,
+                     OrcArcherIII:     .2,
+                     TrollIII:         .25,
+                     SiegeWorks:       .3,
+                     Nazgul:           .4,
+                     Dragon:           .45,
+                     BlackNumernorian: .46,
+                     Easterling:       .47}
+    """
 #Monster base stats
 """
 Monster base stats. Stats are a 3-element list
 whose elements are: hp, attack, and experience. 
 """
-MONSTER_STATS = {Troll:             [100, 100, 100],
-                 Nazgul:            [100, 100, 100],
+MONSTER_STATS = {Troll:             [1, 1, 1],
+                 Nazgul:            [1, 1, 1],
                  Goblin:            [1, 1, 1],
                  GreatGoblin:       [1, 1, 1]}
     

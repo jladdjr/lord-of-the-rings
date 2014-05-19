@@ -16,7 +16,7 @@ def battle(player):
     region = location.getRegion()
     bonusDifficulty = location.getBattleBonusDifficulty()
 
-    #Get region base spawn
+    #Calculate region spawn
     if region == 1:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
     elif region == 2:
@@ -26,7 +26,7 @@ def battle(player):
     elif region == 4:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
     elif region == 5:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.EREGION
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
     elif region == 6:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
     elif region == 7:

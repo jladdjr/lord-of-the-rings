@@ -281,7 +281,7 @@ def getWorld():
     for many thousands of years, a thriving Dwarvish community created the
     greatest city ever known.
     """
-    moria = Space("Moria", description, constants.RegionType.EREGION, uniquePlace = theSeventhLevel)
+    moria = Space("Moria", description, constants.RegionType.MORIA, uniquePlace = theSeventhLevel)
 
     #Lorien - Caras Galadhon
     #Inn
