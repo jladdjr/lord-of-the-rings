@@ -1773,7 +1773,12 @@ def monsterFactory(unittest.TestCase):
         errorMsg = "No great goblins spawned."
         self.assertTrue(numberGreatGoblin != 0, errorMsg)
     
+def battleEngine(unittest.TestCase):
+    """
+    Tests battleEngine.
+
     
+    """
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()

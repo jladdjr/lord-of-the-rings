@@ -20,16 +20,20 @@ def battle(player):
     if region == 1:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
     elif region == 2:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
     elif region == 3:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH   
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
     elif region == 4:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
     elif region == 5:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.EREGION
     elif region == 6:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
     elif region == 7:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
+    elif region == 8:
+        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
+    elif region == 9:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
     else:
         errorMsg = "Invalid region - region base monster determination."
@@ -136,7 +140,7 @@ def monsterAttackPhase(player, monsters):
         monster.attack(player)
         print "%s %s for %s damage!" % (monster.getName(), monster.getAttackString(), monster.getAttack())
         print "%s has %s hp remaining." % (player.getName(), player.getHp())
-        #TODO: Check to see if player is still alive
+        #TODO: check if player is still alive
     print ""
 
 def usePotion(player):
