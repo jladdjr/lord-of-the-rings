@@ -1646,7 +1646,7 @@ class monsterFactory(unittest.TestCase):
         
         for monster in monsters:
             errorMsg = "getMonsters did not spawn Monster objects."
-            self.assertTrue((isinstance(monster, Monster), errorMsg)
+            self.assertTrue(isinstance(monster, Monster), errorMsg)
 
     def defaultStatGeneration(self):
         #Testing difficulty feature - that default stats are implemented when
