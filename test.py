@@ -1571,7 +1571,7 @@ class UniquePlace(unittest.TestCase):
         #if the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
 
-def monster(unittest.TestCase):
+class monster(unittest.TestCase):
     """
     Tests Monster class.
     """
@@ -1614,7 +1614,7 @@ def monster(unittest.TestCase):
         errorMsg = "monster.takeAttack() testcase #2 failed"
         self.assertEqual(monster._hp, 0, errorMsg)
 
-def monsterFactory(unittest.TestCase):
+class monsterFactory(unittest.TestCase):
     """
     Tests monster factory.
 
@@ -1773,12 +1773,12 @@ def monsterFactory(unittest.TestCase):
         errorMsg = "No great goblins spawned."
         self.assertTrue(numberGreatGoblin != 0, errorMsg)
     
-def battleEngine(unittest.TestCase):
+class battleEngine(unittest.TestCase):
     """
-    Tests battleEngine.
+    Tests battleEngine.    
+    """
+    pass
 
-    
-    """
 if __name__ == '__main__':
     #Supress output from game with "buffer=true"
     unittest.main()
