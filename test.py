@@ -1591,9 +1591,9 @@ class monster(unittest.TestCase):
         self.assertEqual(monster._attack, 5, errorMsg)
         errorMsg = "monster._experience should be 7"
         self._assertEqual(monster._experience, 7, errorMsg)
-        errorMsg = "monster._attackString", "Moof", errorMsg)
+        errorMsg = "monster._attackString sound be 'Moof'"
         self._assertEqual(monster._attackString, "Moof", errorMsg)
-        errorMsg = "monster._deathString", "Meep", errorMsg)
+        errorMsg = "monster._deathString should be 'Meep'"
         self._assertEqual(monster._deathString, "Meep", errorMsg)
         
         #Test monster.attack()
