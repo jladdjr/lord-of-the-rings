@@ -1323,10 +1323,12 @@ class PlayerTest(unittest.TestCase):
         self.assertTrue(player.canMoveSouth(), errorMsg)
         self.assertTrue(player.canMoveEast(), errorMsg)
         self.assertTrue(player.canMoveWest(), errorMsg)
-"""
+
 class InnTest(unittest.TestCase):
     """
     Tests the healing ability of Inn Object.
+    """
+    pass
     """
     def testEnter(self):
         from player import Player
@@ -1354,7 +1356,7 @@ class InnTest(unittest.TestCase):
         
         #Player's health should increase to maximum
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
-"""       
+     """
 class ShopSellItems(unittest.TestCase):
     """
     Tests the ability to sell in the Shop Object:
