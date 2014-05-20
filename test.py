@@ -234,14 +234,14 @@ class SpaceTest(unittest.TestCase):
                 "Blade found in room (even though it was removed).")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
 
-    def testRegionType(self):
+    def testRegion(self):
         from space import Space
         import constants
 
         space = Space("West Emnet", "Horses for riding", "Rohan")
 
         errorMsg = "Space regionType test failed."
-        self.assertEquals(space.getRegionType(), "Rohan", errorMsg)
+        self.assertEquals(space.getRegion(), "Rohan", errorMsg)
 
     def testCities(self):
         from space import Space
@@ -759,7 +759,7 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute() 
 
         #Test for change
-        errorMsg = "Player._armorDefense stat was not updated correctly."
+        errorMsg = "player._armorDefense stat was not updated correctly."
         self.assertEqual(player._armorDefense, armor._defense, errorMsg)
                          
 class UnequipTest(unittest.TestCase):
@@ -998,11 +998,11 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
 
-        MONSTER_HEALTH = 10
-        monster = Monster("Orc", "An orc.", MONSTER_HEALTH, 1, 1)
+        stats = [10, 1, 1]
+        monster = Monster("Orc", "An orc.", stats, "Moof", "Meep")
         
         #Check monster health default state
-        self.assertEqual(monster._hp, MONSTER_HEALTH, "Monster Hp did not initialize correctly.")
+        self.assertEqual(monster._hp, 10, "Monster Hp did not initialize correctly.")
         
         #Player attacks monster
         player.attack(monster)
@@ -1015,7 +1015,6 @@ class PlayerTest(unittest.TestCase):
     def testTakeDamage(self):
         from player import Player
         from space import Space
-        from monsters.monster import Monster
 
         space = Space("Shire", "Home of the Hobbits.", 1)
         player = Player("Frodo", space)
@@ -1038,7 +1037,6 @@ class PlayerTest(unittest.TestCase):
     def testTakeDamageArmor(self):
         from player import Player
         from space import Space
-        from monsters.monster import Monster
         from items.armor import Armor
         
         space = Space("Shire", "Home of the Hobbits.", 1)
@@ -1183,9 +1181,9 @@ class PlayerTest(unittest.TestCase):
 
         #Posttest player-specific items-based attributes
         errorMsg = "_weaponAttack should be 0 but it is not."
-        self.assertEqual(player._weaponAttack, weapon.getAttack(), errorMsg)
+        self.assertEqual(player._weaponAttack, newWeapon.getAttack(), errorMsg)
         errorMsg = "_armorDefense should be 0 but it is not."
-        self.assertEqual(player._armorDefense, armor.getDefenses(), errorMsg)
+        self.assertEqual(player._armorDefense, newArmor.getDefense(), errorMsg)
         errorMsg = "_totalAttack should have been updated but was not."
         self.assertEqual(player._totalAttack, player._attack + weapon.getAttack(), errorMsg)
         
@@ -1592,11 +1590,11 @@ class monster(unittest.TestCase):
         errorMsg = "monster._attack should be 5"
         self.assertEqual(monster._attack, 5, errorMsg)
         errorMsg = "monster._experience should be 7"
-        self._assertEqual(monster._experience, 7, errorMsg)
+        self.assertEqual(monster._experience, 7, errorMsg)
         errorMsg = "monster._attackString sound be 'Moof'"
-        self._assertEqual(monster._attackString, "Moof", errorMsg)
+        self.assertEqual(monster._attackString, "Moof", errorMsg)
         errorMsg = "monster._deathString should be 'Meep'"
-        self._assertEqual(monster._deathString, "Meep", errorMsg)
+        self.assertEqual(monster._deathString, "Meep", errorMsg)
         
         #Test monster.attack()
         player = MagicMock()
