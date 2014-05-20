@@ -1578,7 +1578,7 @@ class monster(unittest.TestCase):
     def testMonster(self):
         from monsters.monster import Monster
 
-        monster = Monster("Jack", "@$$", [10, 5, 7], "Moof", "Meep"]
+        monster = Monster("Jack", "@$$", [10, 5, 7], "Moof", "Meep")
 
         #Test monster initialized correctly
         errorMsg = "monster._name should be 'Jack'"
