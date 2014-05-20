@@ -1598,7 +1598,7 @@ class monster(unittest.TestCase):
         
         #Test monster.attack()
         player = MagicMock()
-        player.takeAttack() = MagicMock()
+        player.takeAttack = MagicMock()
         
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
