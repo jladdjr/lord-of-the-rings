@@ -736,7 +736,7 @@ class EquipTest(unittest.TestCase):
         #Test for change
         errorMsg = "Player._attack changed with weapon equip when it should not have."
         self.assertEqual(player._attack, defaultAttack, errorMsg)
-        errorMsg = "player._weaponAttack not updated to correct value."
+        errorMsg = "player._weaponAttack not updated to correct value. %s %s" %(player._weaponAttack, weapon._attack)
         self.assertEqual(player._weaponAttack, weapon._attack, errorMsg)
         errorMsg = "Player._totalAttack not updated to correct value."
         self.assertEqual(player._totalAttack, defaultAttack + weapon._attack, errorMsg)
@@ -759,8 +759,8 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute() 
 
         #Test for change
-        errorMsg = "player._armorDefense stat was not updated correctly."
-        self.assertEqual(player._armorDefense, armor._defense, errorMsg)
+        errorMsg = "player._armorDefense stat was not updated correctly. %s %s" %(player._armorDefense, armor._defense
+)        self.assertEqual(player._armorDefense, armor._defense, errorMsg)
                          
 class UnequipTest(unittest.TestCase):
     """
@@ -1047,7 +1047,7 @@ class PlayerTest(unittest.TestCase):
         #Testcase - armorDefense is more than attack
         player._hp = 10
         player.takeAttack(1)
-        errorMsg = "Testcase - armorDefense is more than attack failed."
+        errorMsg = "Testcase - armorDefense is more than attack failed. %s" %player._hp
         self.assertEqual(player._hp, 10, errorMsg)
         
         #Testcase - armorDefense is attack
@@ -1185,7 +1185,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "_armorDefense should be 0 but it is not."
         self.assertEqual(player._armorDefense, newArmor.getDefense(), errorMsg)
         errorMsg = "_totalAttack should have been updated but was not."
-        self.assertEqual(player._totalAttack, player._attack + weapon.getAttack(), errorMsg)
+        self.assertEqual(player._totalAttack, player._attack + newWeapon.getAttack(), errorMsg)
         
         #Attempt to unequip items
         player.unequip(newWeapon)
@@ -1603,6 +1603,8 @@ class monster(unittest.TestCase):
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
         self.assertTrue(player.takeAttack.assert_called_with(5), errorMsg)
+        errorMsg = "player._hp should be 5 but is not."
+        self.assertEqual(player._hp, 5, errorMsg)
 
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
