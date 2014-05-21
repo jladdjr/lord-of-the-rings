@@ -314,7 +314,7 @@ class Player(object):
         """
         Determines if player can move north.
 
-        @return:    True if possible, false otherwise.
+        @return:    True if possible, False otherwise.
         """
         exit = self._location.getExit(constants.Direction.NORTH)
 
@@ -326,7 +326,7 @@ class Player(object):
         """
         Determines if player can move south.
 
-        @return:    True if possible, false otherwise.
+        @return:    True if possible, False otherwise.
         """
         exit = self._location.getExit(constants.Direction.SOUTH)
 
@@ -338,7 +338,7 @@ class Player(object):
         """
         Determines if player can move east.
 
-        @return:    True if possible, false otherwise.
+        @return:    True if possible, False otherwise.
         """
         exit = self._location.getExit(constants.Direction.EAST)
 
@@ -350,7 +350,7 @@ class Player(object):
         """
         Determines if player can move west.
 
-        @return:    True if possible, false otherwise.
+        @return:    True if possible, False otherwise.
         """
         exit = self._location.getExit(constants.Direction.WEST)
 

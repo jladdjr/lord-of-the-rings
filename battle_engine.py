@@ -12,6 +12,8 @@ def battle(player):
 
     @param player:     The player object.
     """
+    import pdb
+    pdb.set_trace()
     location = player.getLocation()
     region = location.getRegion()
     bonusDifficulty = location.getBattleBonusDifficulty()

@@ -138,5 +138,5 @@ MONSTER_STATS = {Troll:             [1, 1, 1],
                  GreatGoblin:       [1, 1, 1]}
     
 #Battle constants
-RUN_PROBABILITY_SUCCESS = .3
+RUN_PROBABILITY_SUCCESS = 1
 BATTLE_EARNINGS = 4

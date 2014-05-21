@@ -281,6 +281,7 @@ class SpaceTest(unittest.TestCase):
         from commands.south_command import SouthCommand
         from commands.west_command import WestCommand
         from commands.east_command import EastCommand
+        from constants import Direction
         
         space = Space("Shire", "Home of the hobbits", 1)
         player = Player("Russian", space)
@@ -335,7 +336,6 @@ class SpaceTest(unittest.TestCase):
         self.assertEqual(space._isExit("west"), True, errorMsg)
 
         #Test ports created without using direct access for Space
-        from constants import Direction
         errorMsg = "Ports are supposed to be created but are not - by direct attribute access."
         self.assertEqual(space._exits[Direction.NORTH], north, errorMsg)
         self.assertEqual(space._exits[Direction.SOUTH], south, errorMsg)
