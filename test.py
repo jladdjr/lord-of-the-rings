@@ -337,17 +337,17 @@ class SpaceTest(unittest.TestCase):
         #Test ports created without using direct access for Space
         from constants import Direction
         errorMsg = "Ports are supposed to be created but are not - by direct attribute access."
-        self.assertEqual(space._exits[Direction.North], north, errorMsg)
-        self.assertEqual(space._exits[Direction.South], south, errorMsg)
-        self.assertEqual(space._exits[Direction.East], east, errorMsg)
-        self.assertEqual(space._exits[Direction.West], west, errorMsg)
+        self.assertEqual(space._exits[Direction.NORTH], north, errorMsg)
+        self.assertEqual(space._exits[Direction.SOUTH], south, errorMsg)
+        self.assertEqual(space._exits[Direction.EAST], east, errorMsg)
+        self.assertEqual(space._exits[Direction.WEST], west, errorMsg)
 
         #Test ports created without using direct access for destination Spaces
         errorMsg = "Two-way ports were supposed to have been created but were not - by direct attribute access."
-        self.assertEqual(north._exits[Direction.South], space, errorMsg)
-        self.assertEqual(south._exits[Direction.North], space, errorMsg)
-        self.assertEqual(east._exits[Direction.West], space, errorMsg)
-        self.assertEqual(west._exits[Direction.East], space, errorMsg)
+        self.assertEqual(north._exits[Direction.SOUTH], space, errorMsg)
+        self.assertEqual(south._exits[Direction.NORTH], space, errorMsg)
+        self.assertEqual(east._exits[Direction.WEST], space, errorMsg)
+        self.assertEqual(west._exits[Direction.EAST], space, errorMsg)
                                       
         #Test two-way movement
         northCmd.execute()
@@ -759,8 +759,8 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute() 
 
         #Test for change
-        errorMsg = "player._armorDefense stat was not updated correctly. %s %s" %(player._armorDefense, armor._defense
-)        self.assertEqual(player._armorDefense, armor._defense, errorMsg)
+        errorMsg = "player._armorDefense stat was not updated correctly. %s %s" %(player._armorDefense, armor._defense)
+        self.assertEqual(player._armorDefense, armor._defense, errorMsg)
                          
 class UnequipTest(unittest.TestCase):
     """
