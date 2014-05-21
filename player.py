@@ -24,10 +24,6 @@ class Player(object):
         self._location  = location
         self._money     = constants.STARTING_MONEY
 
-        #Initialize player inventory and equipment
-        self._inventory = ItemSet()
-        self._equipped = ItemSet()
-
         #Initialize player stats
         self._experience = constants.STARTING_EXPERIENCE
         self._level = constants.STARTING_LEVEL
@@ -35,6 +31,12 @@ class Player(object):
         self._hp = self._level * constants.HP_STAT
         self._maxHp = self._level * constants.HP_STAT
         self._attack = self._level * constants.ATTACK_STAT
+        
+        #Initialize player inventory and equipment
+        self._armor = None
+        self._weapon = None
+        self._inventory = ItemSet()
+        self._equipped = ItemSet()
 
         #Initialize items bonuses
         self._weaponAttack = constants.STARTING_WEAPON_ATTACK
@@ -161,54 +163,43 @@ class Player(object):
 
     def equip(self, item):
         """
-        Allows a character to equip an item in inventory.
+        Allows a character to equip an item.
         
-        Note: An item *must* be in the player's inventory
-        before it can be equipped. The item must also
-        be a piece of Armor or a Weapon.
+        Preconditions:
+        -Item in inventory.
+        -Item is instance of Armor or Weapon.
+        -Item is not currently in self._equipped.
 
         @param item:    The item to be equipped.
         """
-
-		#TODO: Need to revisit the logic of this method.
-		#      The method should take advantage of the unequip() method
-        #      now that it exists.
-        #
-        #      After that change, review the overall logic
-        #      to make sure it makes sense.
-
-        #Check to see if item may be equipped
-        if not (item in self._inventory) \
-            or not (isinstance(item, Armor) or isinstance(item, Weapon)) \
-            or item in self._equipped:
-            print ""
-            print "Cannot equip %s." %item.getName()
+        #Check to see that preconditions are met
+        if item not in self._inventory:
+            print "%s not currently in inventory." % item.getName()
+            return
+        if not (isinstance(item, Armor) or isinstance(item, Weapon)):
+            print "Item must be a piece of armor or a weapon."
+            return
+        if item in self._equipped:
+            print "%s already equipped." % item.getName()
             return
 
         #Unequip currently equipped armor/weapon if necessary
-        if isinstance(item, Weapon):
-            self._weapon = item
-            self._weaponAttack = self._weapon.getAttack()
-        elif isinstance(item, Armor):
-            self._armor = item
-            self._armorDefense = self._armor.getDefense()
-        
         for currentItem in self._equipped:
             if isinstance(item, Weapon) and isinstance(currentItem, Weapon):  
                 self.unequip(currentItem)
             elif isinstance(item, Armor) and isinstance(currentItem, Armor):
                 self.unequip(currentItem)
-            
-        #Update player to reflect equipment
-        if isinstance(item, Armor):
-            self._armor = item
-            self._armorDefense = self._armor.getDefense()
-        elif isinstance(item, Weapon):
-            self._weapon = item
-            self._weaponAttack = self._weapon.getAttack()
-            self._totalAttack = self._attack + self._weaponAttack
 
-        self._equipped.addItem(item)
+        #Equip new item
+        if isinstance(item, Weapon):
+            self._equipped.addItem(item)
+            self._weapon = item
+            self._weaponAttack = item.getAttack()
+            self._totalAttack = self._attack + self._weaponAttack
+        elif isinstance(item, Armor):
+            self._equipped.addItem(item)
+            self._armor = item
+            self._armorDefense = item.getDefense()
         
         print "%s equipped %s." %(self._name, item.getName())
             
@@ -234,7 +225,7 @@ class Player(object):
             print "%s unequipped %s." % (self._name, item.getName())
             
         else:
-            print "Cannot unequip %s." % item.getName()
+            print "%s not in equipped items." % item.getName()
 
     def getWeapon(self):
         """
