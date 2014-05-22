@@ -1410,7 +1410,7 @@ class InnTest(unittest.TestCase):
         player._money = 2
 
         #Player chooses to stay at the inn
-        rawInputMock = MagicMock(return_value="yes", "leave city")
+        rawInputMock = MagicMock(side_effect = ["yes", "leave city"])
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
