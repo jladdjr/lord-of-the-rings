@@ -49,7 +49,8 @@ class Inn(Building):
                     break
                 #Not enough money
                 else:
-                    print "%s have enough money." % self._player.getName()
+                    print "%s doesn't have enough money." % self._player.getName()
+                    return
                 
             #Non-use option
             elif choice == "no":

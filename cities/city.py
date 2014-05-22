@@ -127,6 +127,7 @@ class City(Place):
                 buildingDictionary[command].enter(player)
                 #Player has left building, and chooses what to do next
                 print "\nYou are now back in %s." % self.getName()
+                print ""
             else:
                 print "\nI did not recognize %s. Try again.\n" % command
 
