@@ -4,6 +4,8 @@ from command import Command
 from space import Space
 from player import Player
 from cities.city import City
+from unique_place import UniquePlace
+
 
 class DescribeCommand(Command):
     """
@@ -28,38 +30,46 @@ class DescribeCommand(Command):
         """
         location = self._player.getLocation()
         locationName = location.getName()
-        description = location.getDescription()
+        locationDescription = location.getDescription()
         items = location.getItems()
         itemsList = items.getItems()
+        city = location.getCity()
+        uniquePlace = location.getUniquePlace()
         
-        #Give space name and description
-        print "%s: %s" % (locationName, description)
+        #Give space name and locationDescription
+        print "%s: %s" % (locationName, locationDescription)
 
-        #If space contains a city/cities
-        if location.getCity():
-            city = location.getCity()
-            #For single cities...
+        #If there are no cities or uniquePlaces in this space
+        if not city and not uniquePlace:
+            print "%s has no places for you to enter!" % locationName
+
+        #If there is at least 1 city or uniquePlace
+        else:
+            print "The following are contained in %s: \n" % locationName
+
+            #If space has one city:
             if isinstance(city, City):
                 cityName = city.getName()
-                cityDescription = city.getDescription()
-                print "%s is contained in %s." % (cityName, locationName)
-                print "%s: %s" % (cityName, cityDescription)
-            #For multiple cities...
-            if isinstance(city, list):
-                for specificCity in city:
-                    cityName = specificCity.getName()
-                    cityDescription = specificCity.getDescription()
-                    print "%s is contained in %s." % (cityName, locationName)
-                    print "%s: %s" % (cityName, cityDescription) 
-     
-        #If space has one or more uniquePlace objects
-        if location.getUniquePlace():
-            uniquePlace = location.getUniquePlace()
-            uniquePlaceName = uniquePlace.getName()
-            uniquePlaceDescription = uniquePlace.getDescription()
-            print "%s is contained in %s." % (uniquePlaceName, locationName)
-            print "%s: %s" % (uniquePlaceName, uniquePlaceDescription)
-   
+                print "%s" % cityName
+            
+            #If space has multiple cities (and the variable city is actually a list of cities):
+            elif isinstance(city, list):
+                for eachCity in city:
+                    eachCityName = eachCity.getName()
+                    print "%s" % eachCityName
+
+            #If space has one uniquePlace object
+            if isinstance(uniquePlace, UniquePlace):
+                uniquePlaceName = uniquePlace.getName() 
+                print "%s" % uniquePlaceName           
+            
+            #If space has multiple uniquePlaces (the the variable uniquePlace is 
+            #actually a list of uniquePlaces)
+            if isinstance(uniquePlace, list):
+                for eachUniquePlace in uniquePlace:
+                    eachUniquePlaceName = eachUniquePlace.getName()
+                    print "%s" % eachUniquePlaceName
+        
         #If space has items
         if len(itemsList) > 0:
             print "\nItems contained in %s:" % locationName

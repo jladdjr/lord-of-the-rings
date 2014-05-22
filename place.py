@@ -2,59 +2,46 @@
 
 class Place(object):
     """
-    A  place on the map. Cities and Place inherit from this.
+    Parent class to both the city object and the unique place object.
     """
-    def __init__(self, name, description, greeting):
+    def __init__(self, name, description, greetings):
         """
-        Initialize Place object.
+        Initialize place object.
         
         @param name:           The name of the Place.
         @param description:    A description of the Place.
-        @param greetings:       The greeting upon entering Place.
+        @param greetings:      The greetings upon entering place.
         """
         self._name = name
         self._description = description
-        self._greeting = greeting
+        self._greetings = greetings
     
     def getName(self):
         """
-        Returns the name of Place.
-        
-        @return:    The name of the Place.
+        Returns name of place.
+
+        @return:    The name of the place.
         """
         return self._name
-        
-    def returnPlace(self, name):
-        """
-        Returns the Place object.
-        
-        @param name:    The name of Place.
-        
-        @return:        The Place object.
-        """
-        if self._name == name:
-            return self
-            
-        return None
-        
+
     def getDescription(self):
         """
-        Returns the description of Place.
-        
-        @return:    The description of Place.
+        Returns description of place.
+
+        @return:    The description of the place.
         """
         return self._description
-    
+
     def getGreeting(self):
         """
-        Returns the greetings of Place
+        Returns the greetings of place
         """
-        return self._greeting
-    
-    def enter(self):
+        return self._greetings
+
+    def enter(self, player):
         """
-        The action sequence of Place. By default, does nothing.
+        Parent enter method. Should we overridden by children classes.
         
-        Child class should overwrite this method.
+        @param player:  The current player.
         """
-        pass
+        print "This enter method should be overridden by child class"

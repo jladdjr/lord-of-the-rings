@@ -42,10 +42,10 @@ def getWorld():
     sallyInn = Inn("Sally's Inn", description, greeting, 5)
     #Shop
     description = "Exotic selection by hobbit standards."
-    greeting = "We have strange wares!"
+    greeting = "We have strange wares."
     sallyShop = Shop("Sally's Shop", description, greeting, 4, 3)
     #Square
-    description = "Lots of hobbits; mostly gossip."
+    description = "Lots of hobbits, mostly gossip."
     greeting = "Did you hear the latest news on Lobelia Baggins?"
     talk = {"Lobelia Baggins": "Get lost!", "Naftel Took": "Going adventuring are ya? Here's my walking cane.", "Amaranth Brandybuck": "Nice weather isn't it?", "Balbo Baggins": "The word on the street is that Lobelia is trying to acquire the Baggins estate!", "Ferdinand Took": "I wonder when Gandalf will visit?"}
     hobbitonSquare = Square("Hobbiton Square", description, greeting, talk, items.unique_items.hobbitonSquareItems)
