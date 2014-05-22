@@ -234,7 +234,7 @@ class SpaceTest(unittest.TestCase):
         self.assertEqual(items.count(), 1, "Room should contain exactly one item.")
         self.assertFalse(items.containsItem(blade), 
                 "Blade found in room (even though it was removed).")
-        self.assertFalse(items.containsItemString("blade"), "Blade found in room (even though it was removed).")
+        self.assertFalse(items.containsItemWithName("blade"), "Blade found in room (even though it was removed).")
         self.assertTrue(items.containsItem(bow), "Could not find bow in room's set of items.")
 
     def testRegion(self):
@@ -1461,12 +1461,12 @@ class ShopSellItems(unittest.TestCase):
         self.assertTrue(armor in equipped, errorMsg)
                         
         #Player chooses to: 3(sell items), to sell knife, yes, 5(Quit) the shop
-        rawInputMock = MagicMock(side_effect = ["3", "Knife", "y", "5"])
+        rawInputMock = MagicMock(side_effect = ["sell", "Knife", "yes", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
 
         #Player chooses to: 3(sell items), to sell leather tunic, yes, 5(Quit) the shop
-        rawInputMock = MagicMock(side_effect = ["3", "Leather Tunic", "y", "5"])
+        rawInputMock = MagicMock(side_effect = ["sell", "Leather Tunic", "yes", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
         
@@ -1492,7 +1492,7 @@ class ShopSellItems(unittest.TestCase):
             self.assertEqual(item._cost, COST, errorMsg) 
         
         #Player chooses to: gobbledigook, 5(Quit) the shop - context menus should not crash program
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "5"])
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
 
@@ -1536,7 +1536,7 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertEqual(player._money, 20, "Player does not start with 20 rubles")
        
         #Player chooses to: 4(purchase item), "Medium Potion of Healing"(purchase this specific item), 5(quit the shop)
-        rawInputMock = MagicMock(side_effect = ["4", "Medium Potion of Healing", "5"])
+        rawInputMock = MagicMock(side_effect = ["purchase", "Medium Potion of Healing", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
        
@@ -1556,7 +1556,7 @@ class ShopPurchaseItems(unittest.TestCase):
         testShop._items.append(testPotion2)
 
         #Player chooses to: 4(purchase item), "SuperDuperLegendary Potion of Healing", 5(quit the shop)
-        rawInputMock = MagicMock(side_effect = ["4", "SuperDuperLegendary Potion of Healing", "5"])
+        rawInputMock = MagicMock(side_effect = ["purchase", "SuperDuperLegendary Potion of Healing", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
        
@@ -1573,7 +1573,7 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertTrue(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
 
         #Player chooses to: 4(purchase item), input "Fake Item", 5(quit the shop)
-        rawInputMock = MagicMock(side_effect = ["4", "Fake Item", "5"])
+        rawInputMock = MagicMock(side_effect = ["purchase", "Fake Item", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
        
@@ -1590,7 +1590,7 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertFalse(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
         
         #Player chooses to: gobbledigook, 5(Quit) the shop
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "5"])
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
             
@@ -1606,13 +1606,13 @@ class SquareDoesNotCrash(unittest.TestCase):
         from cities.square import Square
         from cities.city import City
 
-        testSquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
-        testCity = City("Test City", "testing city", "hello to testing city. see Chris' Square", testsquare)
+        testSquare = Square("Chris' testing Square", "Testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
+        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Square", testsquare)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testcity)
         player = Player("Frodo", space)
         
-        #Player chooses to: 1(talk), to Master Wang, 1(talk), to Miles, 2(Leave) the square
-        rawInputMock = MagicMock(side_effect = ["1", "Master Wang", "1", "Miles", "gobbledigook", "2"])
+        #Player chooses to: talk to Master Wang, talk to Miles, quit
+        rawInputMock = MagicMock(side_effect = ["Master Wang", "Miles", "gobbledigook", "quit"])
         
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
             testSquare.enter(player)
@@ -1620,7 +1620,6 @@ class SquareDoesNotCrash(unittest.TestCase):
         #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
         
-
 class City(unittest.TestCase):
     """
     Tests the ability of City object.
@@ -1638,8 +1637,8 @@ class City(unittest.TestCase):
         
         #Player chooses to "gobbledigook", enter Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
         cityInputMock = MagicMock(side_effect = ["gobbledigook", "Seth n Breakfast Test Inn", 
-                                                "Seth n Breakfast Test Inn", 'leave city' ])
-        innInputMock = MagicMock(side_effect = ["2", "2"])
+                                                "Seth n Breakfast Test Inn", 'leave city'])
+        innInputMock = MagicMock(side_effect = ["yes", "leave city"])
         
         with patch('cities.city.raw_input', create = True, new = cityInputMock):
             with patch('cities.inn.raw_input', create = True, new = innInputMock):
