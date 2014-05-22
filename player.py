@@ -82,12 +82,7 @@ class Player(object):
 
         @param attack:     The attack player is to receive.
         """
-        if attack < self._armorDefense:
-            return
-        elif attack == self._armorDefense:
-            return
-        else:
-            self._hp = max(self._hp - (attack - self._armorDefense), 0)
+        self._hp = max(self._hp - max(attack - self._armorDefense, 0), 0)
         
     def getExperience(self):
         """
@@ -187,8 +182,6 @@ class Player(object):
         if item in self._equipped:
             print "%s already equipped." % item.getName()
             return
-        import pdb
-        pdb.set_trace()
         
         #Unequip currently equipped armor/weapon if necessary
         for currentItem in self._equipped:

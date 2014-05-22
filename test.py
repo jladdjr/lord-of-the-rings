@@ -1200,9 +1200,9 @@ class PlayerTest(unittest.TestCase):
         #Pretest player-specific items-based attributes
         errorMsg = "_weaponAttack should be 0 but it is not."
         self.assertEqual(player._weaponAttack, 0, errorMsg)
-        errorMsg = "armorDefense should be 0 but it is not."
+        errorMsg = "_armorDefense should be 0 but it is not."
         self.assertEqual(player._armorDefense, 0, errorMsg)
-        errorMsg = "totalAttack should be simply attack but it is not."
+        errorMsg = "_totalAttack should be simply attack but it is not."
         self.assertEqual(player._totalAttack, player._attack, errorMsg)
 
         #Attempt to equip new items
@@ -1213,7 +1213,7 @@ class PlayerTest(unittest.TestCase):
         player.equip(newArmor)
         self.assertTrue(newArmor in player.getEquipped(), "Failed to equip %s" % newArmor)
 
-        #Posttest player-specific items-based attributes
+        #Post-test player-specific items-based attributes
         errorMsg = "_weaponAttack should be 0 but it is not."
         self.assertEqual(player._weaponAttack, newWeapon.getAttack(), errorMsg)
         errorMsg = "_armorDefense should be 0 but it is not."
