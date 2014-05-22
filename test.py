@@ -195,7 +195,7 @@ class SpaceTest(unittest.TestCase):
         bow = Item("bow", "long bow", 2) 
 
         #Create space
-        space = Space("shire", "Home of the Hobbits.", 1)
+        space = Space("shire", "Home of the Hobbits.", "Mordor")
         items = space.getItems()
 
         #Assert space initially empty
@@ -284,7 +284,7 @@ class SpaceTest(unittest.TestCase):
         from commands.east_command import EastCommand
         from constants import Direction
         
-        space = Space("Shire", "Home of the hobbits", 1)
+        space = Space("Shire", "Home of the hobbits", "Mordor")
         player = Player("Russian", space)
         
         northCmd = NorthCommand("North", "Moves player north", player)
@@ -416,7 +416,7 @@ class SpaceTest(unittest.TestCase):
         from commands.west_command import WestCommand
         from commands.east_command import EastCommand
         
-        space = Space("Shire", "Home of the hobbits", 1)
+        space = Space("Shire", "Home of the hobbits", "Mordor")
         player = Player("Russian", space)
         
         northCmd = NorthCommand("North", "Moves player north", player)
@@ -477,7 +477,7 @@ class PickUpTest(unittest.TestCase):
         from items.item import Item
         from commands.pick_up_command import PickUpCommand
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         item = Item("Dagger", "A trusty blade", 2)
         pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
@@ -519,7 +519,7 @@ class DropTest(unittest.TestCase):
         from items.weapon import Weapon
         from commands.drop_command import DropCommand
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
@@ -559,7 +559,7 @@ class DropTest(unittest.TestCase):
         from items.weapon import Weapon
         from commands.drop_command import DropCommand
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
@@ -598,7 +598,7 @@ class DescribeTest(unittest.TestCase):
         from space import Space
         from commands.describe_command import DescribeCommand
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         descCmd = DescribeCommand("describe", "Gives description of space", player)
 
@@ -621,7 +621,7 @@ class EquipTest(unittest.TestCase):
         from items.armor import Armor
         from commands.equip_command import EquipCommand
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
         
@@ -643,7 +643,7 @@ class EquipTest(unittest.TestCase):
         self.assertFalse(equipped.containsItem(armor), "Player equipped item not in inventory.")
         
         #Trying to equip item that cannot be equipped (e.g. item is not instance of Armor or Weapon)
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -660,7 +660,7 @@ class EquipTest(unittest.TestCase):
         self.assertFalse(equipped.containsItem(item), "Player equipped item of Item class.")
 
         #Equipping item that can be equipped
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -685,7 +685,7 @@ class EquipTest(unittest.TestCase):
         self.assertTrue(equipped.containsItem(armor), "Player failed to equip equipable item.")
         
         #Equipping an item that is already equipped
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -721,7 +721,7 @@ class EquipTest(unittest.TestCase):
         from commands.equip_command import EquipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -749,7 +749,7 @@ class EquipTest(unittest.TestCase):
         from commands.equip_command import EquipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
@@ -776,7 +776,7 @@ class UnequipTest(unittest.TestCase):
         from commands.unequip_command import UnequipCommand
 
         #Attempting to unequip item not currently equipped
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
@@ -795,7 +795,7 @@ class UnequipTest(unittest.TestCase):
         ###TODO: FIND SOME WAY TO MAKE SURE THAT PRINT STATEMENT PRINTED
         
         #Attempting to unequip item that may be unequipped
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
@@ -823,7 +823,7 @@ class UnequipTest(unittest.TestCase):
         from commands.unequip_command import UnequipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
@@ -849,7 +849,7 @@ class UnequipTest(unittest.TestCase):
         from commands.unequip_command import UnequipCommand
         import constants
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
@@ -876,7 +876,7 @@ class UsePotionTest(unittest.TestCase):
         from player import Player
         from items.potion import Potion
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         inventory = player.getInventory()
         usePotionCmd = UsePotionCommand("use potion", "Uses potion in inventory.", player)
@@ -968,7 +968,7 @@ class PlayerTest(unittest.TestCase):
         from items.item_set import ItemSet
         import constants
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         
         #Test for correct initialization
@@ -996,7 +996,7 @@ class PlayerTest(unittest.TestCase):
         from space import Space
         from monsters.monster import Monster
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         stats = [10, 1, 1]
@@ -1017,7 +1017,7 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         
         #When attack is more than maxHp
@@ -1040,7 +1040,7 @@ class PlayerTest(unittest.TestCase):
         from space import Space
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         armor = Armor("Shield of Faith", "Quenches fiery darts", 2, 2, 2)
         player.equip(armor)
@@ -1068,7 +1068,7 @@ class PlayerTest(unittest.TestCase):
         from space import Space
         import constants
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         #Test starting experience
@@ -1087,7 +1087,7 @@ class PlayerTest(unittest.TestCase):
         from math import floor
         import constants
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         #Determine default player stats
@@ -1119,7 +1119,7 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         attackAmount = 2
@@ -1134,7 +1134,7 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
 
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         attackAmount = 3
@@ -1153,7 +1153,7 @@ class PlayerTest(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         newItem = Item("Chainik Reakettle", "Makes good tea", 1)
@@ -1209,7 +1209,7 @@ class PlayerTest(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         newItem = Item("Chainik Reakettle", "Makes good tea", 1)
@@ -1243,7 +1243,7 @@ class PlayerTest(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         newItem = Item("Chainik Reakettle", "Makes good tea", 1)
@@ -1295,7 +1295,7 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
         
-        space = Space("Shire", "Home of the Hobbits.", 1)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         north = Space("North Space", "Very cold", "Welcome")
@@ -1339,7 +1339,7 @@ class InnTest(unittest.TestCase):
 
         testInn = Inn("Chris' Testing Inn", "Come test here", "Hi", 5)
         testCity = City("Test City", "testing city", "Hello to testing city. See Chris' Inn", testInn)
-        space = Space("Shire", "Home of the Hobbits.", 1, city = testCity)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
                 
         #Player's health is lowest possible to be alive
@@ -1376,7 +1376,7 @@ class ShopSellItems(unittest.TestCase):
 
         testShop = Shop("Chris' testing shop", "Come test here", "Hi", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
-        space = Space("Shire", "Home of the Hobbits.", 1, city = testCity)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
         
         #Create starting iventory
@@ -1458,7 +1458,7 @@ class ShopPurchaseItems(unittest.TestCase):
 
         testShop = Shop("Chris' testing Shop", "Come test here", "Hi", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
-        space = Space("Shire", "Home of the Hobbits.", 1, city = testCity)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
        
         #Our shop should currently have 5 items (this was designed when it was created)
@@ -1547,7 +1547,7 @@ class SquareDoesNotCrash(unittest.TestCase):
 
         testsquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
         testcity = City("Test City", "testing city", "hello to testing city. see Chris' Square", testsquare)
-        space = Space("Shire", "Home of the Hobbits.", 1, city = testcity)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testcity)
         player = Player("Frodo", space)
         
         #Player chooses to: 1(talk), to Master Wang, 1(talk), to Miles, 2(Leave) the square
@@ -1572,7 +1572,7 @@ class City(unittest.TestCase):
 
         testInn = Inn("Seth n Breakfast Test Inn", "Testing inn", "Come test here", 3)
         testCity = City("TestCity","Chris' unique testing city", "Come test here", buildings = testInn)
-        space = Space("Shire", "Home of the Hobbits.", city = testCity)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
         
         #Player chooses to "gobbledigook", enter Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
@@ -1594,7 +1594,7 @@ class UniquePlace(unittest.TestCase):
         from unique_place import UniquePlace
 
         testUniquePlace = UniquePlace("Chris' unique testing room", "Come test here")
-        space = Space("Shire", "Home of the Hobbits.", uniquePlaces = testUniquePlace)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", uniquePlaces = testUniquePlace)
         player = Player("Frodo", space)
         
         #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
@@ -1610,7 +1610,7 @@ class EnterCommand(unittest.TestCase):
         from player import Player
         from space import Space
         
-        space = Space("Shire", "Home of the Hobbits.")
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("the Funlaps", space)
         testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
         
@@ -1634,8 +1634,8 @@ class EnterCommand(unittest.TestCase):
         testCity1 = City("Jim's Mobile Fun City", "Jim's unique testing city", "Come test here")
         testCity2 = City("Seth's Sans-Shabbiness Shack Sh-City", "Seth's unique testing city", "Come test here")
         testCity3 = City("Miles' Magical Cookie Jail City", "Miles' unique testing city", "Come test here")
-        testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here")
-        space = Space("Shire", "Home of the Hobbits.", 
+        testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here", "Hi I'm made of cheese.")
+        space = Space("Shire", "Home of the Hobbits.", "Mordor",
                             city = [testCity1, testCity2, testCity3], uniquePlaces = testUniquePlace)
         player = Player("The Funlaps", space)
         
@@ -1667,8 +1667,8 @@ class DescribeCommand(unittest.TestCase):
         from unique_place import UniquePlace
         
         testCity = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
-        testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.")
-        space = Space("Shire", "Home of the Hobbits.", city = testCity)
+        testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("The Baginses", space)
         testDescribeCommand = DescribeCommand("Test Describe Command", "Tests Describing", player)
         
