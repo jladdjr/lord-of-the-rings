@@ -1608,7 +1608,7 @@ class SquareDoesNotCrash(unittest.TestCase):
 
         testSquare = Square("Chris' testing Square", "Testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Square", testSquare)
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testcity)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
         
         #Player chooses to: talk to Master Wang, talk to Miles, quit
