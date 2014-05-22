@@ -34,21 +34,29 @@ class CheckStatsCommand(Command):
         attack = self._player.getAttack()
         totalAttack = self._player.getTotalAttack()
 
+        #Create defaults - for determining of weapon and armor exist
+        weapon = None
+        armor = None
+
         #Get equipment bonuses
         equipment = self._player.getEquipped()
         equipmentList = equipment.getItems()
         for item in equipmentList:
             if isinstance(item, Weapon):
                 weaponsAttack = item.getAttack()
+                weapon = True
             elif isinstance(item, Armor):
                 defense = item.getDefense()
+                armor = True
 
         #Print player stats
         print "%s's stats: \n" % name
         print "\t%s is level %s and has %s experience." % (name, level, experience)
         print "\t%s's Hp: %s." % (name, hp)
         print ""
-        print "\tCharacter-based attack is %s; weapons bonus is %s." % (attack, weaponsAttack)
-        print "\tTotal attack is %s." % totalAttack
-        print "\tArmor-based defense is %s." % defense
+        if weapon:
+            print "\tCharacter-based attack is %s; weapons bonus is %s." % (attack, weaponsAttack)
+            print "\tTotal attack is %s." % totalAttack
+        if armor:
+            print "\tArmor-based defense is %s." % defense
                 
