@@ -1380,7 +1380,7 @@ class InnTest(unittest.TestCase):
         player._money = 10
 
         #Player chooses to stay at the inn
-        rawInputMock = MagicMock(return_value="yes")
+        rawInputMock = MagicMock(side_effect = ["yes", "leave city"])
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
@@ -1389,6 +1389,7 @@ class InnTest(unittest.TestCase):
         
         #Player's health should increase to maximum
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
+        
     def testCase2(self):
         """
         For when player chooses to stay at Inn and does not have enough money to do so.
