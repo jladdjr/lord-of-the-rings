@@ -749,7 +749,7 @@ class EquipTest(unittest.TestCase):
 
         weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
 
-        #Create defaults
+        #Create default
         defaultAttack = player._attack
 
         rawInputMock = MagicMock(return_value="Sword of the Spirit")
@@ -762,7 +762,7 @@ class EquipTest(unittest.TestCase):
         #Test for change
         errorMsg = "Player._attack changed with weapon equip when it should not have."
         self.assertEqual(player._attack, defaultAttack, errorMsg)
-        errorMsg = "player._weaponAttack not updated to correct value. %s %s" %(player._weaponAttack, weapon._attack)
+        errorMsg = "player._weaponAttack not updated to correct value."
         self.assertEqual(player._weaponAttack, weapon._attack, errorMsg)
         errorMsg = "Player._totalAttack not updated to correct value."
         self.assertEqual(player._totalAttack, defaultAttack + weapon._attack, errorMsg)
@@ -781,20 +781,20 @@ class EquipTest(unittest.TestCase):
 
         rawInputMock = MagicMock(return_value="Shield of Faith")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
-            equipCmd.execute() 
+            equipCmd.execute()
 
         errorMsg = "Armor should be equipped but is not."
         self.assertTrue(player._equipped.contains(armor), errorMsg)
         
         #Test for change
-        errorMsg = "player._armorDefense stat was not updated correctly. %s %s" %(player._armorDefense, armor._defense)
+        errorMsg = "player._armorDefense stat was not updated correctly."
         self.assertEqual(player._armorDefense, armor._defense, errorMsg)
                          
 class UnequipTest(unittest.TestCase):
     """
     Tests Unequip Command.
     """
-    def testExecute(self):
+    def unequipWhenItemNotCurrentlyEquipped(self):
         from player import Player
         from space import Space
         from items.item import Item
@@ -802,15 +802,14 @@ class UnequipTest(unittest.TestCase):
         from items.armor import Armor
         from commands.unequip_command import UnequipCommand
 
-        #Attempting to unequip item not currently equipped
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
-        item = Item("Charm", "Unknown effects", 1)
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
         armor = Armor("Shield", "of faith", 2, 2, 2)
 
+        #Attempting to unequip item not currently equipped
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
@@ -819,18 +818,36 @@ class UnequipTest(unittest.TestCase):
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
 
-        ###TODO: FIND SOME WAY TO MAKE SURE THAT PRINT STATEMENT PRINTED
+        #TODO: find way to make sure that 30-32 in unequip is called
+        errorMsg = "Player should not have weapon in equipped but does."
+        self.assertFalse(player._equipped.contains(weapon), errorMsg)
+        errorMsg = "Player should not have armor in equipped but does."
+        self.assertFalse(player._equipped.contains(armor), errorMsg)            
+
+    def unequippingUnequippableItem(self):
+        from player import Player
+        from space import Space
+        from items.item import Item
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from commands.unequip_command import UnequipCommand
         
-        #Attempting to unequip item that may be unequipped
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
+        armor = Armor("Shield", "Round", 1, 1, 1)
 
         player.equip(weapon)
         player.equip(armor)
-        
+
+        errorMsg = "Weapon should be in player._equipped but is not."
+        self._assertTrue(player._equipped.contains(weapon), errorMsg)
+        errorMsg = "Armor should be in player._equipped but is not."
+        self._assertTrue(player._equipped.contains(armor), errorMsg)
+
+        #Attempting to unequip item that may be unequipped
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
@@ -839,11 +856,15 @@ class UnequipTest(unittest.TestCase):
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
 
-        equipped = player.getInventory()
+        inventory = player.getInventory()
+        self.assertTrue(inventory.containsItem(weapon), "Inventory should have weapon and does not.")
+        self.assertTrue(inventory.containsItem(armor), "Inventory should have armor and does not.")
+        
+        equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(weapon), "Failed to unequip item that it should have.")
         self.assertFalse(equipped.containsItem(armor), "Failed to unequip item that it should have.")
 
-    def testExecutePlayerStatsWeapon(self):
+    def playerWeaponStatsUpdate(self):
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -855,21 +876,19 @@ class UnequipTest(unittest.TestCase):
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
         weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
-
-        #Setup
         player.equip(weapon)
         
         rawInputMock = MagicMock(return_value="Sword of the Spirit")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute() 
 
-        #Test for change
+        #Test for change back to player defaults
         errorMsg = "player._weaponAttack should be zero but it is not."
         self.assertEqual(player._weaponAttack, 0, errorMsg)
         errorMsg = "player._totalAttack should be attack but it is not."
         self.assertEqual(player._totalAttack, player._attack, errorMsg)
         
-    def testExecutePlayerStatsArmor(self):
+    def playerArmorStatsUpdate(self):
         from player import Player
         from space import Space
         from items.armor import Armor
@@ -881,15 +900,13 @@ class UnequipTest(unittest.TestCase):
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
         armor = Armor("Shield of Faith", "For quenching fiery darts", 1, 1, 1)
-        
-        #Setup
         player.equip(armor)
         
         rawInputMock = MagicMock(return_value="Shield of Faith")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute() 
 
-        #Test for change
+        #Test for change back to player defaults
         errorMsg = "player._armorDefense should be zero after unequip but is not."
         self.assertEqual(player._armorDefense, 0, errorMsg)
 
@@ -911,7 +928,7 @@ class UsePotionTest(unittest.TestCase):
         player._maxHp = 20
         player._hp = 1
         healing = 9
-        expectedFinalHealth = 10
+        correctFinalHp = player._hp + healing
         
         potion = Potion("Enormous Potion", "So big", 1, healing, 10)
         player._inventory.addItem(potion)
@@ -923,7 +940,7 @@ class UsePotionTest(unittest.TestCase):
         errorMsg = "Inventory still contains potion when it should not."
         self.assertFalse(inventory.containsItem(potion), errorMsg)
         errorMsg = "Player health not at correct amount."
-        self.assertEqual(player._hp, expectedFinalHealth, errorMsg)
+        self.assertEqual(player._hp, correctFinalHp, errorMsg)
             
 class WeaponTest(unittest.TestCase):
     """
@@ -932,18 +949,14 @@ class WeaponTest(unittest.TestCase):
     def testInit(self):
         from items.weapon import Weapon
 
-        WEIGHT = 1
-        ATTACK = 3
-        COST = 1
-
-        sword = Weapon("Sword", "A cheap sword", WEIGHT, ATTACK, COST)
+        sword = Weapon("Sword", "A cheap sword", 3, 2, 1)
 
         #Tests for correct initialization
         self.assertEqual(sword.getName(), "Sword", "Name did not initialize correctly.")
         self.assertEqual(sword.getDescription(), "A cheap sword", "Description did not initialize correctly.")
-        self.assertEqual(sword.getWeight(), WEIGHT, "Weight did not initialize correctly.")
-        self.assertEqual(sword.getAttack(), ATTACK, "Damage did not initialize correctly.")
-        self.assertEqual(sword.getCost(), COST, "Cost did not initialize correctly.")
+        self.assertEqual(sword.getWeight(), 3, "Weight did not initialize correctly.")
+        self.assertEqual(sword.getAttack(), 2, "Damage did not initialize correctly.")
+        self.assertEqual(sword.getCost(), 1, "Cost did not initialize correctly.")
 
 class ArmorTest(unittest.TestCase):
     """
@@ -951,19 +964,15 @@ class ArmorTest(unittest.TestCase):
     """
     def testInit(self):
         from items.armor import Armor
-
-        WEIGHT = 2
-        DEFENSE = 3
-        COST = 1
         
-        shield = Armor("Shield", "A cheap shield", WEIGHT, DEFENSE, COST)
+        shield = Armor("Shield", "A cheap shield", 3, 2, 1)
 
         #Tests that shield initialized correctly
         self.assertEqual(shield.getName(), "Shield", "Name did not initialize correctly.")
         self.assertEqual(shield.getDescription(), "A cheap shield", "Description did not initialize correctly.")
-        self.assertEqual(shield.getWeight(), WEIGHT, "Weight did not initialize correctly.")
-        self.assertEqual(shield.getDefense(), DEFENSE, "Defense did not initialize correctly.")
-        self.assertEqual(shield.getCost(), COST, "Cost did not initialize correctly.")
+        self.assertEqual(shield.getWeight(), 3, "Weight did not initialize correctly.")
+        self.assertEqual(shield.getDefense(), 2, "Defense did not initialize correctly.")
+        self.assertEqual(shield.getCost(), 1, "Cost did not initialize correctly.")
 
 class Potion(unittest.TestCase):
     """
@@ -972,18 +981,14 @@ class Potion(unittest.TestCase):
     def testInit(self):
         from items.potion import Potion
 
-        WEIGHT = 1
-        HEALING = 10
-        COST = 1
-
-        potion = Potion("Potion", "A small potion", WEIGHT, HEALING, COST)
+        potion = Potion("Potion", "A small potion", 3, 2, 1)
         
         #Tests for correct initialization
         self.assertEqual(potion.getName(), "Potion", "Name did not initialize correctly.")
         self.assertEqual(potion.getDescription(), "A small potion", "Description did not initialize correctly.")
-        self.assertEqual(potion.getWeight(), WEIGHT, "Weight did not initialize correctly.")
-        self.assertEqual(potion.getHealing(), HEALING, "Healing did not initialize correctly.")
-        self.assertEqual(potion.getCost(), COST, "Cost did not initialize correctly.")
+        self.assertEqual(potion.getWeight(), 3, "Weight did not initialize correctly.")
+        self.assertEqual(potion.getHealing(), 2, "Healing did not initialize correctly.")
+        self.assertEqual(potion.getCost(), 1, "Cost did not initialize correctly.")
 
 class PlayerTest(unittest.TestCase):
     """
@@ -1004,8 +1009,8 @@ class PlayerTest(unittest.TestCase):
         self.assertEqual(player._money, constants.STARTING_MONEY, "Money did not initialize correctly.")
         
         emptyList = []
-        self.assertEqual(player._inventory.getItems(), emptyList, "Player inventory was not initialized.")
-        self.assertEqual(player._equipped.getItems(), emptyList, "Player equipped was not initialized.")
+        self.assertEqual(player._inventory.getItems(), emptyList, "Player inventory was not initialized correctly.")
+        self.assertEqual(player._equipped.getItems(), emptyList, "Player equipped was not initialized correctly.")
         
         self.assertEqual(player._experience, constants.STARTING_EXPERIENCE, "Player experience was not initialized.")
         self.assertEqual(player._level, constants.STARTING_LEVEL, "Player level was not initialized.")
@@ -1022,23 +1027,23 @@ class PlayerTest(unittest.TestCase):
         from player import Player
         from space import Space
         from monsters.monster import Monster
-
+        #TODO: use mock objects to rewrite this test
+        
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
         stats = [10, 1, 1]
         monster = Monster("Orc", "An orc.", stats, "Moof", "Meep")
         
-        #Check monster health default state
+        #Check monster health default stats
         self.assertEqual(monster._hp, 10, "Monster Hp did not initialize correctly.")
         
         #Player attacks monster
         player.attack(monster)
-        
-        actualHp = monster._hp
+    
         expectedHp = 10 - (player._totalAttack)
         
-        self.assertEqual(actualHp, expectedHp, "Monster attack failed to work correctly.")
+        self.assertEqual(player._attack, expectedHp, "Monster attack failed to work correctly.")
 
     def testTakeDamage(self):
         from player import Player
@@ -1053,16 +1058,17 @@ class PlayerTest(unittest.TestCase):
         player.takeAttack(OVERKILL)
         errorMsg = "Overkill testcase in testTakeDamage() failed."
         self.assertEqual(player._hp, 0, errorMsg)
+
+        player._hp = player._maxHp
         
         #When attack is less than maxHp
-        player._hp = player._maxHp
         UNDERKILL = player._maxHp - 1
 
         player.takeAttack(UNDERKILL)
-        errorMsg = "Underkill testcase in testTakeDamage() failed."
+        errorMsg = "Underkill test case in testTakeDamage() failed."
         self.assertEqual(player._hp, 1, errorMsg)
 
-    def testTakeDamageArmor(self):
+    def takeDamageArmor(self):
         from player import Player
         from space import Space
         from items.armor import Armor
