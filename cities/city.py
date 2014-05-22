@@ -34,7 +34,7 @@ class City(Place):
             
         return None
 
-    def greetings(self):
+    def getGreetings(self):
         """
         Returns the string that represents a player greeting upon entering the city.
 
@@ -87,25 +87,26 @@ class City(Place):
         buildings = self.getBuildings()
         #If there is 1 building
         if isinstance(buildings, Building):
-            print "\t %s\n" % buildings.getName()
+            print "\t%s" % buildings.getName()
         #If there are multiple buildings
         elif isinstance(buildings, list):
             for building in buildings:
-                print "\t %s" % building.getName()
-            print"\n"
-    
+                print "\t%s" % building.getName()
+        print ""
+        
     def enter(self, player):  
         """
         The method for entering the buildings in the city.
 
         @param player:       The current player
         """
-
         buildingDictionary = self._createDictionaryOfBuildings()
 
-        print "Entering %s" % self.getName()
-        print "\n %s \n" % self.getDescription()
-
+        print "Entering %s!" % self.getName()
+        print "\n%s" % self.getDescription()
+        print "%s" % self.getGreetings()
+        print ""
+        
         while True:
             print "You have found the following:"
             
@@ -117,7 +118,8 @@ class City(Place):
             
             #If player chooses to leave the city
             if command == 'leave city':
-                print "Leaving %s.\n" % self.getName()
+                print ""
+                print "Leaving %s." % self.getName()
                 return
             #If player selects something other than to leave the city
             if command in buildingDictionary.keys():

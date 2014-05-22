@@ -1394,8 +1394,6 @@ class InnTest(unittest.TestCase):
         """
         For when player chooses to stay at Inn and does not have enough money to do so.
         """
-        pass
-        """
         from player import Player
         from space import Space
         from cities.inn import Inn
@@ -1412,7 +1410,7 @@ class InnTest(unittest.TestCase):
         player._money = 2
 
         #Player chooses to stay at the inn
-        rawInputMock = MagicMock(return_value="yes")
+        rawInputMock = MagicMock(return_value="yes", "leave city")
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
@@ -1421,7 +1419,7 @@ class InnTest(unittest.TestCase):
         
         #Player's health should increase to maximum
         self.assertEqual(player._hp, 1, "Player's health changed when it should not have.")
-        """
+        
 class ShopSellItems(unittest.TestCase):
     """
     Tests the ability to sell in the Shop Object:
@@ -1543,7 +1541,7 @@ class ShopPurchaseItems(unittest.TestCase):
             testShop.enter(player)
        
         #Player's money should decrease by the cost of medium potion, which is 3
-        self.assertEqual(player._money, 17, "Player's money not decreased by correct amount. It is %s" % player._money)
+        self.assertEqual(player._money, 17, "Player's money not decreased by correct amount. It is %s." % player._money)
        
         #Test item in inventory, not in equipped, not in shop wares
         errorMsg = "Medium Potion that was purchased was not added to inventory."

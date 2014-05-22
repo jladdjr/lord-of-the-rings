@@ -42,18 +42,15 @@ class EnterCommand(Command):
                 print "%s may enter the following cities:" % playerName
                 for eachCity in city:
                     print "\t%s" % eachCity.getName()
-                print ""
 
         #Display uniquePlaces that player may enter
             if isinstance(uniquePlace, UniquePlace):
-                print "%s may also enter the following:" % playerName
                 print "\t%s" % uniquePlace.getName()
             elif isinstance(uniquePlace, list):
-                print "%s may also enter the following:" % playerName
                 for eachUniquePlace in uniquePlace:
                     print "\t%s" % eachUniquePlace.getName()
-                print ""
-    
+        print ""
+        
     def _createDictionaryOfPlaces(self):
         """
         Creates a dictionary of places that are within the space. 
@@ -99,6 +96,7 @@ class EnterCommand(Command):
         #If there is no place to enter
         if not (city or uniquePlace):
             return
+        
         #Entering the place that the player chooses to enter
         placeToEnter = raw_input("Which of these would you like to enter?\n")
         while (placeToEnter not in dictionary.keys()) or placeToEnter == 'stop':
