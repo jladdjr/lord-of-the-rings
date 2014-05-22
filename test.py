@@ -1545,8 +1545,8 @@ class SquareDoesNotCrash(unittest.TestCase):
         from cities.square import Square
         from cities.city import City
 
-        testsquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
-        testcity = City("Test City", "testing city", "hello to testing city. see Chris' Square", testsquare)
+        testSquare = Square("Chris' testing Square", "testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
+        testCity = City("Test City", "testing city", "hello to testing city. see Chris' Square", testsquare)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testcity)
         player = Player("Frodo", space)
         
@@ -1554,7 +1554,7 @@ class SquareDoesNotCrash(unittest.TestCase):
         rawInputMock = MagicMock(side_effect = ["1", "Master Wang", "1", "Miles", "gobbledigook", "2"])
         
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
-            testsquare.enter(player)
+            testSquare.enter(player)
         
         #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
         self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
@@ -1593,7 +1593,7 @@ class UniquePlace(unittest.TestCase):
         from space import Space
         from unique_place import UniquePlace
 
-        testUniquePlace = UniquePlace("Chris' unique testing room", "Come test here")
+        testUniquePlace = UniquePlace("Chris' unique testing room", "Come test here", "You're late....")
         space = Space("Shire", "Home of the Hobbits.", "Mordor", uniquePlaces = testUniquePlace)
         player = Player("Frodo", space)
         
@@ -1636,7 +1636,7 @@ class EnterCommand(unittest.TestCase):
         testCity3 = City("Miles' Magical Cookie Jail City", "Miles' unique testing city", "Come test here")
         testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here", "Hi I'm made of cheese.")
         space = Space("Shire", "Home of the Hobbits.", "Mordor",
-                            city = [testCity1, testCity2, testCity3], uniquePlaces = testUniquePlace)
+                            city = [testCity1, testCity2, testCity3], uniquePlace = testUniquePlace)
         player = Player("The Funlaps", space)
         
         testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
