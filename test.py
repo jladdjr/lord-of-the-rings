@@ -1360,18 +1360,17 @@ class InnTest(unittest.TestCase):
     """
     Tests the healing ability of Inn Object.
     """
-    pass
-    """
-    #TODO: Uncomment test and diagnose infinite loop 
-
-    def testEnter(self):
+    def testCase(self):
+        """
+        For when player chooses to stay at Inn and has enough money to do so.
+        """
         from player import Player
         from space import Space
         from cities.inn import Inn
         from cities.city import City
 
         testInn = Inn("Chris' Testing Inn", "Come test here", "Hi", 5)
-        testCity = City("Test City", "testing city", "Hello to testing city. See Chris' Inn", testInn)
+        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Inn", testInn)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
                 
@@ -1381,7 +1380,7 @@ class InnTest(unittest.TestCase):
         player._money = 10
 
         #Player chooses to stay at the inn
-        rawInputMock = MagicMock(return_value=1)
+        rawInputMock = MagicMock(return_value="yes")
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
@@ -1390,7 +1389,36 @@ class InnTest(unittest.TestCase):
         
         #Player's health should increase to maximum
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
-    """
+        
+    def testCase2(self):
+        """
+        For when player chooses to stay at Inn and does not have enough money to do so.
+        """
+        from player import Player
+        from space import Space
+        from cities.inn import Inn
+        from cities.city import City
+
+        testInn = Inn("Chris' Testing Inn", "Come test here", "Hi", 5)
+        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Inn", testInn)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
+        player = Player("Frodo", space)
+                
+        #Player's health is lowest possible to be alive
+        player._hp = 1
+        #Player's money is equal to 10
+        player._money = 2
+
+        #Player chooses to stay at the inn
+        rawInputMock = MagicMock(return_value="yes")
+        with patch('cities.inn.raw_input', create=True, new=rawInputMock):
+            testInn.enter(player)
+        
+        #Player's money remain at starting amount
+        self.assertEqual(player._money, 2, "Player money changed when it should not have.")
+        
+        #Player's health should increase to maximum
+        self.assertEqual(player._hp, 1, "Player's health changed when it should not have.")
 
 class ShopSellItems(unittest.TestCase):
     """
