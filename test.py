@@ -1607,7 +1607,7 @@ class SquareDoesNotCrash(unittest.TestCase):
         from cities.city import City
 
         testSquare = Square("Chris' testing Square", "Testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
-        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Square", testsquare)
+        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Square", testSquare)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testcity)
         player = Player("Frodo", space)
         
@@ -1654,7 +1654,7 @@ class UniquePlace(unittest.TestCase):
         from unique_place import UniquePlace
 
         testUniquePlace = UniquePlace("Chris' unique testing room", "Come test here", "You're late....")
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", uniquePlaces = testUniquePlace)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", uniquePlace = testUniquePlace)
         player = Player("Frodo", space)
         
         #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
