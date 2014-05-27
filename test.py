@@ -1840,7 +1840,7 @@ class EnterCommand(unittest.TestCase):
         testCity = City("Jim's Mobile Fun City", "Jim's unique testing city", "Come test here")
         testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here", "Hi I'm made of cheese.")
         space = Space("Shire", "Home of the Hobbits.", "Mordor",
-            city = testCity, uniquePlace = testUniquePlace])
+            city = testCity, uniquePlace = testUniquePlace)
         player = Player("The Funlaps", space)
         
         enterCmd = EnterCommand("Enter Command", "Tests Entering", player)
