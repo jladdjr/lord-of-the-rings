@@ -330,10 +330,10 @@ class MovementTest(unittest.TestCase):
 
         #Test getExit method for destination spaces
         errorMsg = "getExit() test failed."
-        self.assertEqual(north.getExit(Direction.SOUTH), space, errorMsg)
-        self.assertEqual(south.getExit(Direction.NORTH), space, errorMsg)
-        self.assertEqual(east.getExit(Direction.WEST), space, errorMsg)
-        self.assertEqual(west.getExit(Direction.EAST), space, errorMsg)
+        self.assertEqual(north.getExit("south"), space, errorMsg)
+        self.assertEqual(south.getExit("north"), space, errorMsg)
+        self.assertEqual(east.getExit("west"), space, errorMsg)
+        self.assertEqual(west.getExit("east"), space, errorMsg)
 
         #Test ports created using _isExit() for space
         errorMsg = "Ports are supposed to be created but are not - tested using _isExit()."
@@ -1043,7 +1043,7 @@ class PlayerTest(unittest.TestCase):
     
         expectedHp = 10 - (player._totalAttack)
         
-        self.assertEqual(player._attack, expectedHp, "Monster attack failed to work correctly.")
+        self.assertEqual(monster._hp, expectedHp, "Monster attack failed to work correctly.")
 
     def testTakeDamage(self):
         from player import Player
@@ -1767,7 +1767,7 @@ class monster(unittest.TestCase):
         self.assertEqual(monster._deathString, "Meep", errorMsg)
         
         #Test monster.attack()
-        player = MagicMock()
+        player = Player
         player.takeAttack = MagicMock()
         
         monster.attack(player)
