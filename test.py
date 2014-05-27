@@ -1615,15 +1615,12 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Player's money should not be decreased when trying to purchase fake item. It is currently %s" % player._money
         self.assertEqual(player._money, 15, errorMsg)
        
-        #Test item not in inventory, not in equipped, not in shop wares
+        #Test item not in inventory, not in equipped
         errorMsg = "Fake Item that was purchased was added to inventory."
         self.assertFalse(player._inventory.containsItemWithName("Fake Item"), errorMsg)
         errorMsg = "Fake Item that was purchased is in equipped."
         self.assertFalse(player._equipped.containsItemWithName("Fake Item"), errorMsg)
-        errorMsg = "Fake Item that was purchased is in shop wares."
-        for item in testShop._items:
-            self.assertFalse(item.getName() != "Fake Item", errorMsg)
-        
+            
         #Player chooses to: gobbledigook, quit the shop
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
