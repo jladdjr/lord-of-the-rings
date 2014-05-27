@@ -1435,7 +1435,7 @@ class InnTest(unittest.TestCase):
         player = Player("Frodo", space)
         
         #For invalid user input
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook", "quit"])
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook", "no"])
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
