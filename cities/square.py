@@ -51,7 +51,7 @@ class Square(Building):
                 print self._talk[choice] + "."
 
                 #If item in self._items, give player item
-                if self._items[choice]:
+                if choice in self._items:
                     gift = self._items[choice]
                     #If entry is single item
                     if isinstance(gift, Item):

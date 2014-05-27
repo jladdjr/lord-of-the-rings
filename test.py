@@ -1642,7 +1642,9 @@ class ShopPurchaseItems(unittest.TestCase):
             
 class SquareDoesNotCrash(unittest.TestCase):
     """
-    Tests the ability of Square Object.
+    TODO: revamp SquareTest - test item capability. Research if assert.called.with to replace testing print statements.
+    
+    Tests the ability of Square to not crash after given a series of commands.
     """
     def testEnter(self):
         from player import Player
@@ -1651,11 +1653,11 @@ class SquareDoesNotCrash(unittest.TestCase):
         from cities.city import City
 
         testSquare = Square("Chris' Testing Square", "Testing Square", "Come test here", {"Master Wang": "I am Master Wang, creator various things in this Lord of the Rings game", "Miles": "Hello, I am Miles, the cookie legend"})
-        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Square", testSquare)
+        testCity = City("Test City", "Testing city", "Hello to Test City. See Chris' Square", testSquare)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
         
-        #Player chooses to: talk to Master Wang, talk to Miles, quit
+        #Player chooses to: talk to Master Wang, talk to Miles, 'gobbledigook', quit
         rawInputMock = MagicMock(side_effect = ["Master Wang", "Miles", "gobbledigook", "quit"])
         
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
