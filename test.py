@@ -1604,7 +1604,7 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is in equipped."
         self.assertFalse(player._equipped.containsItemWithName("SuperDuperLegendary Potion of Healing"), errorMsg)
         errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is no longer in shop wares."
-        self.assertTrue(testShop._items.containsItemWithName("SuperDuperLegendary Potion of Healing"), errorMsg)
+        self.assertTrue(testPotion2 in testShop._items, errorMsg)
 
         #Player chooses to: purchase item, input "Fake Item", quit the shop
         rawInputMock = MagicMock(side_effect = ["purchase", "Fake Item", "quit"])
@@ -1621,7 +1621,8 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Fake Item that was purchased is in equipped."
         self.assertFalse(player._equipped.containsItemWithName("Fake Item"), errorMsg)
         errorMsg = "Fake Item that was purchased is in shop wares."
-        self.assertFalse(testShop._items.containsItemWithName("Fake Item"), errorMsg)
+        for item in testShop._items:
+            self.assertFalse(item.getName() != "Fake Item", errorMsg)
         
         #Player chooses to: gobbledigook, quit the shop
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
