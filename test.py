@@ -1487,7 +1487,7 @@ class ShopSellItems(unittest.TestCase):
         self.assertTrue(armor in testShop._items, errorMsg)
 
         #Item prices are normal prices, not sell value
-        errorMsg = "Item costs were not set back to where they were supposed to be."
+        errorMsg = "Item costs were not set back to where they were supposed to be. %s %s" %(item.getName(), item.getCost())
         for item in testShop._items:
             self.assertEqual(item._cost, COST, errorMsg) 
         
