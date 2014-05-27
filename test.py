@@ -1544,12 +1544,12 @@ class ShopPurchaseItems(unittest.TestCase):
         self.assertEqual(player._money, 20, "Player does not start with 20 rubles")
 
         #Player chooses to: purchase item, "Knife" (purchase this specific item), quit the shop
-        rawInputMock = MagicMock(side_effect = ["purchase", "Medium Potion of Healing", "quit"])
+        rawInputMock = MagicMock(side_effect = ["purchase", "Knife", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
 
         #Player chooses to: purchase item, "Shield of Faith" (purchase this specific item), quit the shop
-        rawInputMock = MagicMock(side_effect = ["purchase", "Medium Potion of Healing", "quit"])
+        rawInputMock = MagicMock(side_effect = ["purchase", "Shield of Faith", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
        
