@@ -1434,8 +1434,10 @@ class ShopSellItems(unittest.TestCase):
         from cities.city import City
         from items.weapon import Weapon
         from items.armor import Armor
+        from items.potion import Potion
 
         testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 5, 10)
+        testShop._items = []
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -1444,13 +1446,16 @@ class ShopSellItems(unittest.TestCase):
         COST = 1
         weapon = Weapon("Knife", "Jack of all trades", 3, 1, COST)
         armor = Armor("Leather Tunic", "Travel cloak", 3, 1, COST)
+        potion = Potion("Potion", "Vodka", 3, 1, COST)
 
         #Add items to player's inventory
         inventory = player._inventory
         player.addToInventory(weapon)
         player.addToInventory(armor)
+        player.addToInventory(potion)
         self.assertTrue(inventory.containsItemWithName("Knife"), "Knife not added to inventory.")
         self.assertTrue(inventory.containsItemWithName("Leather Tunic"), "Leather Tunic not added to inventory.")
+        self.assertTrue(inventory.containsItemWithname("Potion", "Potion not added to inventory.")
 
         #Equip items and test to see that items are equipped
         equipped = player.getEquipped()
@@ -1469,9 +1474,14 @@ class ShopSellItems(unittest.TestCase):
         rawInputMock = MagicMock(side_effect = ["sell", "Leather Tunic", "yes", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
+
+        #Player chooses to: sell items, to sell potion, yes, quit the shop
+        rawInputMock = MagicMock(side_effect = ["sell", "Potion", "yes", "quit"])
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testShop.enter(player)
         
-        #Player's money should increase by the half the cost of the items. In our case, it should increase by 1
-        self.assertEqual(player._money, 21, "Player's money not increased by correct amount. It is %s." % player._money)
+        #Player's money should increase by the half the cost of the items. In our case, it should increase by 1.5
+        self.assertEqual(player._money, 21.5, "Player's money not increased by correct amount. It is %s." % player._money)
         
         #Player's inventory should no longer include items
         self.assertFalse(inventory.containsItemWithName("Knife"), "Knife that was sold is still in inventory")
@@ -1485,12 +1495,12 @@ class ShopSellItems(unittest.TestCase):
         errorMsg = "Items are now supposed to be in shop inventory but are not."
         self.assertTrue(weapon in testShop._items, errorMsg)
         self.assertTrue(armor in testShop._items, errorMsg)
+        self.assertTrue(potion in testShop._items, errorMsg)
 
         #Item prices are normal prices, not sell value
-        
+        errorMsg = "Item costs were not set back to where they were supposed to be."
         for item in testShop._items:
-            errorMsg = "Item costs were not set back to where they were supposed to be. %s %s" %(item.getName(), item.getCost())
-            self.assertEqual(item._cost, COST, errorMsg) 
+            self.assertEqual(item._cost, COST, errorMsg)
         
         #Player chooses to: gobbledigook, quit the shop - context menus should not crash program
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
