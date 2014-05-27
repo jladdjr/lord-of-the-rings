@@ -13,8 +13,8 @@ class UniquePlace(Place):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-		@param greeting:		The greetings the user gets as he enters the inn.        
-		"""
+	@param greetings:	The greetings the user gets as he enters the inn.        
+	"""
         #Call parent class init function
         Place.__init__(self, name, description, greetings)
     
@@ -24,4 +24,4 @@ class UniquePlace(Place):
 
         @param player:  The current player.
         """
-        print "Hello, and welcome to %s" % self._name
+        print self._greetings

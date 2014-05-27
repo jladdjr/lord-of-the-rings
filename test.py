@@ -1762,7 +1762,7 @@ class City(unittest.TestCase):
         player = Player("Frodo", space)
 
         #Player chooses to: enter testInn, leave, enter testShop, leave, enter testSquare, leave, "gobbledigook", leave city
-        cityInputMock = MagicMock(side_effect = ["Seth N' BreakFast Test Inn", "Russian Armory", "Kremlin", "gobbledigook", "leave city"])
+        cityInputMock = MagicMock(side_effect = ["Seth N' Breakfast Test Inn", "Russian Armory", "Kremlin", "gobbledigook", "leave city"])
         innInputMock = MagicMock(side_effect = ["no"])
         shopInputMock = MagicMock(side_effect = ["quit"])
         squareInputMock = MagicMock(side_effect = ["quit"])
@@ -1777,44 +1777,86 @@ class City(unittest.TestCase):
         
 class UniquePlace(unittest.TestCase):
     """
-    Tests the ability of UniquePlace Object.
+    Tests for correct unique place initialization.
     """
     def testEnter(self):
         from player import Player
         from space import Space
         from unique_place import UniquePlace
 
-        testUniquePlace = UniquePlace("Chris' unique testing room", "Come test here", "You're late....")
+        testUniquePlace = UniquePlace("Chris' Unique Testing Room", "Come test here", "Here's some chocolate for coming")
         space = Space("Shire", "Home of the Hobbits.", "Mordor", uniquePlace = testUniquePlace)
         player = Player("Frodo", space)
-        
-        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
-        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+
+        errorMsg = "._name was not initialized correctly."
+        self.assertEqual(testUniquePlace._name, "Chris' Unique Testing Room", errorMsg)
+        errorMsg = "._description was not initialized correctly."
+        self.assertEqual(testUniquePlace._description, "Come test here", errorMsg)
+        errorMsg = "._greetings was not initialized correctly."
+        self.assertEqual(testUniquePlace._greetings, "Here's some chocolate for coming", errorMsg)
 
 class EnterCommand(unittest.TestCase):
     """
-    Tests the ability of Enter Command.
+    Tests for Enter Command. In these tests, player executes enterCmd on a variety
+    of different combinations of places.
+
+    Iterations:
+    testCase1: no cities or unique places to enter.
+    testCase2: one city and one unique place to enter.
+    testCase3: multiple cities and one unique place to enter.
+    testCase4: one city and multiple cities to enter.
+    testCase5: multiple cities and multiple unique places to enter.
+    testCase6: invalid user input.
     """
-    def testEnterSpaceWithNoCityOrUniquePlace(self):
+    def testCase1(self):
+        """
+        Trying to enter when there is nothing to enter (no cities or unique places).
+        """
         from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
         from space import Space
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
-        player = Player("the Funlaps", space)
-        testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
+        player = Player("The Funlaps", space)
+        enterCmd = EnterCommand("Enter Command", "Tests Entering", player)
         
-        #Player chooses to "gobbledigook", enter, "Jdlskfjsd City", stop entering a city
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
-        
+        #Player chooses to enter when there are no places to enter
+        rawInputMock = MagicMock(side_effect = ["enter"])
         with patch('commands.enter_command.raw_input', create = True, new = rawInputMock):
-                testEnterCommand.execute()
+                enterCmd.execute()
+                
+    def testCase2(self):
+        """
+        One city and one unique places.
+        """
+        from space import Space
+        from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
         
-        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
-        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
-    
-    def testEnterSpaceWithThreeCitiesAndOneUniquePlace(self):
+        testCity = City("Jim's Mobile Fun City", "Jim's unique testing city", "Come test here")
+        testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here", "Hi I'm made of cheese.")
+        space = Space("Shire", "Home of the Hobbits.", "Mordor",
+            city = testCity, uniquePlace = testUniquePlace])
+        player = Player("The Funlaps", space)
+        
+        enterCmd = EnterCommand("Enter Command", "Tests Entering", player)
+        
+        #Player chooses to go to testCity, leave, testUniquePlace, stop
+        spaceInputMock = MagicMock(side_effect = 
+            ["Jim's Mobile Fun City", "Master Wang's Magical Testing Place"])
+        cityInputMock = MagicMock(side_effect = ["leave city"])
+        with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
+            with patch('cities.city.raw_input', create = True, new = cityInputMock):
+                enterCmd.execute()
+
+    def testCase3(self):
+        """
+        Multiple cities, one unique place.
+        """
         from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
@@ -1827,23 +1869,101 @@ class EnterCommand(unittest.TestCase):
         testCity3 = City("Miles' Magical Cookie Jail City", "Miles' unique testing city", "Come test here")
         testUniquePlace = UniquePlace("Master Wang's Magical Testing Place", "Come test here", "Hi I'm made of cheese.")
         space = Space("Shire", "Home of the Hobbits.", "Mordor",
-                            city = [testCity1, testCity2, testCity3], uniquePlace = testUniquePlace)
+            city = [testCity1, testCity2, testCity3], uniquePlace = testUniquePlace)
         player = Player("The Funlaps", space)
         
-        testEnterCommand = EnterCommand("Test Enter Command", "Tests Entering", player)
+        enterCmd = EnterCommand("Enter Command", "Tests Entering", player)
         
         #Player chooses to go to testCity1, leave, testCity2, leave, testCity3, leave, testUniquePlace, stop
         spaceInputMock = MagicMock(side_effect = 
-                ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
-                "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place", "stop"])
+            ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
+            "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place", "stop"])
         cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city"])
-        
         with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
             with patch('cities.city.raw_input', create = True, new = cityInputMock):
-                testEnterCommand.execute()
+                enterCmd.execute()
+
+    def testCase4(self):
+        """
+        One city, multiple unique places.
+        """
+        from space import Space
+        from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
         
-        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
-        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+        testCity = City("Jim's Mobile Fun City", "Jim's unique testing city", "Come test here")
+        testUniquePlace1 = UniquePlace("Master Wang's Magical Testing Place", "Come test here", "Hi I'm made of cheese.")
+        testUniquePlace2 = UniquePlace("Jim's Magic Castle of Time-Shifting", "Many different colours", "What time is it?")
+        testUniquePlace3 = UniquePlace("Russian Armadillo Mound", "Where Texas meets Russia", "I'm confused.")
+        space = Space("Shire", "Home of the Hobbits.", "Mordor",
+            city = testCity, uniquePlace = [testUniquePlace1, testUniquePlace2, testUniquePlace3])
+        player = Player("The Funlaps", space)
+        
+        enterCmd = EnterCommand("Enter Command", "Tests Entering", player)
+        
+        #Player chooses to go to testCity, leave, testUniquePlace1, leave, testUniquePlace2, leave, testUniquePlace3, stop
+        spaceInputMock = MagicMock(side_effect = 
+            ["Jim's Mobile Fun City", "Master Wang's Magical Testing Place", 
+            "Jim's Magic Castle of Time-Shifting", "Russian Armadillo Mound", "stop"])
+        cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city"])
+        with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
+            with patch('cities.city.raw_input', create = True, new = cityInputMock):
+                enterCmd.execute()
+
+    def testCase5(self):
+        """
+        Multiple cities and unique places.
+        """
+        from space import Space
+        from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
+        
+        testCity1 = City("Jim's Mobile Fun City", "Jim's unique testing city", "Come test here")
+        testCity2 = City("Seth's Sans-Shabbiness Shack Sh-City", "Seth's unique testing city", "Come test here")
+        testCity3 = City("Miles' Magical Cookie Jail City", "Miles' unique testing city", "Come test here")
+        testUniquePlace1 = UniquePlace("Master Wang's Magical Testing Place", "Come test here", "Hi I'm made of cheese.")
+        testUniquePlace2 = UniquePlace("Jim's Magic Castle of Time-Shifting", "Many different colours", "What time is it?")
+        testUniquePlace3 = UniquePlace("Russian Armadillo Mound", "Where Texas meets Russia", "I'm confused.")
+        space = Space("Shire", "Home of the Hobbits.", "Mordor",
+            city = [testCity1, testCity2, testCity3], uniquePlace = [testUniquePlace1, testUniquePlace2, testUniquePlace3])
+        player = Player("The Funlaps", space)
+        
+        enterCmd = EnterCommand("Enter Command", "Tests Entering", player)
+        
+        #Player chooses to go to testCity1, leave, testCity2, leave, testCity3, leave, testUniquePlace1,
+        #leave, testUniquePlace2, leave, testUniquePlace3, stop
+        spaceInputMock = MagicMock(side_effect = 
+            ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
+            "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place",
+            "Jim's Magic Castle of Time-Shifting", "Russian Armadillo Mound", "stop"])
+        cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city", "leave city", "leave city"])
+        with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
+            with patch('cities.city.raw_input', create = True, new = cityInputMock):
+                enterCmd.execute()
+                
+    def testCase6(self):
+        """
+        Invalid user input.
+        """
+        from space import Space
+        from commands.enter_command import EnterCommand
+        from player import Player
+        from space import Space
+        
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("The Funlaps", space)
+        enterCmd = EnterCommand("Enter Command", "Tests Entering", player)
+        
+        #Player chooses to enter "Jdlskfjsd City", stop entering a city
+        rawInputMock = MagicMock(side_effect = ["enter", "Jdlskfjsd City", "stop"])
+        with patch('commands.enter_command.raw_input', create = True, new = rawInputMock):
+            enterCmd.execute()
 
 class DescribeCommand(unittest.TestCase):
     """
