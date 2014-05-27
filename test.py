@@ -1389,6 +1389,11 @@ class InnTest(unittest.TestCase):
         
         #Player's health should increase to maximum
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
+
+        #For invalid user input
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook", "leave city"])
+        with patch('cities.inn.raw_input', create=True, new=rawInputMock):
+            testInn.enter(player)
         
     def testCase2(self):
         """
@@ -1420,12 +1425,33 @@ class InnTest(unittest.TestCase):
         #Player's health should increase to maximum
         self.assertEqual(player._hp, 1, "Player's health changed when it should not have.")
         
+    def testCase3(self):
+        """
+        For invalid user input.
+        """
+        from player import Player
+        from space import Space
+        from cities.inn import Inn
+        from cities.city import City
+
+        testInn = Inn("Chris' Testing Inn", "Come test here", "Hi", 5)
+        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Inn", testInn)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
+        player = Player("Frodo", space)
+        
+        #For invalid user input
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook", "leave city"])
+        with patch('cities.inn.raw_input', create=True, new=rawInputMock):
+            testInn.enter(player)
+        
 class ShopSellItems(unittest.TestCase):
     """
     Tests the ability to sell in the Shop Object:
     -Item should be removed from inventory and equipped objectSets
     -Player money should be increased by half of the value of the sold item
     -Item should be added to shop wares at full original cost
+
+    TODO: test for invalid user input
     """
     def testEnter(self):
         from player import Player
@@ -1518,6 +1544,8 @@ class ShopPurchaseItems(unittest.TestCase):
     3) Failing to purchase invalid item
         -Item not in inventory, not in equipped, money unchanged
     4) Invalid user input does not crash game
+
+    TODO: test for invalid user input
     """
     def testEnter(self):
         from player import Player
@@ -1642,7 +1670,13 @@ class ShopPurchaseItems(unittest.TestCase):
             
 class Square(unittest.TestCase):
     """
-    Tests Square objects. Test that gift items get added to inventory
+    Tests Square objects. Test that gift items get added to inventory and removed from square._items.
+
+    Three cases:
+    -Person has several items to give (Master Wang).
+    -Person has one item to give (Miles).
+    -Person has no items to give (Putin).
+    -Invalid user input (gobbledigook).
     """
     def testEnter(self):
         from player import Player
@@ -1706,25 +1740,35 @@ class Square(unittest.TestCase):
         rawInputMock = MagicMock(side_effect = ["Putin", "quit"])
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
             testSquare.enter(player)
+
+        #For invalid user input, quit
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
+        with patch('cities.square.raw_input', create = True, new = rawInputMock):
+            testSquare.enter(player)
    
 class City(unittest.TestCase):
     """
-    Tests the ability of City object.
+    Tests the ability of City object to handle a series of commands.
     """
     def testInit(self):
         from player import Player
         from space import Space
         from cities.city import City
         from cities.inn import Inn
-
-        testInn = Inn("Seth n Breakfast Test Inn", "Testing inn", "Come test here", 3)
-        testCity = City("TestCity","Chris' unique testing city", "Come test here", buildings = testInn)
+        from cities.shop import Shop
+        from cities.square import Square
+        
+        testInn = Inn("Seth N' Breakfast Test Inn", "Testing inn", "Come test here", 3)
+        testShop = Shop("Russian Gun Show", "Many guns", "?", 5, 5)
+        testSquare = Square("Kremlin", "In Moscow", "?")
+        testCity = City("TestCity","Chris' unique testing city", "Come test here", buildings = [testInn, testShop, testSquare])
+        
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
         
         #Player chooses to "gobbledigook", enter Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
-        cityInputMock = MagicMock(side_effect = ["gobbledigook", "Seth n Breakfast Test Inn", 
-                                                "Seth n Breakfast Test Inn", 'leave city'])
+        cityInputMock = MagicMock(side_effect = ["gobbledigook", "Seth N' Breakfast Test Inn", 
+                                                "Seth N' Breakfast Test Inn", 'leave city'])
         innInputMock = MagicMock(side_effect = ["yes", "leave city"])
         
         with patch('cities.city.raw_input', create = True, new = cityInputMock):
