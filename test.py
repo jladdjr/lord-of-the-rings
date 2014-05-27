@@ -1480,9 +1480,6 @@ class ShopSellItems(unittest.TestCase):
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
         
-        #Player's money should increase by the half the cost of the items. In our case, it should increase by 1.5
-        self.assertEqual(player._money, 21.5, "Player's money not increased by correct amount. It is %s." % player._money)
-        
         #Player's inventory should no longer include items
         self.assertFalse(inventory.containsItemWithName("Knife"), "Knife that was sold is still in inventory")
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
@@ -1497,6 +1494,9 @@ class ShopSellItems(unittest.TestCase):
         self.assertTrue(weapon in testShop._items, errorMsg)
         self.assertTrue(armor in testShop._items, errorMsg)
         self.assertTrue(potion in testShop._items, errorMsg)
+
+        #Player's money should increase by the half the cost of the items. In our case, it should increase by 1.5
+        self.assertEqual(player._money, 21.5, "Player's money not increased by correct amount. It is %s." % player._money)
 
         #Item prices are normal prices, not sell value
         errorMsg = "Item costs were not set back to where they were supposed to be."
