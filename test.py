@@ -1406,7 +1406,7 @@ class InnTest(unittest.TestCase):
                 
         #Player's health is lowest possible to be alive
         player._hp = 1
-        #Player's money is equal to 10
+        #Player's money is not enough to purchase services
         player._money = 2
 
         #Player chooses to stay at the inn
@@ -1423,8 +1423,8 @@ class InnTest(unittest.TestCase):
 class ShopSellItems(unittest.TestCase):
     """
     Tests the ability to sell in the Shop Object:
-    -Item should be removed from inventory, equipped
-    -Player money should be increased by half of its value
+    -Item should be removed from inventory and equipped objectSets
+    -Player money should be increased by half of the value of the sold item
     -Item should be added to shop wares at full original cost
     """
     def testEnter(self):
@@ -1435,7 +1435,7 @@ class ShopSellItems(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
 
-        testShop = Shop("Chris' testing shop", "Come test here", "Hi", 5, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -1457,20 +1457,20 @@ class ShopSellItems(unittest.TestCase):
         player.equip(weapon)
         player.equip(armor)
         errorMsg = "Player items were not equipped correctly."
-        self.assertTrue(weapon in equipped, errorMsg)
-        self.assertTrue(armor in equipped, errorMsg)
+        self.assertTrue(equipped.containsItem(weapon), errorMsg)
+        self.assertTrue(equipped.containsItem(armor), errorMsg)
                         
-        #Player chooses to: 3(sell items), to sell knife, yes, 5(Quit) the shop
+        #Player chooses to: sell items, to sell knife, yes, quit the shop
         rawInputMock = MagicMock(side_effect = ["sell", "Knife", "yes", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
 
-        #Player chooses to: 3(sell items), to sell leather tunic, yes, 5(Quit) the shop
+        #Player chooses to: sell items, to sell leather tunic, yes, quit the shop
         rawInputMock = MagicMock(side_effect = ["sell", "Leather Tunic", "yes", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
         
-        #Player's money should increase by the half the cost of item. In our case, it should increase by 1
+        #Player's money should increase by the half the cost of the items. In our case, it should increase by 1
         self.assertEqual(player._money, 21, "Player's money not increased by correct amount. It is %s." % player._money)
         
         #Player's inventory should no longer include items
@@ -1478,9 +1478,9 @@ class ShopSellItems(unittest.TestCase):
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
 
         #Player equipped should no longer include items
-        self.assertFalse(inventory.containsItemWithName("Knife"), "Knife that was sold is still in equipped")
-        self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in equipped")
-
+        self.assertFalse(equipped.containsItemWithName("Knife"), "Knife that was sold is still in equipped")
+        self.assertFalse(equipped.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in equipped")
+        
         #Items now appear in shop wares
         errorMsg = "Items are now supposed to be in shop inventory but are not."
         self.assertTrue(weapon in testShop._items, errorMsg)
@@ -1491,22 +1491,21 @@ class ShopSellItems(unittest.TestCase):
         for item in testShop._items:
             self.assertEqual(item._cost, COST, errorMsg) 
         
-        #Player chooses to: gobbledigook, 5(Quit) the shop - context menus should not crash program
+        #Player chooses to: gobbledigook, quit the shop - context menus should not crash program
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
 
 class ShopPurchaseItems(unittest.TestCase):
     """
-    Tests the ability to purchase items in the Shop Object:
-    1.) Purchasing an item player has money for
-        - item in inventory, not in equipped, not in shop wares, money changed by correct amount
-    2.) Failing to purchase an item player does not have money for
-        - item not in inventory, not in equipped, in shop wares, money unchanged
-    3.) Failing to purchase invalid item
-        - item not in inventory, not in equipped, money unchanged
-    4.) Purchased items are removed from shop inventory
-    5.) Not crashing when user input is gobbledigook
+    Tests the ability to purchase items in the Shop:
+    1) Purchasing an item player has money for
+        -Item in inventory, not in equipped, not in shop wares, money changed by correct amount
+    2) Failing to purchase an item player does not have money for
+        -Item not in inventory, not in equipped, in shop wares, money unchanged
+    3) Failing to purchase invalid item
+        -Item not in inventory, not in equipped, money unchanged
+    4) Invalid user input does not crash game
     """
     def testEnter(self):
         from player import Player
@@ -1517,33 +1516,68 @@ class ShopPurchaseItems(unittest.TestCase):
         from items.armor import Armor
         from items.potion import Potion
 
-        testShop = Shop("Chris' testing Shop", "Come test here", "Hi", 5, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
        
-        #Our shop should currently have 5 items (this was designed when it was created)
+        #Our shop should currently have five items (this was designed when it was created)
         self.assertEqual(len(testShop._items), 5, "Our test shop was generated with the wrong number of items")
         errorMsg = "Items in shop inventory are of wrong type."
         for item in testShop._items:
             self.assertTrue(isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Potion), errorMsg)
 
+        #Add Weapon to Shop inventory  with weight=1, healing=1, cost=1
+        testWeapon = Potion("Knife", "Russian", 1, 1, 1)
+        testShop._items.append(testWeapon)
+        
+        #Add Armor to Shop inventory  with weight=1, healing=1, cost=1
+        testArmor = Potion("Shield of Faith", "Also Russian", 1, 1, 1)
+        testShop._items.append(testArmor)
+        
         #Add Potion to Shop inventory with weight=1, healing=5, cost=3
         testPotion = Potion("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
         testShop._items.append(testPotion)
        
         #Player should start with 20 rubles
+        player._money = 20
         self.assertEqual(player._money, 20, "Player does not start with 20 rubles")
-       
-        #Player chooses to: 4(purchase item), "Medium Potion of Healing"(purchase this specific item), 5(quit the shop)
+
+        #Player chooses to: purchase item, "Knife" (purchase this specific item), quit the shop
+        rawInputMock = MagicMock(side_effect = ["purchase", "Medium Potion of Healing", "quit"])
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testShop.enter(player)
+
+        #Player chooses to: purchase item, "Shield of Faith" (purchase this specific item), quit the shop
         rawInputMock = MagicMock(side_effect = ["purchase", "Medium Potion of Healing", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
        
-        #Player's money should decrease by the cost of medium potion, which is 3
-        self.assertEqual(player._money, 17, "Player's money not decreased by correct amount. It is %s." % player._money)
+        #Player chooses to: purchase item, "Medium Potion of Healing" (purchase this specific item), quit the shop
+        rawInputMock = MagicMock(side_effect = ["purchase", "Medium Potion of Healing", "quit"])
+        with patch('cities.shop.raw_input', create = True, new = rawInputMock):
+            testShop.enter(player)
        
-        #Test item in inventory, not in equipped, not in shop wares
+        #Player's money should decrease by the cost of the purchases, which is 5 (1+1+3)
+        self.assertEqual(player._money, 15, "Player's money not decreased by correct amount. It is %s." % player._money)
+
+        #Test item in inventory, not in equipped, not in shop wares - testWeapon
+        errorMsg = "Knife that was purchased was not added to inventory."
+        self.assertTrue(player._inventory.containsItemWithName("Knife"), errorMsg)
+        errorMsg = "Knife that was purchased is in equipped."
+        self.assertFalse(player._equipped.containsItemWithName("Knife"), errorMsg)
+        errorMsg = "Knife that was purchased is still in shop wares."
+        self.assertFalse(testPotion in testShop._items, errorMsg)
+
+        #Test item in inventory, not in equipped, not in shop wares - testArmor
+        errorMsg = "Shield of Faith that was purchased was not added to inventory."
+        self.assertTrue(player._inventory.containsItemWithName("Shield of Faith"), errorMsg)
+        errorMsg = "Shield of Faith that was purchased is in equipped."
+        self.assertFalse(player._equipped.containsItemWithName("Shield of Faith"), errorMsg)
+        errorMsg = "Shield of Faith that was purchased is still in shop wares."
+        self.assertFalse(testPotion in testShop._items, errorMsg)
+        
+        #Test item in inventory, not in equipped, not in shop wares - testPotion
         errorMsg = "Medium Potion that was purchased was not added to inventory."
         self.assertTrue(player._inventory.containsItemWithName("Medium Potion of Healing"), errorMsg)
         errorMsg = "Medium Potion that was purchased is in equipped."
@@ -1555,41 +1589,41 @@ class ShopPurchaseItems(unittest.TestCase):
         testPotion2 = Potion("SuperDuperLegendary Potion of Healing", "A Wang concoction. Made by Master Wang.", 1, 35, 28)
         testShop._items.append(testPotion2)
 
-        #Player chooses to: 4(purchase item), "SuperDuperLegendary Potion of Healing", 5(quit the shop)
+        #Player chooses to: purchase item, "SuperDuperLegendary Potion of Healing", quit the shop
         rawInputMock = MagicMock(side_effect = ["purchase", "SuperDuperLegendary Potion of Healing", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
        
         #Player's money should not decrease by the cost of SuperDuperLegendary Potion of Healing, which is 28
-        errorMsg = "Player's money should not be decreased from 17. Player can't buy SuperDuperLegendary Potion. It is currently %s." % player._money
-        self.assertEqual(player._money, 17, errorMsg)
+        errorMsg = "Player's money should not be decreased from 15. Player can't buy SuperDuperLegendary Potion. It is currently %s." % player._money
+        self.assertEqual(player._money, 15, errorMsg)
        
         #Test item not in inventory, not in equipped, in shop wares
-        errorMsg = "Medium Potion that was purchased was added to inventory."
-        self.assertFalse(player._inventory.containsItemWithName("Medium Potion of Healing"), errorMsg)
-        errorMsg = "Medium Potion that was purchased is in equipped."
-        self.assertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
-        errorMsg = "Medium Potion that was purchased is no longer in shop wares."
-        self.assertTrue(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        errorMsg = "SuperDuperLegendary Potion of Healing that was purchased was added to inventory."
+        self.assertFalse(player._inventory.containsItemWithName("SuperDuperLegendary Potion of Healing"), errorMsg)
+        errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is in equipped."
+        self.assertFalse(player._equipped.containsItemWithName("SuperDuperLegendary Potion of Healing"), errorMsg)
+        errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is no longer in shop wares."
+        self.assertTrue(testShop._items.containsItemWithName("SuperDuperLegendary Potion of Healing"), errorMsg)
 
-        #Player chooses to: 4(purchase item), input "Fake Item", 5(quit the shop)
+        #Player chooses to: purchase item, input "Fake Item", quit the shop
         rawInputMock = MagicMock(side_effect = ["purchase", "Fake Item", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
        
         #Player's money should not change
         errorMsg = "Player's money should not be decreased when trying to purchase fake item. It is currently %s" % player._money
-        self.assertEqual(player._money, 17, errorMsg)
+        self.assertEqual(player._money, 15, errorMsg)
        
         #Test item not in inventory, not in equipped, not in shop wares
-        errorMsg = "Medium Potion that was purchased was added to inventory."
-        self.assertFalse(player._inventory.containsItemWithName("Medium Potion of Healing"), errorMsg)
-        errorMsg = "Medium Potion that was purchased is in equipped."
-        self.assertFalse(player._equipped.containsItemWithName("Medium Potion of Healing"), errorMsg)
-        errorMsg = "Medium Potion that was purchased is in shop wares."
-        self.assertFalse(testShop._items.containsItemWithName("Medium Potion of Healing"), errorMsg)
+        errorMsg = "Fake Item that was purchased was added to inventory."
+        self.assertFalse(player._inventory.containsItemWithName("Fake Item"), errorMsg)
+        errorMsg = "Fake Item that was purchased is in equipped."
+        self.assertFalse(player._equipped.containsItemWithName("Fake Item"), errorMsg)
+        errorMsg = "Fake Item that was purchased is in shop wares."
+        self.assertFalse(testShop._items.containsItemWithName("Fake Item"), errorMsg)
         
-        #Player chooses to: gobbledigook, 5(Quit) the shop
+        #Player chooses to: gobbledigook, quit the shop
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
