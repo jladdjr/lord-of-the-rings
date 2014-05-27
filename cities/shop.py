@@ -44,11 +44,11 @@ class Shop(Building):
             print \
 """
 What is your choice?
-1) Check items             - 'check'
-2) Check item stats        - 'check stats'
-3) Sell item in inventory  - 'sell'
-4) Purchase item           - 'purchase'
-5) Quit                    - 'quit'
+\tCheck items             - 'check'
+\tCheck item stats        - 'check stats'
+\tSell item in inventory  - 'sell'
+\tPurchase item           - 'purchase'
+\tQuit                    - 'quit'
 """
             choice = raw_input("What do you want to do? ")
             
@@ -103,7 +103,7 @@ What is your choice?
         sellableItems = []
         print "Current inventory:"
         for item in player.getInventory():
-            if isinstance(item, Weapon) or isinstance(item, Armor):
+            if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Potion):
                 sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
                 print "\t%s... with sell value: %s %s." % (item.getName(), sellValue, constants.CURRENCY)
                 sellableItems.append(item)
