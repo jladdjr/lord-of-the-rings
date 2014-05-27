@@ -1455,7 +1455,7 @@ class ShopSellItems(unittest.TestCase):
         player.addToInventory(potion)
         self.assertTrue(inventory.containsItemWithName("Knife"), "Knife not added to inventory.")
         self.assertTrue(inventory.containsItemWithName("Leather Tunic"), "Leather Tunic not added to inventory.")
-        self.assertTrue(inventory.containsItemWithname("Potion", "Potion not added to inventory.")
+        self.assertTrue(inventory.containsItemWithname("Potion"), "Potion not added to inventory.")
 
         #Equip items and test to see that items are equipped
         equipped = player.getEquipped()
