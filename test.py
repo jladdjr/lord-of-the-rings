@@ -1486,11 +1486,12 @@ class ShopSellItems(unittest.TestCase):
         #Player's inventory should no longer include items
         self.assertFalse(inventory.containsItemWithName("Knife"), "Knife that was sold is still in inventory")
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
+        self.assertFalse(inventory.containsItemWithName("Potion"), "Leather tunic that was sold is still in inventory")
 
         #Player equipped should no longer include items
         self.assertFalse(equipped.containsItemWithName("Knife"), "Knife that was sold is still in equipped")
         self.assertFalse(equipped.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in equipped")
-        
+
         #Items now appear in shop wares
         errorMsg = "Items are now supposed to be in shop inventory but are not."
         self.assertTrue(weapon in testShop._items, errorMsg)
