@@ -1479,11 +1479,13 @@ class ShopSellItems(unittest.TestCase):
         rawInputMock = MagicMock(side_effect = ["sell", "Potion", "yes", "quit"])
         with patch('cities.shop.raw_input', create = True, new = rawInputMock):
             testShop.enter(player)
+
+        print testShop._items
         
         #Player's inventory should no longer include items
         self.assertFalse(inventory.containsItemWithName("Knife"), "Knife that was sold is still in inventory")
         self.assertFalse(inventory.containsItemWithName("Leather Tunic"), "Leather tunic that was sold is still in inventory")
-        self.assertFalse(inventory.containsItemWithName("Potion"), "Leather tunic that was sold is still in inventory")
+        self.assertFalse(inventory.containsItemWithName("Potion"), "Potion that was sold is still in inventory")
 
         #Player equipped should no longer include items
         self.assertFalse(equipped.containsItemWithName("Knife"), "Knife that was sold is still in equipped")
