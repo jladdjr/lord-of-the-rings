@@ -1389,11 +1389,6 @@ class InnTest(unittest.TestCase):
         
         #Player's health should increase to maximum
         self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
-
-        #For invalid user input
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook", "leave city"])
-        with patch('cities.inn.raw_input', create=True, new=rawInputMock):
-            testInn.enter(player)
         
     def testCase2(self):
         """
@@ -1440,7 +1435,7 @@ class InnTest(unittest.TestCase):
         player = Player("Frodo", space)
         
         #For invalid user input
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook", "leave city"])
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "leave city"])
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
