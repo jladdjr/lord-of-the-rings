@@ -330,10 +330,10 @@ class MovementTest(unittest.TestCase):
 
         #Test getExit method for destination spaces
         errorMsg = "getExit() test failed."
-        self.assertEqual(north.getExit("south"), space, errorMsg)
-        self.assertEqual(south.getExit("north"), space, errorMsg)
-        self.assertEqual(east.getExit("west"), space, errorMsg)
-        self.assertEqual(west.getExit("east"), space, errorMsg)
+        self.assertEqual(north.getExit(Direction.SOUTH), space, errorMsg)
+        self.assertEqual(south.getExit(Direction.NORTH), space, errorMsg)
+        self.assertEqual(east.getExit(Direction.WEST), space, errorMsg)
+        self.assertEqual(west.getExit(Direction.EAST), space, errorMsg)
 
         #Test ports created using _isExit() for space
         errorMsg = "Ports are supposed to be created but are not - tested using _isExit()."
@@ -1606,7 +1606,7 @@ class SquareDoesNotCrash(unittest.TestCase):
         from cities.square import Square
         from cities.city import City
 
-        testSquare = Square("Chris' testing Square", "Testing square", "Come test here", {"Master Wang":"I am Master Wang, creator various things in this Lord of the Rings game", "Miles":"Hello, I am Miles, the cookie legend"})
+        testSquare = Square("Chris' Testing Square", "Testing Square", "Come test here", {"Master Wang": "I am Master Wang, creator various things in this Lord of the Rings game", "Miles": "Hello, I am Miles, the cookie legend"})
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Square", testSquare)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
