@@ -1754,20 +1754,25 @@ class City(unittest.TestCase):
         from cities.square import Square
         
         testInn = Inn("Seth N' Breakfast Test Inn", "Testing inn", "Come test here", 3)
-        testShop = Shop("Russian Gun Show", "Many guns", "?", 5, 5)
+        testShop = Shop("Russian Armory", "Many guns", "?", 5, 5)
         testSquare = Square("Kremlin", "In Moscow", "?")
         testCity = City("TestCity","Chris' unique testing city", "Come test here", buildings = [testInn, testShop, testSquare])
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
-        
-        #Player chooses to "gobbledigook", enter Inn, 2(Leave)s the inn, enters inn again, 2(Leave)s inn again, leaves city
-        cityInputMock = MagicMock(side_effect = ["gobbledigook", "Seth N' Breakfast Test Inn", 
-                                                "Seth N' Breakfast Test Inn", 'leave city'])
-        innInputMock = MagicMock(side_effect = ["yes", "leave city"])
+
+        #Player chooses to: enter testInn, leave, enter testShop, leave, enter testSquare, leave, "gobbledigook", leave city
+        cityInputMock = MagicMock(side_effect = ["Seth N' BreakFast Test Inn", "Russian Armory", "Kremlin", "gobbledigook", "leave city"])
+        innInputMock = MagicMock(side_effect = ["no"])
+        shopInputMock = MagicMock(side_effect = ["quit"])
+        squareInputMock = MagicMock(side_effect = ["quit"])
         
         with patch('cities.city.raw_input', create = True, new = cityInputMock):
             with patch('cities.inn.raw_input', create = True, new = innInputMock):
+                testCity.enter(player)
+            with patch('cities.shop.raw_input', create = True, new = shopInputMock):
+                testCity.enter(player)
+            with patch('cities.square.raw_input', create = True, new = squareInputMock):
                 testCity.enter(player)
         
 class UniquePlace(unittest.TestCase):
