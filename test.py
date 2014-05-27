@@ -1642,33 +1642,71 @@ class ShopPurchaseItems(unittest.TestCase):
             
 class SquareDoesNotCrash(unittest.TestCase):
     """
-    TODO: revamp SquareTest - test item capability. Research if assert.called.with to replace testing print statements.
-    
-    Tests the ability of Square to not crash after given a series of commands.
+    Tests Square objects.
+    -Test that gift items get added to inventory
     """
     def testEnter(self):
         from player import Player
         from space import Space
         from cities.square import Square
         from cities.city import City
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from items.item import Item
 
-        talk = {"Master Wang": "I am Master Wang, creator various things in this Lord of the Rings game", "Miles": "Hello, I am Miles, the cookie legend"}
-        items = {}
+        weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
+        armor = Armor("Shield of Faith", "Quenches fiery darts", 1, 1, 1)
+        potion = Potion("Leaves from Tree of Life", "For healing the nations", 1, 1, 1)
+        cookies = Item("Miles' Famous Cookies", "Gross this time", 1)
+        
+        talk = {"Master Wang": "I am Master Wang, creator various things in this Lord of the Rings game", "Miles": "Hello, I am Miles, the cookie legend", "Putin": "Oppression, engage...."}
+        items = {"Master Wang": [weapon, armor, potion], "Miles": cookies}
         testSquare = Square("Chris' Testing Square", "Testing Square", "Come test here", talk, items)
         
         testCity = City("Test City", "Testing city", "Hello to Test City. See Chris' Square", testSquare)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
+        inventory = player.getInventory()
         
-        #Player chooses to: talk to Master Wang, talk to Miles, 'gobbledigook', quit
-        rawInputMock = MagicMock(side_effect = ["Master Wang", "Miles", "gobbledigook", "quit"])
-        
+        #Player chooses to talk to Master Wang, quit
+        rawInputMock = MagicMock(side_effect = ["Master Wang", "quit"])
         with patch('cities.square.raw_input', create = True, new = rawInputMock):
             testSquare.enter(player)
-        
-        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
-        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
-        
+
+        #Check that items associated with Master Wang are now in inventory
+        errorMsg = "Weapon is supposed to be in inventory but is not."
+        self.assertTrue(weapon in inventory, errorMsg)
+        errorMsg = "Armor is supposed to be in inventory but is not."
+        self.assertTrue(armor in inventory, errorMsg)
+        errorMsg = "Potion is supposed to be in inventory but is not."
+        self.assertTrue(potion in inventory, errorMsg)
+
+        #Check that items are no longer in square._items
+        errorMsg = "Weapon is not supposed to be in testSquare._items but is."
+        self.assertFalse(weapon in testSquare._items, errorMsg)
+        errorMsg = "Armor is not supposed to be in testSquare._items but is."
+        self.assertFalse(armor in testSquare._items, errorMsg)
+        errorMsg = "Potion is not supposed to be in testSquare._items but is."
+        self.assertFalse(potion in testSquare._items, errorMsg)
+
+        #Player chooses to talk to Miles, quit
+        rawInputMock = MagicMock(side_effect = ["Miles", "quit"])
+        with patch('cities.square.raw_input', create = True, new = rawInputMock):
+            testSquare.enter(player)
+
+        #Check that item associated with Miles is now in inventory
+        errorMsg = "Cookies is supposed to be in inventory but is not."
+        self.assertTrue(cookies in inventory, errorMsg)
+
+        #Check that item is no longer in square._items
+        errorMsg = "Cookies is not supposed to be in testSquare._items but is."
+        self.assertFalse(cookies in testSquare._items, errorMsg)
+
+        #Player chooses to talk to Putin, quit
+        rawInputMock = MagicMock(side_effect = ["Putin", "quit"])
+        with patch('cities.square.raw_input', create = True, new = rawInputMock):
+            testSquare.enter(player)
+   
 class City(unittest.TestCase):
     """
     Tests the ability of City object.
