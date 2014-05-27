@@ -1652,7 +1652,10 @@ class SquareDoesNotCrash(unittest.TestCase):
         from cities.square import Square
         from cities.city import City
 
-        testSquare = Square("Chris' Testing Square", "Testing Square", "Come test here", {"Master Wang": "I am Master Wang, creator various things in this Lord of the Rings game", "Miles": "Hello, I am Miles, the cookie legend"})
+        talk = {"Master Wang": "I am Master Wang, creator various things in this Lord of the Rings game", "Miles": "Hello, I am Miles, the cookie legend"}
+        items = {}
+        testSquare = Square("Chris' Testing Square", "Testing Square", "Come test here", talk, items)
+        
         testCity = City("Test City", "Testing city", "Hello to Test City. See Chris' Square", testSquare)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
