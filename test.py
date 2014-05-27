@@ -1640,10 +1640,9 @@ class ShopPurchaseItems(unittest.TestCase):
             
         #TODO make test for verifying the stats of items in the shop, and put into 1 shop test class with multiple methods
             
-class SquareDoesNotCrash(unittest.TestCase):
+class Square(unittest.TestCase):
     """
-    Tests Square objects.
-    -Test that gift items get added to inventory
+    Tests Square objects. Test that gift items get added to inventory
     """
     def testEnter(self):
         from player import Player
@@ -1652,6 +1651,7 @@ class SquareDoesNotCrash(unittest.TestCase):
         from cities.city import City
         from items.weapon import Weapon
         from items.armor import Armor
+        from items.potion import Potion
         from items.item import Item
 
         weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
