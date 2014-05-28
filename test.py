@@ -2013,7 +2013,7 @@ class DescribeCommand(unittest.TestCase):
         testCity1 = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
         testCity2 = City("Chocolate Mountain", "Next to Vanilla Mountain", "Hi I'm Jim")
         testUniquePlace1 = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
-        testUniquePlace2 = UniquePlace("Ukraine", "Not in great shape", "Welcome to Ukraine"
+        testUniquePlace2 = UniquePlace("Ukraine", "Not in great shape", "Welcome to Ukraine")
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = [testCity1, testCity2], uniquePlace = [uniquePlace1, uniquePlace2])
         player = Player("The Bagginses", space)
         describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
