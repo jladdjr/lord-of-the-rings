@@ -1824,7 +1824,7 @@ class EnterCommand(unittest.TestCase):
         #Player chooses to enter when there are no places to enter
         rawInputMock = MagicMock(side_effect = ["enter"])
         with patch('commands.enter_command.raw_input', create = True, new = rawInputMock):
-                enterCmd.execute()
+            enterCmd.execute()
                 
     def testCase2(self):
         """
@@ -1967,32 +1967,33 @@ class EnterCommand(unittest.TestCase):
 
 class DescribeCommand(unittest.TestCase):
     """
-    Tests the ability of Describe Command.
+    Tests Describe Command.
+
+    TODO: revamp this testcase.
+    
+    Three cases:
+    -Works with space and no cities/unique places.
+    -Works with one city and one unique place.
+    -Works with multiple cities and multiple unique places.
     """
-    def testDescribeCommandDoesNotCrash(self):
+    def testCase1(self):
         from space import Space
         from commands.describe_command import DescribeCommand
         from player import Player
         from space import Space
-        from cities.city import City
-        from unique_place import UniquePlace
         
         testCity = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
         testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("The Baginses", space)
-        testDescribeCommand = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
         
         #Player chooses to "gobbledigook", describe, "gobbledigook"
         rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
-        
         with patch('commands.describe_command.raw_input', create = True, new = rawInputMock):
-                testDescribeCommand.execute()
-        
-        #If the code gets here, then it hasn't crashed yet; test something arbitrary here, like player's money.
-        self.assertEqual(player._money, 20, "Why does player's money not equal 20?")
+            testDescribeCommand.execute()
 
-class monster(unittest.TestCase):
+    class monster(unittest.TestCase):
     """
     Tests Monster class.
     """
@@ -2018,14 +2019,12 @@ class monster(unittest.TestCase):
         self.assertEqual(monster._deathString, "Meep", errorMsg)
         
         #Test monster.attack()
-        player = Player
+        player = MagicMock()
         player.takeAttack = MagicMock()
         
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
         self.assertTrue(player.takeAttack.assert_called_with(5), errorMsg)
-        errorMsg = "player._hp should be 5 but is not."
-        self.assertEqual(player._hp, 5, errorMsg)
 
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
