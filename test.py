@@ -1968,8 +1968,6 @@ class EnterCommand(unittest.TestCase):
 class DescribeCommand(unittest.TestCase):
     """
     Tests Describe Command.
-
-    TODO: revamp this testcase.
     
     Three cases:
     -Works with space and no cities/unique places.
@@ -1982,16 +1980,45 @@ class DescribeCommand(unittest.TestCase):
         from player import Player
         from space import Space
         
-        testCity = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
-        testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
-        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
-        player = Player("The Baginses", space)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("The Bagginses", space)
         describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
         
-        #Player chooses to "gobbledigook", describe, "gobbledigook"
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "enter", "Jdlskfjsd City", "stop"])
-        with patch('commands.describe_command.raw_input', create = True, new = rawInputMock):
-            testDescribeCommand.execute()
+        describeCmd.execute()
+    
+    def testCase2(self):
+        from space import Space
+        from commands.describe_command import DescribeCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
+        
+        testCity = City("Master Wang's Oriental Fun City", "Chris's testing city", "Come test here")
+        testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity, uniquePlace = testUniquePlace)
+        player = Player("The Bagginses", space)
+        describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        
+        describeCmd.execute()
+
+    def testCase3(self):
+        from space import Space
+        from commands.describe_command import DescribeCommand
+        from player import Player
+        from space import Space
+        from cities.city import City
+        from unique_place import UniquePlace
+        
+        testCity1 = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
+        testCity2 = City("Chocolate Mountain", "Next to Vanilla Mountain", "Hi I'm Jim")
+        testUniquePlace1 = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
+        testUniquePlace2 = UniquePlace("Ukraine", "Not in great shape", "Welcome to Ukraine"
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = [testCity1, testCity2], uniquePlace = [uniquePlace1, uniquePlace2])
+        player = Player("The Bagginses", space)
+        describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        
+        describeCmd.execute()
 
 class monster(unittest.TestCase):
     """
