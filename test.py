@@ -2070,7 +2070,7 @@ class monsterFactory(unittest.TestCase):
     Pieces:
     -Tests default monster creation, that monsters are in fact created.
     -Testing difficulty feature - that default stats are implemented when
-    difficulty set to zero.
+    difficulty set to zero. 
     -Testing difficulty feature - that monster stats increase as
     percentage over default. For instance, difficulty = 1 should result
     in monsters with 200% base monster stats.
@@ -2078,7 +2078,7 @@ class monsterFactory(unittest.TestCase):
     difficulty is set to zero.
     -Testing difficulty feature - that monster spawn increases as a percentage
     over default. For instance, difficulty = 1 should result in a 100% increase
-    in monster spawn over base. 
+    in monster spawn over base.
     -Testing that regional spawns work: that monster spawn reflects
     regional monster distributions held in constants. 
 
@@ -2185,13 +2185,14 @@ class monsterFactory(unittest.TestCase):
         import constants
             
         constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Troll: .25,
-                   Nazgul: 1})
+            Nazgul: 1})
         constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Goblin: .8,
-                   GreatGoblin: 1})
+            GreatGoblin: 1})
 
-        monstersEriador = getMonsters(500, 1, 0)
-        monstersHighPass = getMonsters(500, 3, 0)
+        monstersEriador = getMonsters(5000, 1, 0)
+        monstersHighPass = getMonsters(5000, 3, 0)
 
+        #Checking to see that Nazgul and Trolls are spawned
         numberNazgul = 0
         numberTroll = 0
         for monster in monstersEriador:
@@ -2200,13 +2201,14 @@ class monsterFactory(unittest.TestCase):
             elif isinstance(monster, Troll):
                 numberTroll += 1
             else:
-                raise AssertionError("Invalid monster spawn")
+                raise AssertionError("Invalid monster type")
 
         errorMsg = "No nazgul spawned."
         self.assertTrue(numberNazgul != 0, errorMsg)
         errorMsg = "No trolls spawned."
         self.assertTrue(numberTroll != 0, errorMsg)
 
+        #Checking to see that Goblin and GreatGoblin are spawned
         numberGoblin = 0
         numberGreatGoblin = 0
         for monster in monstersHighPass:
@@ -2215,7 +2217,7 @@ class monsterFactory(unittest.TestCase):
             elif isinstance(monster, GreatGoblin):
                 numberGreatGoblin += 1
             else:
-                raise AssertionError("Invalid monster spawn")
+                raise AssertionError("Invalid monster type")
 
         errorMsg = "No goblins spawned."
         self.assertTrue(numberGoblin != 0, errorMsg)

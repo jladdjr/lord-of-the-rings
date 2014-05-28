@@ -3,6 +3,7 @@
 from monsters.monster import Monster
 import constants
 
+from math import floor
 import random
 
 def getMonsters(number, region, bonusDifficulty):
@@ -28,10 +29,13 @@ def getMonsters(number, region, bonusDifficulty):
                     #Modify monster stats for bonusDifficulty
                     modifiedStats = []
                     for stat in stats:
-                        modifiedStats.append((1 + bonusDifficulty) * stat)
+                        modifiedStat = (1 + bonusDifficulty) * stat
+                        modifiedStat = floor(modifiedStat)
+                        modifiedStats.append(modifiedStat)
                     #Instantiate and append monster to monsters
                     monster = Monster(modifiedStats)
                     monsters.append(monster)
+                    #There should only be one monster spawned per iteration
                     break
 
         elif region == constants.RegionType.BARROW_DOWNS:
@@ -47,10 +51,13 @@ def getMonsters(number, region, bonusDifficulty):
                     #Modify monster stats for bonusDifficulty
                     modifiedStats = []
                     for stat in stats:
-                        modifiedStats.append((1 + bonusDifficulty) * stat)
+                        modifiedStat = (1 + bonusDifficulty) * stat
+                        modifiedStat = floor(modifiedStat)
+                        modifiedStats.append(modifiedStat)
                     #Instantiate and append monster to monsters
                     monster = Monster(modifiedStats)
                     monsters.append(monster)
+                    #There should only be one monster spawned per iteration
                     break
                 
         elif region == constants.RegionType.ENEDWAITH:
