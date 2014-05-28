@@ -1993,7 +1993,7 @@ class DescribeCommand(unittest.TestCase):
         with patch('commands.describe_command.raw_input', create = True, new = rawInputMock):
             testDescribeCommand.execute()
 
-    class monster(unittest.TestCase):
+class monster(unittest.TestCase):
     """
     Tests Monster class.
     """
