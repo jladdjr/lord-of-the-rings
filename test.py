@@ -2091,7 +2091,7 @@ class monster(unittest.TestCase):
         
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
-        player.takeAttack.assert_called_with(5)
+        player.takeAttack.assert_called_with(6)
 
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
@@ -2273,6 +2273,8 @@ class battleEngine(unittest.TestCase):
         Tests that the right number of monsters is handed to monster_factory.getMonsters(*args).
         
         Formula is: number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.REGION
+
+        TODO: this doesn't work
         """
         from space import Space
         from player import Player
@@ -2286,7 +2288,7 @@ class battleEngine(unittest.TestCase):
         getMonsters = MagicMock()
         
         battle(player)
-        getMonsters.assert_called_with(3, constants.ERIADOR, .5, 5)
+        getMonsters.assert_called_with(3, constants.ERIADOR, .5)
 
     
         
