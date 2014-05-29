@@ -2264,7 +2264,7 @@ class battleEngine(unittest.TestCase):
         
         battle(player)
         errorMsg = ""
-        self.assertEqual(len(battle.monsters), 3, errorMsg)
+        self.assertEqual(len(battle.monsters), 5, errorMsg)
 
     
     
