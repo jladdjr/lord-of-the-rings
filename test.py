@@ -54,6 +54,7 @@ class GameTest(unittest.TestCase):
         helpCommand = MagicMock()
         helpCommand.execute = MagicMock()
         helpCommand._time = True
+        battle = MagicMock()
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
 
         g._nextTurn()
@@ -80,6 +81,7 @@ class GameTest(unittest.TestCase):
         helpCommand = MagicMock()
         helpCommand.execute = MagicMock()
         helpCommand._time = True
+        battle = MagicMock()
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
 
         g._nextTurn()
