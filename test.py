@@ -2335,10 +2335,43 @@ class battleEngine(unittest.TestCase):
         battle(player)
         getMonsters.assert_called_once_with(3, constants.ERIADOR, .5)
 
-    
-    
-        
+    def monsterAttackPhase(self):
+        """
+        Tests that monsters each get to attack player.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import mosnterAttackPhase
 
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._hp = 500
+        player._maxHp = 500
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monster2 = Monster("Jerk", "Total J@ck@$$", [4, 4, 4], "Moof", "Meep")
+        monster3 = Monster("Jerk", "Total J@ck@$$", [3, 3, 3], "Moof", "Meep")
+        monster4 = Monster("Jerk", "Total J@ck@$$", [2, 2, 2], "Moof", "Meep")
+        monster5 = Monster("Jerk", "Total J@ck@$$", [1, 1, 1], "Moof", "Meep")
+        monsters = [monster1, monster2, monster3, monster4, monster5]
+
+        #Calculate total damage
+        totalDamage = 0
+        for monster in monsters:
+            totalDamage += monster._attack
+        
+        monsterAttackPhase(player, monsters)
+
+        #Check that each player attacked player
+        for monster in monsters:
+            monster.attack.assert_called_once_with(monster._attack)
+            player._takeAttack.called_with(monster._attack)
+
+        #Check that player._hp is updated accordingly
+        errorMsg = "player._hp was not updated correctly."
+        self.assertEqual(player._hp, player._maxHp - totalDamage, errorMsg)
+        
 def handle_pdb(signal, frame):
     """
     Signal handler method that invokes pdb.
