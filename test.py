@@ -85,8 +85,7 @@ class GameTest(unittest.TestCase):
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
 
         g._nextTurn()
-        errorMsg = "battle should have been called but was not."
-        self.assertTrue(battle(player).called, errorMsg)
+        battle.assert_called_once_with(player)
         errorMsg = "Game._nextTurn() failed to execute command"
         self.assertTrue(helpCommand.execute.called, errorMsg)
     
