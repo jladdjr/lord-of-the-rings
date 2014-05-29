@@ -86,7 +86,7 @@ class GameTest(unittest.TestCase):
 
         g._nextTurn()
         errorMsg = "battle should have been called but was not."
-        self.assertTrue(battle.called, errorMsg)
+        self.assertTrue(battle(player).called, errorMsg)
         errorMsg = "Game._nextTurn() failed to execute command"
         self.assertTrue(helpCommand.execute.called, errorMsg)
     
