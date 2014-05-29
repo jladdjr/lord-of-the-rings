@@ -1763,7 +1763,8 @@ class City(unittest.TestCase):
         player = Player("Frodo", space)
 
         #Player chooses to: enter testInn, leave, enter testShop, leave, enter testSquare, leave, "gobbledigook", leave city
-        cityInputMock = MagicMock(side_effect = ["Seth N' Breakfast Test Inn", "Russian Armory", "Kremlin", "gobbledigook", "leave city"])
+        cityInputMock = MagicMock(side_effect = ["Seth N' Breakfast Test Inn", "leave city", "Russian Armory",
+            "leave city", "Kremlin", "gobbledigook", "leave city"])
         innInputMock = MagicMock(side_effect = ["no"])
         shopInputMock = MagicMock(side_effect = ["quit"])
         squareInputMock = MagicMock(side_effect = ["quit"])
