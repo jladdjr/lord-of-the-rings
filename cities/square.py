@@ -32,6 +32,10 @@ class Square(Building):
         print self._greetings
         print ""
 
+        #If square is empty
+        if self._talk == None:
+            print "%s finds %s completely deserted." % (player.getName(), self._name)
+            
         #User prompt
         choice = None
         while choice != "quit":
