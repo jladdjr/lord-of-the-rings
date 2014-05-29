@@ -2051,7 +2051,7 @@ class monster(unittest.TestCase):
         
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
-        self.assertTrue(player.takeAttack.assert_called_with(5), errorMsg)
+        player.takeAttack.assert_called_with(5)
 
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
