@@ -33,6 +33,7 @@ class Square(Building):
         #If square is empty
         if self._talk == None:
             print "%s finds %s completely deserted." % (player.getName(), self._name)
+            return
 
         numPeople = len(self._talk)
          
