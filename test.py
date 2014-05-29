@@ -1427,7 +1427,7 @@ class InnTest(unittest.TestCase):
         #Player's health should remain at starting level
         self.assertEqual(player._hp, 1, "Player's health changed when it should not have.")
 
-     def testCase3(self):
+    def testCase3(self):
         """
         For when player chooses not to stay at the inn.
         """
