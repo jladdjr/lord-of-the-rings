@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import unittest
+import signal
 
 import xmlrunner
 from mock import (MagicMock, patch)
@@ -2056,7 +2057,7 @@ class monster(unittest.TestCase):
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
         errorMsg = "monster.takeAttack() testcase #1 failed."
-        self.assertEqual(monster._hp, 2, errorMsg)
+        self.assertEqual(monster._hp, 7, errorMsg)
 
         #Test monster.takeAttack() - attack is more than total hp
         monster.takeAttack(1000)
@@ -2230,6 +2231,19 @@ class battleEngine(unittest.TestCase):
     """
     pass
 
+def handle_pdb(signal, frame):
+    """
+    Signal handler method that invokes pdb.
+
+    @param signal:      Signal
+    @param frame:       Frame
+    """
+    import pdb
+    pdb.Pdb().set_trace(frame)
+
 if __name__ == '__main__':
+    #Add signal handler that invokes PDG
+    signal.signal(signal.SIGINT, handle_pdb)
+
     #Supress output from game with "buffer=true"
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
