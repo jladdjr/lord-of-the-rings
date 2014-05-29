@@ -97,7 +97,7 @@ class Game(object):
                 currentLocation = self._player.getLocation()
                 battleProbability = currentLocation.getBattleProbability()
                 if random.random() < battleProbability:
-                    #Call on battleobject to resolve battle
+                    #Call on battle to resolve battle
                     battle_engine.battle(self._player)
 
             #Then execute nextCommand

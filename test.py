@@ -9,19 +9,85 @@ from mock import (MagicMock, patch)
 class GameTest(unittest.TestCase):
     """
     Tests Game class.
+
+    A few iterations:
+    -testCase1: Command does not involve passage of time.
+    -testCase2: Command does involve passage of time. Chance of battle = 0%.
+    -testCase3: Command does involve passage of time. Chance of battle = 100%.
     """
-    def testNextTurn(self):
+    def testCase1(self):
+        """
+        Testing that helpCommand.execute.called when command does not
+        involve passage of time. 
+        """
         from game import Game
         g = Game()
 
         #Create mock objects
         helpCommand = MagicMock()
         helpCommand.execute = MagicMock()
+        helpCommand._time = False
+        battle = MagicMock()
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
 
         g._nextTurn()
-        self.assertTrue(helpCommand.execute.called, "Game._nextTurn() failed to execute command")
+        errorMsg = "battle should not have been called but was."
+        self.assertFalse(battle.called, errorMsg)
+        errorMsg = "Game._nextTurn() failed to execute command"
+        self.assertTrue(helpCommand.execute.called, errorMsg)
+        
+    def testCase2(self):
+        """
+        Testing that helpCommand.execute.called when command involves
+        a passing of time. Battle probability = 0%. 
+        """
+        from game import Game
+        from space import Space
+        from player import Player
+        from battle_engine import battle
+        
+        g = Game()
+        space = Space("Shire", "Home of the Russians", "Eregion", battleProbability = 0)
+        player = Player("Russian", space)
+        
+        #Create mock objects
+        helpCommand = MagicMock()
+        helpCommand.execute = MagicMock()
+        helpCommand._time = True
+        g._parser.getNextCommand = MagicMock(return_value=helpCommand)
 
+        g._nextTurn()
+        errorMsg = "battle should not have been called but was."
+        self.assertFalse(battle.called, errorMsg)
+        errorMsg = "Game._nextTurn() failed to execute command"
+        self.assertTrue(helpCommand.execute.called, errorMsg)
+
+    def testCase3(self):
+        """
+        Testing that helpCommand.execute.called when command involves
+        a passing of time. Battle probability = 100%.
+        """
+        from game import Game
+        from space import Space
+        from player import Player
+        from battle_engine import battle
+        
+        g = Game()
+        space = Space("Shire", "Home of the Russians", "Eregion", battleProbability = 1)
+        player = Player("Russian", space)
+        
+        #Create mock objects
+        helpCommand = MagicMock()
+        helpCommand.execute = MagicMock()
+        helpCommand._time = True
+        g._parser.getNextCommand = MagicMock(return_value=helpCommand)
+
+        g._nextTurn()
+        errorMsg = "battle should have been called but was not."
+        self.assertTrue(battle.called, errorMsg)
+        errorMsg = "Game._nextTurn() failed to execute command"
+        self.assertTrue(helpCommand.execute.called, errorMsg)
+    
 class ParserTest(unittest.TestCase):
     """
     Tests Parser class.
@@ -2251,6 +2317,8 @@ class battleEngine(unittest.TestCase):
         Tests that the right number of monsters is handed to monster_factory.getMonsters(*args).
         
         Formula is: number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.REGION
+
+        TODO: this doesn't work.
         """
         from space import Space
         from player import Player
@@ -2261,10 +2329,10 @@ class battleEngine(unittest.TestCase):
         space = Space("Shire", "Home of the hobbits", constants.ERIADOR, battleBonusDifficulty = .5)
         player = Player("Russian", space)
         constants.RegionBaseSpawn.ERIADOR = MagicMock(return_value=2)
+        getMonsters = MagicMock()
         
         battle(player)
-        errorMsg = ""
-        self.assertEqual(len(battle.monsters), 5, errorMsg)
+        getMonsters.assert_called_with(3, constants.ERIADOR, .5)
 
     
     
