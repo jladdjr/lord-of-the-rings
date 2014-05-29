@@ -595,28 +595,6 @@ class DropTest(unittest.TestCase):
         
         equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(weapon), "Equipment should not have item but does.")
-        
-class DescribeTest(unittest.TestCase):
-    """
-    Tests Describe class.
-    """
-    def testExecute(self):
-        from player import Player
-        from space import Space
-        from commands.describe_command import DescribeCommand
-        
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
-        player = Player("Frodo", space)
-        descCmd = DescribeCommand("describe", "Gives description of space", player)
-
-        descCmd.execute()
-        
-        #Tests that execute returns space description
-        #TODO: find a way to make sure that a print statement came out correctly.
-        """
-        self.assertEqual(descCmd.execute(), "Home of the Hobbits", \
-            "Describe command gave incorrect description.")
-        """
 
 class EquipTest(unittest.TestCase):
     """
@@ -823,7 +801,7 @@ class UnequipTest(unittest.TestCase):
         errorMsg = "Player should not have weapon in equipped but does."
         self.assertFalse(player._equipped.contains(weapon), errorMsg)
         errorMsg = "Player should not have armor in equipped but does."
-        self.assertFalse(player._equipped.contains(armor), errorMsg)            
+        self.assertFalse(player._equipped.contains(armor), errorMsg)
 
     def unequippingUnequippableItem(self):
         from player import Player
@@ -2091,7 +2069,7 @@ class monster(unittest.TestCase):
         
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
-        player.takeAttack.assert_called_with(6)
+        player.takeAttack.assert_called_with(5)
 
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
@@ -2273,8 +2251,6 @@ class battleEngine(unittest.TestCase):
         Tests that the right number of monsters is handed to monster_factory.getMonsters(*args).
         
         Formula is: number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.REGION
-
-        TODO: this doesn't work
         """
         from space import Space
         from player import Player
@@ -2285,11 +2261,12 @@ class battleEngine(unittest.TestCase):
         space = Space("Shire", "Home of the hobbits", constants.ERIADOR, battleBonusDifficulty = .5)
         player = Player("Russian", space)
         constants.RegionBaseSpawn.ERIADOR = MagicMock(return_value=2)
-        getMonsters = MagicMock()
         
         battle(player)
-        getMonsters.assert_called_with(3, constants.ERIADOR, .5)
+        errorMsg = ""
+        self.assertEqual(len(battle.monsters), 3, errorMsg)
 
+    
     
         
 
