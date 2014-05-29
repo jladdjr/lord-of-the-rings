@@ -2230,7 +2230,28 @@ class battleEngine(unittest.TestCase):
     """
     Tests battleEngine.    
     """
-    pass
+    def regionSpawn(self):
+        """
+        Tests that the right number of monsters is handed to monster_factory.getMonsters(*args).
+        
+        Formula is: number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.REGION
+        """
+        from space import Space
+        from player import Player
+        from battle_engine import battle
+        from factories.monster_factory import getMonsters
+        import constants
+
+        space = Space("Shire", "Home of the hobbits", constants.ERIADOR, battleBonusDifficulty = .5)
+        player = Player("Russian", space)
+        constants.RegionBaseSpawn.ERIADOR = MagicMock(return_value=2)
+        getMonsters = MagicMock()
+        
+        battle(player)
+        getMonsters.assert_called_with(3)
+
+    
+        
 
 def handle_pdb(signal, frame):
     """
