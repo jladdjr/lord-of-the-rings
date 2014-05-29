@@ -33,7 +33,7 @@ class UsePotionCommand(Command):
             if isinstance(item, Potion):
                 potions.addItem(item)
         if potions.count() == 0:
-            print "Ack! %s has no potions!" % player.getName()
+            print "Ack! %s has no potions!" % self._player.getName()
             return
         
         #User prompt
