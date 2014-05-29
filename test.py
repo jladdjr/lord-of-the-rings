@@ -1359,7 +1359,13 @@ class PlayerTest(unittest.TestCase):
 
 class InnTest(unittest.TestCase):
     """
-    Tests the healing ability of Inn Object.
+    Tests the healing ability of Inn.
+
+    Iterations:
+    -For when player chooses to stay at inn and has money to do so.
+    -For when player chooses to stay at inn and does not have money to do so.
+    -For when player chooses not to stay at inn.
+    -For invalid user input.
     """
     def testCase(self):
         """
@@ -1381,7 +1387,7 @@ class InnTest(unittest.TestCase):
         player._money = 10
 
         #Player chooses to stay at the inn
-        rawInputMock = MagicMock(side_effect = ["yes", "leave city"])
+        rawInputMock = MagicMock(side_effect = ["yes"])
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
@@ -1411,17 +1417,47 @@ class InnTest(unittest.TestCase):
         player._money = 2
 
         #Player chooses to stay at the inn
-        rawInputMock = MagicMock(side_effect = ["yes", "leave city"])
+        rawInputMock = MagicMock(side_effect = ["yes"])
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
         #Player's money remain at starting amount
         self.assertEqual(player._money, 2, "Player money changed when it should not have.")
         
-        #Player's health should increase to maximum
+        #Player's health should remain at starting level
+        self.assertEqual(player._hp, 1, "Player's health changed when it should not have.")
+
+     def testCase3(self):
+        """
+        For when player chooses not to stay at the inn.
+        """
+        from player import Player
+        from space import Space
+        from cities.inn import Inn
+        from cities.city import City
+
+        testInn = Inn("Chris' Testing Inn", "Come test here", "Hi", 5)
+        testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' Inn", testInn)
+        space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
+        player = Player("Frodo", space)
+                
+        #Player's health is lowest possible to be alive
+        player._hp = 1
+        #Player's money is enough to purchase services
+        player._money = 10
+
+        #Player chooses to stay at the inn
+        rawInputMock = MagicMock(side_effect = ["no"])
+        with patch('cities.inn.raw_input', create=True, new=rawInputMock):
+            testInn.enter(player)
+        
+        #Player's money remain at starting amount
+        self.assertEqual(player._money, 10, "Player money changed when it should not have.")
+        
+        #Player's health should remain at starting level
         self.assertEqual(player._hp, 1, "Player's health changed when it should not have.")
         
-    def testCase3(self):
+    def testCase4(self):
         """
         For invalid user input.
         """
@@ -1436,7 +1472,7 @@ class InnTest(unittest.TestCase):
         player = Player("Frodo", space)
         
         #For invalid user input
-        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook", "no"])
+        rawInputMock = MagicMock(side_effect = ["gobbledigook", "gobbledigook", "gobbledigook"])
         with patch('cities.inn.raw_input', create=True, new=rawInputMock):
             testInn.enter(player)
         
@@ -1746,7 +1782,7 @@ class City(unittest.TestCase):
     """
     Tests the ability of City object to handle a series of commands.
     """
-    def testInit(self):
+    def testCity(self):
         from player import Player
         from space import Space
         from cities.city import City
@@ -1809,6 +1845,8 @@ class EnterCommand(unittest.TestCase):
     testCase4: one city and multiple cities to enter.
     testCase5: multiple cities and multiple unique places to enter.
     testCase6: invalid user input.
+
+    TODO: does this even work?
     """
     def testCase1(self):
         """
@@ -2248,7 +2286,8 @@ class battleEngine(unittest.TestCase):
         getMonsters = MagicMock()
         
         battle(player)
-        getMonsters.assert_called_with(3, constants.ERIADOR, .5)
+        getMonsters.assert_called_with(3, constants.ERIADOR, .5, 5)
+
     
         
 
