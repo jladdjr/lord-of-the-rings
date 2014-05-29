@@ -25,8 +25,6 @@ class Square(Building):
         """
         The events sequence upon player entering square.
         """
-        numPeople = len(self._talk)
-
         print ""
         print "- - - %s - - -" % self._name
         print self._greetings
@@ -35,7 +33,9 @@ class Square(Building):
         #If square is empty
         if self._talk == None:
             print "%s finds %s completely deserted." % (player.getName(), self._name)
-            
+
+        numPeople = len(self._talk)
+         
         #User prompt
         choice = None
         while choice != "quit":
