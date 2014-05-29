@@ -2333,7 +2333,7 @@ class battleEngine(unittest.TestCase):
         getMonsters = MagicMock()
         
         battle(player)
-        getMonsters.assert_called_with(3, constants.ERIADOR, .5)
+        getMonsters.assert_called_once_with(3, constants.ERIADOR, .5)
 
     
     
