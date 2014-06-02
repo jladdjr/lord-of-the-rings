@@ -145,7 +145,7 @@ def monsterAttackPhase(player, monsters):
 
 def usePotion(player):
     """
-    Creates an additiona UsePotionCommand object
+    Creates an additional UsePotionCommand object
     for battle purposes only.
 
     @param player:   The player object.
@@ -158,8 +158,7 @@ def endSequence(player, earnings):
     Battle cleanup - player experience and money increases, etc.
 
     @param player:      The player object.
-    @param experience:  The experience player should increase by.
-    @param money:       The money that player should receive.
+    @param earnings:    2-element list: first element is money and second is experience.
     """
     money = earnings[0]
     experience = earnings[1]

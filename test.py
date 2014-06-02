@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/ibn/python
 
 import unittest
 import signal
@@ -959,6 +959,8 @@ class UnequipTest(unittest.TestCase):
 class UsePotionTest(unittest.TestCase):
     """
     Tests UsePotion command.
+
+    #TODO: test that still works when no potions available.
     """
     def testExecute(self):
         from commands.use_potion_command import UsePotionCommand
@@ -2311,11 +2313,11 @@ class monsterFactory(unittest.TestCase):
     
 class battleEngine(unittest.TestCase):
     """
-    Tests battleEngine.    
+    Tests battleEngine.
     """
     def regionSpawn(self):
         """
-        Tests that the right number of monsters is handed to monster_factory.getMonsters(*args).
+        Tests that the right number of monsters is handed to monster_factory.getMonsters.
         
         Formula is: number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.REGION
 
@@ -2335,14 +2337,300 @@ class battleEngine(unittest.TestCase):
         battle(player)
         getMonsters.assert_called_once_with(3, constants.ERIADOR, .5)
 
-    def monsterAttackPhase(self):
+    def playerAttackPhase1(self):
         """
-        Tests that monsters each get to attack player.
+        Tests playerAttackPhase.
+
+        Iteration1: attacking a monster that doesn't exist should not result in
+        any change to monsters.
         """
         from space import Space
         from player import Player
         from monsters.monster import monster
-        from battle_engine import mosnterAttackPhase
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        bonusDifficulty = 0
+        
+        monster1 = MagicMock()
+        monster1._takeAttack = MagicMock()
+        monster1._name = "Jerk2"
+        monster1._experience = 10
+        monster1._hp = 10
+        monster2 = MagicMock()
+        monster2._takeAttack = MagicMock()
+        monster2._name = "Jerk2"
+        monster2._experience = 10
+        monster2._hp = 10
+        monster3 = MagicMock()
+        monster3._takeAttack = MagicMock()
+        monster3._name = "Jerk2"
+        monster3._experience = 10
+        monster3._hp = 10
+        monsters = [monster1, monster2, monster3]
+
+        rawInputMock = MagicMock(return_value="Non-Existent Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        errorMsg = "Testcase - attacking an invalid monster failed."
+        self.assertFalse(monster1.called, errorMsg)
+        self.assertFalse(monster2.called, errorMsg)
+        self.assertFalse(monster3.called, errorMsg)
+        
+    def playerAttackPhase2(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration2: attacking a valid monster.
+
+        Components:
+        -Player attacks correct monster.
+        -Player only attacks player-specified monster.
+        -Monster attacked for correct amount of damage.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 1
+        bonusDifficulty = 0
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monster2 = MagicMock()
+        monster2._takeAttack = MagicMock()
+        monster2._name = "Jerk2"
+        monster2._experience = 10
+        monster2._hp = 10
+        monster3 = MagicMock()
+        monster3._takeAttack = MagicMock()
+        monster3._name = "Jerk3"
+        monster3._experience = 10
+        monster3._hp = 10
+        monsters = [monster1, monster2, monster3]
+
+        rawInputMock = MagicMock(return_value="Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        monster1._takeAttack.called_with(player._totalAttack)
+
+        #Player only attacks player-specified monster
+        errorMsg = "Test: valid monster attack - wrong monster got attacked."
+        self.assertFalse(monster2.called, errorMsg)
+        self.assertFalse(monster3.called, errorMsg)
+
+        #Monster attacked for correct amount of damage
+        correctHealth = monster1._stats[0] - player._attack
+        errorMsg = "monster1 health was not set to correct amount after attack."
+        self.assertEqual(monster1._hp, correctHealth, errorMsg)
+
+    def playerAttackPhase3(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration3: a player attack that results in death of monster should
+        remove monster from monsters.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 100
+        bonusDifficulty = 0
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monsters = [monster1]
+
+        rawInputMock = MagicMock(return_value="Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        errorMsg = "monster1 should have been removed from monsters but was not."
+        self.assertTrue(monster1 not in monsters, errorMsg)
+
+    def playerAttackPhase4(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration4: a player attack that does not result in the death of monster
+        should not remove monster from monsters.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 0
+        bonusDifficulty = 0
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monsters = [monster1]
+
+        rawInputMock = MagicMock(return_value="Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        errorMsg = "monster1 should not have been removed from monsters but was."
+        self.assertTrue(monster1 in monsters, errorMsg)
+
+    def playerAttackPhase5(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration5: single monster death should result in earnings generation.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 100
+        bonusDifficulty = 0
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monsters = [monster1]
+
+        rawInputMock = MagicMock(return_value="Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        erroMsg = "Money was not returned correctly - single monster death."
+        self.assertEqual(money, 5, errorMsg)
+        erroMsg = "Experience was not returned correctly - single monster death."
+        self.assertEqual(experience, 5, errorMsg)
+
+    def playerAttackPhase6(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration6: tests multiple monster death earnings generation.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 100
+        bonusDifficulty = 0
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monster2 = Monster("Jerk2", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monster3 = Monster("Jerk3", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monsters = [monster1, monster2, monster3]
+
+        rawInputMock = MagicMock(return_value="Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        rawInputMock = MagicMock(return_value="Jerk2")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        rawInputMock = MagicMock(return_value="Jerk3")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        erroMsg = "Money was not returned correctly - multiple monster death."
+        self.assertEqual(money, 15, errorMsg)
+        erroMsg = "Experience was not returned correctly - multiple monster death."
+        self.assertEqual(experience, 15, errorMsg)
+
+    def playerAttackPhase7(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration7: tests single monster death earnings generation with
+        non-zero bonusDifficulty.
+
+        bonusDifficulty increases earnings as a percentage over default.
+        For instance, bonusDifficulty = 1 results in 200% earnings.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 100
+        bonusDifficulty = 1
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monsters = [monster1]
+
+        rawInputMock = MagicMock(return_value="Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        erroMsg = "Money was not returned correctly - single monster death with bonus difficulty."
+        self.assertEqual(money, 10, errorMsg)
+        erroMsg = "Experience was not returned correctly - single monster death with bonus difficulty."
+        self.assertEqual(experience, 10, errorMsg)
+
+    def playerAttackPhase8(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration8: tests multiple monster death earnings generation with
+        non-zero bonusDifficulty.
+
+        bonusDifficulty increases earnings as a percentage over default.
+        For instance, bonusDifficulty = 1 results in 200% earnings.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 100
+        bonusDifficulty = 1
+        
+        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monster2 = Monster("Jerk2", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monster3 = Monster("Jerk3", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
+        monsters = [monster1, monster2, monster3]
+
+        rawInputMock = MagicMock(return_value="Jerk")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        rawInputMock = MagicMock(return_value="Jerk2")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        rawInputMock = MagicMock(return_value="Jerk3")
+        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+            playerAttackPhase(player, monsters, bonusDifficulty)
+
+        erroMsg = "Money was not returned correctly - multiple monster death with bonus difficulty."
+        self.assertEqual(money, 30, errorMsg)
+        erroMsg = "Experience was not returned correctly - multiple monster death with bonus difficulty."
+        self.assertEqual(experience, 30, errorMsg)
+        
+    def monsterAttackPhase(self):
+        """
+        Tests that each monster gets to attack player.
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import monsterAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
         player = Player("Russian", space)
@@ -2371,6 +2659,33 @@ class battleEngine(unittest.TestCase):
         #Check that player._hp is updated accordingly
         errorMsg = "player._hp was not updated correctly."
         self.assertEqual(player._hp, player._maxHp - totalDamage, errorMsg)
+
+    def endSequence(self):
+        """
+        Tests that player money and experience increase by appropriate amounts.
+        """
+        from player import Player
+        from space import Space
+        from battle_engine import endSequence
+
+        space = Space("Shire", "Home of chocolate bunnies", "Bun-Bun Mountain")
+        player = Player("Russian", space)
+        player._updateLevel = MagicMock()
+        
+        #0th element: money; 1st element: experience
+        earnings = [30, 10]
+
+        #Create defaults
+        startingMoney = player._money
+        startingExperience = player._experience
+
+        #Test that player stats are updated and that player._updateLevel is called
+        endSequence(player, earnings)
+        errorMsg = "player._money was not updated to the correct value."
+        self.assertEqual(player._money, startingMoney + 30), errorMsg)
+        errorMsg = "player._experience was not updated to the correct value."
+        self.assertEqual(player._experience, startingExperience + 10, errorMsg)
+        player._updateLevel.called_once_with(10)
         
 def handle_pdb(signal, frame):
     """
