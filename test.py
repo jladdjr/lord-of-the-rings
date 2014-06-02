@@ -2687,6 +2687,7 @@ class battleEngine(unittest.TestCase):
         self.assertEqual(player._experience, startingExperience + 10, errorMsg)
         player._updateLevel.called_once_with(10)
         
+        
 def handle_pdb(signal, frame):
     """
     Signal handler method that invokes pdb.
