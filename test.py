@@ -841,7 +841,7 @@ class EquipTest(unittest.TestCase):
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
             equipCmd.execute()
 
-        errorMsg = "Armor should be equipped but is not."
+        errorMsg = "Armor should be equipped but is not. %s" %player._inventory._items
         self.assertTrue(player._equipped.containsItem(armor), errorMsg)
         
         #Test for change
