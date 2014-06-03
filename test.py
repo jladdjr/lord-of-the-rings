@@ -667,7 +667,7 @@ class EquipTest(unittest.TestCase):
     """
     Tests Equip Command.
     """
-    def equippingItemsNotInInventory(self):
+    def testEquippingItemsNotInInventory(self):
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -694,7 +694,7 @@ class EquipTest(unittest.TestCase):
         self.assertFalse(equipped.containsItem(weapon), "Player equipped item not in inventory.")
         self.assertFalse(equipped.containsItem(armor), "Player equipped item not in inventory.")
 
-    def equippingUnequippableItems(self):
+    def testEquippingUnequippableItems(self):
         from player import Player
         from space import Space
         from items.item import Item
@@ -717,7 +717,7 @@ class EquipTest(unittest.TestCase):
         equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(item), "Player equipped item of Item class.")
 
-    def equippingEquippableItems(self):
+    def testEquippingEquippableItems(self):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
@@ -743,7 +743,7 @@ class EquipTest(unittest.TestCase):
         self.assertTrue(equipped.containsItem(weapon), "Player failed to equip equipable item.")
         self.assertTrue(equipped.containsItem(armor), "Player failed to equip equipable item.")
 
-    def equippingAlreadyEquippedItem(self):
+    def testEquippingAlreadyEquippedItem(self):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
@@ -783,7 +783,7 @@ class EquipTest(unittest.TestCase):
         self.assertTrue(armor in player._equipped, errorMsg)
         self.assertEqual(equipped.count(), 2, "Player is supposed to have two equipped items but lists more.")
 
-    def playerStatsUpdateWeapon(self):
+    def testPlayerStatsUpdateWeapon(self):
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -813,7 +813,7 @@ class EquipTest(unittest.TestCase):
         errorMsg = "Player._totalAttack not updated to correct value."
         self.assertEqual(player._totalAttack, defaultAttack + weapon._attack, errorMsg)
 
-    def playerStatsUpdateArmor(self):
+    def testPlayerStatsUpdateArmor(self):
         from player import Player
         from space import Space
         from items.armor import Armor
@@ -840,7 +840,7 @@ class UnequipTest(unittest.TestCase):
     """
     Tests Unequip Command.
     """
-    def unequipWhenItemNotCurrentlyEquipped(self):
+    def testUnequipWhenItemNotCurrentlyEquipped(self):
         from player import Player
         from space import Space
         from items.item import Item
@@ -870,7 +870,7 @@ class UnequipTest(unittest.TestCase):
         errorMsg = "Player should not have armor in equipped but does."
         self.assertFalse(player._equipped.contains(armor), errorMsg)
 
-    def unequippingUnequippableItem(self):
+    def testUnequippingUnequippableItem(self):
         from player import Player
         from space import Space
         from items.item import Item
@@ -910,7 +910,7 @@ class UnequipTest(unittest.TestCase):
         self.assertFalse(equipped.containsItem(weapon), "Failed to unequip item that it should have.")
         self.assertFalse(equipped.containsItem(armor), "Failed to unequip item that it should have.")
 
-    def playerWeaponStatsUpdate(self):
+    def testPlayerWeaponStatsUpdate(self):
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -934,7 +934,7 @@ class UnequipTest(unittest.TestCase):
         errorMsg = "player._totalAttack should be attack but it is not."
         self.assertEqual(player._totalAttack, player._attack, errorMsg)
         
-    def playerArmorStatsUpdate(self):
+    def testPlayerArmorStatsUpdate(self):
         from player import Player
         from space import Space
         from items.armor import Armor
@@ -1162,7 +1162,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "Player experience failed to increase."
         self.assertTrue(player._experience > constants.STARTING_EXPERIENCE, errorMsg)
         
-    def _updateLevel(self):
+    def testUpdateLevel(self):
         from player import Player
         from space import Space
         from math import floor
@@ -1283,7 +1283,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "totalAttack should be simply attack but it is not - unequip."
         self.assertEqual(player._totalAttack, player._attack, errorMsg)
         
-    def addToInventory(self):
+    def testAddToInventory(self):
         from player import Player
         from space import Space
         from items.item import Item
@@ -1317,7 +1317,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "Number of items increased when it should not have."
         self.assertEqual(numberOfItems, newNumberOfItems, errorMsg)
 
-    def removeFromInventory(self):
+    def testRemoveFromInventory(self):
         from player import Player
         from space import Space
         from items.item import Item
@@ -1369,7 +1369,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "_totalAttack should be player._attack but it is not."
         self.assertEqual(player._totalAttack, player._attack, errorMsg)
 
-    def canMoveDirection(self):
+    def testCanMoveDirection(self):
         """
         Tests if canMoveDirection() methods work.
         """
@@ -2171,7 +2171,7 @@ class monsterFactory(unittest.TestCase):
 
     Note params for getMonster: getMonsters(number, region, difficulty).
     """
-    def defaultMonsterCreation(self):
+    def testDefaultMonsterCreation(self):
         #Tests default monster creation, that monsters are in fact created.
         from factories.monster_factory import getMonsters
         from monsters.monster import Monster
@@ -2184,7 +2184,7 @@ class monsterFactory(unittest.TestCase):
             errorMsg = "getMonsters did not spawn Monster objects."
             self.assertTrue(isinstance(monster, Monster), errorMsg)
 
-    def defaultStatGeneration(self):
+    def testDefaultStatGeneration(self):
         #Testing difficulty feature - that default stats are implemented when
         #difficulty set to zero.
         """
@@ -2206,7 +2206,7 @@ class monsterFactory(unittest.TestCase):
             errorMsg = "monster._experience was not initiated correctly."
             self.assertEqual(monster._attack, constants.MONSTER_STATS[Troll][2], errorMsg)
             
-    def difficultyBonusStats(self):
+    def testDifficultyBonusStats(self):
         #-Testing difficulty feature - that monster stats increase as
         #percentage over default. For instance, difficulty = 1 should result
         #in monsters with 200% base monster stats.
@@ -2228,7 +2228,7 @@ class monsterFactory(unittest.TestCase):
             errorMsg = "monster._experience was not initiated correctly."
             self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][2], errorMsg)
             
-    def defaultSpawnNumber(self):    
+    def testDefaultSpawnNumber(self):    
         #-Testing difficulty feature - that default monster spawn occurs when
         #difficulty is set to zero.
         """
@@ -2241,7 +2241,7 @@ class monsterFactory(unittest.TestCase):
         errorMsg = "getMonsters did not spawn three monsters."
         self.assertEqual(len(monsters), 3, errorMsg)
 
-    def difficultyBonusSpawn(self):
+    def testDifficultyBonusSpawn(self):
         #-Testing difficulty feature - that monster spawn increases as a percentage
         #over default. For instance, difficulty = 1 should result in a 100% increase
         #in monster spawn over base. 
@@ -2257,7 +2257,7 @@ class monsterFactory(unittest.TestCase):
         errorMsg = "getMonsters did not spawn six monsters."
         self.assertEqual(len(monsters), 6, errorMsg)
 
-    def regionalSpawn(self):
+    def testRegionalSpawn(self):
         #-Testing that regional spawns work: that monster spawn reflects
         #regional monster distributions held in constants. 
         """
@@ -2315,7 +2315,7 @@ class battleEngine(unittest.TestCase):
     """
     Tests battleEngine.
     """
-    def regionSpawn(self):
+    def testRegionSpawn(self):
         """
         Tests that the right number of monsters is handed to monster_factory.getMonsters.
         
@@ -2337,7 +2337,7 @@ class battleEngine(unittest.TestCase):
         battle(player)
         getMonsters.assert_called_once_with(3, constants.ERIADOR, .5)
 
-    def playerAttackPhase1(self):
+    def testPlayerAttackPhase1(self):
         """
         Tests playerAttackPhase.
 
@@ -2379,7 +2379,7 @@ class battleEngine(unittest.TestCase):
         self.assertFalse(monster2.called, errorMsg)
         self.assertFalse(monster3.called, errorMsg)
         
-    def playerAttackPhase2(self):
+    def testPlayerAttackPhase2(self):
         """
         Tests playerAttackPhase.
 
@@ -2429,7 +2429,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "monster1 health was not set to correct amount after attack."
         self.assertEqual(monster1._hp, correctHealth, errorMsg)
 
-    def playerAttackPhase3(self):
+    def testPlayerAttackPhase3(self):
         """
         Tests playerAttackPhase.
 
@@ -2456,7 +2456,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "monster1 should have been removed from monsters but was not."
         self.assertTrue(monster1 not in monsters, errorMsg)
 
-    def playerAttackPhase4(self):
+    def testPlayerAttackPhase4(self):
         """
         Tests playerAttackPhase.
 
@@ -2483,7 +2483,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "monster1 should not have been removed from monsters but was."
         self.assertTrue(monster1 in monsters, errorMsg)
 
-    def playerAttackPhase5(self):
+    def testPlayerAttackPhase5(self):
         """
         Tests playerAttackPhase.
 
@@ -2511,7 +2511,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "Experience was not returned correctly - single monster death."
         self.assertEqual(experience, 5, errorMsg)
 
-    def playerAttackPhase6(self):
+    def testPlayerAttackPhase6(self):
         """
         Tests playerAttackPhase.
 
@@ -2545,7 +2545,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "Experience was not returned correctly - multiple monster death."
         self.assertEqual(experience, 15, errorMsg)
 
-    def playerAttackPhase7(self):
+    def testPlayerAttackPhase7(self):
         """
         Tests playerAttackPhase.
 
@@ -2577,7 +2577,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "Experience was not returned correctly - single monster death with bonus difficulty."
         self.assertEqual(experience, 10, errorMsg)
 
-    def playerAttackPhase8(self):
+    def testPlayerAttackPhase8(self):
         """
         Tests playerAttackPhase.
 
@@ -2614,7 +2614,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "Experience was not returned correctly - multiple monster death with bonus difficulty."
         self.assertEqual(experience, 30, errorMsg)
 
-    def playerAttackPhase9(self):
+    def testPlayerAttackPhase9(self):
         """
         Tests playerAttackPhase.
 
@@ -2662,7 +2662,7 @@ class battleEngine(unittest.TestCase):
         self.assertFalse(monster2.called(), errorMsg)
         self.assertFalse(monster3.called(), errorMsg)
 
-    def monsterAttackPhase(self):
+    def testMonsterAttackPhase(self):
         """
         Tests that each monster gets to attack player.
         """
@@ -2699,7 +2699,7 @@ class battleEngine(unittest.TestCase):
         errorMsg = "player._hp was not updated correctly."
         self.assertEqual(player._hp, player._maxHp - totalDamage, errorMsg)
 
-    def endSequence(self):
+    def testEndSequence(self):
         """
         Tests that player money and experience increase by appropriate amounts.
         """
