@@ -1,4 +1,4 @@
-#!/usr/ibn/python
+#!/usr/bin/python
 
 import unittest
 import signal
@@ -2355,7 +2355,7 @@ class battleEngine(unittest.TestCase):
         
         monster1 = MagicMock()
         monster1._takeAttack = MagicMock()
-        monster1._name = "Jerk2"
+        monster1._name = "Jerk1"
         monster1._experience = 10
         monster1._hp = 10
         monster2 = MagicMock()
@@ -2365,7 +2365,7 @@ class battleEngine(unittest.TestCase):
         monster2._hp = 10
         monster3 = MagicMock()
         monster3._takeAttack = MagicMock()
-        monster3._name = "Jerk2"
+        monster3._name = "Jerk3"
         monster3._experience = 10
         monster3._hp = 10
         monsters = [monster1, monster2, monster3]
@@ -2506,9 +2506,9 @@ class battleEngine(unittest.TestCase):
         with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
-        erroMsg = "Money was not returned correctly - single monster death."
+        errorMsg = "Money was not returned correctly - single monster death."
         self.assertEqual(money, 5, errorMsg)
-        erroMsg = "Experience was not returned correctly - single monster death."
+        errorMsg = "Experience was not returned correctly - single monster death."
         self.assertEqual(experience, 5, errorMsg)
 
     def playerAttackPhase6(self):
@@ -2540,9 +2540,9 @@ class battleEngine(unittest.TestCase):
             with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
                 battle()
 
-        erroMsg = "Money was not returned correctly - multiple monster death."
+        errorMsg = "Money was not returned correctly - multiple monster death."
         self.assertEqual(money, 15, errorMsg)
-        erroMsg = "Experience was not returned correctly - multiple monster death."
+        errorMsg = "Experience was not returned correctly - multiple monster death."
         self.assertEqual(experience, 15, errorMsg)
 
     def playerAttackPhase7(self):
@@ -2572,9 +2572,9 @@ class battleEngine(unittest.TestCase):
         with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
-        erroMsg = "Money was not returned correctly - single monster death with bonus difficulty."
+        errorMsg = "Money was not returned correctly - single monster death with bonus difficulty."
         self.assertEqual(money, 10, errorMsg)
-        erroMsg = "Experience was not returned correctly - single monster death with bonus difficulty."
+        errorMsg = "Experience was not returned correctly - single monster death with bonus difficulty."
         self.assertEqual(experience, 10, errorMsg)
 
     def playerAttackPhase8(self):
@@ -2609,11 +2609,59 @@ class battleEngine(unittest.TestCase):
             with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
                 battle()
 
-        erroMsg = "Money was not returned correctly - multiple monster death with bonus difficulty."
+        errorMsg = "Money was not returned correctly - multiple monster death with bonus difficulty."
         self.assertEqual(money, 30, errorMsg)
-        erroMsg = "Experience was not returned correctly - multiple monster death with bonus difficulty."
+        errorMsg = "Experience was not returned correctly - multiple monster death with bonus difficulty."
         self.assertEqual(experience, 30, errorMsg)
+
+    def playerAttackPhase9(self):
+        """
+        Tests playerAttackPhase.
+
+        Iteration9: for instances where several monsters have the same name, successive attacks
+        result in attacking the same monster when attacks do not result in death blows. 
+        """
+        from space import Space
+        from player import Player
+        from monsters.monster import monster
+        from battle_engine import playerAttackPhase
+
+        space = Space("Shire", "Full of Russians", "Eregion")
+        player = Player("Russian", space)
+        player._attack = 0
+        bonusDifficulty = 1
         
+        monster1 = MagicMock()
+        monster1._takeAttack = MagicMock()
+        monster1._name = "Jerk"
+        monster1._experience = 10
+        monster1._hp = 10
+        monster2 = MagicMock()
+        monster2._takeAttack = MagicMock()
+        monster2._name = "Jerk"
+        monster2._experience = 10
+        monster2._hp = 10
+        monster3 = MagicMock()
+        monster3._takeAttack = MagicMock()
+        monster3._name = "Jerk"
+        monster3._experience = 10
+        monster3._hp = 10
+        monsters = [monster1, monster2, monster3]
+
+        battleInputMock = MagicMock(side_effect = ["attack", "attack", "attack"])
+        attackInputMock = MagicMock(side_effect = ["Jerk", "Jerk", "Jerk"])
+                                                   
+        with patch('battle_engine.battle.raw_input', create = True, new = battleInputMock):
+            with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
+                battle()
+
+        #Test that only one monster attacked
+        errorMsg = "monster1 was supposed to be called but was not."
+        self.assertTrue(monster1.called(), errorMsg)
+        errorMsg = "Other monsters were not supposed to have been attacked but were."
+        self.assertFalse(monster2.called(), errorMsg)
+        self.assertFalse(monster3.called(), errorMsg)
+
     def monsterAttackPhase(self):
         """
         Tests that each monster gets to attack player.
