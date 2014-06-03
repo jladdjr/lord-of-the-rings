@@ -2722,7 +2722,6 @@ class battleEngine(unittest.TestCase):
         endSequence(player, earnings)
         errorMsg = "player._money was not updated to the correct value."
         self.assertEqual(player._money, startingMoney + 30, errorMsg)
-        self.assertEqual(True, False, "Poop")
         errorMsg = "player._experience was not updated to the correct value."
         self.assertEqual(player._experience, startingExperience + 10, errorMsg)
         player._updateLevel.called_once_with(10)    
