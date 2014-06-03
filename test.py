@@ -718,6 +718,12 @@ class EquipTest(unittest.TestCase):
         self.assertFalse(equipped.containsItem(item), "Player equipped item of Item class.")
 
     def testEquippingEquippableItems(self):
+        from player import Player
+        from space import Space
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from commands.equip_command import EquipCommand
+        
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
@@ -744,6 +750,12 @@ class EquipTest(unittest.TestCase):
         self.assertTrue(equipped.containsItem(armor), "Player failed to equip equipable item.")
 
     def testEquippingAlreadyEquippedItem(self):
+        from player import Player
+        from space import Space
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from commands.equip_command import EquipCommand
+        
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
@@ -830,7 +842,7 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute()
 
         errorMsg = "Armor should be equipped but is not."
-        self.assertTrue(player._equipped.contains(armor), errorMsg)
+        self.assertTrue(player._equipped.containsItem(armor), errorMsg)
         
         #Test for change
         errorMsg = "player._armorDefense stat was not updated correctly."
@@ -866,9 +878,9 @@ class UnequipTest(unittest.TestCase):
 
         #TODO: find way to make sure that 30-32 in unequip is called
         errorMsg = "Player should not have weapon in equipped but does."
-        self.assertFalse(player._equipped.contains(weapon), errorMsg)
+        self.assertFalse(player._equipped.containsItem(weapon), errorMsg)
         errorMsg = "Player should not have armor in equipped but does."
-        self.assertFalse(player._equipped.contains(armor), errorMsg)
+        self.assertFalse(player._equipped.containsItem(armor), errorMsg)
 
     def testUnequippingUnequippableItem(self):
         from player import Player
@@ -889,9 +901,9 @@ class UnequipTest(unittest.TestCase):
         player.equip(armor)
 
         errorMsg = "Weapon should be in player._equipped but is not."
-        self._assertTrue(player._equipped.contains(weapon), errorMsg)
+        self.assertTrue(player._equipped.contains(weapon), errorMsg)
         errorMsg = "Armor should be in player._equipped but is not."
-        self._assertTrue(player._equipped.contains(armor), errorMsg)
+        self.assertTrue(player._equipped.contains(armor), errorMsg)
 
         #Attempting to unequip item that may be unequipped
         rawInputMock = MagicMock(return_value="Dagger")
@@ -1172,10 +1184,10 @@ class PlayerTest(unittest.TestCase):
         player = Player("Frodo", space)
 
         #Determine default player stats
-        defaultLevel = self._level
-        defaultMaxHp = self._maxHp
-        defaultAttack = self._attack
-        defaultTotalAttack = self._totalAttack
+        defaultLevel = player._level
+        defaultMaxHp = player._maxHp
+        defaultAttack = player._attack
+        defaultTotalAttack = player._totalAttack
 
         #Increase player experience and run _updateLevel
         originalExperience = player._experience
@@ -1307,7 +1319,7 @@ class PlayerTest(unittest.TestCase):
         self.assertTrue(newArmor in player._inventory, errorMsg)
         
         #Test to add items already in inventory to inventory
-        numberOfItems = len(player._inventory)
+        numberOfItems = player._inventory.count()
         
         player.addToInventory(newItem)
         player.addToInventory(newWeapon)
