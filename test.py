@@ -806,6 +806,7 @@ class EquipTest(unittest.TestCase):
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
         weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
+        player.addToInventory(weapon)
 
         #Create default
         defaultAttack = player._attack
@@ -836,12 +837,13 @@ class EquipTest(unittest.TestCase):
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
         armor = Armor("Shield of Faith", "For quenching fiery darts", 1, 1, 1)
-
+        player.addToInventory(armor)
+        
         rawInputMock = MagicMock(return_value="Shield of Faith")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
             equipCmd.execute()
 
-        errorMsg = "Armor should be equipped but is not. %s" %player._inventory._items
+        errorMsg = "Armor should be equipped but is not."
         self.assertTrue(player._equipped.containsItem(armor), errorMsg)
         
         #Test for change
@@ -896,9 +898,6 @@ class UnequipTest(unittest.TestCase):
 
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
         armor = Armor("Shield", "Round", 1, 1, 1)
-
-        player.equip(weapon)
-        player.equip(armor)
 
         errorMsg = "Weapon should be in player._equipped but is not."
         self.assertTrue(player._equipped.containsItem(weapon), errorMsg)
