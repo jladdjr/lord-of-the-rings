@@ -815,7 +815,7 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute() 
 
         errorMsg = "Weapon should be equipped but is not."
-        self.assertTrue(player._equipped.contains(weapon), errorMsg)
+        self.assertTrue(player._equipped.containsItem(weapon), errorMsg)
 
         #Test for change
         errorMsg = "Player._attack changed with weapon equip when it should not have."
@@ -901,9 +901,9 @@ class UnequipTest(unittest.TestCase):
         player.equip(armor)
 
         errorMsg = "Weapon should be in player._equipped but is not."
-        self.assertTrue(player._equipped.contains(weapon), errorMsg)
+        self.assertTrue(player._equipped.containsItem(weapon), errorMsg)
         errorMsg = "Armor should be in player._equipped but is not."
-        self.assertTrue(player._equipped.contains(armor), errorMsg)
+        self.assertTrue(player._equipped.containsItem(armor), errorMsg)
 
         #Attempting to unequip item that may be unequipped
         rawInputMock = MagicMock(return_value="Dagger")
@@ -1325,7 +1325,7 @@ class PlayerTest(unittest.TestCase):
         player.addToInventory(newWeapon)
         player.addToInventory(newArmor)
         
-        newNumberOfItems = len(player._inventory)
+        newNumberOfItems = player._inventory.count()
         errorMsg = "Number of items increased when it should not have."
         self.assertEqual(numberOfItems, newNumberOfItems, errorMsg)
 
@@ -1335,6 +1335,7 @@ class PlayerTest(unittest.TestCase):
         from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
+        from items.item_set import ItemSet
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
@@ -1362,7 +1363,7 @@ class PlayerTest(unittest.TestCase):
         self.assertFalse(newArmor in player._inventory, errorMsg)
 
         #Set things back up
-        player._inventory = [newItem, newWeapon, newArmor]
+        player._inventory = ItemSet([newItem, newWeapon, newArmor])
 
         #Test that items are unequipped correctly
         player.removeFromInventory(newItem)
@@ -2341,7 +2342,7 @@ class battleEngine(unittest.TestCase):
         from factories.monster_factory import getMonsters
         import constants
 
-        space = Space("Shire", "Home of the hobbits", constants.ERIADOR, battleBonusDifficulty = .5)
+        space = Space("Shire", "Home of the hobbits", constants.RegionType.ERIADOR, battleBonusDifficulty = .5)
         player = Player("Russian", space)
         constants.RegionBaseSpawn.ERIADOR = MagicMock(return_value=2)
         getMonsters = MagicMock()
