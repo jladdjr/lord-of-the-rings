@@ -2724,7 +2724,8 @@ class battleEngine(unittest.TestCase):
         self.assertEqual(player._money, startingMoney + 30, errorMsg)
         errorMsg = "player._experience was not updated to the correct value."
         self.assertEqual(player._experience, startingExperience + 10, errorMsg)
-        player._updateLevel.called_once_with(10)    
+        player._updateLevel.called_once_with(10)
+        self.assertEqual(False, True, "Smoof")
         
 def handle_pdb(signal, frame):
     """
