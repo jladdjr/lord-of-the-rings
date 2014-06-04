@@ -2253,22 +2253,6 @@ class monsterFactory(unittest.TestCase):
         errorMsg = "getMonsters did not spawn three monsters."
         self.assertEqual(len(monsters), 3, errorMsg)
 
-    def testDifficultyBonusSpawn(self):
-        #-Testing difficulty feature - that monster spawn increases as a percentage
-        #over default. For instance, difficulty = 1 should result in a 100% increase
-        #in monster spawn over base. 
-        """
-        Params: number = 3, region = 1 (ERIADOR), difficulty = 1.
-
-        Six monsters should be spawned: (3 + (3 * 100%)).
-        """
-        from factories.monster_factory import getMonsters
-        
-        monsters = getMonsters(3, 1, 1)
-        
-        errorMsg = "getMonsters did not spawn six monsters. %s" %monsters
-        self.assertEqual(len(monsters), 6, errorMsg)
-
     def testRegionalSpawn(self):
         #-Testing that regional spawns work: that monster spawn reflects
         #regional monster distributions held in constants. 
@@ -2332,8 +2316,6 @@ class battleEngine(unittest.TestCase):
         Tests that the right number of monsters is handed to monster_factory.getMonsters.
         
         Formula is: number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.REGION
-
-        TODO: this doesn't work.
         """
         from space import Space
         from player import Player

@@ -48,7 +48,7 @@ class EquipCommand(Command):
         #Equip item
         for item in inventory:
             if item.getName() == itemToEquip:
-                equipped.addItem(item)
+                self._player.equip(item)
                 print "%s equipped %s!" % (self._player.getName(), item.getName())
                 break
         else:
