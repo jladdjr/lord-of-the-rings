@@ -2192,7 +2192,7 @@ class monsterFactory(unittest.TestCase):
         import constants
         
         monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
-        errorMsg = "Nothing was created in initial monster creation test."
+        errorMsg = "Nothing was created in initial monster creation test. %s" monsters
         self.assertTrue(len(monsters) != 0, errorMsg)
         
         for monster in monsters:
@@ -2254,7 +2254,7 @@ class monsterFactory(unittest.TestCase):
         
         monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
         
-        errorMsg = "getMonsters did not spawn three monsters."
+        errorMsg = "getMonsters did not spawn three monsters. %s" %monsters
         self.assertEqual(len(monsters), 3, errorMsg)
 
     def testRegionalSpawn(self):
@@ -2287,7 +2287,9 @@ class monsterFactory(unittest.TestCase):
                 numberTroll += 1
             else:
                 raise AssertionError("Invalid monster type.")
-        
+
+        errorMsg = "Did not spawn five thousand monsters - Eriador"
+        self.assertEqual(len(monstersEriador, 5000, errorMsg)
         errorMsg = "No nazgul spawned."
         self.assertTrue(numberNazgul != 0, errorMsg)
         errorMsg = "No trolls spawned."
@@ -2308,7 +2310,9 @@ class monsterFactory(unittest.TestCase):
                 numberGreatGoblin += 1
             else:
                 raise AssertionError("Invalid monster type.")
-        
+            
+        errorMsg = "Did not spawn five thousand monsters - High Pass"
+        self.assertEqual(len(monstersHighPass, 5000, errorMsg)
         errorMsg = "No goblins spawned."
         self.assertTrue(numberGoblin != 0, errorMsg)
         errorMsg = "No great goblins spawned."
