@@ -2673,12 +2673,9 @@ class battleEngine(unittest.TestCase):
         player._hp = 500
         player._maxHp = 500
         
-        monster1 = Monster("Jerk", "Total J@ck@$$", [5, 5, 5], "Moof", "Meep")
-        monster2 = Monster("Jerk", "Total J@ck@$$", [4, 4, 4], "Moof", "Meep")
-        monster3 = Monster("Jerk", "Total J@ck@$$", [3, 3, 3], "Moof", "Meep")
-        monster4 = Monster("Jerk", "Total J@ck@$$", [2, 2, 2], "Moof", "Meep")
-        monster5 = Monster("Jerk", "Total J@ck@$$", [1, 1, 1], "Moof", "Meep")
-        monsters = [monster1, monster2, monster3, monster4, monster5]
+        monster1 = MagicMock()
+        monster1._attack = 5
+        monsters = [monster1]
 
         #Calculate total damage
         totalDamage = 0
