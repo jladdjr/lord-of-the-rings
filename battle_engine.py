@@ -17,23 +17,23 @@ def battle(player):
     bonusDifficulty = location.getBattleBonusDifficulty()
 
     #Calculate region spawn
-    if region == 1:
+    if region == constants.RegionType.ERIADOR:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
-    elif region == 2:
+    elif region == constants.RegionType.BARROW_DOWNS:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
-    elif region == 3:
+    elif region == constants.RegionType.HIGH_PASS:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
-    elif region == 4:
+    elif region == constants.RegionType.ENEDWAITH:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
-    elif region == 5:
+    elif region == constants.RegionType.MORIA:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
-    elif region == 6:
+    elif region == constants.RegionType.RHOVANION:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
-    elif region == 7:
+    elif region == constants.RegionType.ROHAN:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
-    elif region == 8:
+    elif region == constants.RegionType.GONDOR:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
-    elif region == 9:
+    elif region == constants.RegionType.MORDOR:
         number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
     else:
         errorMsg = "Invalid region - region base monster determination."
