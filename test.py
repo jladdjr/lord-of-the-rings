@@ -2666,7 +2666,8 @@ class battleEngine(unittest.TestCase):
         from battle_engine import monsterAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
-        player = Player("Russian", space)
+        player = MagicMock()
+        player.takeAttack = MagicMock
         player._hp = 500
         player._maxHp = 500
         
