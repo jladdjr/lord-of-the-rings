@@ -2271,11 +2271,7 @@ class monsterFactory(unittest.TestCase):
             
         constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Troll: .25,
             Nazgul: 1})
-        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Goblin: .8,
-            GreatGoblin: 1})
-
         monstersEriador = getMonsters(5000, 1, 0)
-        monstersHighPass = getMonsters(5000, 3, 0)
 
         #Checking to see that Nazgul and Trolls are spawned
         numberNazgul = 0
@@ -2294,6 +2290,11 @@ class monsterFactory(unittest.TestCase):
         self.assertTrue(numberTroll != 0, errorMsg)
 
         #Checking to see that Goblin and GreatGoblin are spawned
+
+        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Goblin: .8,
+            GreatGoblin: 1})
+        monstersHighPass = getMonsters(5000, 3, 0)
+
         numberGoblin = 0
         numberGreatGoblin = 0
         for monster in monstersHighPass:
