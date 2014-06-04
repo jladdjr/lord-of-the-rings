@@ -2189,8 +2189,9 @@ class monsterFactory(unittest.TestCase):
         #Tests default monster creation, that monsters are in fact created.
         from factories.monster_factory import getMonsters
         from monsters.monster import Monster
+        import constants
         
-        monsters = getMonsters(3, 1, 0)
+        monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
         errorMsg = "Nothing was created in initial monster creation test."
         self.assertTrue(len(monsters) != 0, errorMsg)
         
@@ -2249,8 +2250,9 @@ class monsterFactory(unittest.TestCase):
         Params: number = 3, region = 1 (ERIADOR), difficulty = 0.
         """
         from factories.monster_factory import getMonsters
+        import constants
         
-        monsters = getMonsters(3, 1, 0)
+        monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
         
         errorMsg = "getMonsters did not spawn three monsters."
         self.assertEqual(len(monsters), 3, errorMsg)
