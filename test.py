@@ -2352,6 +2352,7 @@ class battleEngine(unittest.TestCase):
         from space import Space
         from player import Player
         from monsters.monster import Monster
+        from battle_engine import battle
         from battle_engine import playerAttackPhase
         import constants
 
