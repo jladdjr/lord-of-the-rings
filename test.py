@@ -2378,7 +2378,7 @@ class battleEngine(unittest.TestCase):
         monster3._hp = 10
         monsters = [monster1, monster2, monster3]
         
-        rawInputMock = MagicMock(return_value="Non-Existent Jerk", "run")
+        rawInputMock = MagicMock(side_effect=["Non-Existent Jerk", "run"])
         with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
