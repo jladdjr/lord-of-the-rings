@@ -2704,7 +2704,7 @@ class battleEngine(unittest.TestCase):
 
         #Check that each player attacked player
         for monster in monsters:
-            monster_attack.assert_called_once_with(monster._attack)
+            monster.attack.called_once_with(monster._attack)
             player._takeAttack.called_with(monster._attack)
 
         #Check that player._hp is updated accordingly
