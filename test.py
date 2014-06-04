@@ -2383,7 +2383,7 @@ class battleEngine(unittest.TestCase):
         attackInputMock = MagicMock(side_effect = ["Non-Existent Jerk"])                                 
         with patch('battle_engine.battle.raw_input', create = True, new = battleInputMock):
             with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
-                battle()
+                battle(player)
 
         errorMsg = "Testcase - attacking an invalid monster failed."
         self.assertFalse(monster1.called, errorMsg)
