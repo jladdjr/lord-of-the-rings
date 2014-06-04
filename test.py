@@ -2357,9 +2357,8 @@ class battleEngine(unittest.TestCase):
 
         space = Space("Shire", "Full of Russians", "Eregion")
         player = Player("Russian", space)
+        player._totalAttack = 1000
         bonusDifficulty = 0
-
-        constants.RUN_PROBABILITY_SUCCESS = MagicMock(return_value=1)
         
         monster1 = MagicMock()
         monster1._takeAttack = MagicMock()
@@ -2378,7 +2377,7 @@ class battleEngine(unittest.TestCase):
         monster3._hp = 10
         monsters = [monster1, monster2, monster3]
         
-        rawInputMock = MagicMock(side_effect=["Non-Existent Jerk", "run"])
+        rawInputMock = MagicMock(side_effect=["Non-Existent Jerk", "Jerk1", "Jerk2", "Jerk3"])
         with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
