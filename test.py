@@ -2192,7 +2192,7 @@ class monsterFactory(unittest.TestCase):
         import constants
         
         monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
-        errorMsg = "Nothing was created in initial monster creation test. %s" monsters
+        errorMsg = "Nothing was created in initial monster creation test. %s" %monsters
         self.assertTrue(len(monsters) != 0, errorMsg)
         
         for monster in monsters:
