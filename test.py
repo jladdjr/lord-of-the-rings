@@ -2286,7 +2286,7 @@ class monsterFactory(unittest.TestCase):
             elif isinstance(monster, Troll):
                 numberTroll += 1
             else:
-                raise AssertionError("Invalid monster type")
+                raise AssertionError("Invalid monster type %s" %monstersEriador)
 
         errorMsg = "No nazgul spawned."
         self.assertTrue(numberNazgul != 0, errorMsg)
@@ -2329,9 +2329,9 @@ class battleEngine(unittest.TestCase):
         player = Player("Russian", space)
         constants.RegionBaseSpawn.ERIADOR = MagicMock(return_value=2)
         getMonsters = MagicMock()
-        
+
         battle(player)
-        getMonsters.assert_called_once_with(3, constants.ERIADOR, .5)
+        getMonsters.assert_called_once_with(3, constants.RegionType.ERIADOR, .5)
 
     def testPlayerAttackPhase1(self):
         """
