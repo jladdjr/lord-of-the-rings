@@ -2266,7 +2266,7 @@ class monsterFactory(unittest.TestCase):
         
         monsters = getMonsters(3, 1, 1)
         
-        errorMsg = "getMonsters did not spawn six monsters."
+        errorMsg = "getMonsters did not spawn six monsters. %s" %monsters
         self.assertEqual(len(monsters), 6, errorMsg)
 
     def testRegionalSpawn(self):
