@@ -2289,7 +2289,7 @@ class monsterFactory(unittest.TestCase):
                 raise AssertionError("Invalid monster type.")
 
         errorMsg = "Did not spawn five thousand monsters - Eriador"
-        self.assertEqual(len(monstersEriador, 5000, errorMsg)
+        self.assertEqual(len(monstersEriador), 5000, errorMsg)
         errorMsg = "No nazgul spawned."
         self.assertTrue(numberNazgul != 0, errorMsg)
         errorMsg = "No trolls spawned."
@@ -2312,7 +2312,7 @@ class monsterFactory(unittest.TestCase):
                 raise AssertionError("Invalid monster type.")
             
         errorMsg = "Did not spawn five thousand monsters - High Pass"
-        self.assertEqual(len(monstersHighPass, 5000, errorMsg)
+        self.assertEqual(len(monstersHighPass), 5000, errorMsg)
         errorMsg = "No goblins spawned."
         self.assertTrue(numberGoblin != 0, errorMsg)
         errorMsg = "No great goblins spawned."
