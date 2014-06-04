@@ -2261,6 +2261,8 @@ class monsterFactory(unittest.TestCase):
         """
         Tests that monsters of each type in a region's distribution
         spawn, given a large enough sample size.
+
+        TODO: this still doesn't work. only one monster type spawned.
         """
         from factories.monster_factory import getMonsters
         from monsters.troll import Troll
@@ -2282,7 +2284,7 @@ class monsterFactory(unittest.TestCase):
             elif isinstance(monster, Troll):
                 numberTroll += 1
             else:
-                raise AssertionError("Invalid monster type %s" %monstersEriador)
+                raise AssertionError("Invalid monster type.")
 
         errorMsg = "No nazgul spawned."
         self.assertTrue(numberNazgul != 0, errorMsg)
@@ -2303,7 +2305,7 @@ class monsterFactory(unittest.TestCase):
             elif isinstance(monster, GreatGoblin):
                 numberGreatGoblin += 1
             else:
-                raise AssertionError("Invalid monster type")
+                raise AssertionError("Invalid monster type.")
 
         errorMsg = "No goblins spawned."
         self.assertTrue(numberGoblin != 0, errorMsg)
