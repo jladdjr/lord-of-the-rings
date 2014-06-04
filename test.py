@@ -899,15 +899,12 @@ class UnequipTest(unittest.TestCase):
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
         armor = Armor("Shield", "Round", 1, 1, 1)
 
-        player.addToInventory(weapon)
-        player.addToInventory(armor)
+        errorMsg = "Weapon should be in player._equipped but is not."
+        self.assertTrue(player._equipped.containsItem(weapon), errorMsg)
+        errorMsg = "Armor should be in player._equipped but is not."
+        self.assertTrue(player._equipped.containsItem(armor), errorMsg)
 
-        errorMsg = "Weapon should be in player._inventory but is not."
-        self.assertTrue(player._inventory.containsItem(weapon), errorMsg)
-        errorMsg = "Armor should be in player._inventory but is not."
-        self.assertTrue(player._inventory.containsItem(armor), errorMsg)
-
-        #Attempting to unequip item that may not be unequipped
+        #Attempting to unequip item that may be unequipped
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
@@ -2270,9 +2267,13 @@ class monsterFactory(unittest.TestCase):
         from monsters.great_goblin import GreatGoblin
         import constants
             
-        constants.RegionMonsterDistribution = MagicMock(
-            ERIADOR = {Troll: .25, Nazgul: 1})
-        monstersEriador = getMonsters(5000, constants.RegionType.ERIADOR, 0)
+        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Troll: .25,
+            Nazgul: 1})
+        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Goblin: .8,
+            GreatGoblin: 1})
+
+        monstersEriador = getMonsters(5000, 1, 0)
+        monstersHighPass = getMonsters(5000, 3, 0)
 
         #Checking to see that Nazgul and Trolls are spawned
         numberNazgul = 0
@@ -2289,10 +2290,6 @@ class monsterFactory(unittest.TestCase):
         self.assertTrue(numberNazgul != 0, errorMsg)
         errorMsg = "No trolls spawned."
         self.assertTrue(numberTroll != 0, errorMsg)
-
-        constants.RegionMonsterDistribution = MagicMock(
-            HIGH_PASS = {Goblin: .25, GreatGoblin: 1})
-        monstersHighPass = getMonsters(5000, constants.RegionType.HIGH_PASS, 0)
 
         #Checking to see that Goblin and GreatGoblin are spawned
         numberGoblin = 0
@@ -2687,7 +2684,7 @@ class battleEngine(unittest.TestCase):
         #Check that each player attacked player
         for monster in monsters:
             monster.attack.called_once_with(monster._attack)
-            player._takeAttack.called_with(monster._attack)
+            player.takeAttack.called_with(monster._attack)
 
         #Check that player._hp is updated accordingly
         errorMsg = "player._hp was not updated correctly."
