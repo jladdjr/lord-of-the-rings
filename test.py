@@ -2358,7 +2358,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2404,7 +2404,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2450,7 +2450,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2477,7 +2477,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2503,7 +2503,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2531,7 +2531,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import battle
         from battle_engine import playerAttackPhase
 
@@ -2569,7 +2569,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2601,7 +2601,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2635,7 +2635,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import playerAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2680,7 +2680,7 @@ class battleEngine(unittest.TestCase):
         """
         from space import Space
         from player import Player
-        from monsters.monster import monster
+        from monsters.monster import Monster
         from battle_engine import monsterAttackPhase
 
         space = Space("Shire", "Full of Russians", "Eregion")
@@ -2737,7 +2737,6 @@ class battleEngine(unittest.TestCase):
         errorMsg = "player._experience was not updated to the correct value."
         self.assertEqual(player._experience, startingExperience + 10, errorMsg)
         player._updateLevel.called_once_with(10)
-        self.assertEqual(False, True, "Smoof")
         
 def handle_pdb(signal, frame):
     """
