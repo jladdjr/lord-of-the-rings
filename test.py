@@ -898,11 +898,13 @@ class UnequipTest(unittest.TestCase):
 
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
         armor = Armor("Shield", "Round", 1, 1, 1)
+        player.addToInventory(weapon)
+        player.addToInventory(armor)
 
         errorMsg = "Weapon should be in player._equipped but is not."
-        self.assertTrue(player._equipped.containsItem(weapon), errorMsg)
+        self.assertTrue(player._inventory.containsItem(weapon), errorMsg)
         errorMsg = "Armor should be in player._equipped but is not."
-        self.assertTrue(player._equipped.containsItem(armor), errorMsg)
+        self.assertTrue(player._inventory.containsItem(armor), errorMsg)
 
         #Attempting to unequip item that may be unequipped
         rawInputMock = MagicMock(return_value="Dagger")
@@ -2685,7 +2687,7 @@ class battleEngine(unittest.TestCase):
         #Check that each player attacked player
         for monster in monsters:
             monster.attack.called_once_with(monster._attack)
-            player.takeAttack.called_with(monster._attack)
+            player.takeAttack.assert_called_with(monster._attack)
 
         #Check that player._hp is updated accordingly
         errorMsg = "player._hp was not updated correctly."
