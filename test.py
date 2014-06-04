@@ -2356,7 +2356,7 @@ class battleEngine(unittest.TestCase):
         from battle_engine import playerAttackPhase
         import constants
 
-        space = Space("Shire", "Full of Russians", "Eregion")
+        space = Space("Shire", "Full of Russians", constants.RegionType.ERIADOR)
         player = Player("Russian", space)
         bonusDifficulty = 0
 
