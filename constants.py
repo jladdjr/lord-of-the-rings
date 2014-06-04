@@ -87,7 +87,7 @@ class RegionMonsterDistribution(object):
     """
     Region monster distribution.
     """
-    ERIADOR       = {Nazgul:            1}
+    ERIADOR       = {Nazgul:           .1}
     """
     BARROW_DOWNS  = {BarrowWight:      .1,
                      KingOfTheBarrows: .9}

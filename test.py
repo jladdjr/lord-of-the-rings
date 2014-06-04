@@ -2285,7 +2285,7 @@ class monsterFactory(unittest.TestCase):
                 numberTroll += 1
             else:
                 raise AssertionError("Invalid monster type.")
-
+        print monstersEriador
         errorMsg = "No nazgul spawned."
         self.assertTrue(numberNazgul != 0, errorMsg)
         errorMsg = "No trolls spawned."
