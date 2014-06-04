@@ -2267,13 +2267,9 @@ class monsterFactory(unittest.TestCase):
         from monsters.great_goblin import GreatGoblin
         import constants
             
-        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Troll: .25,
-            Nazgul: 1})
-        constants.RegionMonsterDistribution = MagicMock(ERIADOR = {Goblin: .8,
-            GreatGoblin: 1})
-
+        constants.RegionMonsterDistribution = MagicMock(
+            ERIADOR = {Troll: .25, Nazgul: 1})
         monstersEriador = getMonsters(5000, 1, 0)
-        monstersHighPass = getMonsters(5000, 3, 0)
 
         #Checking to see that Nazgul and Trolls are spawned
         numberNazgul = 0
@@ -2284,12 +2280,17 @@ class monsterFactory(unittest.TestCase):
             elif isinstance(monster, Troll):
                 numberTroll += 1
             else:
+                print monstersEriador
                 raise AssertionError("Invalid monster type")
 
         errorMsg = "No nazgul spawned."
         self.assertTrue(numberNazgul != 0, errorMsg)
         errorMsg = "No trolls spawned."
         self.assertTrue(numberTroll != 0, errorMsg)
+
+        constants.RegionMonsterDistribution = MagicMock(
+            HIGH_PASS = {Goblin: .25, GreatGoblin: 1})
+        monstersHighPass = getMonsters(5000, 3, 0)
 
         #Checking to see that Goblin and GreatGoblin are spawned
         numberGoblin = 0
