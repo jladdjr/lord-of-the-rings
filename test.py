@@ -2193,7 +2193,7 @@ class monsterFactory(unittest.TestCase):
         
         monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
         errorMsg = "Nothing was created in initial monster creation test. %s" %monsters
-        self.assertTrue(len(monsters) != 0, errorMsg)
+        self.assertEqual(len(monsters), 0, errorMsg)
         
         for monster in monsters:
             errorMsg = "getMonsters did not spawn Monster objects."
@@ -2353,10 +2353,13 @@ class battleEngine(unittest.TestCase):
         from player import Player
         from monsters.monster import Monster
         from battle_engine import playerAttackPhase
+        import constants
 
         space = Space("Shire", "Full of Russians", "Eregion")
         player = Player("Russian", space)
         bonusDifficulty = 0
+
+        constants.RUN_PROBABILITY_SUCCESS = MagicMock(return_value=1)
         
         monster1 = MagicMock()
         monster1._takeAttack = MagicMock()
@@ -2375,7 +2378,7 @@ class battleEngine(unittest.TestCase):
         monster3._hp = 10
         monsters = [monster1, monster2, monster3]
         
-        rawInputMock = MagicMock(return_value="Non-Existent Jerk")
+        rawInputMock = MagicMock(return_value="Non-Existent Jerk", "run")
         with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
