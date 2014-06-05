@@ -547,6 +547,9 @@ class PickUpTest(unittest.TestCase):
     Test PickUp class.
     """
     def testExecute(self):
+        """
+        Test case: player picks up an item that may be picked up.
+        """
         from space import Space
         from player import Player
         from items.item import Item
@@ -559,7 +562,7 @@ class PickUpTest(unittest.TestCase):
         
         space.addItem(item)
 
-        #Assert item in space but not in inventory and equipment
+        #Test pre-test conditions
         self.assertTrue(space.containsItem(item), "Space should have item but does not.")
         
         inventory = player.getInventory()
@@ -581,13 +584,39 @@ class PickUpTest(unittest.TestCase):
         equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(item), "Player should not have item in equipment but does.")
         
+    def testExecute2(self):
+        """
+        Test case: player tries to pick up non-existent item.
+        """
+        from space import Space
+        from player import Player
+        from commands.pick_up_command import PickUpCommand
+        
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("Frodo", space)
+        pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
+
+        #Test pre-test conditions
+        self.assertEqual(space._items, [], "Space should have no items but does.")
+        self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does.")
+        self.assertEqual(player._equipped._items. [], "player._equipped should have no items but does.")
+            
+        #Execute pickUpCmd and test that nothing has changed
+        rawInputMock = MagicMock(return_value="Shiny Acorns")
+        with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock):
+            pickUpCmd.execute()
+            
+        self.assertEqual(space._items, [], "Space should have no items but does - post-test.")
+        self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does - post-test.")
+        self.assertEqual(player._equipped._items. [], "player._equipped should have no items but does - post-test.")
+        
 class DropTest(unittest.TestCase):
     """
     Test Drop class.
     """
     def testExecute(self):
         """
-        Test case where item in inventory and equipment.
+        Test case where items in inventory and equipment.
         """
         from space import Space
         from player import Player
@@ -640,11 +669,12 @@ class DropTest(unittest.TestCase):
 
     def testExecute2(self):
         """
-        Test for case: item in inventory and but not in equipment.
+        Test case where items in inventory but not in equipment.
         """
         from space import Space
         from player import Player
         from items.weapon import Weapon
+        from items.armor import Armor
         from commands.drop_command import DropCommand
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
@@ -652,69 +682,67 @@ class DropTest(unittest.TestCase):
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
+        armor = Armor("Shield of Faith", "Quenches fiery darts", 2, 2, 2)
 
         player.addToInventory(weapon)
+        player.addToInventory(armor)
         
-        #Asserts item in player inventory but not in equipped and space
-        self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
+        #Test pre-test conditions
+        self.assertFalse(space.containsItem(weapon), "Space should not have weapon but does.")
+        self.assertFalse(space.containsItem(armor), "Space should not have armor but does.")
         
         inventory = player.getInventory()
-        self.assertTrue(inventory.containsItem(weapon), "Inventory should have item but does not.")
+        self.assertTrue(inventory.containsItem(weapon), "Inventory should have weapon but does not.")
+        self.assertTrue(inventory.containsItem(armor), "Inventory should have armor but does not.")
 
         equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(weapon), "Equipped should not have item but does.")
+        self.assertFalse(equipped.containsItem(weapon), "Equipped should not have weapon but does.")
+        self.assertFalse(equipped.containsItem(armor), "Equipped should not have armor but does.")
 
         #Assert item in space but not in player inventory and not in equipment
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
+        rawInputMock = MagicMock(return_value="Shield of Faith")
+        with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
+            dropCmd.execute()
             
-        self.assertTrue(space.containsItemString("Dagger"), "Space should have item but does not.")
+        self.assertTrue(space.containsItemString("Dagger"), "Space should have weapon but does not.")
+        self.assertTrue(space.containsItemString("Shield of Faith"), "Space should have armor but does not.")
         
         inventory = player.getInventory()
-        self.assertFalse(inventory.containsItem(weapon), "Inventory should not have item but does.")
+        self.assertFalse(inventory.containsItem(weapon), "Inventory should not have weapon but does.")
+        self.assertFalse(inventory.containsItem(armor), "Inventory should not have armor but does.")
         
         equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(weapon), "Equipment should not have item but does.")
+        self.assertFalse(equipped.containsItem(weapon), "Equipment should not have weapon but does.")
+        self.assertFalse(equipped.containsItem(armor), "Equipment should not have armor but does.")
 
     def testExecute3(self):
         """
-        Test for case: item not in inventory and not in equipment.
+        Test case for when player does not have item in either inventory or equipment.
         """
         from space import Space
         from player import Player
-        from items.weapon import Weapon
         from commands.drop_command import DropCommand
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
+        #Test pre-test conditions
+        self.assertEqual(space._items, [], "Space should have no items but does.")
+        self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does.")
+        self.assertEqual(player._equipped._items. [], "player._equipped should have no items but does.")
 
-        player.addToInventory(weapon)
-        
-        #Asserts item in player inventory but not in equipped and space
-        self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
-        
-        inventory = player.getInventory()
-        self.assertTrue(inventory.containsItem(weapon), "Inventory should have item but does not.")
-
-        equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(weapon), "Equipped should not have item but does.")
-
-        #Assert item in space but not in player inventory and not in equipment
-        rawInputMock = MagicMock(return_value="Dagger")
+        #Attempt to drop items that do not exist
+        rawInputMock = MagicMock(return_value="Melted Cheese")
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
             
-        self.assertTrue(space.containsItemString("Dagger"), "Space should have item but does not.")
-        
-        inventory = player.getInventory()
-        self.assertFalse(inventory.containsItem(weapon), "Inventory should not have item but does.")
-        
-        equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(weapon), "Equipment should not have item but does.")
+        self.assertEqual(space._items, [], "Space should have no items but does - post-test.")
+        self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does - post-test.")
+        self.assertEqual(player._equipped._items. [], "player._equipped should have no items but does - post-test.")
 
 class EquipTest(unittest.TestCase):
     """
