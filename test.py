@@ -735,7 +735,7 @@ class DropTest(unittest.TestCase):
         self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does.")
         self.assertEqual(player._equipped._items, [], "player._equipped should have no items but does.")
 
-        #Attempt to drop items that do not exist
+        #Attempt to drop item that does not exist
         rawInputMock = MagicMock(return_value="Melted Cheese")
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
@@ -748,57 +748,10 @@ class EquipTest(unittest.TestCase):
     """
     Tests Equip Command.
     """
-    def testEquippingItemsNotInInventory(self):
-        from player import Player
-        from space import Space
-        from items.weapon import Weapon
-        from items.armor import Armor
-        from commands.equip_command import EquipCommand
-
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
-        player = Player("Frodo", space)
-        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
-        
-        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
-        armor = Armor("Shield", "of Faith", 2, 2, 2)
-
-        #Trying to equip items not in inventory
-        rawInputMock = MagicMock(return_value="Dagger")
-        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
-            equipCmd.execute()
-
-        rawInputMock = MagicMock(return_value="Shield")
-        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
-            equipCmd.execute()
-        
-        equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(weapon), "Player equipped item not in inventory.")
-        self.assertFalse(equipped.containsItem(armor), "Player equipped item not in inventory.")
-
-    def testEquippingUnequippableItems(self):
-        from player import Player
-        from space import Space
-        from items.item import Item
-        from commands.equip_command import EquipCommand
-
-        space = Space("Shire", "Home of the Hobbits.", "Mordor")
-        player = Player("Frodo", space)
-        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
-        
-        item = Item("Charm", "Unknown effects", 1)
-        
-        inventory = player.getInventory()
-        inventory.addItem(item)
-
-        #Trying to equip item that cannot be equipped (e.g. item is not instance of Armor or Weapon)
-        rawInputMock = MagicMock(return_value="Charm")
-        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
-            equipCmd.execute()
-        
-        equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(item), "Player equipped item of Item class.")
-
-    def testEquippingEquippableItems(self):
+    def testPositiveCase(self):
+        """
+        Testcase: for equipping an item that may be equipped.
+        """
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -810,7 +763,7 @@ class EquipTest(unittest.TestCase):
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
-        armor = Armor("Shield", "of faith", 2, 2, 2) 
+        armor = Armor("Shield", "Very faithful", 2, 2, 2) 
 
         inventory = player.getInventory()
         inventory.addItem(weapon)
@@ -826,11 +779,75 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute()
             
         equipped = player.getEquipped()
-        
-        self.assertTrue(equipped.containsItem(weapon), "Player failed to equip equipable item.")
-        self.assertTrue(equipped.containsItem(armor), "Player failed to equip equipable item.")
 
-    def testEquippingAlreadyEquippedItem(self):
+        self.assertTrue(inventory.containsItem(weapon), "Inventory should still have weapon but does not.")
+        self.assertTrue(inventory.containsItem(armor), "Inventory should still have armor but does not.")
+        
+        self.assertTrue(equipped.containsItem(weapon), "Player failed to equip equipable weapon.")
+        self.assertTrue(equipped.containsItem(armor), "Player failed to equip equipable armor.")
+        
+    def testNegativeCase1(self):
+        """
+        Attempting to equip items not in inventory.
+        """
+        from player import Player
+        from space import Space
+        from commands.equip_command import EquipCommand
+
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("Frodo", space)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
+
+        #Trying to equip items not in inventory
+        rawInputMock = MagicMock(return_value="Dagger")
+        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
+            equipCmd.execute()
+
+        rawInputMock = MagicMock(return_value="Shield")
+        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
+            equipCmd.execute()
+
+        self.assertFalse(inventory.containsItem(weapon), "Inventory should not have weapon.")
+        self.assertFalse(inventory.containsItem(armor), "Inventory should not have armor.")
+        
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(weapon), "Weapon should not be in equipped.")
+        self.assertFalse(equipped.containsItem(armor), "Armor should not be in equipped.")
+
+    def testNegativeCase2(self):
+        """
+        Attempting to equip an item that may not be equipped.
+
+        In this instance, item is of the Item class.
+        """
+        from player import Player
+        from space import Space
+        from items.item import Item
+        from commands.equip_command import EquipCommand
+
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("Frodo", space)
+        equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
+        
+        item = Item("Charm", "Unknown effects", 1)
+        
+        inventory = player.getInventory()
+        inventory.addItem(item)
+
+        #Trying to equip item that cannot be equipped
+        rawInputMock = MagicMock(return_value="Charm")
+        with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
+            equipCmd.execute()
+
+        self.assertTrue(inventory.containsItem(item), "Inventory should have item.")
+        
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(item), "Player equipped item of Item class.")
+
+    def testNegativeCase3(self):
+        """
+        Attempting to equip items that are already equipped.
+        """
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -853,6 +870,12 @@ class EquipTest(unittest.TestCase):
         equipped.addItem(armor)
 
         #Test - preconditions
+        errorMsg = "Weapon and armor are supposed to be in inventory but are not."
+        self.assertTrue(weapon in inventory._items, errorMsg)
+        self.assertTrue(armor in inventory._items, errorMsg)
+        errorMsg = "Inventory is supposed to have two items."
+        self.assertEqual(player._inventory.conut(), 2, errorMsg)
+        
         errorMsg = "Weapon is supposed to be in player._equipped but is not."
         self.assertTrue(weapon in player._equipped, errorMsg)
         errorMsg = "Armor is supposed to be in player._equipped but it is not."
@@ -870,13 +893,20 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute() 
 
         #Test still only two equipped items
+        errorMsg = "Weapon and armor are supposed to be in inventory but are not."
+        self.assertTrue(weapon in player._inventory, errorMsg)
+        self.assertTrue(armor in player._inventory, errorMsg)
+        errorMsg = "Player inventory is only supposed to have two items.
+        self.assertEqual(player.inventory.count(), 2, errorMsg)
+            
         errorMsg = "Weapon is supposed to be in player._equipped but is not."
         self.assertTrue(weapon in player._equipped, errorMsg)
         errorMsg = "Armor is supposed to be in player._equipped but it is not."
         self.assertTrue(armor in player._equipped, errorMsg)
-        self.assertEqual(equipped.count(), 2, "Player is supposed to have two equipped items but lists more.")
+        errorMsg = "Player is supposed to have two equipped items but lists more."
+        self.assertEqual(equipped.count(), 2, errorMsg)
 
-    def testPlayerStatsUpdateWeapon(self):
+    def testPlayerWeaponStats(self):
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -884,30 +914,37 @@ class EquipTest(unittest.TestCase):
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
+        defaultAttack = player._attack
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
 
         weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
         player.addToInventory(weapon)
 
-        #Create default
-        defaultAttack = player._attack
+        #Test preconditions
+        errorMsg = "Weapon should be in player._inventory._items but is not."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        errorMsg = "Weapon shoud not be in player._equipped._items but is not."
+        self.assertTrue(weapon not in player._equipped._items, errorMsg)
 
+        #Equip weapon and check that _totalAttack and _weaponAttack update
         rawInputMock = MagicMock(return_value="Sword of the Spirit")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
             equipCmd.execute() 
 
+        errorMsg = "Weapon should be in player._inventory._items but is not."
+        self.assertTrue(player._inventory.containsItem(weapon), errorMsg)
         errorMsg = "Weapon should be equipped but is not."
         self.assertTrue(player._equipped.containsItem(weapon), errorMsg)
 
         #Test for change
-        errorMsg = "Player._attack changed with weapon equip when it should not have."
+        errorMsg = "player._attack changed with weapon equip when it should not have."
         self.assertEqual(player._attack, defaultAttack, errorMsg)
         errorMsg = "player._weaponAttack not updated to correct value."
         self.assertEqual(player._weaponAttack, weapon._attack, errorMsg)
-        errorMsg = "Player._totalAttack not updated to correct value."
+        errorMsg = "player._totalAttack not updated to correct value."
         self.assertEqual(player._totalAttack, defaultAttack + weapon._attack, errorMsg)
 
-    def testPlayerStatsUpdateArmor(self):
+    def testPlayerArmorStats(self):
         from player import Player
         from space import Space
         from items.armor import Armor
@@ -919,11 +956,20 @@ class EquipTest(unittest.TestCase):
 
         armor = Armor("Shield of Faith", "For quenching fiery darts", 1, 1, 1)
         player.addToInventory(armor)
-        
+
+        #Test preconditions
+        errorMsg = "Armor should be in player._inventory._items but is not."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        errorMsg = "Armor should not be in player._equipped._items but is not."
+        self.assertTrue(weapon not in player._equipped._items, errorMsg)
+
+        #Equip armor and check that player._defense updates
         rawInputMock = MagicMock(return_value="Shield of Faith")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
             equipCmd.execute()
 
+        errorMsg = "Armor should be in inventory but is not."
+        self.assertTrue(player._inventory.containsItem(weapon), errorMsg)
         errorMsg = "Armor should be equipped but is not."
         self.assertTrue(player._equipped.containsItem(armor), errorMsg)
         
@@ -935,10 +981,12 @@ class UnequipTest(unittest.TestCase):
     """
     Tests Unequip Command.
     """
-    def testUnequipWhenItemNotCurrentlyEquipped(self):
+    def testPositiveCase(self):
+        """
+        Unequipping an unequippable item.
+        """
         from player import Player
         from space import Space
-        from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
         from commands.unequip_command import UnequipCommand
@@ -950,61 +998,117 @@ class UnequipTest(unittest.TestCase):
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
         armor = Armor("Shield", "of faith", 2, 2, 2)
 
+        player.addToInventory(weapon)
+        player.addToInventory(armor)
+        player.equip(weapon)
+        player.equip(armor)
+
+        #Test preconditions
+        errorMsg = "Weapon and Armor should be in inventory but are not."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._inventory._items, errorMsg)
+
+        errroMsg = "Weapon and Armor should be in equipped but are not."
+        self.assertTrue(weapon in player._equipped._items, errorMsg)
+        self.assertTrue(armor in player._equipped._items, errorMsg)
+        
         #Attempting to unequip item not currently equipped
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
-
         rawInputMock = MagicMock(return_value="Shield")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
 
-        #TODO: find way to make sure that 30-32 in unequip is called
-        errorMsg = "Player should not have weapon in equipped but does."
-        self.assertFalse(player._equipped.containsItem(weapon), errorMsg)
-        errorMsg = "Player should not have armor in equipped but does."
-        self.assertFalse(player._equipped.containsItem(armor), errorMsg)
+        errorMsg = "Weapon and Armor should be in inventory but are not."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._inventory._items, errorMsg)
 
-    def testUnequippingUnequippableItem(self):
+        errorMsg = "Player should not have weapon in equipped."
+        self.assertFalse(player._equipped.containsItem(weapon), errorMsg)
+        errorMsg = "Player should not have armor in equipped."
+        self.assertFalse(player._equipped.containsItem(armor), errorMsg)
+        
+    def testNegativeCase(self):
+        """
+        Attempting to unequip an item that is not currently equipped.
+        Item is in inventory. 
+        """
         from player import Player
         from space import Space
-        from items.item import Item
         from items.weapon import Weapon
         from items.armor import Armor
         from commands.unequip_command import UnequipCommand
-        
+
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
 
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
-        armor = Armor("Shield", "Round", 1, 1, 1)
+        armor = Armor("Shield", "of faith", 2, 2, 2)
+
         player.addToInventory(weapon)
         player.addToInventory(armor)
 
-        errorMsg = "Weapon should be in player._equipped but is not."
-        self.assertTrue(player._inventory.containsItem(weapon), errorMsg)
-        errorMsg = "Armor should be in player._equipped but is not."
-        self.assertTrue(player._inventory.containsItem(armor), errorMsg)
-
-        #Attempting to unequip item that may be unequipped
+        #Test preconditions
+        errorMsg = "Weapon and Armor should be in inventory but are not."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._inventory._items, errorMsg)
+        
+        #Attempting to unequip item not currently equipped
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
-
         rawInputMock = MagicMock(return_value="Shield")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute()
 
-        inventory = player.getInventory()
-        self.assertTrue(inventory.containsItem(weapon), "Inventory should have weapon and does not.")
-        self.assertTrue(inventory.containsItem(armor), "Inventory should have armor and does not.")
-        
-        equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(weapon), "Failed to unequip item that it should have.")
-        self.assertFalse(equipped.containsItem(armor), "Failed to unequip item that it should have.")
+        errorMsg = "Weapon and Armor should be in inventory but are not."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._inventory._items, errorMsg)
 
-    def testPlayerWeaponStatsUpdate(self):
+        errorMsg = "Player should not have weapon in equipped but does."
+        self.assertFalse(player._equipped.containsItem(weapon), errorMsg)
+        errorMsg = "Player should not have armor in equipped but does."
+        self.assertFalse(player._equipped.containsItem(armor), errorMsg)
+        
+    def testNegativeCase2(self):
+        """
+        Attempting to unequip an item that is not currently equipped.
+        Item is not in inventory. 
+        """
+        from player import Player
+        from space import Space
+        from commands.unequip_command import UnequipCommand
+
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("Frodo", space)
+        unequipCmd = UnequipCommand("unequip", "Unequips currently equipped item", player)
+
+        #Test preconditions
+        errorMsg = "Inventory should be empty."
+        self.assertEqual(player._inventory.count(), 0, errorMsg)
+        errorMsg = "Equipment should be empty."
+        self.assertEqual(player._equipped.count(), 0, erroMsg)
+        
+        #Attempting to unequip item not currently equipped
+        rawInputMock = MagicMock(return_value="Dagger")
+        with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
+            unequipCmd.execute()
+        rawInputMock = MagicMock(return_value="Shield")
+        with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
+            unequipCmd.execute()
+
+        errorMsg = "Inventory should still be empty."
+        self.assertEqual(player._inventory.count(), 0, errorMsg)
+        errorMsg = "Equipment should still be empty."
+        self.assertEqual(player._equipped.count(), 0, erroMsg)
+        
+    def testPlayerWeaponStats(self):
+        """
+        Tests that player-specific attributes such as player._totalAttack
+        and player._weaponAttack reset with unequip.
+        """
         from player import Player
         from space import Space
         from items.weapon import Weapon
@@ -1016,19 +1120,28 @@ class UnequipTest(unittest.TestCase):
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
         weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
+        player.addToInventory(weapon)
         player.equip(weapon)
-        
+
+        #Test preconditions
+        errorMsg = "Weapon should be in inventory and equipped."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._equipped._items, errorMsg)
+
+        #Test player-specific attributes to change back to defaults
         rawInputMock = MagicMock(return_value="Sword of the Spirit")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute() 
 
-        #Test for change back to player defaults
         errorMsg = "player._weaponAttack should be zero but it is not."
         self.assertEqual(player._weaponAttack, 0, errorMsg)
-        errorMsg = "player._totalAttack should be attack but it is not."
+        errorMsg = "player._totalAttack should be player._attack but it is not."
         self.assertEqual(player._totalAttack, player._attack, errorMsg)
         
-    def testPlayerArmorStatsUpdate(self):
+    def testPlayerArmorStats(self):
+        """
+        Tests that player._defense resets with unequip.
+        """
         from player import Player
         from space import Space
         from items.armor import Armor
@@ -1040,23 +1153,27 @@ class UnequipTest(unittest.TestCase):
         unequipCmd = UnequipCommand("Unequip", "Unequips item in inventory to player", player)
 
         armor = Armor("Shield of Faith", "For quenching fiery darts", 1, 1, 1)
+        player.addToInventory(armor)
         player.equip(armor)
-        
+
+        #Test preconditions
+        errorMsg = "Armor should be in player inventory and equipped."
+        self.assertTrue(armor in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._equipped._items , errorMsg)
+
+        #Test for change back to player defaults        
         rawInputMock = MagicMock(return_value="Shield of Faith")
         with patch('commands.unequip_command.raw_input', create=True, new=rawInputMock):
             unequipCmd.execute() 
 
-        #Test for change back to player defaults
-        errorMsg = "player._armorDefense should be zero after unequip but is not."
+        errorMsg = "player._armorDefense should be zero after unequip."
         self.assertEqual(player._armorDefense, 0, errorMsg)
 
 class UsePotionTest(unittest.TestCase):
     """
     Tests UsePotion command.
-
-    #TODO: test that still works when no potions available.
     """
-    def testExecute(self):
+    def testPostiveCase(self):
         from commands.use_potion_command import UsePotionCommand
         from space import Space
         from player import Player
@@ -1083,7 +1200,38 @@ class UsePotionTest(unittest.TestCase):
         self.assertFalse(inventory.containsItem(potion), errorMsg)
         errorMsg = "Player health not at correct amount."
         self.assertEqual(player._hp, correctFinalHp, errorMsg)
+
+    def testNegativeCase(self):
+        """
+        Player does not have potions in inventory.
+        """
+        from commands.use_potion_command import UsePotionCommand
+        from space import Space
+        from player import Player
+        from items.potion import Potion
+
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("Frodo", space)
+        usePotionCmd = UsePotionCommand("use potion", "Uses potion in inventory.", player)
+        
+        player._maxHp = 20
+        player._hp = 10
+        startingHp = player._hp
+
+        #Test preconditions
+        errorMsg = "Player should not have any items in inventory."
+        self.assertEqual(player._inventory._items, 0, errorMsg)
+
+        #Test that player stats do not change after attempted heal
+        rawInputMock = MagicMock(return_value="Enormous Potion")
+        with patch('commands.use_potion_command.raw_input', create = True, new = rawInputMock):
+            usePotionCmd.execute()
             
+        errorMsg = "Inventory should still not have any items."
+        self.assertEqual(player._inventory._items, 0, errorMsg)
+        errorMsg = "player._hp changed when it should not have."
+        self.assertEqual(player._hp, startingHp, errorMsg)
+        
 class WeaponTest(unittest.TestCase):
     """
     Tests Weapon class.

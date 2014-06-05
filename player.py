@@ -33,8 +33,6 @@ class Player(object):
         self._attack = self._level * constants.ATTACK_STAT
         
         #Initialize player inventory and equipment
-        self._armor = None
-        self._weapon = None
         self._inventory = ItemSet()
         self._equipped = ItemSet()
 
@@ -226,22 +224,6 @@ class Player(object):
             
         else:
             print "%s not in equipped items." % item.getName()
-
-    def getWeapon(self):
-        """
-        Returns play weapon.
-
-        @return:    Player's current weapon.
-        """
-        return self._weapon
-
-    def getArmor(self):
-        """
-        Returns player armor.
-
-        @return:    Player's current armor.
-        """
-        return self._armor
 
     def getEquipped(self):
         """
