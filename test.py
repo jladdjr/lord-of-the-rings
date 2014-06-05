@@ -597,7 +597,7 @@ class PickUpTest(unittest.TestCase):
         pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
 
         #Test pre-test conditions
-        self.assertEqual(space._items, [], "Space should have no items but does.")
+        self.assertEqual(space._items._items, [], "Space should have no items but does.")
         self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does.")
         self.assertEqual(player._equipped._items, [], "player._equipped should have no items but does.")
             
@@ -606,7 +606,7 @@ class PickUpTest(unittest.TestCase):
         with patch('commands.pick_up_command.raw_input', create=True, new=rawInputMock):
             pickUpCmd.execute()
             
-        self.assertEqual(space._items, [], "Space should have no items but does - post-test.")
+        self.assertEqual(space._items._items, [], "Space should have no items but does - post-test.")
         self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does - post-test.")
         self.assertEqual(player._equipped._items, [], "player._equipped should have no items but does - post-test.")
         
@@ -731,7 +731,7 @@ class DropTest(unittest.TestCase):
         dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
         
         #Test pre-test conditions
-        self.assertEqual(space._items, [], "Space should have no items but does.")
+        self.assertEqual(space._items._items, [], "Space should have no items but does.")
         self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does.")
         self.assertEqual(player._equipped._items, [], "player._equipped should have no items but does.")
 
@@ -740,7 +740,7 @@ class DropTest(unittest.TestCase):
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
             
-        self.assertEqual(space._items, [], "Space should have no items but does - post-test.")
+        self.assertEqual(space._items._items, [], "Space should have no items but does - post-test.")
         self.assertEqual(player._inventory._items, [], "player._inventory should have no items but does - post-test.")
         self.assertEqual(player._equipped._items, [], "player._equipped should have no items but does - post-test.")
 
