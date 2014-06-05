@@ -625,7 +625,7 @@ class DropTest(unittest.TestCase):
             dropCmd.execute()
             
         self.assertTrue(space.containsItemString("Dagger"), "Space should have weapon but does not.")
-        self.assertTrue(space.containsItemString("Shield of Faith", "Space should have armor but does not."
+        self.assertTrue(space.containsItemString("Shield of Faith", "Space should have armor but does not.")
         
         inventory = player.getInventory()
         self.assertFalse(inventory.containsItem(weapon), "Inventory should not have weapon but does.")
