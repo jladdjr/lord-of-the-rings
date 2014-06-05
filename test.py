@@ -72,7 +72,8 @@ class GameTest(unittest.TestCase):
         from space import Space
         from player import Player
         from battle_engine import battle
-        
+        import pdb
+        pdb.set_trace()
         g = Game()
         space = Space("Shire", "Home of the Russians", "Eregion", battleProbability = 1)
         player = Player("Russian", space)
