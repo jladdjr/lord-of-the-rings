@@ -8,14 +8,14 @@ from mock import (MagicMock, patch)
 
 class GameTest(unittest.TestCase):
     """
-    Tests Game class.
+    Tests game class.
 
     A few iterations:
-    -testCase1: Command does not involve passage of time.
-    -testCase2: Command does involve passage of time. Chance of battle = 0%.
-    -testCase3: Command does involve passage of time. Chance of battle = 100%.
+    -testGame1: Command does not involve passage of time.
+    -testGame2: Command does involve passage of time. Chance of battle = 0%.
+    -testGame3: Command does involve passage of time. Chance of battle = 100%.
     """
-    def testCase1(self):
+    def testGame1(self):
         """
         Testing that helpCommand.execute.called when command does not
         involve passage of time. 
@@ -85,7 +85,7 @@ class GameTest(unittest.TestCase):
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
 
         g._nextTurn()
-        battle.called()
+        battle.assert_called_once_with(player)
         errorMsg = "Game._nextTurn() failed to execute command"
         self.assertTrue(helpCommand.execute.called, errorMsg)
     
