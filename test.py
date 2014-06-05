@@ -85,7 +85,7 @@ class GameTest(unittest.TestCase):
         g._parser.getNextCommand = MagicMock(return_value=helpCommand)
 
         g._nextTurn()
-        battle.assert_called_once_with(player)
+        battle.called()
         errorMsg = "Game._nextTurn() failed to execute command"
         self.assertTrue(helpCommand.execute.called, errorMsg)
     
@@ -2381,7 +2381,7 @@ class battleEngine(unittest.TestCase):
         
         battleInputMock = MagicMock(side_effect = ["attack", "run"])
         attackInputMock = MagicMock(side_effect = ["Non-Existent Jerk"])                                 
-        with patch('battle_engine.battle.raw_input', create = True, new = battleInputMock):
+        with patch('battle_engine.raw_input', create = True, new = battleInputMock):
             with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
                 battle(player)
 
@@ -2425,10 +2425,10 @@ class battleEngine(unittest.TestCase):
         monsters = [monster1, monster2, monster3]
 
         rawInputMock = MagicMock(return_value="Jerk")
-        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+        with patch('battle_engine.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
-        monster1._takeAttack.called_with(player._totalAttack)
+        monster1.takeAttack.called_with(player._totalAttack)
 
         #Player only attacks player-specified monster
         errorMsg = "Test: valid monster attack - wrong monster got attacked."
@@ -2461,7 +2461,7 @@ class battleEngine(unittest.TestCase):
         monsters = [monster1]
 
         rawInputMock = MagicMock(return_value="Jerk")
-        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+        with patch('battle_engine.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
         errorMsg = "monster1 should have been removed from monsters but was not."
@@ -2488,7 +2488,7 @@ class battleEngine(unittest.TestCase):
         monsters = [monster1]
 
         rawInputMock = MagicMock(return_value="Jerk")
-        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+        with patch('battle_engine.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
         errorMsg = "monster1 should not have been removed from monsters but was."
@@ -2514,7 +2514,7 @@ class battleEngine(unittest.TestCase):
         monsters = [monster1]
 
         rawInputMock = MagicMock(return_value="Jerk")
-        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+        with patch('battle_engine.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
         errorMsg = "Money was not returned correctly - single monster death."
@@ -2547,9 +2547,9 @@ class battleEngine(unittest.TestCase):
         battleInputMock = MagicMock(side_effect = ["attack", "attack", "attack"])
         attackInputMock = MagicMock(side_effect = ["Jerk", "Jerk2", "Jerk3"])
                                                    
-        with patch('battle_engine.battle.raw_input', create = True, new = battleInputMock):
-            with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
-                battle()
+        with patch('battle_engine.raw_input', create = True, new = battleInputMock):
+            with patch('battle_engine.raw_input', create = True, new = attackInputMock):
+                battle(player)
 
         errorMsg = "Money was not returned correctly - multiple monster death."
         self.assertEqual(money, 15, errorMsg)
@@ -2580,7 +2580,7 @@ class battleEngine(unittest.TestCase):
         monsters = [monster1]
 
         rawInputMock = MagicMock(return_value="Jerk")
-        with patch('battle_engine.playerAttackPhase.raw_input', create=True, new=rawInputMock):
+        with patch('battle_engine.raw_input', create=True, new=rawInputMock):
             playerAttackPhase(player, monsters, bonusDifficulty)
 
         errorMsg = "Money was not returned correctly - single monster death with bonus difficulty."
@@ -2616,9 +2616,9 @@ class battleEngine(unittest.TestCase):
         battleInputMock = MagicMock(side_effect = ["attack", "attack", "attack"])
         attackInputMock = MagicMock(side_effect = ["Jerk", "Jerk2", "Jerk3"])
                                                    
-        with patch('battle_engine.battle.raw_input', create = True, new = battleInputMock):
-            with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
-                battle()
+        with patch('battle_engine.raw_input', create = True, new = battleInputMock):
+            with patch('battle_engine.raw_input', create = True, new = attackInputMock):
+                battle(player)
 
         errorMsg = "Money was not returned correctly - multiple monster death with bonus difficulty."
         self.assertEqual(money, 30, errorMsg)
@@ -2662,9 +2662,9 @@ class battleEngine(unittest.TestCase):
         battleInputMock = MagicMock(side_effect = ["attack", "attack", "attack"])
         attackInputMock = MagicMock(side_effect = ["Jerk", "Jerk", "Jerk"])
                                                    
-        with patch('battle_engine.battle.raw_input', create = True, new = battleInputMock):
-            with patch('battle_engine.playerAttackPhase.raw_input', create = True, new = attackInputMock):
-                battle()
+        with patch('battle_engine.raw_input', create = True, new = battleInputMock):
+            with patch('battle_engine.raw_input', create = True, new = attackInputMock):
+                battle(player)
 
         #Test that only one monster attacked
         errorMsg = "monster1 was supposed to be called but was not."
