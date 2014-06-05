@@ -620,7 +620,10 @@ class DropTest(unittest.TestCase):
         self.assertTrue(equipped.containsItem(armor), "Equipped should have armor but does not.")
 
         #Assert item in space but not in player inventory and not in equipment
-        rawInputMock = MagicMock(side_effect=["Dagger", "Shield of Faith"])
+        rawInputMock = MagicMock(return_value="Dagger")
+        with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
+            dropCmd.execute()
+        rawInputMock = MagicMock(return_value="Shield of Faith")
         with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
             dropCmd.execute()
             
