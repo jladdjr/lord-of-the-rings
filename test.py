@@ -72,8 +72,7 @@ class GameTest(unittest.TestCase):
         from space import Space
         from player import Player
         from battle_engine import battle
-        import pdb
-        pdb.set_trace()
+
         g = Game()
         space = Space("Shire", "Home of the Russians", "Eregion", battleProbability = 1)
         player = Player("Russian", space)
@@ -312,7 +311,7 @@ class SpaceTest(unittest.TestCase):
 
         space = Space("West Emnet", "Horses for riding", "Rohan")
 
-        errorMsg = "Space regionType test failed."
+        errorMsg = "space.getRegion() should return 'Rohan.'"
         self.assertEquals(space.getRegion(), "Rohan", errorMsg)
 
     def testCities(self):
@@ -320,13 +319,13 @@ class SpaceTest(unittest.TestCase):
         from cities.city import City
 
         #Create city
-        newYorkCity = City("City", "An enormous city", "Come test here")
+        newYorkCity = City("New York City", "An enormous city", "Come test here")
 
         #Create space
-        newYork = Space("Space", "A huge space", "Welcome to our space", city = newYorkCity)
+        newYork = Space("New  York", "A huge space", "Welcome to our space", city = newYorkCity)
 
         #Assert city in space
-        errorMsg = "Space should contain city but does not."
+        errorMsg = "space.getCity() should return newYorkCity but does not."
         self.assertEqual(newYork.getCity(), newYorkCity, errorMsg)
 
     def testUniquePlace(self):
@@ -334,18 +333,18 @@ class SpaceTest(unittest.TestCase):
         from unique_place import UniquePlace
 
         #Create UniquePlace
-        dmitriyHouse = UniquePlace("Dmitriy's House", "Lots of vodka", "[knocks once]")
+        dmitriyHouse = UniquePlace("Dmitriy's House", "Lots of vodka", "[Knocks once.]")
 
         #Create space
-        chocolateMountain = Space("Chocolate Mountain", "Chocolate rain here", "Welcome", uniquePlace = dmitriyHouse)
+        chocolateMountain = Space("Chocolate Mountain", "Chocolate rain here", "Welcome.", uniquePlace = dmitriyHouse)
         
         #Assert uniquePlace in space
-        errorMsg = "Space should contain uniquePlace but does not."
+        errorMsg = "space.getUniquePlace() should return dmitriyHouse but does not."
         self.assertEqual(chocolateMountain.getUniquePlace(), dmitriyHouse, errorMsg)
         
 class MovementTest(unittest.TestCase):
     """
-    Tests movement methods of space and movement commands.  
+    Tests the movement methods of space and movement commands.  
     """
     def testMovement(self):
         """
@@ -397,7 +396,7 @@ class MovementTest(unittest.TestCase):
         space.createExit("east", east, outgoingOnly = False)
         space.createExit("west", west, outgoingOnly = False)
 
-        #Test getExit method for destination spaces
+        #Test getExit() for destination spaces
         errorMsg = "getExit() test failed."
         self.assertEqual(north.getExit("south"), space, errorMsg)
         self.assertEqual(south.getExit("north"), space, errorMsg)
@@ -405,55 +404,55 @@ class MovementTest(unittest.TestCase):
         self.assertEqual(west.getExit("east"), space, errorMsg)
 
         #Test ports created using _isExit() for space
-        errorMsg = "Ports are supposed to be created but are not - tested using _isExit()."
+        errorMsg = "Ports are supposed to be created but are not - using _isExit()."
         self.assertEqual(space._isExit("north"), True, errorMsg)
         self.assertEqual(space._isExit("south"), True, errorMsg)
         self.assertEqual(space._isExit("east"), True, errorMsg)
         self.assertEqual(space._isExit("west"), True, errorMsg)
 
         #Test ports created without using direct access for Space
-        errorMsg = "Ports are supposed to be created but are not - by direct attribute access."
+        errorMsg = "Ports are supposed to be created but were not - by direct attribute access."
         self.assertEqual(space._exits[Direction.NORTH], north, errorMsg)
         self.assertEqual(space._exits[Direction.SOUTH], south, errorMsg)
         self.assertEqual(space._exits[Direction.EAST], east, errorMsg)
         self.assertEqual(space._exits[Direction.WEST], west, errorMsg)
 
         #Test ports created without using direct access for destination Spaces
-        errorMsg = "Two-way ports were supposed to have been created but were not - by direct attribute access."
+        errorMsg = "Ports are supposed to have been created but were not - by direct attribute access for destination spaces."
         self.assertEqual(north._exits[Direction.SOUTH], space, errorMsg)
         self.assertEqual(south._exits[Direction.NORTH], space, errorMsg)
         self.assertEqual(east._exits[Direction.WEST], space, errorMsg)
         self.assertEqual(west._exits[Direction.EAST], space, errorMsg)
                                       
         #Test two-way movement
+        player._location = space
         northCmd.execute()
         errorMsg = "Player should be in north space but is not."
         self.assertEqual(player.getLocation(), north, errorMsg)
         southCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
-        player._location = space
 
+        player._location = space
         southCmd.execute()
         errorMsg = "Player should be in south space but is not."
         self.assertEqual(player.getLocation(), south, errorMsg)
-        player._location = space
         northCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
-        
+
+        player._location = space
         eastCmd.execute()
         errorMsg = "Player should be in east space but is not."
         self.assertEqual(player.getLocation(), east, errorMsg)
-        player._location = space
         westCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
-        
+
+        player._location = space
         westCmd.execute()
         errorMsg = "Player should be in west space but is not."
         self.assertEqual(player.getLocation(), west, errorMsg)
-        player._location = space
         eastCmd.execute()
         errorMsg = "Player should be in space but is not."
         self.assertEqual(player.getLocation(), space, errorMsg)
@@ -473,8 +472,8 @@ class MovementTest(unittest.TestCase):
         space.clearExit("west")
         self.assertTrue(space._exits[Direction.West], None, errorMsg)
 
-        #Test _isExit() method - where there are no ports
-        errorMsg = "_isExit() failed to return the correct port - no ports exit."
+        #Test _isExit() method where there are no ports
+        errorMsg = "_isExit() failed to return the correct port where no ports exist."
         self.assertTrue(space._isExit("north"), None, errorMsg)
         self.assertTrue(space._isExit("south"), None, errorMsg)
         self.assertTrue(space._isExit("east"), None, errorMsg)
@@ -482,7 +481,7 @@ class MovementTest(unittest.TestCase):
 
     def testMovement2(self):
         """
-        Smaller test for one-way ports and one-way movement.
+        Tests for one-way ports and one-way movement.
         """
         from space import Space
         from player import Player
@@ -511,6 +510,7 @@ class MovementTest(unittest.TestCase):
         space.createExit("west", west, outgoingOnly = True)
 
         #Test one-way movement
+        player._location = space
         northCmd.execute()
         errorMsg = "Player should be in north space but is not."
         self.assertEqual(player.getLocation(), north, errorMsg)
@@ -563,10 +563,10 @@ class PickUpTest(unittest.TestCase):
         self.assertTrue(space.containsItem(item), "Space should have item but does not.")
         
         inventory = player.getInventory()
-        self.assertFalse(inventory.containsItem(item), "Player should not have item but does in inventory.")
+        self.assertFalse(inventory.containsItem(item), "Player inventory should not have item but does.")
         
         equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(item), "Player should not have item but does in equipment.")
+        self.assertFalse(equipped.containsItem(item), "Player equipment should not have item but does.")
             
         #Execute pickUpCmd and assert item in player inventory but not in space and not in equipment
         rawInputMock = MagicMock(return_value="Dagger")
@@ -574,12 +574,12 @@ class PickUpTest(unittest.TestCase):
             pickUpCmd.execute()
             
         self.assertFalse(space.containsItem(item), "Space should not have item but does.")
-
-        equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(item), "Player should not have item in equipment.")
         
         inventory = player.getInventory()
         self.assertTrue(inventory.containsItem(item), "Player should have item in inventory but does not.")
+
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(item), "Player should not have item in equipment but does.")
         
 class DropTest(unittest.TestCase):
     """
@@ -588,6 +588,56 @@ class DropTest(unittest.TestCase):
     def testExecute(self):
         """
         Test case where item in inventory and equipment.
+        """
+        from space import Space
+        from player import Player
+        from items.weapon import Weapon
+        from items.armor import Armor
+        from commands.drop_command import DropCommand
+        
+        space = Space("Shire", "Home of the Hobbits.", "Mordor")
+        player = Player("Frodo", space)
+        dropCmd = DropCommand("drop", "Drops an object from inventory to space", player)
+        
+        weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
+        armor = Armor("Shield of Faith", "Quenches fiery darts", 2, 2, 2) 
+
+        player.addToInventory(weapon)
+        player.equip(weapon)
+        player.addToInventory(armor)
+        player.equip(armor)
+
+        #Test pre-test conditions
+        self.assertFalse(space.containsItem(weapon), "Space should not have weapon but does.")
+        self.assertFalse(space.containsItem(armor), "Space should not have armor but does.")
+        
+        inventory = player.getInventory()
+        self.assertTrue(inventory.containsItem(weapon), "Inventory should have weapon but does not.")
+        self.assertTrue(inventory.containsItem(armor), "Inventory should have armor but does not.")
+
+        equipped = player.getEquipped()
+        self.assertTrue(equipped.containsItem(weapon), "Equipped should have weapon but does not.")
+        self.assertTrue(equipped.containsItem(armor), "Equipped should have armor but does not.")
+
+        #Assert item in space but not in player inventory and not in equipment
+        rawInputMock = MagicMock(return_value="Dagger")
+        with patch('commands.drop_command.raw_input', create=True, new=rawInputMock):
+            dropCmd.execute()
+            
+        self.assertTrue(space.containsItemString("Dagger"), "Space should have weapon but does not.")
+        self.assertTrue(space.containsItemString("Shield of Faith", "Space should have armor but does not."
+        
+        inventory = player.getInventory()
+        self.assertFalse(inventory.containsItem(weapon), "Inventory should not have weapon but does.")
+        self.assertFalse(inventory.containsItem(armor), "Inventory should not have armor but does.")
+        
+        equipped = player.getEquipped()
+        self.assertFalse(equipped.containsItem(weapon), "Equipment should not have armor but does.")
+        self.assertFalse(equipped.containsItem(armor), "Equipment should not have armor but does.")
+
+    def testExecute2(self):
+        """
+        Test for case: item in inventory and but not in equipment.
         """
         from space import Space
         from player import Player
@@ -601,16 +651,15 @@ class DropTest(unittest.TestCase):
         weapon = Weapon("Dagger", "A trusty blade", 2, 2, 2)
 
         player.addToInventory(weapon)
-        player.equip(weapon)
-
-        #Asserts item in player inventory and equipped but not in space
+        
+        #Asserts item in player inventory but not in equipped and space
         self.assertFalse(space.containsItem(weapon), "Space should not have item but does.")
         
         inventory = player.getInventory()
         self.assertTrue(inventory.containsItem(weapon), "Inventory should have item but does not.")
 
         equipped = player.getEquipped()
-        self.assertTrue(equipped.containsItem(weapon), "Equipped should have item but does not.")
+        self.assertFalse(equipped.containsItem(weapon), "Equipped should not have item but does.")
 
         #Assert item in space but not in player inventory and not in equipment
         rawInputMock = MagicMock(return_value="Dagger")
@@ -625,9 +674,9 @@ class DropTest(unittest.TestCase):
         equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(weapon), "Equipment should not have item but does.")
 
-    def testExecute2(self):
+    def testExecute3(self):
         """
-        Test for case: item in inventory and but not in equipment.
+        Test for case: item not in inventory and not in equipment.
         """
         from space import Space
         from player import Player
