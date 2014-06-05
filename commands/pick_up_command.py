@@ -37,7 +37,7 @@ class PickUpCommand(Command):
         item = locationItems.getItemByName(itemToAdd)
         
         if not item:
-            print "%s does not contain item." % space.getName()
+            print "%s does not contain item." % location.getName()
             return
 
         #Adds item to inventory
