@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
+import random
+
 import constants
 import factories.monster_factory
 from commands.use_potion_command import UsePotionCommand
-
-import random
 
 def battle(player):
     """
@@ -12,35 +12,13 @@ def battle(player):
 
     @param player:     The player object.
     """
+    #Spawn monsters
     location = player.getLocation()
     region = location.getRegion()
     bonusDifficulty = location.getBattleBonusDifficulty()
-
-    #Calculate region spawn
-    if region == constants.RegionType.ERIADOR:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
-    elif region == constants.RegionType.BARROW_DOWNS:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
-    elif region == constants.RegionType.HIGH_PASS:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
-    elif region == constants.RegionType.ENEDWAITH:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
-    elif region == constants.RegionType.MORIA:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
-    elif region == constants.RegionType.RHOVANION:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
-    elif region == constants.RegionType.ROHAN:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
-    elif region == constants.RegionType.GONDOR:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
-    elif region == constants.RegionType.MORDOR:
-        number = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
-    else:
-        errorMsg = "Invalid region - region base monster determination."
-        raise AssertionError(errorMsg)
     
-    #Spawn monsters
-    monsters = factories.monster_factory.getMonsters(number, region, bonusDifficulty)
+    monsterCount = monsterNumGen(player)
+    monsters = factories.monster_factory.getMonsters(monsterCount, region, bonusDifficulty)
 
     #User prompt
     print "Zonkle-tronks! Wild monsters appeared!"
@@ -90,8 +68,9 @@ def playerAttackPhase(player, monsters, bonusDifficulty):
     @param player:        The player object.
     @param monsters:      The list of monster objects.
 
-    @return experience:   The experience Player is to receive upon winning the battle.
-    @return money:        The money Player is to receive upon winning the battle.
+    @return:              2-element tuple carrying battle earnings.
+                          First element is money earned, second
+                          element is experience received.
     """
     #Starting battle earnings - by default, 0
     money      = 0
@@ -128,6 +107,45 @@ def playerAttackPhase(player, monsters, bonusDifficulty):
         
     return money, experience
 
+def monsterNumGen(player):
+    """
+    Helper method used to generate number of monsters to spawn.
+
+    Default spawn comes from space; then bonusDifficulty is applied.
+    
+    @param player:     Player object.
+
+    @return:           Number of monsters to spawn.
+    """
+    location = player.getLocation()
+    region = location.getRegion()
+    bonusDifficulty = location.getBattleBonusDifficulty()
+
+    #Calculate region spawn
+    if region == constants.RegionType.ERIADOR:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
+    elif region == constants.RegionType.BARROW_DOWNS:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
+    elif region == constants.RegionType.HIGH_PASS:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
+    elif region == constants.RegionType.ENEDWAITH:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
+    elif region == constants.RegionType.MORIA:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
+    elif region == constants.RegionType.RHOVANION:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
+    elif region == constants.RegionType.ROHAN:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
+    elif region == constants.RegionType.GONDOR:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
+    elif region == constants.RegionType.MORDOR:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
+    else:
+        errorMsg = "Invalid region - region base monster determination."
+        raise AssertionError(errorMsg)
+
+    return monsterCount
+
 def monsterAttackPhase(player, monsters):
     """
     Monster attack phase - when monsters attack player.
@@ -158,7 +176,7 @@ def endSequence(player, earnings):
     Battle cleanup - player experience and money increases, etc.
 
     @param player:      The player object.
-    @param earnings:    2-element list: first element is money and second is experience.
+    @param earnings:    2-element tuple: first element is money and second is experience.
     """
     money = earnings[0]
     experience = earnings[1]

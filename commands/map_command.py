@@ -44,6 +44,7 @@ class MapCommand(Command):
                 northUniquePlace = north.getUniquePlace()
                 uniquePlaces["north"] = northUniquePlace
                 northUniquePlaceName = northUniquePlace.getName()
+                
         if exits["south"]:
             south = exits["south"]
             southName = south.getName()
@@ -56,6 +57,7 @@ class MapCommand(Command):
                 southUniquePlace = south.getUniquePlace()
                 uniquePlaces["south"] = southUniquePlace
                 southUniquePlaceName = southUniquePlace.getName()
+                
         if exits["east"]:
             east = exits["east"]
             eastName = east.getName()
@@ -68,6 +70,7 @@ class MapCommand(Command):
                 eastUniquePlace = east.getUniquePlace()
                 uniquePlaces["east"] = eastUniquePlace
                 eastUniquePlaceName = eastUniquePlace.getName()
+                
         if exits["west"]:
             west = exits["west"]
             westName = west.getName()
@@ -82,7 +85,7 @@ class MapCommand(Command):
                 westUniquePlaceName = westUniquePlace.getName()
         
         #Print map
-        print "Your map a more a set of notes and instructions...."
+        print "Your map is more a set of notes and instructions...."
         print ""
         print "From %s, you may go to the following:" % locationName
         
@@ -98,6 +101,7 @@ class MapCommand(Command):
             if uniquePlaces["north"]:
                 print "\t--%s is in %s." % (northUniquePlaceName, northName)
             print ""
+            
         if exits["south"]:
             south = exits["south"]
             print "\tTo the South: %s." % southName
@@ -110,6 +114,7 @@ class MapCommand(Command):
             if uniquePlaces["south"]:
                 print "\t--%s is in %s." % (southUniquePlaceName, southName)
             print ""
+            
         if exits["east"]:
             east = exits["east"]
             print "\tTo the East: %s." % eastName
@@ -120,6 +125,7 @@ class MapCommand(Command):
                     for city in cities["east"]:
                         print "\t--%s is in %s." % (city.getName(), eastName)
             print ""
+            
         if exits["west"]:
             west = exits["west"]
             print "\tTo the West: %s." % westName

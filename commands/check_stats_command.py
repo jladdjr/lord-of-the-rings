@@ -57,6 +57,10 @@ class CheckStatsCommand(Command):
         if weapon:
             print "\tCharacter-based attack is %s; weapons bonus is %s." % (attack, weaponsAttack)
             print "\tTotal attack is %s." % totalAttack
+        else:
+            print "\tWeapon: [Unequipped]"
         if armor:
             print "\tArmor-based defense is %s." % defense
+        else:
+            print "\tArmor:  [Unequipped]" 
                 

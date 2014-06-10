@@ -62,7 +62,7 @@ def getMonsters(number, region, bonusDifficulty):
                 
         elif region == constants.RegionType.ENEDWAITH:
             pass
-        elif region == constants.RegionType.EREGION:
+        elif region == constants.RegionType.MORIA:
             pass
         elif region == constants.RegionType.RHOVANION:
             pass
@@ -76,4 +76,8 @@ def getMonsters(number, region, bonusDifficulty):
             errorMsg = "Unsupported region type for monster spawn."
             raise AssertionError(errorMsg)
 
+    if monsters == []:
+        errorMsg = "getMonsters() returned an empty list."
+        raise AssertionError(errorMsg)
+    
     return monsters

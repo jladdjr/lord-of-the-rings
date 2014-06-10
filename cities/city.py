@@ -21,19 +21,6 @@ class City(Place):
         
         self._buildings = buildings
 
-    def returnCity(self, name):
-        """
-        Returns the city object, given the name of the city.
-        
-        @param name:    The name of city.
-        
-        @return:        The city object.
-        """
-        if name == self._name:
-            return self
-            
-        return None
-
     def getGreetings(self):
         """
         Returns the string that represents a player greeting upon entering the city.

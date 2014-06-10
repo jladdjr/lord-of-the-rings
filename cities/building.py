@@ -24,16 +24,6 @@ class Building(object):
         @return:    The name of the building.
         """
         return self._name
-        
-    def returnBuilding(self, name):
-        """
-        Returns the building object, given the name of the building.
-        
-        @param name:     The name of the building.
-        
-        @return:         The building object.
-        """
-        return self
 
     def getDescription(self):
         """

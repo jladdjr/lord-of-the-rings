@@ -114,7 +114,7 @@ What is your choice?
         for item in sellableItems:
             if item.getName() == itemToSell:
                 #Actual sale execution
-                choice = raw_input("Would you like to sell %s for %s rubles? Response: yes/no. " % (item.getName(), sellValue))
+                choice = raw_input("Would you like to sell %s for %s %s? Response: yes/no. " % (item.getName(), sellValue, constants.CURRENCY))
                 if choice.lower() == "yes":
                     player.removeFromInventory(item)
                     player.increaseMoney(sellValue)

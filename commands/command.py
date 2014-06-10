@@ -32,6 +32,10 @@ class Command(object):
     def getTime(self):
         """
         Returns time parameter of command.
+
+        @return:   Time attribute of command. Represents
+                   whether time is passing with command
+                   execution.
         """
         return self._time
 

@@ -46,10 +46,9 @@ class EquipCommand(Command):
         itemToEquip = raw_input("Which item do you want to equip? ")
 
         #Equip item
-        for item in inventory:
-            if item.getName() == itemToEquip:
-                self._player.equip(item)
-                print "%s equipped %s!" % (self._player.getName(), item.getName())
-                break
+        item = inventory.getItemByName(itemToEquip)
+        if item:
+            self._player.equip(item)
+            print "%s equipped %s!" % (self._player.getName(), item.getName())
         else:
             print "Cannot equip %s!" % itemToEquip

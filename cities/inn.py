@@ -5,7 +5,7 @@ import constants
 
 class Inn(Building):
     """
-    Inns are buildings that allow player to heal for a cost.
+    Inns are buildings that allow player to heal for a price.
     """
     def __init__(self, name, description, greetings, cost):
         """
@@ -23,7 +23,6 @@ class Inn(Building):
         """
         The events sequence upon player entering inn.
         """
-        self._player = player
         cost = self.getCost()
 
         print ""
@@ -43,13 +42,13 @@ class Inn(Building):
                 if self._player.getMoney() >= cost:
                     self._player.decreaseMoney(cost)
                     #Actual healing operation
-                    self._heal(self._player)
+                    self._heal(player)
                     print "%s was healed at %s cost! %s has %s %s remaining." \
-                          % (self._player.getName(), cost, self._player.getName(), self._player.getMoney(), constants.CURRENCY)
+                          % (player.getName(), cost, player.getName(), player.getMoney(), constants.CURRENCY)
                     break
                 #Not enough money
                 else:
-                    print "%s doesn't have enough money." % self._player.getName()
+                    print "%s doesn't have enough money." % player.getName()
                     return
                 
             #Non-use option
