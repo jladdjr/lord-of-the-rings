@@ -39,8 +39,8 @@ class Inn(Building):
             #Heal option   
             if choice == "yes":
                 #Money check and transfer
-                if self._player.getMoney() >= cost:
-                    self._player.decreaseMoney(cost)
+                if player.getMoney() >= cost:
+                    player.decreaseMoney(cost)
                     #Actual healing operation
                     self._heal(player)
                     print "%s was healed at %s cost! %s has %s %s remaining." \

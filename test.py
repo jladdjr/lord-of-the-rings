@@ -808,9 +808,10 @@ class EquipTest(unittest.TestCase):
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
             equipCmd.execute()
 
+        inventory = player.getInventory()
         self.assertFalse(inventory.containsItem(weapon), "Inventory should not have weapon.")
         self.assertFalse(inventory.containsItem(armor), "Inventory should not have armor.")
-        
+
         equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(weapon), "Weapon should not be in equipped.")
         self.assertFalse(equipped.containsItem(armor), "Armor should not be in equipped.")
@@ -875,7 +876,7 @@ class EquipTest(unittest.TestCase):
         self.assertTrue(weapon in inventory._items, errorMsg)
         self.assertTrue(armor in inventory._items, errorMsg)
         errorMsg = "Inventory is supposed to have two items."
-        self.assertEqual(player._inventory.conut(), 2, errorMsg)
+        self.assertEqual(player._inventory.count(), 2, errorMsg)
         
         errorMsg = "Weapon is supposed to be in player._equipped but is not."
         self.assertTrue(weapon in player._equipped, errorMsg)
@@ -960,9 +961,9 @@ class EquipTest(unittest.TestCase):
 
         #Test preconditions
         errorMsg = "Armor should be in player._inventory._items but is not."
-        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._inventory._items, errorMsg)
         errorMsg = "Armor should not be in player._equipped._items but is not."
-        self.assertTrue(weapon not in player._equipped._items, errorMsg)
+        self.assertTrue(armor not in player._equipped._items, errorMsg)
 
         #Equip armor and check that player._defense updates
         rawInputMock = MagicMock(return_value="Shield of Faith")
@@ -1523,13 +1524,13 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        item = Item("Chainik Reakettle", "Makes good tea", 1)
-        weapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
-        armor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
+        newItem = Item("Chainik Reakettle", "Makes good tea", 1)
+        newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
+        newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
         
-        player.addToInventory(item)
-        player.addToInventory(weapon)
-        player.addToInventory(armor)
+        player.addToInventory(newItem)
+        player.addToInventory(newWeapon)
+        player.addToInventory(newArmor)
 
         #Pretest player-specific items-based attributes
         errorMsg = "_weaponAttack should be 0 but it is not."
@@ -1540,12 +1541,12 @@ class PlayerTest(unittest.TestCase):
         self.assertEqual(player._totalAttack, player._attack, errorMsg)
 
         #Attempt to equip items
-        player.equip(item)
-        self.assertFalse(item in player._equipped._items, "Equipped %s and should not have." % item)
-        player.equip(weapon)
-        self.assertTrue(weapon in player._equipped._items, "Failed to equip %s." % weapon)
-        player.equip(armor)
-        self.assertTrue(armor in player._equipped._items, "Failed to equip %s." % armor)
+        player.equip(newItem)
+        self.assertFalse(newItem in player._equipped._items, "Equipped %s and should not have." % newItem)
+        player.equip(newWeapon)
+        self.assertTrue(newWeapon in player._equipped._items, "Failed to equip %s." % newWeapon)
+        player.equip(newArmor)
+        self.assertTrue(newArmor in player._equipped._items, "Failed to equip %s." % newArmor)
 
         #Test for change in player's items-specific attributes
         errorMsg = "player._weaponAttack should be newWeapon._attack but is not."
@@ -1565,22 +1566,22 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        item = Item("Chainik Reakettle", "Makes good tea", 1)
-        weapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
-        armor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
+        newItem = Item("Chainik Reakettle", "Makes good tea", 1)
+        newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
+        newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
         
-        player.addToInventory(item)
-        player.addToInventory(weapon)
-        player.addToInventory(armor)
+        player.addToInventory(newItem)
+        player.addToInventory(newWeapon)
+        player.addToInventory(newArmor)
 
-        player.equip(weapon)
-        player.equip(armor)
+        player.equip(newWeapon)
+        player.equip(newArmor)
         
         #Attempt to unequip items
-        player.unequip(weapon)
-        self.assertFalse(newWeapon in player._equipped._items, "Failed to unequip %s" % weapon)
-        player.unequip(armor)
-        self.assertFalse(newArmor in player._equipped._items, "Failed to unequip %s" % armor)
+        player.unequip(newWeapon)
+        self.assertFalse(newWeapon in player._equipped._items, "Failed to unequip %s" % newWeapon)
+        player.unequip(newarmor)
+        self.assertFalse(newArmor in player._equipped._items, "Failed to unequip %s" % newArmor)
 
         #Check to see that item-specific attributes reset to defaults
         errorMsg = "player._weaponAttack should be 0 but it is not."
@@ -1600,19 +1601,19 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        item = Item("Chainik Reakettle", "Makes good tea", 1)
-        weapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
-        armor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
+        newItem = Item("Chainik Reakettle", "Makes good tea", 1)
+        newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
+        newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
 
-        player.addToInventory(item)
-        player.addToInventory(weapon)
-        player.addToInventory(armor)
+        player.addToInventory(newItem)
+        player.addToInventory(newWeapon)
+        player.addToInventory(newArmor)
         
         #Test add items to inventory
         errorMsg = "Failed to add item to inventory."
-        self.assertTrue(item in player._inventory, errorMsg)
-        self.assertTrue(weapon in player._inventory, errorMsg)
-        self.assertTrue(armor in player._inventory, errorMsg)
+        self.assertTrue(newItem in player._inventory, errorMsg)
+        self.assertTrue(newWeapon in player._inventory, errorMsg)
+        self.assertTrue(newArmor in player._inventory, errorMsg)
         
         #Negative case: adding items already in inventory to inventory
         numberOfItems = player._inventory.count()
