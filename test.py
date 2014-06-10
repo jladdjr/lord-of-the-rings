@@ -897,7 +897,7 @@ class EquipTest(unittest.TestCase):
         errorMsg = "Weapon and armor are supposed to be in inventory but are not."
         self.assertTrue(weapon in player._inventory, errorMsg)
         self.assertTrue(armor in player._inventory, errorMsg)
-        errorMsg = "Player inventory is only supposed to have two items.
+        errorMsg = "Player inventory is only supposed to have two items."
         self.assertEqual(player.inventory.count(), 2, errorMsg)
             
         errorMsg = "Weapon is supposed to be in player._equipped but is not."
