@@ -1908,7 +1908,7 @@ class ShopSellItems(unittest.TestCase):
             self.assertEqual(item._cost, 1, errorMsg)
 
         #Player's money should increase by the half the cost of the items - 1.5 in our case
-        errorMsg = "Player's money not increased to correct amount. It is %s." % player._money)
+        errorMsg = "player._money not increased to correct amount."
         self.assertEqual(player._money, 21.5, errorMsg)
 
     def testNegativeCase(self):
