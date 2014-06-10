@@ -1425,7 +1425,7 @@ class PlayerTest(unittest.TestCase):
 
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
-        player._updateLevel() = MagicMock()
+        player._updateLevel = MagicMock()
 
         #Test that player._experience increases correctly and that _updateLevel() is called
         player.increaseExperience(10000)
