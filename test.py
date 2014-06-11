@@ -1110,7 +1110,7 @@ class UnequipTest(unittest.TestCase):
         errorMsg = "Inventory should still be empty."
         self.assertEqual(player._inventory.count(), 0, errorMsg)
         errorMsg = "Equipment should still be empty."
-        self.assertEqual(player._equipped.count(), 0, erroMsg)
+        self.assertEqual(player._equipped.count(), 0, errorMsg)
         
     def testPlayerWeaponStats(self):
         """
@@ -1559,7 +1559,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "_armorDefense should be newArmor._defense but is not."
         self.assertEqual(player._armorDefense, newArmor._defense, errorMsg)
         errorMsg = "_totalAttack should have been updated but was not."
-        self.assertEqual(player._totalAttack, player._attack + weapon._attack, errorMsg)
+        self.assertEqual(player._totalAttack, player._attack + newWeapon._attack, errorMsg)
 
     def testUnequip(self):
         from player import Player
@@ -2078,7 +2078,7 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is in equipped."
         self.assertFalse(player._equipped.containsItemWithName("SuperDuperLegendary Potion of Healing"), errorMsg)
         errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is no longer in shop wares."
-        self.assertTrue(testPotion2 in testShop._items, errorMsg)
+        self.assertTrue(testPotion in testShop._items, errorMsg)
         
         #player._money should be unchanged
         errorMsg = "player._money changed when it was not supposed to."
@@ -2132,7 +2132,7 @@ class ShopPurchaseItems(unittest.TestCase):
          
         #player._money should not change
         errorMsg = "Player's money incorrectly decreased when purchasing invalid item."
-        self.assertEqual(player._money, 15, errorMsg)
+        self.assertEqual(player._money, 20, errorMsg)
                             
 class Square(unittest.TestCase):
     """
