@@ -798,7 +798,16 @@ class EquipTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
+        
+        #Test pre-test conditions
+        inventory = player.getInventory()
+        errorMsg = "player._inventory is supposed to be empty but is not."
+        self.assertEqual(inventory.count(), 0, errorMsg)
 
+        equipped = player.getEquipped()
+        errorMsg = "player._equipped is supposed to be empty but is not."
+        self.assertEqual(equipped.count(), 0, errorMsg)
+        
         #Trying to equip items not in inventory
         rawInputMock = MagicMock(return_value="Dagger")
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
@@ -808,13 +817,10 @@ class EquipTest(unittest.TestCase):
         with patch('commands.equip_command.raw_input', create=True, new=rawInputMock):
             equipCmd.execute()
 
-        inventory = player.getInventory()
-        self.assertFalse(inventory.containsItem(weapon), "Inventory should not have weapon.")
-        self.assertFalse(inventory.containsItem(armor), "Inventory should not have armor.")
-
-        equipped = player.getEquipped()
-        self.assertFalse(equipped.containsItem(weapon), "Weapon should not be in equipped.")
-        self.assertFalse(equipped.containsItem(armor), "Armor should not be in equipped.")
+        errorMsg = "player._inventory is supposed to be empty but is not."
+        self.assertEqual(inventory.count(), 0, errorMsg)
+        errorMsg = "player._equipped is supposed to be empty but is not."
+        self.assertEqual(equipped.count(), 0, errorMsg)
 
     def testNegativeCase2(self):
         """
@@ -899,14 +905,14 @@ class EquipTest(unittest.TestCase):
         self.assertTrue(weapon in player._inventory, errorMsg)
         self.assertTrue(armor in player._inventory, errorMsg)
         errorMsg = "Player inventory is only supposed to have two items."
-        self.assertEqual(player.inventory.count(), 2, errorMsg)
+        self.assertEqual(player._inventory.count(), 2, errorMsg)
             
         errorMsg = "Weapon is supposed to be in player._equipped but is not."
         self.assertTrue(weapon in player._equipped, errorMsg)
         errorMsg = "Armor is supposed to be in player._equipped but it is not."
         self.assertTrue(armor in player._equipped, errorMsg)
         errorMsg = "Player is supposed to have two equipped items but lists more."
-        self.assertEqual(equipped.count(), 2, errorMsg)
+        self.assertEqual(player._equipped.count(), 2, errorMsg)
 
     def testPlayerWeaponStats(self):
         from player import Player
@@ -971,7 +977,7 @@ class EquipTest(unittest.TestCase):
             equipCmd.execute()
 
         errorMsg = "Armor should be in inventory but is not."
-        self.assertTrue(player._inventory.containsItem(weapon), errorMsg)
+        self.assertTrue(player._inventory.containsItem(armor), errorMsg)
         errorMsg = "Armor should be equipped but is not."
         self.assertTrue(player._equipped.containsItem(armor), errorMsg)
         
@@ -1091,7 +1097,7 @@ class UnequipTest(unittest.TestCase):
         errorMsg = "Inventory should be empty."
         self.assertEqual(player._inventory.count(), 0, errorMsg)
         errorMsg = "Equipment should be empty."
-        self.assertEqual(player._equipped.count(), 0, erroMsg)
+        self.assertEqual(player._equipped.count(), 0, errorMsg)
         
         #Attempting to unequip item not currently equipped
         rawInputMock = MagicMock(return_value="Dagger")
@@ -1128,7 +1134,6 @@ class UnequipTest(unittest.TestCase):
         #Test preconditions
         errorMsg = "Weapon should be in inventory and equipped."
         self.assertTrue(weapon in player._inventory._items, errorMsg)
-        self.assertTrue(armor in player._equipped._items, errorMsg)
 
         #Test player-specific attributes to change back to defaults
         rawInputMock = MagicMock(return_value="Sword of the Spirit")
@@ -1232,7 +1237,7 @@ class UsePotionTest(unittest.TestCase):
 
         #Test preconditions
         errorMsg = "Player should have no potions."
-        self.assertEqual(player._inventory._items, 0, errorMsg)
+        self.assertEqual(player._inventory.count(), 0, errorMsg)
         errorMsg = "player._hp should be 10 but is not."
         self.assertEqual(player._hp, 10, errorMsg)
 
@@ -1242,7 +1247,7 @@ class UsePotionTest(unittest.TestCase):
             usePotionCmd.execute()
             
         errorMsg = "Inventory should still not have any potions."
-        self.assertEqual(player._inventory._items, 0, errorMsg)
+        self.assertEqual(player._inventory.count(), 0, errorMsg)
         errorMsg = "player._hp changed when it should not have."
         self.assertEqual(player._hp, startingHp, errorMsg)
         
@@ -1306,7 +1311,7 @@ class PlayerTest(unittest.TestCase):
         player = Player("Frodo", space)
 
         errorMsg = "Frodo", "player._name did not initialize correctly."
-        self.assertEqual(player._name, errorMsg)
+        self.assertEqual(player._name, "Frodo", errorMsg)
         errorMsg = "player._location did not initialize correctly."
         self.assertEqual(player._location, space, errorMsg)
         errorMsg = "player._money did not initialize correctly."
@@ -1550,9 +1555,9 @@ class PlayerTest(unittest.TestCase):
 
         #Test for change in player's items-specific attributes
         errorMsg = "player._weaponAttack should be newWeapon._attack but is not."
-        self.assertEqual(player._weaponAttack, weapon._attack, errorMsg)
+        self.assertEqual(player._weaponAttack, newWeapon._attack, errorMsg)
         errorMsg = "_armorDefense should be newArmor._defense but is not."
-        self.assertEqual(player._armorDefense, armor._defense, errorMsg)
+        self.assertEqual(player._armorDefense, newArmor._defense, errorMsg)
         errorMsg = "_totalAttack should have been updated but was not."
         self.assertEqual(player._totalAttack, player._attack + weapon._attack, errorMsg)
 
@@ -1580,7 +1585,7 @@ class PlayerTest(unittest.TestCase):
         #Attempt to unequip items
         player.unequip(newWeapon)
         self.assertFalse(newWeapon in player._equipped._items, "Failed to unequip %s" % newWeapon)
-        player.unequip(newarmor)
+        player.unequip(newArmor)
         self.assertFalse(newArmor in player._equipped._items, "Failed to unequip %s" % newArmor)
 
         #Check to see that item-specific attributes reset to defaults
@@ -2052,7 +2057,7 @@ class ShopPurchaseItems(unittest.TestCase):
         player._money = 20    
 
         testPotion = Potion("SuperDuperLegendary Potion", "A Wang concoction. Made by Master Wang.", 1, 35, 1000)
-        testShop._items.append(potion)
+        testShop._items.append(testPotion)
         
         #Test preconditions
         errorMsg = "Player does not start with 20 rubles."
@@ -2121,7 +2126,7 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Player inventory changed when it should not have."
         self.assertEqual(len(player._inventory._items), 0, errorMsg)
         errorMsg = "Player equipment changed when it should not have."
-        self.assertEqual(len(player._equipment._items), 0, errorMsg)
+        self.assertEqual(len(player._equipped._items), 0, errorMsg)
         errorMsg = "Shop wares changed when it should not have."
         self.assertEqual(len(testShop._items), 0, errorMsg)
          
