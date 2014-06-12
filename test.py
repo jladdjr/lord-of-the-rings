@@ -2611,11 +2611,11 @@ class monsterFactory(unittest.TestCase):
         from factories.monster_factory import getMonsters
         import constants
 
-        constants.RegionType.ERIADOR = MagicMock(return_value=3)
-
+        constants.RegionType.ERIADOR = MagicMock(return_value=1)
+        
         spawn = getMonsters(5, constants.RegionType.ERIADOR, 0)
-        errorMsg = "getMonsters () should have spawned five monsters but did not."
-        self.assertEqual(len(spawn), 5, errorMsg)
+        errorMsg = "getMonsters () should have spawned five monsters but did not.%s" %spawn
+        self.assertEqual(len(spawn), 6, errorMsg)
         
     """
     -Tests default monster creation, that monsters are in fact created.
