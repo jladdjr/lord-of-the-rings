@@ -44,7 +44,7 @@ class UsePotionCommand(Command):
 
         choice = None
         while True:
-            choice = raw_input("Which potion would you like to use? " )
+            choice = raw_input("Which potion would you like to use? ")
             if potions.containsItemWithName(choice):
                 break
             else:

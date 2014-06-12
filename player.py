@@ -93,7 +93,7 @@ class Player(object):
     def increaseExperience(self, newExperience):
         """
         Allows player to receive additional experience.
-        Runs _upsateLevel() upon receiving additional
+        Runs _updateLevel() upon receiving additional
         experience.
 
         @param newExperience:    The experience player is to receive.

@@ -2484,17 +2484,18 @@ class DescribeCommand(unittest.TestCase):
     """
     Tests Describe Command.
     
-    Three cases:
-    -Works with space and no cities/unique places.
-    -Works with one city and one unique place.
-    -Works with multiple cities and multiple unique places.
+    Iterations:
+    -With no cities/unique places.
+    -With one city and one unique place.
+    -With multiple cities and multiple unique places.
     """
-    def testCase1(self):
+    def testCase(self):
         from space import Space
         from commands.describe_command import DescribeCommand
         from player import Player
         from space import Space
-        
+
+        #With no cities/unique places
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("The Bagginses", space)
         describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
@@ -2508,7 +2509,8 @@ class DescribeCommand(unittest.TestCase):
         from space import Space
         from cities.city import City
         from unique_place import UniquePlace
-        
+
+        #With one city and one unique place
         testCity = City("Master Wang's Oriental Fun City", "Chris's testing city", "Come test here")
         testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity, uniquePlace = testUniquePlace)
@@ -2524,7 +2526,8 @@ class DescribeCommand(unittest.TestCase):
         from space import Space
         from cities.city import City
         from unique_place import UniquePlace
-        
+
+        #With multiple cities and multiple unique places
         testCity1 = City("Master Wang's Oriental Fun City", "Chris' unique testing city", "Come test here")
         testCity2 = City("Chocolate Mountain", "Next to Vanilla Mountain", "Hi I'm Jim")
         testUniquePlace1 = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
@@ -2537,9 +2540,9 @@ class DescribeCommand(unittest.TestCase):
 
 class monster(unittest.TestCase):
     """
-    Tests Monster class.
+    Tests Monster objects.
     """
-    def testMonster(self):
+    def testInit(self):
         from monsters.monster import Monster
 
         monster = Monster("Jack", "@$$", [10, 5, 7], "Moof", "Meep")
@@ -2559,14 +2562,24 @@ class monster(unittest.TestCase):
         self.assertEqual(monster._attackString, "Moof", errorMsg)
         errorMsg = "monster._deathString should be 'Meep'"
         self.assertEqual(monster._deathString, "Meep", errorMsg)
+
+    def testAttack(self):
+        from monsters.monster import Monster
+
+        monster = Monster("Jack", "@$$", [10, 5, 7], "Moof", "Meep")
         
-        #Test monster.attack()
         player = MagicMock()
         player.takeAttack = MagicMock()
-        
+
+        #Test monster.attack()
         monster.attack(player)
         errorMsg = "monster.attack() failed to carry attack to player."
         player.takeAttack.assert_called_with(5)
+
+    def testTakeAttack(self):
+        from monsters.monster import Monster
+
+        monster = Monster("Jack", "@$$", [10, 5, 7], "Moof", "Meep")
 
         #Test monster.takeAttack() - attack is less than total hp
         monster.takeAttack(3)
@@ -2580,9 +2593,31 @@ class monster(unittest.TestCase):
 
 class monsterFactory(unittest.TestCase):
     """
-    Tests monster factory.
+    Tests monster_factory's getMonsters().
+    
+    Testing:
+    -Number spawn equals base when bonusDifficulty is set to zero.
+    -That number spawn increases as a percentage over default as
+    bonusDifficulty increases.
+    -That regional distributions are present with monster spawns.
+    -That monster stats are base stats given zero bonusDifficulty.
+    -That monster stats increase as a percentage over default as
+    bonusDifficulty increases.
+    """
+    def testDefaultMonsterSpawn(self):
+        """
+        Tests that spawn equals base when bonusDifficulty is set to zero.
+        """
+        from factories.monster_factory import getMonsters
+        import constants
 
-    Pieces:
+        constants.RegionType.ERIADOR = MagicMock(return_value=3)
+
+        spawn = getMonsters(5, constants.RegionType.ERIADOR, 0)
+        errorMsg = "getMonsters () should have spawned five monsters but did not."
+        self.assertEqual(len(spawn), 5, errorMsg)
+        
+    """
     -Tests default monster creation, that monsters are in fact created.
     -Testing difficulty feature - that default stats are implemented when
     difficulty set to zero. 

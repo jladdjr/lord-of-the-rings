@@ -34,7 +34,7 @@ class Inn(Building):
         choice = None
         while choice != "no":
             print ""
-            choice = raw_input("Would you like to stay for the night? Reponse: 'yes' or 'no.' ")
+            choice = raw_input("Would you like to stay for the night? Response: 'yes' or 'no.' ")
             
             #Heal option   
             if choice == "yes":

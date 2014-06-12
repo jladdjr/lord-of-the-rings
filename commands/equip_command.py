@@ -30,19 +30,21 @@ class EquipCommand(Command):
         equipped = self._player.getEquipped()
         equippable = ItemSet()
         
-        #User prompt
-        print "%s may equip:" % self._player.getName()
         for item in inventory:
             if (isinstance(item, Weapon) or isinstance(item, Armor)) and \
                item not in equipped:
-                print "\t%s" % item.getName()
                 equippable.addItem(item)
-        print ""
 
         if equippable.count() == 0:
             print "No equippable items in inventory."
             return
-        
+
+        #User prompt   
+        print "%s may equip:" % self._player.getName()
+        for item in equippable:
+            print "\t%s" % item.getName()
+        print ""
+
         itemToEquip = raw_input("Which item do you want to equip? ")
 
         #Equip item

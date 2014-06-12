@@ -17,7 +17,7 @@ def battle(player):
     region = location.getRegion()
     bonusDifficulty = location.getBattleBonusDifficulty()
     
-    monsterCount = monsterNumGen(player)
+    monsterCount = _monsterNumGen(player)
     monsters = factories.monster_factory.getMonsters(monsterCount, region, bonusDifficulty)
 
     #User prompt
@@ -52,7 +52,13 @@ def battle(player):
         print ""
         
         #Monsters attack phase
-        monsterAttackPhase(player, monsters)
+        continueBattle = monsterAttackPhase(player, monsters)
+        #Escape sequence for battle loss
+        if not continueBattle:
+            print ""
+            print "Gandalf bails you out."
+            player.heal(1)
+            return
 
     #Battle end sequence - loot received
     endSequence(player, earnings)
@@ -107,7 +113,7 @@ def playerAttackPhase(player, monsters, bonusDifficulty):
         
     return money, experience
 
-def monsterNumGen(player):
+def _monsterNumGen(player):
     """
     Helper method used to generate number of monsters to spawn.
 
@@ -152,14 +158,20 @@ def monsterAttackPhase(player, monsters):
 
     @param player:      The player object.
     @param monsters:    The offending list of monsters.
+
+    @return:            True if battle is to continue. False
+                        otherwise.
     """
     #Monsters attack
     for monster in monsters:
         monster.attack(player)
         print "%s %s for %s damage!" % (monster.getName(), monster.getAttackString(), monster.getAttack())
         print "%s has %s hp remaining." % (player.getName(), player.getHp())
-        #TODO: check if player is still alive
+        #If player loses battle
+        if player.getHp() == 0:
+            return False
     print ""
+    return True
 
 def usePotion(player):
     """
@@ -180,17 +192,20 @@ def endSequence(player, earnings):
     """
     money = earnings[0]
     experience = earnings[1]
+    
     #Calculate splash screen variables
-    lengthBar = len("%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience))
-    bar = "$" * lengthBar
     victoryDeclaration = "Enemies are vanguished!"
+    gainsDeclaration = "%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience)
+    
+    lengthBar = len(gainsDeclaration)
     victoryDeclaration = victoryDeclaration.center(lengthBar)
+    bar = "$" * lengthBar
     
     #TODO: add items to victory sequence
     
     print bar
     print victoryDeclaration
-    print "%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience)
+    print gainsDeclaration
     player.increaseMoney(money)
     player.increaseExperience(experience)
     print bar

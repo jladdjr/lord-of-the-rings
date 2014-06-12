@@ -24,7 +24,6 @@ class UnequipCommand(Command):
         Unequips player with item in inventory.
         """
         equipped = self._player.getEquipped()
-        inventory = self._player.getInventory()
 
         #If no items to unequip
         if equipped.count() == 0:
@@ -38,16 +37,9 @@ class UnequipCommand(Command):
         print ""
         
         itemToUnequip = raw_input("Which item do you want to unequip? \n")
-        
-        itemInventory = inventory.getItemByName(itemToUnequip)
         itemEquipment = equipped.getItemByName(itemToUnequip)
         
-        #Checks if item is in inventory and is currently equipped
-        if not itemInventory:
-            print ""
-            print "%s is not in your inventory!" % itemToUnequip
-            return
-        
+        #Check if item is currently equipped
         if not itemEquipment:
             print ""
             print "%s is not currently equipped!" % itemToUnequip
