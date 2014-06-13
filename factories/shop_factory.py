@@ -23,13 +23,13 @@ def getItems(numItems, quality):
         randDesc = random.random()
 
         #Generate items and append to items list
-        if randType < .3:
+        if randType < constants.ShopFactoryConstants.WEAPON_UPPER:
             item = genWeapon(quality, randWeaponType, randDesc)
             items.append(item)
-        elif .3 <= randType < .6:
+        elif constants.ShopFactoryConstants.ARMOR_LOWER <= randType < constants.ShopFactoryConstants.ARMOR_UPPER:
             item = genArmor(quality, randDesc)
             items.append(item)
-        elif .6 <= randType < .975:
+        elif constants.ShopFactoryConstants.POTION_LOWER <= randType < constants.ShopFactoryConstants.POTION_UPPER:
             item = genPotion(quality, randDesc)
             items.append(item)
         else:

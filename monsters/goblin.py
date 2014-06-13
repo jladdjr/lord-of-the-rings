@@ -13,10 +13,4 @@ class Goblin(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        self._name = "Goblin"
-        self._description = "\"Give me all of your stuff!\""
-        self._hp = stats[0]
-        self._attack = stats[1]
-        self._experience = stats[2]
-        self._attackString = "slice and diced"
-        self._deathString = "\"I'm going back home.\""
+        Monster.__init__(self, "Goblin", "\"Give me all of your stuff!\"", stats, "slice and diced", "\"I'm going back home.\"") 

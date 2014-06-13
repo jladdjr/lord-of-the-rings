@@ -15,10 +15,9 @@ class WestCommand(Command):
         @param player:          Reference to command.
         """
         #Call parent's init method
-        Command.__init__(self, name, explanation)
+        Command.__init__(self, name, explanation, True)
 
         self._player = player
-        self._time = True
 
     def execute(self):
         """

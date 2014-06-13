@@ -12,11 +12,6 @@ class GreatGoblin(Monster):
 
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
+                          
         """
-        self._name = "Great Goblin"
-        self._description = "\"Give me ALL of your stuff!\""
-        self._hp = stats[0]
-        self._attack = stats[1]
-        self._experience = stats[2]
-        self._attackString = "slice and diced"
-        self._deathString = "\"I'm going back home too.\""
+        Monster.__init__(self, "Great Goblin", "\"Give me ALL of your stuff!\"", stats, "slice and diced", "\"I'm going back home too.\"")       

@@ -13,10 +13,4 @@ class Troll(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        self._name = "Troll"
-        self._description = "\"Merrily I troll along.\""
-        self._hp = stats[0]
-        self._attack = stats[1]
-        self._experience = stats[2]
-        self._attackString = "slams you with fists of malice"
-        self._deathString = "\"Merrily I troll away.\""
+        Monster.__init__(self, "Troll", "\"Merrily I troll along.\"", stats, "slams you with fists of malice", "\"Merrily I troll away.\"") 

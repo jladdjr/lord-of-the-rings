@@ -140,3 +140,14 @@ MONSTER_STATS = {Troll:             [1, 1, 1],
 #Battle constants
 RUN_PROBABILITY_SUCCESS = 1
 BATTLE_EARNINGS = 4
+
+#Shop factory probability constants
+class ShopFactoryConstants(object):
+    """
+    Constants used in shop factory. 
+    """
+    WEAPON_UPPER = .3
+    ARMOR_LOWER = .3
+    ARMOR_UPPER = .6
+    POTION_LOWER = .6
+    POTION_UPPER = .975

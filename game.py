@@ -93,13 +93,7 @@ class Game(object):
         if nextCommand is not None:
             #If passing of time... chance a random battle will occur
             if nextCommand.getTime() == True:
-                #Determines if random battle will occur
-                currentLocation = self._player.getLocation()
-                battleProbability = currentLocation.getBattleProbability()
-                if random.random() < battleProbability:
-                    #Call on battle to resolve battle
-                    battle_engine.battle(self._player)
-
+                self._battlePhase()
             #Then execute nextCommand
             nextCommand.execute()
             print ""
@@ -107,3 +101,15 @@ class Game(object):
         else:
             errorMsg = "Failed to receive command from parser."
             raise AssertionError(errorMsg)
+
+    def _battlePhase(self):
+        """
+        Evaluates if a random battle will occur. If so, battle_engine.battle()
+        is called to execute the battle.
+        """
+        #Determines if random battle will occur
+        currentLocation = self._player.getLocation()
+        battleProbability = currentLocation.getBattleProbability()
+        if random.random() < battleProbability:
+            #Call on battle to resolve battle
+            battle_engine.battle(self._player)
