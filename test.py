@@ -2683,7 +2683,7 @@ class CheckMapCommand(unittest.TestCase):
         from space import Space
         from player import Player
         from commands.map_command import MapCommand
-        from game_loader import getWorld()
+        from game_loader import getWorld
 
         space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
         player = Player("Russian", space)
