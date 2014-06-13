@@ -2307,7 +2307,6 @@ class EnterCommand(unittest.TestCase):
         -Enter City, leave City
         -Enter UniquePlace
         """
-        from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
         from space import Space
@@ -2340,7 +2339,6 @@ class EnterCommand(unittest.TestCase):
         -Enter City, leave City
         -Enter UniquePlace
         """
-        from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
         from space import Space
@@ -2376,7 +2374,6 @@ class EnterCommand(unittest.TestCase):
         -Enter UniquePlace
         -Enter UniquePlace
         """
-        from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
         from space import Space
@@ -2414,7 +2411,6 @@ class EnterCommand(unittest.TestCase):
         -Enter UniquePlace
         -Enter UniquePlace
         """
-        from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
         from space import Space
@@ -2447,7 +2443,6 @@ class EnterCommand(unittest.TestCase):
         """
         Trying to enter when there are no possible destinations.
         """
-        from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
         from space import Space
@@ -2465,7 +2460,6 @@ class EnterCommand(unittest.TestCase):
         Trying to enter where there are valid destinations but
         user gives inputs a place that does not exist.
         """
-        from space import Space
         from commands.enter_command import EnterCommand
         from player import Player
         from cities.city import City
@@ -2490,7 +2484,6 @@ class DescribeCommand(unittest.TestCase):
     -With multiple cities and multiple unique places.
     """
     def testCase(self):
-        from space import Space
         from commands.describe_command import DescribeCommand
         from player import Player
         from space import Space
@@ -2498,12 +2491,11 @@ class DescribeCommand(unittest.TestCase):
         #With no cities/unique places
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("The Bagginses", space)
-        describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        describeCmd = DescribeCommand("Test Describe Command", "Tests describing", player)
         
         describeCmd.execute()
     
     def testCase2(self):
-        from space import Space
         from commands.describe_command import DescribeCommand
         from player import Player
         from space import Space
@@ -2515,12 +2507,11 @@ class DescribeCommand(unittest.TestCase):
         testUniquePlace = UniquePlace("The UniquePlace of Testing", "Weird things sometimes happen when you test.", "Welcome to UniquePlace of Testing.")
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity, uniquePlace = testUniquePlace)
         player = Player("The Bagginses", space)
-        describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        describeCmd = DescribeCommand("Test Describe Command", "Tests describing", player)
         
         describeCmd.execute()
 
     def testCase3(self):
-        from space import Space
         from commands.describe_command import DescribeCommand
         from player import Player
         from space import Space
@@ -2534,9 +2525,200 @@ class DescribeCommand(unittest.TestCase):
         testUniquePlace2 = UniquePlace("Ukraine", "Not in great shape", "Welcome to Ukraine")
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = [testCity1, testCity2], uniquePlace = [testUniquePlace1, testUniquePlace2])
         player = Player("The Bagginses", space)
-        describeCmd = DescribeCommand("Test Describe Command", "Tests Describing", player)
+        describeCmd = DescribeCommand("Test Describe Command", "Tests describing", player)
         
         describeCmd.execute()
+
+class CheckEquipmentCommand(unittest.TestCase):
+    """
+    Checks that "check equipment" does not crash the game.
+
+    Testing:
+    -Does not crash game when player has no equipped items.
+    -Does not crash game when player has equipped items.
+    """
+    def testCase1(self):
+        from space import Space
+        from commands.check_equipment_command import CheckEquipmentCommand
+        from player import Player
+
+        space = Space("Shire", "Full of chocolate", "Mordor")
+        player = Player("Russian", space)
+        checkEquipmentCmd = CheckEquipmentCommand("Check Equipment Command", "Test command", player)
+
+        checkEquipmentCmd.execute()
+
+    def testCase2(self):
+        from space import Space
+        from commands.check_equipment_command import CheckEquipmentCommand
+        from player import Player
+        from items.weapon import Weapon
+        from items.armor import Armor
+
+        space = Space("Shire", "Full of chocolate", "Mordor")
+        player = Player("Russian", space)
+        weapon = Weapon("Sword of the Spirit", "Divides soul and spirit", 3, 3, 3)
+        armor = Armor("Shield of Faith", "For fiery darts", 3, 3, 3)
+        checkEquipmentCmd = CheckEquipmentCommand("Check Equipment Command", "Test command", player)
+
+        player._equipped._items = [weapon, armor]
+
+        checkEquipmentCmd.execute()
+
+class CheckInventoryCommand(unittest.TestCase):
+    """
+    Checks that "check inventory" does not crash the game given
+    a sample of potential inventories.
+
+    Testing:
+    -Does not crash with an empty inventory.
+    -Does not crash with equipment.
+    -Does not crash with a combination of equipment and items.
+    """
+    def testCase1(self):
+        #For empty inventory
+        from space import Space
+        from player import Player
+        from commands.check_inventory_command import CheckInventoryCommand
+
+        space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
+        player = Player("Russian", space)
+        checkInventoryCmd = CheckInventoryCommand("Check Inventory Command", "Test command", player)
+
+        checkInventoryCmd.execute()
+
+    def testCase2(self):
+        #With equipment in inventory
+        from space import Space
+        from player import Player
+        from commands.check_inventory_command import CheckInventoryCommand
+        from items.armor import Armor
+        from items.weapon import Weapon
+
+        space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
+        player = Player("Russian", space)
+        checkInventoryCmd = CheckInventoryCommand("Check Inventory Command", "Test command", player)
+        weapon = Weapon("Sword of the Spirit", "Divides soul and spirit", 2, 2, 2)
+        armor = Armor("Breastplate of Righteousness", "Made of light", 2, 2, 2)
+
+        player.addToInventory(weapon)
+        player.addToInventory(armor)
+
+        errorMsg = "weapon and armor should be in player._inventory._items"
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._inventory._items, errorMsg)
+        
+        checkInventoryCmd.execute()
+        
+    def testCase3(self):
+        #With equipment and arbitrary items in inventory
+        from space import Space
+        from player import Player
+        from commands.check_inventory_command import CheckInventoryCommand
+        from items.armor import Armor
+        from items.weapon import Weapon
+        from items.potion import Potion
+        from items.item import Item
+
+        space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
+        player = Player("Russian", space)
+        checkInventoryCmd = CheckInventoryCommand("Check Inventory Command", "Test command", player)
+        weapon = Weapon("Sword of the Spirit", "Divides soul and spirit", 2, 2, 2)
+        armor = Armor("Breastplate of Righteousness", "Made of light", 2, 2, 2)
+        potion = Potion("Vodka", "Russian's favorite", 2, 2, 2)
+        item = Item("Piece of Cardboard", "For arts and crafts", 2)
+        item2 = Item("Scotch Tape", "School supplies", 2)
+
+        player.addToInventory(weapon)
+        player.addToInventory(armor)
+        player.addToInventory(potion)
+        player.addToInventory(item)
+        player.addToInventory(item2)
+
+        errorMsg = "Testing inventory was initialized incorrectly."
+        self.assertTrue(weapon in player._inventory._items, errorMsg)
+        self.assertTrue(armor in player._inventory._items, errorMsg)
+        self.assertTrue(potion in player._inventory._items, errorMsg)
+        self.assertTrue(item in player._inventory._items, errorMsg)
+        self.assertTrue(item2 in player._inventory._items, errorMsg)
+        
+        checkInventoryCmd.execute()
+
+class CheckMoneyCommand(unittest.TestCase):
+    """
+    Checks that "check money" does not crash the game.
+    """
+    def testCase(self):
+        from space import Space
+        from player import Player
+        from commands.check_money_command import CheckMoneyCommand
+
+        space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
+        player = Player("Russian", space)
+        checkMoneyCmd = CheckMoneyCommand("Check Money Command", "Test command", player)
+
+        checkMoneyCmd.execute()
+
+class CheckStatsCommand(unittest.TestCase):
+    """
+    Checks that "check stats" does not crash the game from a variety of
+    different locations across the game map.
+    """
+    def testCase(self):
+        from space import Space
+        from player import Player
+        from commands.check_stats_command import CheckStatsCommand
+
+        space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
+        player = Player("Russian", space)
+        checkStatsCmd = CheckStatsCommand("Check Stats Command", "Test command", player)
+
+        checkStatsCmd.execute()
+
+class CheckMapCommand(unittest.TestCase):
+    """
+    Checks that "map" does not crash the game.
+    """
+    def testCase(self):
+        from space import Space
+        from player import Player
+        from commands.map_command import MapCommand
+        from game_loader import getWorld()
+
+        space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
+        player = Player("Russian", space)
+        mapCmd = MapCommand("Map Command", "Test command", player)
+
+        #Load map and test on a variety of different player locations
+        getWorld()
+        mapCmd.execute()
+        
+        player._location = shire
+        mapCmd.execute()
+
+        player._location = mistyMountains
+        mapCmd.execute()
+
+        player._location = southernMirkwood
+        mapCmd.execute()
+
+        player._location = moria
+        mapCmd.execute()
+
+        player._location = fieldOfCelebrant
+        mapCmd.execute()
+
+        player._location = anorien
+        mapCmd.execute()
+
+        player._location = cirithUngol
+        mapCmd.execute()
+
+        player._location = ithilien
+        mapCmd.execute()
+
+        player._location = fangorn
+        mapCmd.execute()
 
 class monster(unittest.TestCase):
     """
@@ -2604,7 +2786,7 @@ class monsterFactory(unittest.TestCase):
     -That monster stats increase as a percentage over default as
     bonusDifficulty increases.
     """
-    def testDefaultMonsterSpawn(self):
+    def testDefaultSpawnNumber(self):
         """
         Tests that spawn equals base when bonusDifficulty is set to zero.
         """
@@ -2614,10 +2796,24 @@ class monsterFactory(unittest.TestCase):
         constants.RegionType.ERIADOR = MagicMock(return_value=1)
         
         spawn = getMonsters(5, constants.RegionType.ERIADOR, 0)
-        errorMsg = "getMonsters () should have spawned five monsters but did not.%s" %spawn
-        self.assertEqual(len(spawn), 6, errorMsg)
+        errorMsg = "getMonsters () should have spawned five monsters but did not."
+        self.assertEqual(len(spawn), 5, errorMsg)
         
-    """
+    def testBonusDifficultySpawnNumber(self):
+        """
+        Tests that number spawn increases as a percentage over default as
+        bonusDifficulty increases.
+        """
+        from factories.monster_factory import getMonsters
+        import constants
+
+        constants.RegionType.ERIADOR = MagicMock(return_value=1)
+        
+        spawn = getMonsters(5, constants.RegionType.ERIADOR, 1)
+        errorMsg = "getMonsters () should have spawned ten monsters but did not."
+        self.assertEqual(len(spawn), 10, errorMsg)
+        
+        """
     -Tests default monster creation, that monsters are in fact created.
     -Testing difficulty feature - that default stats are implemented when
     difficulty set to zero. 
@@ -2634,19 +2830,6 @@ class monsterFactory(unittest.TestCase):
 
     Note params for getMonster: getMonsters(number, region, difficulty).
     """
-    def testDefaultMonsterCreation(self):
-        #Tests default monster creation, that monsters are in fact created.
-        from factories.monster_factory import getMonsters
-        from monsters.monster import Monster
-        import constants
-        
-        monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
-        errorMsg = "Nothing was created in initial monster creation test. %s" %monsters
-        self.assertEqual(len(monsters), 0, errorMsg)
-        
-        for monster in monsters:
-            errorMsg = "getMonsters did not spawn Monster objects."
-            self.assertTrue(isinstance(monster, Monster), errorMsg)
 
     def testDefaultStatGeneration(self):
         #Testing difficulty feature - that default stats are implemented when
@@ -2691,21 +2874,8 @@ class monsterFactory(unittest.TestCase):
             self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][1], errorMsg)
             errorMsg = "monster._experience was not initiated correctly."
             self.assertEqual(monster._attack, 2 * constants.MONSTER_STATS[Troll][2], errorMsg)
-            
-    def testDefaultSpawnNumber(self):    
-        #-Testing difficulty feature - that default monster spawn occurs when
-        #difficulty is set to zero.
-        """
-        Params: number = 3, region = 1 (ERIADOR), difficulty = 0.
-        """
-        from factories.monster_factory import getMonsters
-        import constants
-        
-        monsters = getMonsters(3, constants.RegionType.ERIADOR, 0)
-        
-        errorMsg = "getMonsters did not spawn three monsters. %s" %monsters
-        self.assertEqual(len(monsters), 3, errorMsg)
 
+    
     def testRegionalSpawn(self):
         #-Testing that regional spawns work: that monster spawn reflects
         #regional monster distributions held in constants. 
