@@ -4,7 +4,7 @@ class Monster(object):
     """
     A generic monster to be used as a parent for specific future monster classes.
     """
-    def __init__(self, name, description, stats, attackString, deathString):
+    def __init__(self, name, description, stats, level = None, attackString, deathString):
         """
         Initializes an item object.
 

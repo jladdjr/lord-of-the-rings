@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from monsters.monster import Monster
+import constants
 
 class Troll(Monster):
     """
@@ -13,4 +14,4 @@ class Troll(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, "Troll", "\"Merrily I troll along.\"", stats, "slams you with fists of malice", "\"Merrily I troll away.\"") 
+        Monster.__init__(self, constants.MonsterNames.Troll, constants.MonsterDescriptions.Troll, stats, constants.MonsterAttackStrings.Troll, constants.MonsterDeathStrings.Troll) 

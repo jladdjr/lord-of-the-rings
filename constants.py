@@ -1,9 +1,24 @@
 #!/usr/bin/python
 
-from monsters.troll import Troll
-from monsters.nazgul import Nazgul
+from monsters.barrow_wight import BarrowWight
 from monsters.goblin import Goblin
 from monsters.great_goblin import GreatGoblin
+from monsters.king_of_the_barrows import KingOfTheBarrows
+from monsters.nazgul import Nazgul
+from monsters.troll import Troll
+from monsters.warg_rider import WargRider
+from monsters.uruk_hai import UrukHai
+from monsters.uruk_hai_archer import UrukHaiArcher
+from monsters.elite_uruk_hai import EliteUrukHai
+from monsters.dunlending import Dunlending
+from monsters.orc import Orc
+from monsters.orc_archer import OrcArcher
+from monsters.siege_works import SiegeWorks
+from monsters.dragon import Dragon
+from monsters.corsair_of_umbar import CorsairOfUmbar
+from monsters.armored_mumakil import ArmoredMumakil
+from monsters.black_numernorian import BlackNumernorian
+from monsters.easterling_warrior import EasterlingWarrior
 
 """
 Constants for Lord of the Rings.
@@ -21,7 +36,7 @@ STARTING_MONEY = 20
 STARTING_WEAPON_ATTACK = 0
 STARTING_ARMOR_DEFENSE = 0
 
-#Character stat calculation
+#Character stats
 HP_STAT = 20
 ATTACK_STAT = 2
 MAX_LEVEL = 20
@@ -82,61 +97,141 @@ class RegionBaseSpawn(object):
     GONDOR        = 8
     MORDOR        = 9
 
+#Monster names
+class MonsterNames(object):
+    """
+    Names of monsters.
+    """
+    BarrowWight = "Barrow Wight"
+    Goblin = "Goblin"
+    GreatGoblin = "Great Goblin"
+    KingOfTheBarrows = "King of the Barrows"
+    Nazgul = "Nazgul"
+    Troll = "Troll"
+    WargRider = "Warg Rider"
+    UrukHai = "Uruk Hai"
+    UrukHaiArcher = "Uruk Hai Archer"
+    EliteUrukHai = "Elite Uruk Hai"
+    Dunlending = "Dunlending"
+    Orc = "Orc"
+    OrcArcher = "Orcish Archer"
+    SiegeWorks = "Siege Works"
+    Dragon = "Dragon"
+    CorsairOfUmbar = "Corsair of Umbar"
+    ArmoredMumakil = "Armored Mumakil"
+    BlackNumernorian = "Black Numernorian"
+    EasterlingWarrior = "Easterling Warrior"
+    
+#Monster descriptions
+class MonsterDescriptions(object):
+    """
+    Descriptions of monsters.
+    """
+    BarrowWight = "A sad soul left haunting the Downs."
+    Goblin = "\"Give me all of your stuff!\""
+    GreatGoblin = "\"Give me ALL of your stuff!\""
+    KingOfTheBarrows = "An intense, evil spirit."
+    Nazgul = "\"AAAAEEEEEEEEEEE!!!\""
+    Troll = "\"Merrily I troll along.\""
+    WargRider = "Likes riding... wargs."
+    UrukHai = "\"You even lift bro?\""
+    UrukHaiArcher = "Lifts over long distances."
+    EliteUrukHai = "Bench press champion."
+    Dunlending = "Basically, poor people."
+    Orc = "Not very nice."
+    OrcArcher = "Like that kid who shot spitballs at you when you were a kid."
+    SiegeWorks = "Completely useless in this situation."
+    Dragon = "Fire-breathing and scary."
+    CorsairOfUmbar = "Basically, pirates."
+    ArmoredMumakil = "Armored elephants seated with archers."
+    BlackNumernorian = "Extremely powerful sorcerers."
+    EasterlingWarrior = "From China."
+    
+#Monster attack strings
+class MonsterAttackStrings(object):
+    """
+    Attack strings for monsters.
+    """
+    BarrowWight = "sang a sad song"
+    Goblin = "slice and diced"
+    GreatGoblin = "slice and diced"
+    KingOfTheBarrows = "sang a symphony of sadness"
+    Nazgul = "AAAAEEEEEEEEEEE!!!-ed"
+    Troll = "slamed you with fists of malice"
+    WargRider = ""
+    UrukHai = "tried to out lift you"
+    UrukHaiArcher = "tried to out lift you"
+    EliteUrukHai = "tried to out lift you"
+    Dunlending = "picked your pocket"
+    Orc = "hacked at you"
+    OrcArcher = ""
+    SiegeWorks = "did nothing"
+    Dragon = ""
+    CorsairOfUmbar = ""
+    ArmoredMumakil = "got pissed and trampled around"
+    BlackNumernorian = "did some kind of weird dance"
+    EasterlingWarrior = ""
+    
+class MonsterDeathStrings(object):
+    """
+    Death strings for monsters.
+    """
+    BarrowWight = "\"Good. I am going back to sleep now.\""
+    Goblin = "\"I'm going back home.\""
+    GreatGoblin = "\"I'm going back home too... can you carry me there?\""
+    KingOfTheBarrows = ""
+    Nazgul = "\"AAAAEEEEEEEEEEE!!!\""
+    Troll = "\"Merrily I troll away.\""
+    WargRider = "[Whimpers] ...My warg...."
+    UrukHai = "Well, back to the gym I guess...."
+    UrukHaiArcher = ""
+    EliteUrukHai = ""
+    Dunlending = ""
+    Orc = ""
+    OrcArcher = ""
+    SiegeWorks = "...."
+    Dragon = ""
+    CorsairOfUmbar = ""
+    ArmoredMumakil = ""
+    BlackNumernorian = ""
+    EasterlingWarrior = ""
+                 
 #Region monster distribution
-class RegionMonsterDistribution(object):
-    """
-    Region monster distribution.
-    """
-    ERIADOR       = {Nazgul:            1}
-    """
-    BARROW_DOWNS  = {BarrowWight:      .1,
-                     KingOfTheBarrows: .9}
-    HIGH_PASS     = {Goblin:           .8,
-                     GreatGoblin:       1}
-    ENEDWAITH     = {WargRider:        .1,
-                     UrukHai:          .2,
-                     UrukHaiArcher:    .25,
-                     EliteUrukHai:     .3,
-                     Dunlending:       .4}
-    MORIA         = {Orc:              .1,
-                     OrcArcher:        .2,
-                     Troll:            .3}
-    RHOVANION     = {Nazgul:           .1,
-                     Orc:              .2,
-                     OrcArcher:        .3}
-    ROHAN         = {WargRider:        .1,
-                     UrukHai:          .2,
-                     UrukHaiArcher:    .25,
-                     EliteUrukHai:     .3,
-                     Dunlending:       .4}
-    GONDOR        = {OrcII:            .1,
-                     OrcArcherII:      .2,
-                     TrollII:          .25,
-                     SiegeWorks:       .3,
-                     Nazgul:           .4,
-                     Dragon:           .45,
-                     CorsairOfUmbar:   .46,
-                     ArmoredMumakil:   .5,
-                     HaradrimArcher:   .6}
-    MORDOR        = {OrcIII:           .1,
-                     OrcArcherIII:     .2,
-                     TrollIII:         .25,
-                     SiegeWorks:       .3,
-                     Nazgul:           .4,
-                     Dragon:           .45,
-                     BlackNumernorian: .46,
-                     Easterling:       .47}
-    """
+REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
+                                 RegionType.BARROW_DOWNS : {BarrowWight: [0, .85], KingOfTheBarrows: [.85, 1]},
+                                 RegionType.HIGH_PASS : {Goblin: [0, .85], GreatGoblin: [.85, 1]},
+                                 RegionType.ENEDWAITH : {WargRider: [0, .3], Dunlending: [.3, .6], UrukHai: [.6, .8], UrukHaiArcher: [.8, .9], EliteUrukHai: [.9, 1]},
+                                 RegionType.MORIA : {Orc: [0, .6], OrcArcher: [.6, .85], Troll: [.85, 1]},
+                                 RegionType.RHOVANION : {Orc: [0, .5], OrcArcher: [.5, .7], Nazgul: [.7, .85], BlackNumernorian: [.85, 1]},
+                                 RegionType.ROHAN : {UrukHai: [0, .5], UrukHaiArcher: [.5, .7], EliteUrukHai: [.7, .8], WargRider: [.8, 1]},
+                                 RegionType.GONDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .775], Dragon: [.775, .8], CorsairOfUmbar: [.8, .85], ArmoredMumakil: [.85, .9], SiegeWorks: [.9, .95], BlackNumernorian: [.95, 1]},
+                                 RegionType.MORDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .85], Dragon: [.85, .9], BlackNumernorian: [.9, .95], SiegeWorks: [.95, 1]}}
+
 #Monster base stats
 """
 Monster base stats. Stats are a 3-element list
 whose elements are: hp, attack, and experience. 
 """
-MONSTER_STATS = {Troll:             [1, 1, 1],
-                 Nazgul:            [1, 1, 1],
+MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  Goblin:            [1, 1, 1],
-                 GreatGoblin:       [1, 1, 1]}
-    
+                 GreatGoblin:       [1, 1, 1],
+                 KingOfTheBarrows:  [1, 1, 1],
+                 Nazgul:            [1, 1, 1],
+                 Troll:             [1, 1, 1],
+                 WargRider:         [1, 1, 1],       
+                 UrukHai:           [1, 1, 1],
+                 UrukHaiArcher:     [1, 1, 1],
+                 EliteUrukHai:      [1, 1, 1],
+                 Dunlending:        [1, 1, 1],
+                 Orc:               [1, 1, 1],
+                 OrcArcher:         [1, 1, 1],
+                 SiegeWorks:        [1, 1, 1],
+                 Dragon:            [1, 1, 1],
+                 CorsairOfUmbar:    [1, 1, 1],
+                 ArmoredMumakil:    [1, 1, 1],
+                 BlackNumernorian:  [1, 1, 1],
+                 EasterlingWarrior: [1, 1, 1]}
+
 #Battle constants
 RUN_PROBABILITY_SUCCESS = 1
 BATTLE_EARNINGS = 4

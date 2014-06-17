@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from monsters.monster import Monster
+import constants
 
 class Goblin(Monster):
     """
@@ -13,4 +14,4 @@ class Goblin(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, "Goblin", "\"Give me all of your stuff!\"", stats, "slice and diced", "\"I'm going back home.\"") 
+        Monster.__init__(self, constants.MonsterNames.Goblin, constants.MonsterDescriptions.Goblin, stats, constants.MonsterAttackStrings.Goblin, constants.MonsterDeathStrings.Goblin) 
