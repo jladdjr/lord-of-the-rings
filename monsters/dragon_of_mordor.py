@@ -3,7 +3,7 @@
 from monsters.monster import Monster
 import constants
 
-class Dragon(Monster):
+class DragonOfMordor(Monster):
     """
     A type of Monster.
     """

@@ -31,6 +31,7 @@ from commands.north_command import NorthCommand
 from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
 from commands.west_command import WestCommand
+from unique_places.tom_bombadil_house import TomBombadilHouse
 import items.unique_items
 import constants
 
@@ -73,8 +74,11 @@ def getWorld():
     #The Old Forest - Tom Bombadil's House
     #Unique Place
     description = "The house of a mysterious and powerful being, who dwells in the valley of Withywindle."
-    greeting = "Hi ho, hi ho, what brings you through these ancient forests?"
-    tomBombadil = UniquePlace("Tom Bombadil's House", description, greeting)
+    greeting = """
+    \"Old Tom Bombadil is a merry fellow;
+    Bright blue his jacket is, and his boots are yellow.\"
+    """
+    tomBombadil = TomBombadilHouse("Tom Bombadil's House", description, greeting)
     #The Old Forest
     description = """
     The Old Forest is one of the few surviving primordial forests

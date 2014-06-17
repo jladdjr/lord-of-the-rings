@@ -14,7 +14,7 @@ from monsters.dunlending import Dunlending
 from monsters.orc import Orc
 from monsters.orc_archer import OrcArcher
 from monsters.siege_works import SiegeWorks
-from monsters.dragon import Dragon
+from monsters.dragon_of_mordor import DragonOfMordor
 from monsters.corsair_of_umbar import CorsairOfUmbar
 from monsters.armored_mumakil import ArmoredMumakil
 from monsters.black_numernorian import BlackNumernorian
@@ -116,7 +116,7 @@ class MonsterNames(object):
     Orc = "Orc"
     OrcArcher = "Orcish Archer"
     SiegeWorks = "Siege Works"
-    Dragon = "Dragon"
+    DragonOfMordor = "Dragon of Mordor"
     CorsairOfUmbar = "Corsair of Umbar"
     ArmoredMumakil = "Armored Mumakil"
     BlackNumernorian = "Black Numernorian"
@@ -137,13 +137,13 @@ class MonsterDescriptions(object):
     UrukHai = "\"You even lift bro?\""
     UrukHaiArcher = "Lifts over long distances."
     EliteUrukHai = "Bench press champion."
-    Dunlending = "Basically, poor people."
+    Dunlending = "The original people of Middle Earth."
     Orc = "Not very nice."
-    OrcArcher = "Like that kid who shot spitballs at you when you were a kid."
+    OrcArcher = "A total j@ck@$$."
     SiegeWorks = "Completely useless in this situation."
-    Dragon = "Fire-breathing and scary."
+    DragonOfMordor = "Distant cousin of Dragonite."
     CorsairOfUmbar = "Basically, pirates."
-    ArmoredMumakil = "Armored elephants seated with archers."
+    ArmoredMumakil = "Armored elephants mounted with archers."
     BlackNumernorian = "Extremely powerful sorcerers."
     EasterlingWarrior = "From China."
     
@@ -158,43 +158,43 @@ class MonsterAttackStrings(object):
     KingOfTheBarrows = "sang a symphony of sadness"
     Nazgul = "AAAAEEEEEEEEEEE!!!-ed"
     Troll = "slamed you with fists of malice"
-    WargRider = ""
+    WargRider = "trampled around"
     UrukHai = "tried to out lift you"
     UrukHaiArcher = "tried to out lift you"
     EliteUrukHai = "tried to out lift you"
-    Dunlending = "picked your pocket"
-    Orc = "hacked at you"
-    OrcArcher = ""
+    Dunlending = "hacked and slashed"
+    Orc = "hacked"
+    OrcArcher = "shot fiery darts"
     SiegeWorks = "did nothing"
-    Dragon = ""
-    CorsairOfUmbar = ""
-    ArmoredMumakil = "got pissed and trampled around"
-    BlackNumernorian = "did some kind of weird dance"
-    EasterlingWarrior = ""
+    DragonOfMordor = "used hyperbeam"
+    CorsairOfUmbar = "slashed"
+    ArmoredMumakil = "got pissed and started trampling around"
+    BlackNumernorian = "summon spiritual darkness"
+    EasterlingWarrior = "tried to avenge his ancestors"
     
 class MonsterDeathStrings(object):
     """
     Death strings for monsters.
     """
     BarrowWight = "\"Good. I am going back to sleep now.\""
-    Goblin = "\"I'm going back home.\""
-    GreatGoblin = "\"I'm going back home too... can you carry me there?\""
-    KingOfTheBarrows = ""
+    Goblin = "\"I'm going back home now.\""
+    GreatGoblin = "\"I'm going back home now too.\""
+    KingOfTheBarrows = "\"I am going back to sleep now.\""
     Nazgul = "\"AAAAEEEEEEEEEEE!!!\""
     Troll = "\"Merrily I troll away.\""
     WargRider = "[Whimpers] ...My warg...."
     UrukHai = "Well, back to the gym I guess...."
-    UrukHaiArcher = ""
-    EliteUrukHai = ""
-    Dunlending = ""
-    Orc = ""
-    OrcArcher = ""
+    UrukHaiArcher = "Leg lifts and suicides here I come...."
+    EliteUrukHai = "[Walks back to the locker room depressed.]"
+    Dunlending = "\"Why the heck am I even here?\""
+    Orc = "Orc was cut in two!"
+    OrcArcher = "Orcish Archer was slain!"
     SiegeWorks = "...."
-    Dragon = ""
+    DragonOfMordor = "Dragon of Mordor was knocked out!"
     CorsairOfUmbar = ""
-    ArmoredMumakil = ""
-    BlackNumernorian = ""
-    EasterlingWarrior = ""
+    ArmoredMumakil = "Armored Mumakil is going home to Africa now."
+    BlackNumernorian = "[Black Numernorian returned to the shadows.]"
+    EasterlingWarrior = "Easterling Warrior went back to China."
                  
 #Region monster distribution
 REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
@@ -204,8 +204,8 @@ REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
                                  RegionType.MORIA : {Orc: [0, .6], OrcArcher: [.6, .85], Troll: [.85, 1]},
                                  RegionType.RHOVANION : {Orc: [0, .5], OrcArcher: [.5, .7], Nazgul: [.7, .85], BlackNumernorian: [.85, 1]},
                                  RegionType.ROHAN : {UrukHai: [0, .5], UrukHaiArcher: [.5, .7], EliteUrukHai: [.7, .8], WargRider: [.8, 1]},
-                                 RegionType.GONDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .775], Dragon: [.775, .8], CorsairOfUmbar: [.8, .85], ArmoredMumakil: [.85, .9], SiegeWorks: [.9, .95], BlackNumernorian: [.95, 1]},
-                                 RegionType.MORDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .85], Dragon: [.85, .9], BlackNumernorian: [.9, .95], SiegeWorks: [.95, 1]}}
+                                 RegionType.GONDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .775], DragonOfMordor: [.775, .8], CorsairOfUmbar: [.8, .85], ArmoredMumakil: [.85, .9], SiegeWorks: [.9, .95], BlackNumernorian: [.95, 1]},
+                                 RegionType.MORDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .85], DragonOfMordor: [.85, .9], BlackNumernorian: [.9, .95], SiegeWorks: [.95, 1]}}
 
 #Monster base stats
 """
@@ -226,7 +226,7 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  Orc:               [1, 1, 1],
                  OrcArcher:         [1, 1, 1],
                  SiegeWorks:        [1, 1, 1],
-                 Dragon:            [1, 1, 1],
+                 DragonOfMordor:    [1, 1, 1],
                  CorsairOfUmbar:    [1, 1, 1],
                  ArmoredMumakil:    [1, 1, 1],
                  BlackNumernorian:  [1, 1, 1],
