@@ -3,6 +3,7 @@
 from parser import Parser
 import game_loader
 import battle_engine
+import constants
 import random
 
 class Game(object):
@@ -112,4 +113,4 @@ class Game(object):
         battleProbability = currentLocation.getBattleProbability()
         if random.random() < battleProbability:
             #Call on battle to resolve battle
-            battle_engine.battle(self._player)
+            battle_engine.battle(self._player, constants.BattleEngineContext.RANDOM)

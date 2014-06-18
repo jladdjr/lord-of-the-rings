@@ -32,6 +32,8 @@ from commands.south_command import SouthCommand
 from commands.east_command import EastCommand
 from commands.west_command import WestCommand
 from unique_places.tom_bombadil_house import TomBombadilHouse
+from unique_places.weathertop import Weathertop
+from unique_places.isenguard import Isenguard
 import items.unique_items
 import constants
 
@@ -92,7 +94,7 @@ def getWorld():
     #Unique Place
     description = "Once a great watchtower, guarding the entire region."
     greeting = "The weathertop ruins whisper of its former glory."
-    weathertop = UniquePlace("Weathertop", description, greeting)
+    weathertop = Weathertop("Weathertop", description, greeting)
     #The Weather Hills
     description = """
     Weather Hills is the name among Men for the range of hills
@@ -355,8 +357,8 @@ def getWorld():
     Mountains near the Gap of Rohan. In the centre of the Ring of Isengard
     stands the stone tower of Orthanc.
     """
-    greetings = "Sauroman would like to see you...."
-    isenguard = UniquePlace("Isenguard", description, greetings)
+    greetings = "Charred skies greet you as you approach Isenguard...."
+    isenguard = Isenguard("Isenguard", description, greetings)
     #Calenardhon
     description = """Calenardhon contains Isengard, a great fortress located
     within a valley at the southern end of the Misty Mountains near the Gap

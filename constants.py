@@ -19,6 +19,7 @@ from monsters.corsair_of_umbar import CorsairOfUmbar
 from monsters.armored_mumakil import ArmoredMumakil
 from monsters.black_numernorian import BlackNumernorian
 from monsters.easterling_warrior import EasterlingWarrior
+from monsters.sauroman import Sauroman
 
 """
 Constants for Lord of the Rings.
@@ -121,6 +122,7 @@ class MonsterNames(object):
     ArmoredMumakil = "Armored Mumakil"
     BlackNumernorian = "Black Numernorian"
     EasterlingWarrior = "Easterling Warrior"
+    Sauroman = "Sauroman of Many Colors"
     
 #Monster descriptions
 class MonsterDescriptions(object):
@@ -146,6 +148,7 @@ class MonsterDescriptions(object):
     ArmoredMumakil = "Armored elephants mounted with archers."
     BlackNumernorian = "Extremely powerful sorcerers."
     EasterlingWarrior = "From China."
+    Sauroman = "Head of the White Council"
     
 #Monster attack strings
 class MonsterAttackStrings(object):
@@ -171,6 +174,7 @@ class MonsterAttackStrings(object):
     ArmoredMumakil = "got pissed and started trampling around"
     BlackNumernorian = "summon spiritual darkness"
     EasterlingWarrior = "tried to avenge his ancestors"
+    Sauroman = "cast elemental spells"
     
 class MonsterDeathStrings(object):
     """
@@ -195,6 +199,8 @@ class MonsterDeathStrings(object):
     ArmoredMumakil = "Armored Mumakil is going home to Africa now."
     BlackNumernorian = "[Black Numernorian returned to the shadows.]"
     EasterlingWarrior = "Easterling Warrior went back to China."
+    Sauroman = "Sauroman the Great Wizard was slain!"
+    
                  
 #Region monster distribution
 REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
@@ -230,7 +236,16 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  CorsairOfUmbar:    [1, 1, 1],
                  ArmoredMumakil:    [1, 1, 1],
                  BlackNumernorian:  [1, 1, 1],
-                 EasterlingWarrior: [1, 1, 1]}
+                 EasterlingWarrior: [1, 1, 1],
+                 Sauroman:          [1, 1, 1]}
+
+#Battle engine context
+class BattleEngineContext(object):
+    """
+    Constants for battle engine.
+    """
+    RANDOM = 1
+    STORY  = 2
 
 #Battle constants
 RUN_PROBABILITY_SUCCESS = 1
@@ -246,3 +261,4 @@ class ShopFactoryConstants(object):
     ARMOR_UPPER = .6
     POTION_LOWER = .6
     POTION_UPPER = .975
+

@@ -22,5 +22,3 @@ def generateMenu(prompt, options, appendQuit = False):
     choice = raw_input("Choice: ")
 
     return choice
-    
-    

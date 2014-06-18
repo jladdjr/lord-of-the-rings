@@ -20,7 +20,7 @@ class TomBombadilHouse(UniquePlace):
         UniquePlace.__init__(self, name, description, greetings)
 
         weapon = Weapon("Walking Cane", "Has a secret, sharpened edge", 3, 3, 3)
-        potion = Potion("Secret Tonic", "Contains rare herbs", 1, 3, 2)
+        potion = Potion("Forest Tonic", "Contains rare herbs", 1, 3, 2)
         self._gift = [weapon, potion]
         
     def enter(self, player):
@@ -39,5 +39,6 @@ class TomBombadilHouse(UniquePlace):
         print ""
         for item in self._gift:
             player.addToInventory(item)
+            self._gift.remove(item)
         print ""
         print "\"Thank you for visiting me in these forests.\""

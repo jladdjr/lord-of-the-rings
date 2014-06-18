@@ -6,23 +6,38 @@ import constants
 import factories.monster_factory
 from commands.use_potion_command import UsePotionCommand
 
-def battle(player):
+def battle(player, context, monsters = None, run = True):
     """
     Battle engine for Lord of the Rings
 
     @param player:     The player object.
+    @param context:    Context constant for battle engine. Battle engine
+                       behaves differently in different contexts.
+    @param monsters:   Forced monster spawn.
+    @param run:        Whether player can run away or not.
     """
-    #Spawn monsters
-    location = player.getLocation()
-    region = location.getRegion()
-    bonusDifficulty = location.getBattleBonusDifficulty()
-    
-    monsterCount = _monsterNumGen(player)
-    monsters = factories.monster_factory.getMonsters(monsterCount, region, bonusDifficulty)
+    if context == constants.BattleEngineContext.RANDOM:
+        #Spawn monsters
+        location = player.getLocation()
+        region = location.getRegion()
+        bonusDifficulty = location.getBattleBonusDifficulty()
+        
+        monsterCount = _monsterNumGen(player)
+        monsters = factories.monster_factory.getMonsters(monsterCount, region, bonusDifficulty)
 
-    #User prompt
-    print "Zonkle-tronks! Wild monsters appeared!"
-    print ""
+        #User prompt
+        print "Zonkle-tronks! Wild monsters appeared!"
+        print ""
+
+    elif context == constants.BattleEngineContext.STORY:
+        location = player.getLocation()
+        region = location.getRegion()
+        bonusDifficulty = location.getBattleBonusDifficulty()
+        print ""
+        
+    else:
+        errorMsg = "battle given invalid context parameter."
+        raise AssertionError(errorMsg)
 
     #Battle sequence
     while len(monsters) != 0:
@@ -35,17 +50,24 @@ def battle(player):
         #Attack
         if choice == 'attack':
             earnings = playerAttackPhase(player, monsters, bonusDifficulty)
-        #Use potion - TODO
+        #Use potion
         elif choice == "use potion":
             usePotion(player)
         #Attempt run
         elif choice == 'run':
-            #TODO: Magic number
-            if random.random() < constants.RUN_PROBABILITY_SUCCESS:
-                print "You ran away succesfully!"
-                return
+            if run == True:
+                if random.random() < constants.RUN_PROBABILITY_SUCCESS:
+                    print "You ran away succesfully!"
+                    return
+                else:
+                    print "Your path is blocked!"
             else:
-                print "Your path is blocked!"
+                print "You cannot run away in this situation."
+        #Testing - TODO: remove
+        elif choice == "explode":
+            monsters = []
+            earnings = [0,0]
+            
         #Invalid selection
         else:
             print "Huh?"
