@@ -52,9 +52,8 @@ class City(Place):
         Creates a dictionary of building objects. The keys are 
         the building names that references the building object.
         
-        @return:    The dictionary of buildings contained in City
+        @return:    The dictionary of buildings contained in City.
         """
-        
         buildingDictionary = {}
         buildings = self.getBuildings()
         #If there is 1 building
@@ -68,9 +67,8 @@ class City(Place):
     
     def _printBuildings(self):
         """
-        The method for printing buildings in the city
+        The method for printing buildings in the city.
         """
-        
         buildings = self.getBuildings()
         #If there is 1 building
         if isinstance(buildings, Building):
@@ -117,4 +115,3 @@ class City(Place):
                 print ""
             else:
                 print "\nI did not recognize %s. Try again.\n" % command
-

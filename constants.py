@@ -20,6 +20,7 @@ from monsters.armored_mumakil import ArmoredMumakil
 from monsters.black_numernorian import BlackNumernorian
 from monsters.easterling_warrior import EasterlingWarrior
 from monsters.sauroman import Sauroman
+from monsters.black_gate import BlackGate
 
 """
 Constants for Lord of the Rings.
@@ -37,25 +38,15 @@ STARTING_MONEY = 20
 STARTING_WEAPON_ATTACK = 0
 STARTING_ARMOR_DEFENSE = 0
 
-#Character stats
+#Character stats constants
 HP_STAT = 20
 ATTACK_STAT = 2
 MAX_LEVEL = 20
 
-#Items stats
+#Item stat constants 
 SELL_LOSS_PERCENTAGE = .5
 WEAPON_COST = 1
 ARMOR_COST = 2
-
-#Direction enumeration
-class Direction(object):
-    """
-    The cardinal directions.
-    """
-    NORTH = 'north'
-    SOUTH = 'south'
-    EAST  = 'east'
-    WEST  = 'west'
 
 #Item type enumeration
 class ItemType(object):
@@ -67,6 +58,16 @@ class ItemType(object):
     ARMOR   = 2
     WEAPON  = 3
     POTION  = 4
+
+#Direction enumeration
+class Direction(object):
+    """
+    The cardinal directions.
+    """
+    NORTH = 'north'
+    SOUTH = 'south'
+    EAST  = 'east'
+    WEST  = 'west'
 
 #Region type enumeration
 class RegionType(object):
@@ -86,7 +87,7 @@ class RegionType(object):
 #Region base spawn
 class RegionBaseSpawn(object):
     """
-    Region base spawn.
+    Regional base spawn per random battle for space in region.
     """
     ERIADOR       = 1
     BARROW_DOWNS  = 2
@@ -123,6 +124,7 @@ class MonsterNames(object):
     BlackNumernorian = "Black Numernorian"
     EasterlingWarrior = "Easterling Warrior"
     Sauroman = "Sauroman of Many Colors"
+    BlackGate = "The Black Gate"
     
 #Monster descriptions
 class MonsterDescriptions(object):
@@ -148,7 +150,8 @@ class MonsterDescriptions(object):
     ArmoredMumakil = "Armored elephants mounted with archers."
     BlackNumernorian = "Extremely powerful sorcerers."
     EasterlingWarrior = "From China."
-    Sauroman = "Head of the White Council"
+    Sauroman = "Head of the White Council."
+    BlackGate = "Extra thick."
     
 #Monster attack strings
 class MonsterAttackStrings(object):
@@ -159,7 +162,7 @@ class MonsterAttackStrings(object):
     Goblin = "slice and diced"
     GreatGoblin = "slice and diced"
     KingOfTheBarrows = "sang a symphony of sadness"
-    Nazgul = "AAAAEEEEEEEEEEE!!!-ed"
+    Nazgul = "slashed you with a Morgul knife"
     Troll = "slamed you with fists of malice"
     WargRider = "trampled around"
     UrukHai = "tried to out lift you"
@@ -175,6 +178,7 @@ class MonsterAttackStrings(object):
     BlackNumernorian = "summon spiritual darkness"
     EasterlingWarrior = "tried to avenge his ancestors"
     Sauroman = "cast elemental spells"
+    BlackGate = "looked at you in defiance"
     
 class MonsterDeathStrings(object):
     """
@@ -195,17 +199,26 @@ class MonsterDeathStrings(object):
     OrcArcher = "Orcish Archer was slain!"
     SiegeWorks = "...."
     DragonOfMordor = "Dragon of Mordor was knocked out!"
-    CorsairOfUmbar = ""
+    CorsairOfUmbar = "Corsair of Umbar went back home."
     ArmoredMumakil = "Armored Mumakil is going home to Africa now."
     BlackNumernorian = "[Black Numernorian returned to the shadows.]"
     EasterlingWarrior = "Easterling Warrior went back to China."
     Sauroman = "Sauroman the Great Wizard was slain!"
+    BlackGate = "As you keep hacking, the Black Gate of Mordor comes crumbling down!"
     
-                 
 #Region monster distribution
+"""
+A dictionary of dictionaries where the higher-level pairs are region-distribution pairs.
+The inner set contains the class-probability pairs that are used as probability
+distribution functions for monster spawn.
+
+monster_factory's getMonsters() generates a random number between [0, 1). If the
+randomly generated number falls within the range of each class, a monster of that class
+is spawned.
+"""
 REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
                                  RegionType.BARROW_DOWNS : {BarrowWight: [0, .85], KingOfTheBarrows: [.85, 1]},
-                                 RegionType.HIGH_PASS : {Goblin: [0, .85], GreatGoblin: [.85, 1]},
+                                 RegionType.HIGH_PASS : {Goblin: [0, 1]},
                                  RegionType.ENEDWAITH : {WargRider: [0, .3], Dunlending: [.3, .6], UrukHai: [.6, .8], UrukHaiArcher: [.8, .9], EliteUrukHai: [.9, 1]},
                                  RegionType.MORIA : {Orc: [0, .6], OrcArcher: [.6, .85], Troll: [.85, 1]},
                                  RegionType.RHOVANION : {Orc: [0, .5], OrcArcher: [.5, .7], Nazgul: [.7, .85], BlackNumernorian: [.85, 1]},
@@ -215,8 +228,8 @@ REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
 
 #Monster base stats
 """
-Monster base stats. Stats are a 3-element list
-whose elements are: hp, attack, and experience. 
+Monster base stats. Stats are a 3-element list whose elements
+are: hp, attack, and experience in that order. 
 """
 MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  Goblin:            [1, 1, 1],
@@ -237,17 +250,20 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  ArmoredMumakil:    [1, 1, 1],
                  BlackNumernorian:  [1, 1, 1],
                  EasterlingWarrior: [1, 1, 1],
-                 Sauroman:          [1, 1, 1]}
+                 Sauroman:          [1, 1, 1],
+                 BlackGate:         [1, 1, 1]}
 
 #Battle engine context
 class BattleEngineContext(object):
     """
-    Constants for battle engine.
+    BattleEngine has a parameter that determines if the
+    battle is treated as a random battle or if the battle
+    is treated as a story/boss battle.
     """
     RANDOM = 1
     STORY  = 2
 
-#Battle constants
+#Battle engine constants
 RUN_PROBABILITY_SUCCESS = 1
 BATTLE_EARNINGS = 4
 
@@ -262,3 +278,14 @@ class ShopFactoryConstants(object):
     POTION_LOWER = .6
     POTION_UPPER = .975
 
+#Unique Place constants
+class UniquePlaceConstants(object):
+    """
+    Constants used in unique places.
+    """
+    WeathertopBattleProb = .3
+    TharbadBattleProb = .2
+    TharbadItemFindProb = .5
+    ArgonathExperienceIncrease = .1
+    DeringleExperienceIncrease = .05
+    GoblinTownCaveEvasion = .4

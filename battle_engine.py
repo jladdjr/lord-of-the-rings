@@ -6,40 +6,30 @@ import constants
 import factories.monster_factory
 from commands.use_potion_command import UsePotionCommand
 
-def battle(player, context, monsters = None, run = True):
+def battle(player, context, monsters = None):
     """
-    Battle engine for Lord of the Rings
+    The battle engine of Lord of the Rings.
 
     @param player:     The player object.
-    @param context:    Context constant for battle engine. Battle engine
-                       behaves differently in different contexts.
-    @param monsters:   Forced monster spawn.
-    @param run:        Whether player can run away or not.
+    @param context:    Context constant for battle engine. Battle engine behaves differently
+                       in different contexts: either random battle or fixed battle.
+    @param monsters:   A list of monsters.
+
+    A summary of differences between random battles and story-based battles:
+    -Random battles: monster factory called by battle engine and monsters are supplied by
+    monster factory. Player can choose to "run" in random battles.
+    -Story-based battles: monsters must be supplied through the "monsters" parameter.
+    Player cannot run from battle.
     """
+    #Battle setup
+    output = _battleSetup(player, context)
     if context == constants.BattleEngineContext.RANDOM:
-        #Spawn monsters
-        location = player.getLocation()
-        region = location.getRegion()
-        bonusDifficulty = location.getBattleBonusDifficulty()
-        
-        monsterCount = _monsterNumGen(player)
-        monsters = factories.monster_factory.getMonsters(monsterCount, region, bonusDifficulty)
-
-        #User prompt
-        print "Zonkle-tronks! Wild monsters appeared!"
-        print ""
-
-    elif context == constants.BattleEngineContext.STORY:
-        location = player.getLocation()
-        region = location.getRegion()
-        bonusDifficulty = location.getBattleBonusDifficulty()
-        print ""
-        
+        bonusDifficulty = output[0]
+        monsters = output[1]
     else:
-        errorMsg = "battle given invalid context parameter."
-        raise AssertionError(errorMsg)
-
-    #Battle sequence
+        bonusDifficulty = output
+    
+    #Main battle sequence
     while len(monsters) != 0:
         #User prompt
         print "Monsters:"
@@ -47,35 +37,45 @@ def battle(player, context, monsters = None, run = True):
             print "\t%s: %s" % (monster.getName(), monster.getDescription())
         print ""
         choice = raw_input("You may: 'attack', 'use potion', 'run.' ")
-        #Attack
+        
+        #Player attack option
         if choice == 'attack':
-            earnings = playerAttackPhase(player, monsters, bonusDifficulty)
-        #Use potion
+            earnings = _playerAttackPhase(player, monsters, bonusDifficulty)
+            
+        #Use potion option
         elif choice == "use potion":
-            usePotion(player)
-        #Attempt run
-        elif choice == 'run':
-            if run == True:
+            _usePotion(player)
+            
+        #Run option
+        elif choice == "run":
+            if context == constants.BattleEngineContext.RANDOM:
                 if random.random() < constants.RUN_PROBABILITY_SUCCESS:
                     print "You ran away succesfully!"
+                    print ""
                     return
                 else:
                     print "Your path is blocked!"
             else:
-                print "You cannot run away in this situation."
-        #Testing - TODO: remove
+                print "Your path is blocked!"
+                
+        #Testing - TODO: to remove
         elif choice == "explode":
             monsters = []
             earnings = [0,0]
-            
-        #Invalid selection
+    
+        #For invalid user input
         else:
             print "Huh?"
         print ""
-        
+
+        #Break between player and monster phases
+        raw_input("Press 'enter' to continue. ")
+        print ""
+
         #Monsters attack phase
-        continueBattle = monsterAttackPhase(player, monsters)
-        #Escape sequence for battle loss
+        continueBattle = _monsterAttackPhase(player, monsters)
+        
+        #Escape sequence given battle loss
         if not continueBattle:
             print ""
             print "Gandalf bails you out."
@@ -83,9 +83,90 @@ def battle(player, context, monsters = None, run = True):
             return
 
     #Battle end sequence - loot received
-    endSequence(player, earnings)
+    _endSequence(player, earnings)
 
-def playerAttackPhase(player, monsters, bonusDifficulty):
+def _battleSetup(player, context):
+    """
+    Generates variables for battle engine and prints battle
+    splash screen.
+    """
+    #For random battles
+    if context == constants.BattleEngineContext.RANDOM:
+        #Create variables
+        location = player.getLocation()
+        region = location.getRegion()
+        bonusDifficulty = location.getBattleBonusDifficulty()
+
+        #Spawn monsters
+        monsterCount = _monsterNumGen(player)
+        monsters = factories.monster_factory.getMonsters(monsterCount, region, bonusDifficulty)
+
+        #Declare battle
+        print "Zonkle-tronks! Wild monsters appeared!"
+        print ""
+
+        return bonusDifficulty, monsters
+    
+    #For story-based battles
+    elif context == constants.BattleEngineContext.STORY:
+        #Create variables
+        location = player.getLocation()
+        region = location.getRegion()
+        bonusDifficulty = location.getBattleBonusDifficulty()
+    
+        #Display splash screen
+        print \
+"""
+()==[:::::::::::::> ()==[:::::::::::::> ()==[:::::::::::::>
+""" 
+        return bonusDifficulty
+    
+    else:
+        errorMsg = "_battleSetup given invalid context parameter."
+        raise AssertionError(errorMsg)
+
+def _monsterNumGen(player):
+    """
+    Helper function used to determine the number of monsters to spawn.
+    
+    Default spawn comes from a parameter supplied by space. bonusDifficulty
+    is then applied applied to increase the number of monsters spawned as
+    a percentage increase over base spawn.
+    
+    @param player:     Player object.
+
+    @return:           Number of monsters to spawn.
+    """
+    location = player.getLocation()
+    region = location.getRegion()
+    bonusDifficulty = location.getBattleBonusDifficulty()
+
+    #Calculate region spawn
+    if region == constants.RegionType.ERIADOR:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
+    elif region == constants.RegionType.BARROW_DOWNS:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
+    elif region == constants.RegionType.HIGH_PASS:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
+    elif region == constants.RegionType.ENEDWAITH:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
+    elif region == constants.RegionType.MORIA:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
+    elif region == constants.RegionType.RHOVANION:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
+    elif region == constants.RegionType.ROHAN:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
+    elif region == constants.RegionType.GONDOR:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
+    elif region == constants.RegionType.MORDOR:
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
+    else:
+        errorMsg = "Invalid region - region base monster determination."
+        raise AssertionError(errorMsg)
+
+    return monsterCount
+
+def _playerAttackPhase(player, monsters, bonusDifficulty):
     """
     When the user gets to attack a single monster object.
     If monster health is reduced to zero, monster is removed
@@ -135,46 +216,17 @@ def playerAttackPhase(player, monsters, bonusDifficulty):
         
     return money, experience
 
-def _monsterNumGen(player):
+def _usePotion(player):
     """
-    Helper method used to generate number of monsters to spawn.
+    Creates an additional UsePotionCommand object
+    for battle purposes only.
 
-    Default spawn comes from space; then bonusDifficulty is applied.
-    
-    @param player:     Player object.
-
-    @return:           Number of monsters to spawn.
+    @param player:   The player object.
     """
-    location = player.getLocation()
-    region = location.getRegion()
-    bonusDifficulty = location.getBattleBonusDifficulty()
+    usePotionCmd = UsePotionCommand(" ", " ", player)
+    usePotionCmd.execute()
 
-    #Calculate region spawn
-    if region == constants.RegionType.ERIADOR:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
-    elif region == constants.RegionType.BARROW_DOWNS:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
-    elif region == constants.RegionType.HIGH_PASS:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
-    elif region == constants.RegionType.ENEDWAITH:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
-    elif region == constants.RegionType.MORIA:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
-    elif region == constants.RegionType.RHOVANION:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
-    elif region == constants.RegionType.ROHAN:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
-    elif region == constants.RegionType.GONDOR:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
-    elif region == constants.RegionType.MORDOR:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
-    else:
-        errorMsg = "Invalid region - region base monster determination."
-        raise AssertionError(errorMsg)
-
-    return monsterCount
-
-def monsterAttackPhase(player, monsters):
+def _monsterAttackPhase(player, monsters):
     """
     Monster attack phase - when monsters attack player.
 
@@ -194,20 +246,12 @@ def monsterAttackPhase(player, monsters):
             return False
     print ""
     return True
-
-def usePotion(player):
-    """
-    Creates an additional UsePotionCommand object
-    for battle purposes only.
-
-    @param player:   The player object.
-    """
-    usePotionCmd = UsePotionCommand(" ", " ", player)
-    usePotionCmd.execute()
     
-def endSequence(player, earnings):
+def _endSequence(player, earnings):
     """
-    Battle cleanup - player experience and money increases, etc.
+    Battle cleanup:
+    -Victory sequence displayed.
+    -Player experience and money increase.
 
     @param player:      The player object.
     @param earnings:    2-element tuple: first element is money and second is experience.
@@ -225,10 +269,12 @@ def endSequence(player, earnings):
     
     #TODO: add items to victory sequence
     
+    #Victory sequence
     print bar
     print victoryDeclaration
     print gainsDeclaration
     player.increaseMoney(money)
     player.increaseExperience(experience)
     print bar
+    print ""
     

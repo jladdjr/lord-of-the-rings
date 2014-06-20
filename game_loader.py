@@ -34,6 +34,12 @@ from commands.west_command import WestCommand
 from unique_places.tom_bombadil_house import TomBombadilHouse
 from unique_places.weathertop import Weathertop
 from unique_places.isenguard import Isenguard
+from unique_places.tharbad import Tharbad
+from unique_places.argonath import Argonath
+from unique_places.ost_in_edhil import OstInEdhil
+from unique_places.goblin_town import GoblinTown
+from unique_places.minas_morgul import MinasMorgul
+from unique_places.morannon import Morannon
 import items.unique_items
 import constants
 
@@ -74,7 +80,7 @@ def getWorld():
     shire = Space("Shire", description, constants.RegionType.ERIADOR, city = hobbiton)
 
     #The Old Forest - Tom Bombadil's House
-    #Unique Place
+	#Unique Place
     description = "The house of a mysterious and powerful being, who dwells in the valley of Withywindle."
     greeting = """
     \"Old Tom Bombadil is a merry fellow;
@@ -150,7 +156,7 @@ def getWorld():
     to the Goblins' tunnels.
     """
     greeting = "The goblins seem to be preoccupied...."
-    goblinTown = UniquePlace("Goblin Town", description, greeting)
+    goblinTown = GoblinTown("Goblin Town", description, greeting)
     #High Pass
     description = """The High Pass is a pass over the Misty Mountains.
     On its western end is the refuge of Rivendell and from there the
@@ -242,8 +248,8 @@ def getWorld():
     #Mitheithel - Tharbad
     #Unique Place
     description = "Once a fortified town on the River Greyflood, Tharbad now lies in ruins."
-    greeting = "An eerie mist greets you as you enter the ruins of the once \ngreat Tharbad."
-    tharbad = UniquePlace("Tharbad", description, greeting)
+    greeting = "An eerie mist greets you as you enter the ruins of the once great Tharbad...."
+    tharbad = Tharbad("Tharbad", description, greeting)
     #Mitheithel
     description = """Mitheithel is the long river that rises in a place
     in the icy north of Middle-earth called Hoarwell.
@@ -256,7 +262,7 @@ def getWorld():
     Rings of Power were forged by Celebrimbor here."""
     greeting = """You arrive at a strange sight: the once great city of Ost
     In Edhil now an ancient ruin. Strange symbols cover the land."""
-    ostInEdhil = UniquePlace("Ost In Edhil", description, greeting)
+    ostInEdhil = OstInEdhil("Ost In Edhil", description, greeting)
     #Swanfleet
     description = """The Swanfleet or Nin-in-Eilph is a marshy area in
     eastern Eriador where the lower reaches of the Glanduin flows
@@ -478,8 +484,8 @@ def getWorld():
     to prevent invasion through the Pass of Cirith Gorgor, the gap between
     the Ered Lithui and the Ephel Duath.
     """
-    greetings = "You shall not pass!"
-    morannon = UniquePlace("Morannon", description, greetings)
+    greetings = "One does not simply walk into Mordor."
+    morannon = Morannon("Morannon", description, greetings)
     #Dead Marshes
     description = """The Dead Marshes are an area of swampland east of the
     Dagorlad plain. It is the site of the ancient Battle of Dagorlad.
@@ -555,7 +561,7 @@ def getWorld():
     #Unique Place
     description = "Great for dates."
     greeting = "Welcome to Argonath! Stay within the designated areas and listen to your guide."
-    argonath = UniquePlace("Argonath", description, greeting)
+    argonath = Argonath("Argonath", description, greeting)
     #Anduin - Osgiliath
     #Inn
     description = "A place to rest in the midst of battle."
@@ -594,8 +600,8 @@ def getWorld():
 
     Minas Morgul is now home to the Nazgul.
     """
-    greeting = "GET HIM!!!!!"
-    minasMorgul = UniquePlace("Minas Morgul", description, greeting)
+    greeting = "\"GET HIM!!!!!\""
+    minasMorgul = MinasMorgul("Minas Morgul", description, greeting)
     #Ephel Duath
     description = """The Ephel Dúath, or the Mountains of Shadow, are a range of
     mountains that guard Mordor's western and southern borders.
@@ -721,7 +727,8 @@ def getWorld():
     anorien.createExit("south", lossamarch, outgoingOnly = False)
     anduin.createExit("south", ithilien, outgoingOnly = False)
     
-    return shire
+    #TODO: return this to shire. For testing purposes
+    return deadMarshes
     
 def getStartingInventory():
     """

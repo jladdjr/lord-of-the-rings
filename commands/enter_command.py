@@ -45,8 +45,10 @@ class EnterCommand(Command):
 
         #Display uniquePlaces that player may enter
             if isinstance(uniquePlace, UniquePlace):
+                print "%s may enter the following:" % playerName
                 print "\t%s" % uniquePlace.getName()
             elif isinstance(uniquePlace, list):
+                print "%s may enter the following:" % playerName
                 for eachUniquePlace in uniquePlace:
                     print "\t%s" % eachUniquePlace.getName()
         print ""
