@@ -20,7 +20,7 @@ from monsters.armored_mumakil import ArmoredMumakil
 from monsters.black_numernorian import BlackNumernorian
 from monsters.easterling_warrior import EasterlingWarrior
 from monsters.sauroman import Sauroman
-from monsters.black_gate import BlackGate
+from monsters.mouth_of_sauron import MouthOfSauron
 
 """
 Constants for Lord of the Rings.
@@ -124,7 +124,7 @@ class MonsterNames(object):
     BlackNumernorian = "Black Numernorian"
     EasterlingWarrior = "Easterling Warrior"
     Sauroman = "Sauroman of Many Colors"
-    BlackGate = "The Black Gate"
+    MouthOfSauron = "Mouth Of Sauron"
     
 #Monster descriptions
 class MonsterDescriptions(object):
@@ -151,7 +151,7 @@ class MonsterDescriptions(object):
     BlackNumernorian = "Extremely powerful sorcerers."
     EasterlingWarrior = "From China."
     Sauroman = "Head of the White Council."
-    BlackGate = "Extra thick."
+    MouthOfSauron = "Chief Emissary of Sauron."
     
 #Monster attack strings
 class MonsterAttackStrings(object):
@@ -178,7 +178,7 @@ class MonsterAttackStrings(object):
     BlackNumernorian = "summon spiritual darkness"
     EasterlingWarrior = "tried to avenge his ancestors"
     Sauroman = "cast elemental spells"
-    BlackGate = "looked at you in defiance"
+    MouthOfSauron = "slashed you with an enchanted blade"
     
 class MonsterDeathStrings(object):
     """
@@ -204,7 +204,7 @@ class MonsterDeathStrings(object):
     BlackNumernorian = "[Black Numernorian returned to the shadows.]"
     EasterlingWarrior = "Easterling Warrior went back to China."
     Sauroman = "Sauroman the Great Wizard was slain!"
-    BlackGate = "As you keep hacking, the Black Gate of Mordor comes crumbling down!"
+    MouthOfSauron = "\"Rides off to fight another day.\""
     
 #Region monster distribution
 """
@@ -251,7 +251,7 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  BlackNumernorian:  [1, 1, 1],
                  EasterlingWarrior: [1, 1, 1],
                  Sauroman:          [1, 1, 1],
-                 BlackGate:         [1, 1, 1]}
+                 MouthOfSauron:     [1, 1, 1]}
 
 #Battle engine context
 class BattleEngineContext(object):

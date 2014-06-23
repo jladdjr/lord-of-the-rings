@@ -39,7 +39,9 @@ from unique_places.argonath import Argonath
 from unique_places.ost_in_edhil import OstInEdhil
 from unique_places.goblin_town import GoblinTown
 from unique_places.minas_morgul import MinasMorgul
-from unique_places.morannon import Morannon
+from unique_places.black_gate import BlackGate
+from unique_places.isenmouthe import Isenmouthe
+from unique_places.barad_dur import BaradDur
 import items.unique_items
 import constants
 
@@ -99,7 +101,7 @@ def getWorld():
     #The Weather Hills - Weathertop
     #Unique Place
     description = "Once a great watchtower, guarding the entire region."
-    greeting = "The weathertop ruins whisper of its former glory."
+    greeting = "The Weathertop ruins whisper of its former glory."
     weathertop = Weathertop("Weathertop", description, greeting)
     #The Weather Hills
     description = """
@@ -155,7 +157,7 @@ def getWorld():
     Goblin. Gullum's cave is deep beneath Goblin-town and is connected
     to the Goblins' tunnels.
     """
-    greeting = "The goblins seem to be preoccupied...."
+    greeting = "\"What is better: subtlety or aggression?\""
     goblinTown = GoblinTown("Goblin Town", description, greeting)
     #High Pass
     description = """The High Pass is a pass over the Misty Mountains.
@@ -199,7 +201,7 @@ def getWorld():
     #Southern Mirkwood - Dol Guldur
     #Unique Place
     description = "Hill fortress of Sauron."
-    greeting = "'You shouldn't have come here....'"
+    greeting = "\"You shouldn't have come here....\""
     dolGuldur = UniquePlace("Dol Guldur", description, greeting)
     #The Old Forest
     description = """
@@ -327,7 +329,7 @@ def getWorld():
     #Fangorn - Derningle
     #Unique Place
     description = "Derningle is the site of meeting for Fangorn's ents."
-    greeting = "Welcome to the Entmoot! Don't be so hasty."
+    greeting = "\"Welcome to the Entmoot! Don't be so hasty.\""
     derningle = UniquePlace("Derningle", description, greeting)
     #Fangorn
     description = """Fangorn Forest is a deep, dark woodland that grows
@@ -478,19 +480,19 @@ def getWorld():
     """ 
     nindalf = Space("Nimdalf", description, constants.RegionType.MORDOR)
 
-    #Dead Marshes - Morannon
+    #Dead Marshes - Black Gate
     #Unique Place
     description = """The Black Gate of Mordor is a gate built by Sauron
     to prevent invasion through the Pass of Cirith Gorgor, the gap between
     the Ered Lithui and the Ephel Duath.
     """
-    greetings = "One does not simply walk into Mordor."
-    morannon = Morannon("Morannon", description, greetings)
+    greetings = "\"One does not simply walk into Mordor.\""
+    blackGate = BlackGate("Black Gate", description, greetings)
     #Dead Marshes
     description = """The Dead Marshes are an area of swampland east of the
     Dagorlad plain. It is the site of the ancient Battle of Dagorlad.
-    """ 
-    deadMarshes = Space("Dead Marshes", description, constants.RegionType.MORDOR, uniquePlace = morannon)
+    """
+    deadMarshes = Space("Dead Marshes", description, constants.RegionType.MORDOR, uniquePlace = blackGate)
 
     #Valley of Udun - Isenmouthe
     #Unique Place
@@ -500,8 +502,8 @@ def getWorld():
     
     The pass is heavily guarded with Fortresses and watchtowers.
     """
-    greetings = "You shall not pass (pt. 2)!"
-    isenmouthe = UniquePlace("Isenmouthe", description, greeting)
+    greetings = "\"One does not simply walk into Mordor II.\""
+    isenmouthe = Isenmouthe("Isenmouthe", description, greeting)
     #Valley of Udun
     description = """Udun is a depressed valley in northwestern Mordor.
     It lies between Cirith Gorgor and Isenmouthe and is traversed
@@ -560,7 +562,7 @@ def getWorld():
     #Anduin - Argonath
     #Unique Place
     description = "Great for dates."
-    greeting = "Welcome to Argonath! Stay within the designated areas and listen to your guide."
+    greeting = "\"Welcome to Argonath! Stay within the designated areas and listen to your guide.\""
     argonath = Argonath("Argonath", description, greeting)
     #Anduin - Osgiliath
     #Inn
@@ -600,7 +602,7 @@ def getWorld():
 
     Minas Morgul is now home to the Nazgul.
     """
-    greeting = "\"GET HIM!!!!!\""
+    greeting = "\"One does not simply walk into Mordor.\""
     minasMorgul = MinasMorgul("Minas Morgul", description, greeting)
     #Ephel Duath
     description = """The Ephel Dúath, or the Mountains of Shadow, are a range of
@@ -616,7 +618,7 @@ def getWorld():
     to return to Mordor. Similar fates suffered the mountain fortress of Durthang
     in northwestern Mordor and the Towers of the Teeth at Morannon.
     """
-    greeting = "What's that I hear?"
+    greeting = "\"One does not simple walk into Mordor.\""
     towerOfCirithUngol = UniquePlace("Tower of Cirith Ungol", description, greeting)
     #Cirith Ungol
     description = """Cirith Ungol is the pass through the western mountains of
@@ -633,8 +635,9 @@ def getWorld():
     and held together by dark magic, it is the largest fortress in
     Middle-earth.
     """
-    greeting = "Welcome... to your doom...."
-    baradDur = UniquePlace("Barad Dur", description, greeting)
+    greeting = """Rising black, blacker and darker than the vast shades amid which it stood,
+    the cruel pinnacles and iron crown of the topmost tower of Barad-dur."""
+    baradDur = BaradDur("Barad Dur", description, greeting)
     #Plateau of Gorgoth
     description = """Plateau of Gorgoroth is a region in the northwestern region of
     Mordor. Gorgoroth is the location of the mines and forges which supply Mordor's

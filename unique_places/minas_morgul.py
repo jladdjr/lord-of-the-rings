@@ -9,6 +9,7 @@ from battle_engine import battle
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+from items.item import Item
 import constants
 
 class MinasMorgul(UniquePlace):
@@ -57,13 +58,15 @@ class MinasMorgul(UniquePlace):
             monster = Nazgul(constants.MONSTER_STATS[Nazgul])
             self._wave3.append(monster)
         
+        #Create loot
         weapon = Weapon("Morgul Blade", "Seems to have a mind of its own", 5, 0, 0)
-        weapon2 = Weapon("Morgul Blade", "Rusted and crusty", 4, 0 ,0)
+        weapon2 = Weapon("Morgul Blade", "Rusted over", 4, 0 ,0)
         armor = Armor("Rotting Shield", "Completely useless", 5, 0, 0)
         armor2 = Armor("Travel Boots", "Too small for a human", 4, 0, 0)
-        potion = Potion("Orc Draught", "May contain human flesh", 1, 0, 2)
-        potion2 = Potion("Orc Draught", "Basically the orc version of Gatorade", 1, 0, 2)
-        self._loot = [weapon, weapon2, armor, armor2, potion, potion2]
+        potion = Potion("Orcish Tea", "Strange ingredients", 1, 0, 2)
+        potion2 = Potion("Orcish Tea", "Of questionable health value", 1, 0, 2)
+        item = Item("Orcish Banister", "Of potential value on the free market", 1)
+        self._loot = [weapon, weapon2, armor, armor2, potion, potion2, item]
         
     def enter(self, player):
         """
@@ -96,7 +99,7 @@ class MinasMorgul(UniquePlace):
         return choice
         
     def _frontalAssault(self, player):
-        print "Witch-King: \"Time for tea and crumpets. Welcome to our city.\" "
+        print "Witch-King: \"Time for tea and crumpets. Please keep to the left and don't touch any of the artifacts.\" "
         raw_input("Press enter to continue. ")
         print ""
         

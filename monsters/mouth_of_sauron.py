@@ -3,7 +3,7 @@
 from monsters.monster import Monster
 import constants
 
-class BlackGate(Monster):
+class MouthOfSauron(Monster):
     """
     A type of Monster.
     """
@@ -14,4 +14,4 @@ class BlackGate(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.BlackGate, constants.MonsterDescriptions.BlackGate, stats, constants.MonsterAttackStrings.BlackGate, constants.MonsterDeathStrings.BlackGate) 
+        Monster.__init__(self, constants.MonsterNames.MouthOfSauron, constants.MonsterDescriptions.MouthOfSauron, stats, constants.MonsterAttackStrings.MouthOfSauron, constants.MonsterDeathStrings.MouthOfSauron)
