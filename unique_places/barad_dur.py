@@ -7,11 +7,13 @@ from monsters.orc_archer import OrcArcher
 from monsters.troll import Troll
 from monsters.black_numernorian import BlackNumernorian
 from monsters.dragon_of_mordor import DragonOfMordor
+from monsters.witch_king import WitchKing
 from monsters.mouth_of_sauron import MouthOfSauron
 from battle_engine import battle
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+from items.item import Item
 import constants
 
 class BaradDur(UniquePlace):
@@ -24,8 +26,8 @@ class BaradDur(UniquePlace):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-	@param greetings:	The greetings the user gets as he enters the inn.        
-	"""
+        @param greetings:	The greetings the user gets as he enters the inn.        
+        """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
         
@@ -64,16 +66,17 @@ class BaradDur(UniquePlace):
             self._wave2.append(monster)
             
         #Create monster wave #3
-        for monster in range(7):
+        for monster in range(5):
             monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])
             self._wave3.append(monster)
         monster = MouthOfSauron(constants.MONSTER_STATS[MouthOfSauron])
         self._wave3.append(monster)
          
         #Create monster wave #4 
-        for monster in range(9):
+        for monster in range(8):
             monster = Nazgul(constants.MONSTER_STATS[Nazgul])
-            self._wave4.append(monster)
+        monster = WitchKing(constants.MONSTER_STATS[WitchKing])
+        self._wave4.append(monster)
             
         #Create monster wave #5
         for monster in range(14):
@@ -85,8 +88,8 @@ class BaradDur(UniquePlace):
         potion2 = Potion("Super Potion", "Medium healing qualities", 2, 2, 2)
         potion3 = Potion("Dragon Milk", "Healing qualities", 2, 2 ,2)
         item = Item("Masterball", "Can catch any Pokemon", 2)
-        item2 = Item("Moonstone", "Evolves normal pokemon", 2)
-        item3 = Item("Nugget", "Extreme resale value", 2)
+        item2 = Item("Moonstone", "Evolves normal Pokemon", 2)
+        item3 = Item("Nugget", "High resale value", 2)
         self._loot = [potion, potion2, potion3, item, item2, item3]
         
     def enter(self, player):
@@ -104,12 +107,12 @@ class BaradDur(UniquePlace):
         self._battle(player)
         
     def _battle(self, player):
-        print "Orc Commander I: \"\""
+        print "Orc Commander I: \"We're having a blast upstairs! Slumber party!\""
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave)
         
-        print "Orc Commander II: \""
+        print "Orc Commander II: \"Didn't you read the sign? No %ss allowed.\"" % player.getName()
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave2)
@@ -143,7 +146,7 @@ class BaradDur(UniquePlace):
         
         #Give player loot
         if len(self._loot) != 0:
-            print "While looting the battlefield, you find several interesting items. Unfortunately, the tower itself remains locked."
+            print "While looting the battlefield, you find several interesting items. The tower itself remains locked, however."
             raw_input("Press enter to continue.")
             print ""
             for item in self._loot:

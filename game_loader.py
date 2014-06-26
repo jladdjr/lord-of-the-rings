@@ -42,6 +42,9 @@ from unique_places.minas_morgul import MinasMorgul
 from unique_places.black_gate import BlackGate
 from unique_places.isenmouthe import Isenmouthe
 from unique_places.barad_dur import BaradDur
+from unique_places.dol_guldur import DolGuldur
+from unique_places.cirith_ungol import CirithUngol
+from unique_places.moria import Moria
 import items.unique_items
 import constants
 
@@ -120,7 +123,7 @@ def getWorld():
     """
     trollshaws = Space("Trollshaws", description, constants.RegionType.ERIADOR)
 
-    #Misty Mountains - Rivendell
+    #Misty Mountains North - Rivendell
     #Inn
     description = "A relaxing stay in the scenic Misty Mountains!"
     greeting = "Welcome to Misty Mountain Inn! Let us host you tonight...."
@@ -142,13 +145,13 @@ def getWorld():
     """
     greeting = "Rivendell is a sight for sore eyes, truly a mountain paradise."
     rivendell = City("Rivendell", description, greeting, [mistyInn, elvenWares, councilOfElrond])
-    #Misty Mountains
+    #Misty Mountains North
     description = """The Misty Mountains or Mountains of Mist is a great
     mountain range that lies between Eriador in the west and the Great
     River Anduin in the east. It runs 795 miles (1,280 kilometers) from
     Mount Gundabad in the far north to Methedras in the south.
     """
-    mistyMountains = Space("Misty Mountains", description, constants.RegionType.HIGH_PASS, city = rivendell)
+    mistyMountainsNorth = Space("Misty Mountains", description, constants.RegionType.HIGH_PASS, city = rivendell)
 
     #High Pass - Goblintown
     #Unique Place
@@ -201,8 +204,8 @@ def getWorld():
     #Southern Mirkwood - Dol Guldur
     #Unique Place
     description = "Hill fortress of Sauron."
-    greeting = "\"You shouldn't have come here....\""
-    dolGuldur = UniquePlace("Dol Guldur", description, greeting)
+    greeting = "You are overcome with an overwhelming sense of fear as you approach the citadel of Dol Guldur."
+    dolGuldur = DolGuldur("Dol Guldur", description, greeting)
     #The Old Forest
     description = """
     During the time of the War of the Ring, Southern Mirkwood was
@@ -280,22 +283,25 @@ def getWorld():
     """
     dunland = Space("Mitheithel", description, constants.RegionType.RHOVANION)
 
-    #Moria - The Seventh Level
+    #Misty Mountains South
     #Unique Place
-    description = """The Seventh Level of Moria or Khazad-dum is a level of
-    chambers, corridors and rooms, six levels above the Great Gates.
+    description = """Moria consists of an enormous underground complex in
+    north-western Middle-earth, comprising a vast network of tunnels,
+    chambers, mines and huge halls or mansions, that ran under and ultimately 
+    through the Misty Mountains. 
     """
-    greeting = """You find a series of chambers holding various artifacts.
-    The dead bodies of dwarves litter the landscape."""
-    theSeventhLevel = UniquePlace("The Seventh Level", description, greeting)
-    #Moria
+    greeting = """Welcome to the Mines of Moria, where an unspeakable evil
+    lurks in the shadows.
+    """
+    moria = Moria("Moria", description, greeting)
+    #Misty Mountains South
     description = """Khazad-dum, (also known as Moria, The Black Chasm,
     The Black Pit, Dwarrowdelf, Hadhodrond, Casarrondo, and and Phurunargian)
     is the grandest and most famous of the mansions of the Dwarves. There,
     for many thousands of years, a thriving Dwarvish community created the
     greatest city ever known.
     """
-    moria = Space("Moria", description, constants.RegionType.MORIA, uniquePlace = theSeventhLevel)
+    mistyMountainsSouth = Space("Misty Mountains", description, constants.RegionType.MORIA, uniquePlace = moria)
 
     #Lorien - Caras Galadhon
     #Inn
@@ -486,7 +492,7 @@ def getWorld():
     to prevent invasion through the Pass of Cirith Gorgor, the gap between
     the Ered Lithui and the Ephel Duath.
     """
-    greetings = "\"One does not simply walk into Mordor.\""
+    greetings = "\"May it be a light to you in dark places.\""
     blackGate = BlackGate("Black Gate", description, greetings)
     #Dead Marshes
     description = """The Dead Marshes are an area of swampland east of the
@@ -618,8 +624,8 @@ def getWorld():
     to return to Mordor. Similar fates suffered the mountain fortress of Durthang
     in northwestern Mordor and the Towers of the Teeth at Morannon.
     """
-    greeting = "\"One does not simple walk into Mordor.\""
-    towerOfCirithUngol = UniquePlace("Tower of Cirith Ungol", description, greeting)
+    greeting = "\"May it be a light to you in dark places.\""
+    towerOfCirithUngol = CirithUngol("Tower of Cirith Ungol", description, greeting)
     #Cirith Ungol
     description = """Cirith Ungol is the pass through the western mountains of
     Mordor and the only way towards the land from the west. It is guarded by the
@@ -682,11 +688,11 @@ def getWorld():
     shire.createExit("east", oldForest, outgoingOnly = False)
     oldForest.createExit("east", weatherHills, outgoingOnly = False)
     weatherHills.createExit("east", trollshaws, outgoingOnly = False)
-    trollshaws.createExit("east", mistyMountains, outgoingOnly = False)
-    mistyMountains.createExit("east", highPass, outgoingOnly = False)
+    trollshaws.createExit("east", mistyMountainsNorth, outgoingOnly = False)
+    mistyMountainsNorth.createExit("east", highPass, outgoingOnly = False)
     barrowDowns.createExit("east", bruinen, outgoingOnly = False)
-    swanfleet.createExit("east", moria, outgoingOnly = False)
-    moria.createExit("east", lorien, outgoingOnly = False)
+    swanfleet.createExit("east", mistyMountainsSouth, outgoingOnly = False)
+    mistyMountainsSouth.createExit("east", lorien, outgoingOnly = False)
     calenardhon.createExit("east", fangorn, outgoingOnly = False)
     fangorn.createExit("east", fieldOfCelebrant, outgoingOnly = False)
     fangorn.createExit("east", theWold, outgoingOnly = False)
@@ -731,7 +737,7 @@ def getWorld():
     anduin.createExit("south", ithilien, outgoingOnly = False)
     
     #TODO: return this to shire. For testing purposes
-    return deadMarshes
+    return mistyMountainsSouth
     
 def getStartingInventory():
     """

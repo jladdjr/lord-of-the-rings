@@ -33,7 +33,7 @@ class Isenmouthe(UniquePlace):
         self._wave2 = []
         
         #Create monster wave #1 
-        for monster in range(12):
+        for monster in range(14):
             monster = Orc(constants.MONSTER_STATS[Orc])
             self._wave.append(monster)
         for monster in range(7):
@@ -94,7 +94,7 @@ class Isenmouthe(UniquePlace):
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave)
         
-        print "Mouth of Sauron: \"Time... to... get... OUT!\""
+        print "Mouth of Sauron: \"Time... to... DIE!!!\""
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave2)

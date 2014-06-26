@@ -58,7 +58,7 @@ def battle(player, context, monsters = None):
             else:
                 print "Your path is blocked!"
                 
-        #Testing - TODO: to remove
+        #Code - eliminates all enemies
         elif choice == "explode":
             monsters = []
             earnings = [0,0]

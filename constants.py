@@ -21,6 +21,9 @@ from monsters.black_numernorian import BlackNumernorian
 from monsters.easterling_warrior import EasterlingWarrior
 from monsters.sauroman import Sauroman
 from monsters.mouth_of_sauron import MouthOfSauron
+from monsters.witch_king import WitchKing
+from monsters.shelob import Shelob
+from monsters.balrog import Balrog
 
 """
 Constants for Lord of the Rings.
@@ -125,6 +128,9 @@ class MonsterNames(object):
     EasterlingWarrior = "Easterling Warrior"
     Sauroman = "Sauroman of Many Colors"
     MouthOfSauron = "Mouth Of Sauron"
+    WitchKing = "Witch King"
+    Shelob = "Shelob"
+    Balrog = "Balrog"
     
 #Monster descriptions
 class MonsterDescriptions(object):
@@ -152,6 +158,9 @@ class MonsterDescriptions(object):
     EasterlingWarrior = "From China."
     Sauroman = "Head of the White Council."
     MouthOfSauron = "Chief Emissary of Sauron."
+    WitchKing = "Sauron's second in command."
+    Shelob = "Last Child of Ungoliant"
+    Balrog = "Durin's Bane"
     
 #Monster attack strings
 class MonsterAttackStrings(object):
@@ -179,6 +188,9 @@ class MonsterAttackStrings(object):
     EasterlingWarrior = "tried to avenge his ancestors"
     Sauroman = "cast elemental spells"
     MouthOfSauron = "slashed you with an enchanted blade"
+    WitchKing = "performed black magic"
+    Shelob = "stung you"
+    Balrog = "scourged you with whips of fire"
     
 class MonsterDeathStrings(object):
     """
@@ -205,6 +217,9 @@ class MonsterDeathStrings(object):
     EasterlingWarrior = "Easterling Warrior went back to China."
     Sauroman = "Sauroman the Great Wizard was slain!"
     MouthOfSauron = "\"Rides off to fight another day.\""
+    WitchKing = "\"Hmm....\""
+    Shelob = "[Shelob retreats into the shadows.]"
+    Balrog = "[The Balrog retreats into the shadows.']"
     
 #Region monster distribution
 """
@@ -251,7 +266,10 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  BlackNumernorian:  [1, 1, 1],
                  EasterlingWarrior: [1, 1, 1],
                  Sauroman:          [1, 1, 1],
-                 MouthOfSauron:     [1, 1, 1]}
+                 MouthOfSauron:     [1, 1, 1],
+                 WitchKing:         [1, 1, 1],
+                 Shelob:            [1, 1, 1],
+                 Balrog:            [1, 1, 1]}
 
 #Battle engine context
 class BattleEngineContext(object):
@@ -284,8 +302,12 @@ class UniquePlaceConstants(object):
     Constants used in unique places.
     """
     WeathertopBattleProb = .3
+    WeathertopWitchKingProb = .125
     TharbadBattleProb = .2
     TharbadItemFindProb = .5
     ArgonathExperienceIncrease = .1
     DeringleExperienceIncrease = .05
     GoblinTownCaveEvasion = .4
+    DolGuldurWitchKingProb = .125
+    CirithUngolSneakProb = .4
+    CirithUngolDarknessBonus = 5

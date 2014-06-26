@@ -35,16 +35,16 @@ class BlackGate(UniquePlace):
         self._wave4 = []
         
         #Create monster wave #1 
-        for monster in range(12):
+        for monster in range(11):
             monster = Orc(constants.MONSTER_STATS[Orc])
             self._wave.append(monster)
-        for monster in range(7):
+        for monster in range(6):
             monster = OrcArcher(constants.MONSTER_STATS[OrcArcher])
             self._wave.append(monster)
-        for monster in range(5):
+        for monster in range(6):
             monster = Troll(constants.MONSTER_STATS[Troll])
             self._wave.append(monster)
-        for monster in range(3):
+        for monster in range(2):
             monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])
             self._wave.append(monster)
         
