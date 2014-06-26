@@ -69,22 +69,38 @@ class Moria(UniquePlace):
         print "You enter into a once-glorious hall, moving quickly in the shadows."
         raw_input("Press enter to continue." )
         print ""
-        
         timeInMoria = random.randrange(15, 25)
         
         for time in range(timeInMoria):
-            if self._danger <= 3:
+            if self._danger < 3:
                 random = random.random()
                 if random < .3:
-                    statement = self._sneak.choice()
+                    statement = random.choice(self._sneak)
                 elif .3 <= random < .6:
-                    statement = self._neutral.choice()
+                    statement = random.choice(self._neutral)
                 else:
-                    statement = self._risk.choice()
+                    statement = random.choice(self._risk)
+                    chanceBattle = random.random()
                     self._danger += 1
+            elif 3 <= self._danger < 6:
+                random = random.random()
+                if random < .2:
+                    statement = random.choice(self._sneak)
+                elif .2 <= random < .5:
+                    statement = random.choice(self._neutral)
+                else:
+                    statement = random.choice(self._risk)
+                    self._danger += 1
+            else:
+                random = random.random()
+                elif random < .3:
+                    statement = random.choice(self._neutral)
+                else:
+                    statement = random.choice(self._risk)
+                    self._danger += 1
+                    
             print statement
             raw-input("Press enter to continue. ")
-            print ""
         
         print "Print you emerge from Moria into the light of day!"
         raw_input("Press enter to continue. ")
