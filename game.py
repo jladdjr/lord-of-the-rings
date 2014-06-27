@@ -4,6 +4,11 @@ from parser import Parser
 import game_loader
 import battle_engine
 from items.unique_items import theOneRing
+from commands.north_command import NorthCommand
+from commands.south_command import SouthCommand
+from commands.east_command import EastCommand
+from commands.west_command import WestCommand
+from commands.enter_command import EnterCommand
 import constants
 import random
 import sys
@@ -86,17 +91,19 @@ class Game(object):
 
     def _nextTurn(self):
         """
-        Gets nextCommand from player. If nextCommand involves a passing
-        of time, there is a chance that a random battle will occur before
-        nextCommand is executed.
+        Gets nextCommand from player. If nextCommand may be executed
+        successfully and involves a passing of time, there is a chance
+        that a random battle will occur before nextCommand is executed.
         """
         #Executes next command
         nextCommand = self._parser.getNextCommand()
         
         if nextCommand is not None:
-            #If passing of time... chance a random battle will occur
-            if nextCommand.getTime() == True:
-                self._battlePhase()
+            #Check command execution
+            if self._executionCheck(nextCommand):
+                #If passing of time... chance a random battle will occur
+                if nextCommand.getTime():
+                    self._battlePhase()
             #Then execute nextCommand
             nextCommand.execute()
             print ""
@@ -106,10 +113,43 @@ class Game(object):
             raise AssertionError(errorMsg)
         
         #If player has won the game
-        if self._winningConditions() == True:
+        if self._winningConditions():
             print "Congratulations! %s has saved Middle Earth!" % self._player.getName()
             raw_input("Press enter to continue. ")
             sys.exit()
+            
+    def _executionCheck(self, nextCommand):
+        """
+        Checks if the user's command may be carried out. This only applies
+        to the four movement commands and enter command.
+        
+        This method is intended to prevent random battles from happening in 
+        instances where the command cannot be carried out.
+        
+        @return:              True if command will be executed correctly and 
+                              False otherwise.
+        """
+        space = self._player.getLocation()
+        
+        #Check movement commands
+        if isinstance(nextCommand, NorthCommand):
+            if not self._player.canMoveNorth()
+                return False
+        elif isinstance(nextCommand, SouthCommand):
+            if not self._player.canMoveSouth():
+                return False
+        elif isinstance(nextCommand, EastCommand):
+            if not self._player.canMoveEast():
+                return False
+        elif isinstance(nextCommand, WestCommand):
+            if not self._player.canMoveWest():
+                return False
+        #Check enter command
+        elif isinstance(nextCommand, EnterCommand):
+            if space.getCity() == None and space.getUniquePlace() == None:
+                return False
+        
+        return True
 
     def _battlePhase(self):
         """

@@ -17,7 +17,7 @@ class EnterCommand(Command):
         @param player:       The player object.
         """
         #Call parent's init method
-        Command.__init__(self, name, explanation, True)
+        Command.__init__(self, name, explanation, time = True)
 
         self._player = player
     

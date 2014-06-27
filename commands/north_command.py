@@ -15,7 +15,7 @@ class NorthCommand(Command):
         @param player:          Reference to command.
         """
         #Call parent's init method
-        Command.__init__(self, name, explanation, True)
+        Command.__init__(self, name, explanation, time = True)
 
         self._player = player
 
@@ -43,4 +43,4 @@ class NorthCommand(Command):
         description = space.getDescription()
         
         print "Welcome to %s." % name 
-        print description 
+        print description
