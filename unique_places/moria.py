@@ -20,7 +20,7 @@ class Moria(UniquePlace):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-        @param greetings:       The greetings the user gets as he enters the inn.        
+        @param greetings:       The greetings the user gets as he enters.        
         """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
@@ -62,6 +62,8 @@ class Moria(UniquePlace):
         Enter Moria.
         
         @param player:   The current player.
+        """
+        pass
         """
         print self._greetings
         print ""
@@ -105,3 +107,4 @@ class Moria(UniquePlace):
         print "Print you emerge from Moria into the light of day!"
         raw_input("Press enter to continue. ")
         print ""
+        """

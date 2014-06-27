@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import random
+import math
 
 import constants
 import factories.monster_factory
@@ -12,10 +13,12 @@ def battle(player, context, monsters = None):
 
     @param player:     The player object.
     @param context:    Context constant for battle engine. Battle engine behaves differently
-                       in different contexts: either random battle or fixed battle.
-    @param monsters:   A list of monsters.
+                       in different contexts. Battles are either random battles or story-based
+                       battles (e.g., boss battles).
+    @param monsters:   An optional parameter used for story-based battles. Consists of the list
+                       of monsters to fight.
 
-    A summary of differences between random battles and story-based battles:
+    Differences between random battles and story-based battles:
     -Random battles: monster factory called by battle engine and monsters are supplied by
     monster factory. Player can choose to "run" in random battles.
     -Story-based battles: monsters must be supplied through the "monsters" parameter.
@@ -131,7 +134,8 @@ def _monsterNumGen(player):
     
     Default spawn comes from a parameter supplied by space. bonusDifficulty
     is then applied applied to increase the number of monsters spawned as
-    a percentage increase over base spawn.
+    a percentage increase over base spawn. Then a normal distribution is
+    applied to introduce variation.
     
     @param player:     Player object.
 
@@ -163,7 +167,13 @@ def _monsterNumGen(player):
     else:
         errorMsg = "Invalid region - region base monster determination."
         raise AssertionError(errorMsg)
-
+        
+    #Apply normal distribution to introduce variation
+    standardDeviation = monsterCount/constants.STANDARD_DEVIATION_CONSTANT
+    
+    monsterCount = random.normalvariate(monsterCount, standardDeviation)
+    monsterCount = math.floor(monsterCount)
+    
     return monsterCount
 
 def _playerAttackPhase(player, monsters, bonusDifficulty):
@@ -266,8 +276,6 @@ def _endSequence(player, earnings):
     lengthBar = len(gainsDeclaration)
     victoryDeclaration = victoryDeclaration.center(lengthBar)
     bar = "$" * lengthBar
-    
-    #TODO: add items to victory sequence
     
     #Victory sequence
     print bar

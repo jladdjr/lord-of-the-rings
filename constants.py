@@ -284,6 +284,7 @@ class BattleEngineContext(object):
 #Battle engine constants
 RUN_PROBABILITY_SUCCESS = 1
 BATTLE_EARNINGS = 4
+STANDARD_DEVIATION_CONSTANT = 3
 
 #Shop factory probability constants
 class ShopFactoryConstants(object):
