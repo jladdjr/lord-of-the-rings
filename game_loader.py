@@ -151,7 +151,7 @@ def getWorld():
     River Anduin in the east. It runs 795 miles (1,280 kilometers) from
     Mount Gundabad in the far north to Methedras in the south.
     """
-    mistyMountainsNorth = Space("Misty Mountains", description, constants.RegionType.HIGH_PASS, city = rivendell)
+    mistyMountainsNorth = Space("Misty Mountains", description, constants.RegionType.ERIADOR, city = rivendell)
 
     #High Pass - Goblintown
     #Unique Place
@@ -737,7 +737,7 @@ def getWorld():
     anduin.createExit("south", ithilien, outgoingOnly = False)
     
     #TODO: return this to shire. For testing purposes
-    return eastfold
+    return shire
     
 def getStartingInventory():
     """
