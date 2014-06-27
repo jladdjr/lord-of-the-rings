@@ -34,12 +34,17 @@ def battle(player, context, monsters = None):
     
     #Main battle sequence
     while len(monsters) != 0:
-        #User prompt
+        #Display enemy monsters
         print "Monsters:"
         for monster in monsters:
             print "\t%s: %s" % (monster.getName(), monster.getDescription())
         print ""
-        choice = raw_input("You may: 'attack', 'use potion', 'run.' ")
+        
+        #Solicit user input
+        choice = None
+        acceptable = ["attack", "use potion", "run"]
+        while choice not in acceptable:
+            choice = raw_input("You may: 'attack', 'use potion', 'run.' ")
         
         #Player attack option
         if choice == 'attack':
@@ -65,11 +70,6 @@ def battle(player, context, monsters = None):
         elif choice == "explode":
             monsters = []
             earnings = [0,0]
-    
-        #For invalid user input
-        else:
-            print "Huh?"
-        print ""
 
         #Break between player and monster phases
         raw_input("Press 'enter' to continue. ")

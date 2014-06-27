@@ -9,7 +9,7 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description, region, items = None, city = None, uniquePlace = None, battleProbability = 0, battleBonusDifficulty = 0):
+    def __init__(self, name, description, region, items = None, city = None, uniquePlace = None, battleProbability = 1, battleBonusDifficulty = 0):
         """
         Initialize a Space object.
 

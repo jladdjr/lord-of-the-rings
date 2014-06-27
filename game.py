@@ -3,8 +3,10 @@
 from parser import Parser
 import game_loader
 import battle_engine
+from items.unique_items import theOneRing
 import constants
 import random
+import sys
 
 class Game(object):
     """
@@ -102,6 +104,12 @@ class Game(object):
         else:
             errorMsg = "Failed to receive command from parser."
             raise AssertionError(errorMsg)
+        
+        #If player has won the game
+        if self._winningConditions() == True:
+            print "Congratulations! %s has saved Middle Earth!" % self._player.getName()
+            raw_input("Press enter to continue. ")
+            sys.exit()
 
     def _battlePhase(self):
         """
@@ -114,3 +122,14 @@ class Game(object):
         if random.random() < battleProbability:
             #Call on battle to resolve battle
             battle_engine.battle(self._player, constants.BattleEngineContext.RANDOM)
+    
+    def _winningConditions(self):
+        """
+        Evaluates if player has won the game. Criteria for winning the game is that 
+        theOneRing has been dropped in the space, orodruin (Mount Doom). 
+        """
+        space = self._player.getLocation()
+        if space.containsItem(theOneRing):
+            return True
+        else:
+            return False

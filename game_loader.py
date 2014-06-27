@@ -737,7 +737,7 @@ def getWorld():
     anduin.createExit("south", ithilien, outgoingOnly = False)
     
     #TODO: return this to shire. For testing purposes
-    return mistyMountainsSouth
+    return orodruin
     
 def getStartingInventory():
     """
