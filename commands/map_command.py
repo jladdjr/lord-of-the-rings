@@ -3,6 +3,7 @@
 from command import Command
 from cities.city import City
 from unique_place import UniquePlace
+import constants
 
 class MapCommand(Command):
     """
@@ -23,7 +24,9 @@ class MapCommand(Command):
 
     def execute(self):
         """
-        Run Map command.
+        Runs Map Command. If player may move to any of the four cardinal
+        directions, the space corresponding to that direction is directed
+        to self._printInformation().
         """        
         #Generate variables for map locations
         location = self._player.getLocation()
@@ -32,39 +35,54 @@ class MapCommand(Command):
         print "Your map is more a set of notes and instructions...."
         print ""
         print "From %s, you may go to the following:" % location.getName()
-
-        for direction in exits:
-            self._printInformation(direction)
+        
+        #List details for each space in NSEW order
+        if exits[constants.Direction.NORTH]:
+            space = exits[constants.Direction.NORTH]
+            self._printInformation(space, constants.Direction.NORTH)
+        if exits[constants.Direction.SOUTH]:
+            space = exits[constants.Direction.SOUTH]
+            self._printInformation(space, constants.Direction.SOUTH)
+        if exits[constants.Direction.EAST]:
+            space = exits[constants.Direction.EAST]
+            self._printInformation(space, constants.Direction.EAST)
+        if exits[constants.Direction.WEST]:
+            space = exits[constants.Direction.WEST]
+            self._printInformation(space, constants.Direction.WEST)
             
-    def _printInformation(self, direction):
-        location = self._player.getLocation()
-        exits = location.getExits()
-
-        #If a space exists for a particular location
-        if exits[direction]:
-            space = exits[direction]
-            spaceName = space.getName()
-            print "\tTo the %s: %s." % (direction, spaceName)
-            
-            #If a city/cities exist for a particular space
-            if space.getCity():
-                cities = space.getCity()
-                if isinstance(cities, City):
-                    cityName = cities.getName()
+    def _printInformation(self, space, direction):
+        """
+        Prints the name of the space and any cities and unique places
+        that it may have.
+        
+        @param space:               The space that is currently being 
+                                    detailed.
+        @param direction:           The direction of the space with 
+                                    respect to player's current location.
+        """
+        #For current space
+        spaceName = space.getName()
+        print "\tTo the %s: %s." % (direction, spaceName)
+        
+        #If a city/cities exist for a particular space
+        if space.getCity():
+            cities = space.getCity()
+            if isinstance(cities, City):
+                cityName = cities.getName()
+                print "\t--%s is in %s." % (cityName, spaceName)
+            elif isinstance(cities, list):
+                for city in cities:
+                    cityName = city.getName()
                     print "\t--%s is in %s." % (cityName, spaceName)
-                elif isinstance(cities, list):
-                    for city in cities:
-                        cityName = cities.getName()
-                        print "\t--%s is in %s." % (cityName, spaceName)
-                        
-            #If a unique place/unique places exist for a particular space
-            if space.getUniquePlace():
-                uniquePlaces = space.getUniquePlace()
-                if isinstance(uniquePlaces, UniquePlace):
-                    uniquePlaceName = uniquePlaces.getName()
+                    
+        #If a unique place/unique places exist for a particular space
+        if space.getUniquePlace():
+            uniquePlaces = space.getUniquePlace()
+            if isinstance(uniquePlaces, UniquePlace):
+                uniquePlaceName = uniquePlaces.getName()
+                print "\t--%s is in %s." % (uniquePlaceName, spaceName)
+            elif isinstance(uniquePlaces, list):
+                for uniquePlace in uniquePlaces:
+                    uniquePlaceName = uniquePlace.getName()
                     print "\t--%s is in %s." % (uniquePlaceName, spaceName)
-                elif isinstance(uniquePlaces, list):
-                    for uniquePlace in uniquePlaces:
-                        uniquePlaceName = uniquePlaces.getName()
-                        print "\t--%s is in %s." % (uniquePlaceName, spaceName)
-            print ""
+        print ""

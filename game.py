@@ -133,7 +133,7 @@ class Game(object):
         
         #Check movement commands
         if isinstance(nextCommand, NorthCommand):
-            if not self._player.canMoveNorth()
+            if not self._player.canMoveNorth():
                 return False
         elif isinstance(nextCommand, SouthCommand):
             if not self._player.canMoveSouth():
