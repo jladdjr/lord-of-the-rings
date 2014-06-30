@@ -296,7 +296,7 @@ def getWorld():
     moria = Moria("Moria", description, greeting)
     #Misty Mountains South
     description = """Khazad-dum, (also known as Moria, The Black Chasm,
-    The Black Pit, Dwarrowdelf, Hadhodrond, Casarrondo, and and Phurunargian)
+    The Black Pit, Dwarrowdelf, Hadhodrond, Casarrondo, and Phurunargian)
     is the grandest and most famous of the mansions of the Dwarves. There,
     for many thousands of years, a thriving Dwarvish community created the
     greatest city ever known.
@@ -737,7 +737,7 @@ def getWorld():
     anduin.createExit("south", ithilien, outgoingOnly = False)
     
     #TODO: return this to shire. For testing purposes
-    return eastfold
+    return mistyMountainsSouth
     
 def getStartingInventory():
     """

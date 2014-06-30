@@ -1,12 +1,10 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.orc import Orc
-from monsters.orc_archer import OrcArcher
-from monsters.troll import Troll
-from monsters.balrog import Balrog
 from battle_engine import battle
-from items.unique_items import phialOfGaladriel
+from items.item import Item
+from items.weapon import Weapon
+from items.armor import Armor
 import constants
 import random
 
@@ -50,61 +48,121 @@ class Moria(UniquePlace):
         "You hear whispers in the darkness...."]
         
         self._run = ["You run over some rotting corpses!",
-        "You run past an endless stair!",
-        "You dart along some minecarts!"
-        "You run along a hall of columns!",
-        "You run along a large mine shaft!",
-        "You dart past some ancient tombs!"
+        "You run past an spiral staircase!",
+        "You dart along some minecarts!",
+        "You dash along a hall of columns!",
+        "You dash along a large mine shaft!",
+        "You dart past some ancient tombs!",
         "You climb over a pile of rubble!"]
-             
+        
+        weapon = Weapon("Rusty Axe", "Taken from a slain dwarven warrior", 1, 1, 1)
+        weapon2 = Weapon("Durin's Hammer", "Durin's legendary sword", 1, 1, 1)
+        weapon3 = Weapon("Aeowyln", "A legendary spear", 1, 1, 1)
+        weapon4 = Weapon("Durnhammer", "A mithril hammer", 1, 1, 1)
+        armor = Armor("Iron Cap", "Old but still effective", 1, 1, 1)
+        armor2 = Armor("Boots of Travel", "May increase magic find", 1, 1, 1)
+        item = Item("Mithril", "One of Middle Earth's rarest metals", 1)
+        item2 = Item("Ancient Runes", "Magical properties?", 1)
+        self._loot = [weapon, weapon2, weapon3, weapon4, armor, armor2, item, item2]
+        
     def enter(self, player):
         """
         Enter Moria.
         
         @param player:   The current player.
         """
-        pass
-        """
         print self._greetings
         print ""
         
-        print "You enter into a once-glorious hall, moving quickly in the shadows."
-        raw_input("Press enter to continue." )
-        print ""
-        timeInMoria = random.randrange(15, 25)
-        
-        for time in range(timeInMoria):
-            if self._danger < 3:
-                random = random.random()
-                if random < .3:
-                    statement = random.choice(self._sneak)
-                elif .3 <= random < .6:
-                    statement = random.choice(self._neutral)
-                else:
-                    statement = random.choice(self._risk)
-                    chanceBattle = random.random()
-                    self._danger += 1
-            elif 3 <= self._danger < 6:
-                random = random.random()
-                if random < .2:
-                    statement = random.choice(self._sneak)
-                elif .2 <= random < .5:
-                    statement = random.choice(self._neutral)
-                else:
-                    statement = random.choice(self._risk)
-                    self._danger += 1
-            else:
-                random = random.random()
-                elif random < .3:
-                    statement = random.choice(self._neutral)
-                else:
-                    statement = random.choice(self._risk)
-                    self._danger += 1
-                    
-            print statement
-            raw-input("Press enter to continue. ")
-        
-        print "Print you emerge from Moria into the light of day!"
+        print "You enter into a once-glorious hall, moving quickly among the shadows."
         raw_input("Press enter to continue. ")
         print ""
-        """
+        
+        #Generate length of time spent in Moria
+        timeInMoria = random.randrange(15, 25)
+
+        #Player journeys through Moria
+        for time in range(timeInMoria):
+            if self._danger < 1:
+                result = self._lowRiskTravel(player)
+            elif 1 <= self._danger < 3:
+                result = self._mediumRiskTravel(player)
+            else:
+                result = self._highRiskTravel(player)
+            
+            #Unpack results
+            statement = result[0]
+            battleOccurence = result[1]
+                        
+            #Execute action sequence
+            print statement
+            raw_input("Press enter to continue. ")
+            print ""
+            
+            if battleOccurence:
+                print "BATTLE HAS OCCURRED."
+                battle(player, constants.BattleEngineContext.RANDOM)
+        
+        #Ending sequence
+        print "You emerge from Moria into the light of day!"
+        raw_input("Press enter to continue. ")
+        print ""
+        
+    def _lowRiskTravel(self, player):
+        chance = random.random()
+        if chance < .65:
+            statement = random.choice(self._sneak)
+            battle = False
+            self._itemFind(player)
+        elif .65 <= chance < .9:
+            statement = random.choice(self._neutral)
+            battle = False
+            self._itemFind(player)
+        else:
+            statement = random.choice(self._risk)
+            self._danger += 1
+            battle = True
+        
+        return statement, battle
+            
+    def _mediumRiskTravel(self, player):
+        chance = random.random()
+        if chance < .3:
+            statement = random.choice(self._sneak)
+            battle = False
+            self._itemFind(player)
+        elif .3 <= chance < .7:
+            statement = random.choice(self._neutral)
+            battle = False
+            self._itemFind(player)
+        else:
+            statement = random.choice(self._risk)
+            self._danger += 1
+            battle = True
+               
+        return statement, battle
+            
+    def _highRiskTravel(self, player):
+        chance = random.random()
+        if chance < .2:
+            statement = random.choice(self._neutral)
+            battle = False
+            self._itemFind(player)
+        else:
+            statement = random.choice(self._run)
+            self._danger += 1
+            battle = True
+        
+        return statement, battle
+        
+    def _itemFind(self, player):
+        chance = random.random()
+        if self._loot and chance < .3:
+            item = random.choice(self._loot)
+            print "You found %s while venturing through the Mines of Moria!" % item.getName()
+            
+            player.addToInventory(item)
+            self._loot.remove(item)
+            
+            raw_input("Press enter to continue. ")
+            print ""

@@ -42,7 +42,7 @@ def battle(player, context, monsters = None):
         
         #Solicit user input
         choice = None
-        acceptable = ["attack", "use potion", "run"]
+        acceptable = ["attack", "use potion", "run", "explode"]
         while choice not in acceptable:
             choice = raw_input("You may: 'attack', 'use potion', 'run.' ")
         

@@ -144,6 +144,7 @@ class Game(object):
         elif isinstance(nextCommand, WestCommand):
             if not self._player.canMoveWest():
                 return False
+                        
         #Check enter command
         elif isinstance(nextCommand, EnterCommand):
             if space.getCity() == None and space.getUniquePlace() == None:
