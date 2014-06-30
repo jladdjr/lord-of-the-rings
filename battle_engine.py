@@ -173,6 +173,7 @@ def _monsterNumGen(player):
     
     monsterCount = random.normalvariate(monsterCount, standardDeviation)
     monsterCount = math.floor(monsterCount)
+    monsterCount = int(monsterCount)
     
     return monsterCount
 
