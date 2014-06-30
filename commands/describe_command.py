@@ -45,29 +45,29 @@ class DescribeCommand(Command):
 
         #If there is at least one city or uniquePlace
         else:
-            print "The following are contained in %s:" % locationName
+            print "\nThe following are contained in %s:\n" % locationName
             
             #If space has one city:
             if isinstance(city, City):
                 cityName = city.getName()
-                print "%s: %s." % (cityName, city.getDescription())
+                print "%s:\n%s" % (cityName, city.getDescription())
             
             #If space has multiple cities:
             elif isinstance(city, list):
                 for eachCity in city:
                     eachCityName = eachCity.getName()
-                    print "%s: %s." % (eachCityName, eachCity.getDescription())
+                    print "%s:\n%s" % (eachCityName, eachCity.getDescription())
 
             #If space has one uniquePlace object
             if isinstance(uniquePlace, UniquePlace):
                 uniquePlaceName = uniquePlace.getName() 
-                print "%s: %s." % (uniquePlaceName, uniquePlace.getDescription())
+                print "%s:\n%s" % (uniquePlaceName, uniquePlace.getDescription())
             
             #If space has multiple uniquePlaces
             if isinstance(uniquePlace, list):
                 for eachUniquePlace in uniquePlace:
                     eachUniquePlaceName = eachUniquePlace.getName()
-                    print "%s: %s." % (eachUniquePlaceName, eachUniquePlace.getDescription())
+                    print "%s:\n%s" % (eachUniquePlaceName, eachUniquePlace.getDescription())
         
         #If space has items
         if len(itemsList) > 0:
