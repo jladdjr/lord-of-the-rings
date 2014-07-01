@@ -32,6 +32,7 @@ Constants for Lord of the Rings.
 #Game constants
 COMMAND_PROMPT = "> "
 CURRENCY = "rubles"
+SPACES_WITH_UNIQUE_ITEMS = 7
 
 #Character initialization
 STARTING_EXPERIENCE = 0

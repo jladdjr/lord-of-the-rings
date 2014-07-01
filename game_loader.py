@@ -48,6 +48,8 @@ from unique_places.moria import Moria
 import items.unique_items
 import constants
 
+import random
+
 def getWorld():
     #Shire - Hobbiton
     #Inn
@@ -735,6 +737,34 @@ def getWorld():
     cirithUngol.createExit("south", ephelDuath, outgoingOnly = False)
     anorien.createExit("south", lossamarch, outgoingOnly = False)
     anduin.createExit("south", ithilien, outgoingOnly = False)
+    
+    spaces = [shire, oldForest, weatherHills, trollshaws, mistyMountainsNorth, highPass, mirkwood, 
+    southernMirkwood, bruinen, mitheithel, swanfleet, dunland, mistyMountainsSouth, lorien, fangorn,
+    fieldOfCelebrant, calenardhon, westfold, westemnet, eastemnet, emynMuil, eastfold, nindalf,
+    deadMarshes, udun, cairAndros, orodruin, anorien, anduin, ephelDuath, cirithUngol, plateauOfGorgoth,
+    lossamarch, ithilien]
+    
+    #Add low-level findable unique items to spaces
+    for space in range(constants.SPACES_WITH_UNIQUE_ITEMS):
+        if items.unique_items.lowLevelFindableUniques:
+            #Determine which unique item
+            item = random.choice(items.unique_items.lowLevelFindableUniques)
+            items.unique_items.lowLevelFindableUniques.remove(item)
+            #Determine which space
+            space = random.choice(spaces)
+            #Add item to space
+            space.addItem(item)
+    
+    #Add miscellaneous unique items to spaces
+    for space in range(len(items.unique_items.miscellaneousUniques)):
+        if items.unique_items.miscellaneousUniques:
+            #Determine which unique item
+            item = random.choice(items.unique_items.miscellaneousUniques)
+            items.unique_items.miscellaneousUniques.remove(item)
+            #Determine which space
+            space = random.choice(spaces)
+            #Add item to space
+            space.addItem(item)
     
     #TODO: return this to shire. For testing purposes
     return mistyMountainsSouth
