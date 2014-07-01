@@ -662,7 +662,7 @@ def getWorld():
     palmTreeHut = Shop("Palm Tree Hut", description, greeting, 6, 14)
     #Square
     description = "Class-three waves and hot chicks!"
-    greeting = "Bro, did you see those waves?"
+    greeting = "\"Bro, did you see those waves?\""
     talk = {"Gondorian bro #1": "Bro, let's hit the beach!", "Gondorian bro #2": "Bro! Let's just chill for awhile... bro?", "Gondorian bro #3": "Bro! I hear there's going to be a party later tonight.", "Gondorian chick #1": "Bro, I have a boyfriend....", "Gondorian chick #2": "Bro, what are you doing later?"}
     beach = Square("Pelargir Beach", description, greeting, talk, items.unique_items.beachItems)
     #City

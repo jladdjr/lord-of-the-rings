@@ -91,34 +91,43 @@ narya = Item("Nanya", "Elven Ring of Fire", 0)
 nenya = Item("Nenya", "Elven Ring of Water", 0)
 vilya = Item("Vilya", "Elven Ring of Air", 0)
 
-#General unique weapons
-scepterOfAnnuminas = Weapon("Scepter of Annuminas", "Held by the Kings of Arnor", 3, 25, 30)
-aeglos = Weapon("Aeglos", "A spear wielded by Gil-galad", 4, 20, 30)
-glamdring = Weapon("Glamdring", "Sindarin: 'Foe Hammer'", 4, 20, 15)
-arglachel = Weapon("Anglachel", "Sindarin: 'Iron of the Flaming Star'", 3, 15, 25)
-angrist = Weapon("Angrist", "Sindarian: 'Iron Cleaver'", 4, 20, 25)
-anguirel = Weapon("Anguriel", "Sindarian: 'Iron of Eternity'", 4, 20, 25)
-ananruth = Weapon("Aranruth", "Sindarian: 'King's Ire'", 4, 20, 25)
-belthronding = Weapon("Belthronding", "A bow wielded by Beleg Cuthalion", 4, 20, 25)
-dramborleg = Weapon("Dramborleg", "Sindarian: Thudder Sharp", 4, 15, 20)
-grond = Weapon("Grond", "Morgoth's Mace", 10, 80, 20)
+#TODO - rings not implemented
+miscellaneousUniques = [windbeam, narya, nenya, vilya]
+
+#Low-level unique weapons
 guthwine = Weapon("Guthwine", "Eomer's sword. Where did you get it?", 10, 10, 20)
 herugrim = Weapon("Herugrim", "Theoden's sword. Where did this come from?", 10, 10, 20)
 orchrist = Weapon("Orcrist", "Sindarin: 'Goblin Cleaver", 10, 15, 20)
-ringil = Weapon("Ringil", "Sindarin: 'Cold Spark'", 10, 15, 20)
 
-#General unique armor 
-crownOfElendil = Armor("Crown of Elendil", "A brilliant crown worn by the Kings of Gondor", 2, 10, 30)
-ironCrown = Armor("Iron Crown", "Forged by Morgoth to hold the Silmaril", 2, 10, 30)
-helmOfHador = Armor("Helm of Hador", "A helmet owned by the Royal House of Hador", 2, 10, 30)
+#Low-level unique armor 
 tarhelmCrown = Armor("TarnHelm Crown", "Straight from Tristram", 2, 10, 10)
 snowclash = Armor("Snowclash Battle Belt", "Straight from Tristram", 2, 10, 10)
 razortail = Armor("Razortail Sharkskin", "Straight from Tristram", 2, 10, 10)
 nightsmoke = Armor("Nightsmoke", "Straight from Tristram", 2, 10, 10)
 peasantCrown = Armor("Peasant Crown", "Straight from Tristram", 2, 10, 10)
 crownOfThieves = Armor("Crown of Thieves", "Straight from Tristram", 2, 10, 10)
+
+#High-level unique weapons
+glamdring = Weapon("Glamdring", "Sindarin: 'Foe Hammer'", 4, 20, 15)
+anglachel = Weapon("Anglachel", "Sindarin: 'Iron of the Flaming Star'", 3, 15, 25)
+angrist = Weapon("Angrist", "Sindarian: 'Iron Cleaver'", 4, 20, 25)
+anguirel = Weapon("Anguriel", "Sindarian: 'Iron of Eternity'", 4, 20, 25)
+belthronding = Weapon("Belthronding", "A bow wielded by Beleg Cuthalion", 4, 20, 25)
+dramborleg = Weapon("Dramborleg", "Sindarian: Thudder Sharp", 4, 15, 20)
+
+#High-level unique armor
+helmOfHador = Armor("Helm of Hador", "A helmet owned by the Royal House of Hador", 2, 10, 30)
 harlequinCrestShako = Armor("Harlequin Crest Shako", "Straight from Tristram", 2, 10, 10)
 
-findableUniques = [scepterOfAnnuminas, aeglos, glamdring, arglachel, angrist, anguirel, ananruth, belthronding,
-                   dramborleg, grond, guthwine, herugrim, orchrist, ringil, crownOfElendil, ironCrown, helmOfHador,
-                   tarhelmCrown, snowclash, razortail, nightsmoke, peasantCrown, crownOfThieves, harlequinCrestShako]
+#Elite-level unique items
+aeglos = Weapon("Aeglos", "A spear wielded by Gil-galad", 4, 20, 30)
+ananruth = Weapon("Aranruth", "Sindarian: 'King's Ire'", 4, 20, 25)
+scepterOfAnnuminas = Weapon("Scepter of Annuminas", "Held by the Kings of Arnor", 3, 25, 30)
+ringil = Weapon("Ringil", "Sindarin: 'Cold Spark'", 10, 15, 20)
+grond = Weapon("Grond", "Morgoth's Mace", 10, 80, 20)
+crownOfElendil = Armor("Crown of Elendil", "A brilliant crown worn by the Kings of Gondor", 2, 10, 30)
+ironCrown = Armor("Iron Crown", "Forged by Morgoth to hold the Silmaril", 2, 10, 30)
+
+lowLevelFindableUniques = [guthwine, herugrim, orchrist, tarhelmCrown, snowclash, razortail, nightsmoke, peasantCrown, crownOfThieves]
+highLevelFindableUniques = [glamdring, anglachel, angrist, anguirel, belthronding, dramborleg, helmOfHador, harlequinCrestShako]
+eliteLevelFindableUniques = [aeglos, ananruth, ringil, scepterOfAnnuminas, grond, crownOfElendil, ironCrown]
