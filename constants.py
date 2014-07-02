@@ -34,13 +34,19 @@ COMMAND_PROMPT = "> "
 CURRENCY = "rubles"
 SPACES_WITH_UNIQUE_ITEMS = 7
 
-#Character initialization
-STARTING_EXPERIENCE = 0
-STARTING_EQUIPMENT = []
-STARTING_LEVEL = 1
-STARTING_MONEY = 20
-STARTING_WEAPON_ATTACK = 0
-STARTING_ARMOR_DEFENSE = 0
+#Player initialization
+class PlayerInitialization(object):
+    """
+    Constants used for player initialization
+    """
+    EXPERIENCE = 0
+    LEVEL = 1
+    MONEY = 20
+    WEAPON_ATTACK = 0
+    ARMOR_DEFENSE = 0
+    CHARM_ATTACK = 0
+    CHARM_DEFENSE = 0
+    CHARM_HP = 0
 
 #Character stats constants
 HP_STAT = 20
@@ -62,6 +68,7 @@ class ItemType(object):
     ARMOR   = 2
     WEAPON  = 3
     POTION  = 4
+    CHARM   = 5
 
 #Direction enumeration
 class Direction(object):

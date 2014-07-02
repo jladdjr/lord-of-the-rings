@@ -5,6 +5,7 @@ from items.item import Item
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+from items.charm import Charm
 
 """
 The unique items of the game. For instance, "The One Ring."
@@ -69,13 +70,14 @@ auburnSquareCommons = {"Dmitriy": russianTea, "Jim 'The Dear Ladd' Jr.": freePiz
 #Market Square
 fruitSamples = Potion("Fruit Samples", "Meagerly", 1, 2, 0)
 foodHoards = Potion("Food Hoards", "It appears that some people are stocking up", 3, 10, 2)
-negativeThinking = Item("Negative Thinking", "Not something you want", 15)
+negativeThinking = Charm("Negative Thinking", "Not something you want", -3, -3, -3, -3, -3)
 marketSquareItems = {"Calmacil": fruitSamples ,"Atanatar": foodHoards, "Castamir": negativeThinking}
 
 #Tower of Echelion
 palatir = Item("Palatir", "Strange orb-like thing", 10)
 niceSword = Weapon("Nice Sword", "Very Nice!", 3, 15, 4)
-towerOfEchelionItems = {"Denethor": palatir, "Prince Imrahil": niceSword}
+windbeam = Item("Windbeam", "The Horn of Elendil", 1)
+towerOfEchelionItems = {"Denethor": [palatir, windbeam], "Prince Imrahil": niceSword}
 
 #Beach
 draagz = Item("Draagz", "Bad for health... and illegal", 15)
@@ -85,11 +87,10 @@ beachItems = {"Gondorian bro #3": draagz, "Gondorian bro #2": flowersAndTrinkets
 
 #Miscellaneous 
 keysOfOrthanc = Item("Keys to Orthanc", "Two gigantic black keys needed to gain entry to the Tower of Orthanc", 1)
-windbeam = Item("Windbeam", "The Horn of Elendil", 1)
 palatir = Item("Palatir", "Stones of Seeing", 4)
-narya = Item("Nanya", "Elven Ring of Fire", 0)
-nenya = Item("Nenya", "Elven Ring of Water", 0)
-vilya = Item("Vilya", "Elven Ring of Air", 0)
+narya = Charm("Nanya", "Elven Ring of Fire", 10, 10, 10, 10, 10)
+nenya = Charm("Nenya", "Elven Ring of Water", 10, 10, 10, 10, 10)
+vilya = Charm("Vilya", "Elven Ring of Air", 10, 10, 10, 10, 10)
 
 #TODO - rings not implemented
 miscellaneousUniques = [windbeam, narya, nenya, vilya]

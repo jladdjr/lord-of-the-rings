@@ -5,6 +5,7 @@ from items.item_set import ItemSet
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+from items.charm import Charm
 from math import floor
 
 import constants
@@ -22,14 +23,15 @@ class Player(object):
         """
         self._name      = name
         self._location  = location
-        self._money     = constants.STARTING_MONEY
+        self._money     = constants.PlayerInitialization.MONEY
 
         #Initialize player stats
-        self._experience = constants.STARTING_EXPERIENCE
-        self._level = constants.STARTING_LEVEL
+        self._experience = constants.PlayerInitialization.EXPERIENCE
+        self._level = constants.PlayerInitialization.LEVEL
         
         self._hp = self._level * constants.HP_STAT
         self._maxHp = self._level * constants.HP_STAT
+        self._totalMaxHp = self._level * constants.HP_STAT
         self._attack = self._level * constants.ATTACK_STAT
         
         #Initialize player inventory and equipment
@@ -37,11 +39,17 @@ class Player(object):
         self._equipped = ItemSet()
 
         #Initialize items bonuses
-        self._weaponAttack = constants.STARTING_WEAPON_ATTACK
-        self._armorDefense = constants.STARTING_ARMOR_DEFENSE
+        self._weaponAttack = constants.PlayerInitialization.WEAPON_ATTACK
+        self._armorDefense = constants.PlayerInitialization.ARMOR_DEFENSE
+        
+        self._charmAttack = constants.PlayerInitialization.CHARM_ATTACK
+        self._charmDefense = constants.PlayerInitialization.CHARM_DEFENSE
+        self._charmHp = constants.PlayerInitialization.CHARM_HP
 
-        self._totalAttack = self._attack + self._weaponAttack
-
+        self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+        self._totalDefense = self._armorDefense + self._charmDefense
+        self._totalMaxHp = self._maxHp + self._charmHp
+        
     def getName(self):
         """
         Returns player name.
@@ -70,7 +78,7 @@ class Player(object):
         """
         Gets player's total attack power (including items).
 
-        @return:          Player attack + weapon attack.
+        @return:          Total player attack value.
         """
         return self._totalAttack
 
@@ -80,7 +88,39 @@ class Player(object):
 
         @param attack:     The attack player is to receive.
         """
-        self._hp = max(self._hp - max(attack - self._armorDefense, 0), 0)
+        self._hp = max(self._hp - max(attack - self._totalDefense, 0), 0)
+        
+    def getTotalDefense(self):
+        """
+        Returns player's total defense.
+        
+        @return:     Player's total defense stat.
+        """
+        return self._totalDefense
+        
+    def getCharmAttack(self):
+        """
+        Returns player's charm attack.
+        
+        @return:     Player's charm attack stat.
+        """
+        return self._charmAttack
+        
+    def getCharmDefense(self):
+        """
+        Returns player's charm defense.
+        
+        @return:     Player's charm stat.
+        """
+        return self._charmDefense
+        
+    def getCharmHp(self):
+        """
+        Returns player's charm hp.
+        
+        @return:     Player's charm hp stat.
+        """
+        return self._charmHp
         
     def getExperience(self):
         """
@@ -125,8 +165,9 @@ class Player(object):
             print "\n%s leveled up! %s is now level %s!" \
                   % (self._name, self._name, self._level)
             self._maxHp = self._level * constants.HP_STAT
+            self._totalMaxHp = self._maxHp + self._charmHp
             self._attack = self._level * constants.ATTACK_STAT
-            self._totalAttack = self._attack + self._weaponAttack
+            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
                   
     def getHp(self):
         """
@@ -144,6 +185,14 @@ class Player(object):
         """
         return self._maxHp
         
+    def getTotalMaxHp(self):
+        """
+        Returns player maximum hp, including charms.
+
+        @return:    Player maximum hp.
+        """
+        return self._totalMaxHp
+        
     def heal(self, amount):
         """
         Allows player to heal up to maximum starting hp.
@@ -151,8 +200,8 @@ class Player(object):
         @param amount:    The amount of hp to be healed.
         """
         #If amount that player may be healed is less than amount possible
-        if self._maxHp - self._hp < amount:
-            amountHealed = self._maxHp - self._hp
+        if self._totalMaxHp - self._hp < amount:
+            amountHealed = self._totalMaxHp - self._hp
         #If amount that player may be healed is equal to or more than amount possible
         else:
             amountHealed = amount
@@ -174,8 +223,8 @@ class Player(object):
         if item not in self._inventory:
             print "%s not currently in inventory." % item.getName()
             return
-        if not (isinstance(item, Armor) or isinstance(item, Weapon)):
-            print "Item must be a piece of armor or a weapon."
+        if not (isinstance(item, Armor) or isinstance(item, Weapon) or isinstance(item, Charm)):
+            print "Item must be a weapon, armor, or charm."
             return
         if item in self._equipped:
             print "%s already equipped." % item.getName()
@@ -191,13 +240,20 @@ class Player(object):
         #Equip new item
         if isinstance(item, Weapon):
             self._equipped.addItem(item)
-            self._weapon = item
             self._weaponAttack = item.getAttack()
-            self._totalAttack = self._attack + self._weaponAttack
+            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
         elif isinstance(item, Armor):
             self._equipped.addItem(item)
-            self._armor = item
             self._armorDefense = item.getDefense()
+            self._totalDefense = self._armorDefense + self._charmDefense
+        elif isinstance(item, Charm):
+            self._equipped.addItem(item)
+            self._charmAttack += item.getAttack()
+            self._charmDefense += item.getDefense()
+            self._charmHp += item.getHp()
+            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+            self._totalDefense = self._armorDefense + self._charmDefense
+            self._totalMaxHp = self._maxHp + self._charmHp
         
         print "%s equipped %s." %(self._name, item.getName())
             
@@ -213,12 +269,23 @@ class Player(object):
             
             #Update player to reflect equipment
             if isinstance(item, Weapon):
-                self._weapon = None
                 self._weaponAttack = 0
-                self._totalAttack = self._attack + self._weaponAttack
+                self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
             if isinstance(item, Armor):
-                self._armor = None
                 self._armorDefense = 0
+                self._totalDefense = self._armorDefense + self._charmDefense
+            if isinstance(item, Charm):
+                charmAttack = item.getAttack()
+                charmDefense = item.getDefense()
+                charmHp = item.getHp()
+                
+                self._charmAttack -= charmAttack
+                self._charmDefense -= charmDefense
+                self._charmHp -= charmHp
+                
+                self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+                self._totalDefense = self._armorDefense + self._charmDefense
+                self._totalMaxHp = self._maxHp + self._charmHp
                 
             print "%s unequipped %s." % (self._name, item.getName())
             

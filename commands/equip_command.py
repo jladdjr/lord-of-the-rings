@@ -3,6 +3,7 @@
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor
+from items.charm import Charm
 from items.item_set import ItemSet
 
 class EquipCommand(Command):
@@ -31,7 +32,7 @@ class EquipCommand(Command):
         equippable = ItemSet()
         
         for item in inventory:
-            if (isinstance(item, Weapon) or isinstance(item, Armor)) and \
+            if (isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Charm)) and \
                item not in equipped:
                 equippable.addItem(item)
 

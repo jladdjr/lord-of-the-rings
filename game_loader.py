@@ -551,7 +551,7 @@ def getWorld():
     #Square
     description = "Home to Gondorian royalty."
     greeting = "Denethor would like to see you...."
-    talk = {"Denethor": "What do you think Sauron will do next?", "Faramir": "The lands recently stolen by Sauron should be retaken....", "Boromir": "Nice ring. Give it to me!", "Prince Imrahil": "Sauron plans on moving soon....", "Swan Knight": "The men are afraid. The land is covered in shadow...."}
+    talk = {"Denethor": "You are the true king of Gondor.", "Faramir": "The lands recently stolen by Sauron should be retaken....", "Boromir": "Nice ring. Give it to me!", "Prince Imrahil": "Sauron plans on moving soon....", "Swan Knight": "The men are afraid. The land is covered in shadow...."}
     towerOfEcthelion = Square("Tower of Ecthelion", description, greeting, talk, items.unique_items.towerOfEchelionItems)
     #City
     description = """Minas Tirith is a city of Gondor originally called Minas Anor.

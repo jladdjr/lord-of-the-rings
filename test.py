@@ -1194,7 +1194,7 @@ class UsePotionTest(unittest.TestCase):
         inventory = player.getInventory()
         usePotionCmd = UsePotionCommand("use potion", "Uses potion in inventory.", player)
         
-        player._maxHp = 20
+        player._totalMaxHp = 20
         player._hp = 1
         healing = 10
         correctFinalHp = player._hp + healing
@@ -1231,7 +1231,7 @@ class UsePotionTest(unittest.TestCase):
         player = Player("Frodo", space)
         usePotionCmd = UsePotionCommand("use potion", "Uses potion in inventory.", player)
         
-        player._maxHp = 20
+        player._totalMaxHp = 20
         player._hp = 10
         startingHp = player._hp
 
@@ -1329,7 +1329,7 @@ class PlayerTest(unittest.TestCase):
         self.assertEqual(player._level, constants.STARTING_LEVEL, errorMsg)
 
         errorMsg = "Player was not created with full health."
-        self.assertEqual(player._maxHp, constants.HP_STAT, errorMsg)
+        self.assertEqual(player._totalMaxHp, constants.HP_STAT, errorMsg)
         errorMsg = "player._hp was not initialized correctly."
         self.assertEqual(player._hp, constants.HP_STAT, errorMsg)
         errorMsg = "player_attack was not initialized correctly."
@@ -1369,7 +1369,7 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         
-        OVERKILL = player._maxHp + 10000
+        OVERKILL = player._totalMaxHp + 10000
 
         player.takeAttack(OVERKILL)
         errorMsg = "player._hp should be 0 but is not."
@@ -1386,7 +1386,7 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
         
-        UNDERKILL = player._maxHp - 1
+        UNDERKILL = player._totalMaxHp - 1
 
         player.takeAttack(UNDERKILL)
         errorMsg = "player._hp should be 1 but is not."
@@ -1453,7 +1453,7 @@ class PlayerTest(unittest.TestCase):
 
         #Determine default player stats
         defaultLevel = player._level
-        defaultMaxHp = player._maxHp
+        defaultMaxHp = player._totalMaxHp
         defaultAttack = player._attack
         defaultTotalAttack = player._totalAttack
 
@@ -1466,7 +1466,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "Player level did not increase."
         self.assertTrue(player._level > defaultLevel, errorMsg)
         errorMsg = "Player Hp did not increase."
-        self.assertTrue(player._maxHp > defaultMaxHp, errorMsg)
+        self.assertTrue(player._totalMaxHp > defaultMaxHp, errorMsg)
         errorMsg = "Player attack did not increase."
         self.assertTrue(player._attack > defaultAttack, errorMsg)
         errorMsg = "Player totalAttack did not increase."
@@ -1476,7 +1476,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "Player level is incorrect."
         self.assertEqual(player._level, floor(player._experience/20) + 1, errorMsg)
         errorMsg = "Player Hp is incorrect."
-        self.assertEqual(player._maxHp, player._level * constants.HP_STAT, errorMsg)
+        self.assertEqual(player._totalMaxHp, player._level * constants.HP_STAT, errorMsg)
         errorMsg = "Player attack is incorrect."
         self.assertEqual(player._attack, player._level * constants.ATTACK_STAT, errorMsg)
         errorMsg = "Player totalAttack is incorrect."
@@ -1492,13 +1492,13 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        player._maxHp = 10
+        player._totalMaxHp = 10
         player._hp = 9
         healAmount = 1000
         
         player.heal(healAmount)
 
-        self.assertEqual(player._hp, player._maxHp, "Healing test #1 failed.")
+        self.assertEqual(player._hp, player._totalMaxHp, "Healing test #1 failed.")
 
     def testHeal2(self):
         """
@@ -1510,7 +1510,7 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        player._maxHp = 10
+        player._totalMaxHp = 10
         player._hp = 8
         healAmount = 1
         expectedHp = player._hp + healAmount
@@ -1754,7 +1754,7 @@ class InnTest(unittest.TestCase):
         
         #Test that player._money and player._hp are updated to correct values
         self.assertEqual(player._money, 5, "Player's money not decreased by correct amount.")
-        self.assertEqual(player._hp, player._maxHp, "Player's health not increased to full health.")
+        self.assertEqual(player._hp, player._totalMaxHp, "Player's health not increased to full health.")
         
     def testNegativeCase2(self):
         """

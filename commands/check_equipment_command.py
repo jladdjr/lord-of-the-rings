@@ -3,6 +3,7 @@
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor
+from items.charm import Charm
 
 class CheckEquipmentCommand(Command):
     """
@@ -36,6 +37,9 @@ class CheckEquipmentCommand(Command):
         for item in equipment:
             if isinstance(item, Armor):
                 sortedEquipment.append(item)
+        for item in equipment:
+            if isinstance(item, Charm):
+                sortedEquipment.append(item)
         equipment = sortedEquipment
 
         #Prints currently equipped items
@@ -51,4 +55,15 @@ class CheckEquipmentCommand(Command):
                 defense = item.getDefense()
                 print "\tArmor: %s." % itemName
                 print "\t%s yields a %s defense bonus." % (itemName, defense)
+            elif isinstance(item, Charm):
+                attack = item.getAttack()
+                defense = item.getDefense()
+                hp = item.getHp()
+                print "\t%s:" % itemName
+                if item.getAttack():
+                    print "\t%s yields a %s attack bonus." % (itemName, attack)
+                if item.getDefense():
+                    print "\t%s yields a %s defense bonus." % (itemName, defense)
+                if item.getHp():
+                    print "\t%s yields a %s HP bonus." % (itemName, hp)
             print ""
