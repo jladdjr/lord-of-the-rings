@@ -6,7 +6,12 @@ from items.potion import Potion
 
 class TomBombadilHouse(UniquePlace):
     """
-    TomBombadil's House - a place to visit in Old Forest.
+    TomBombadil's House is a unique place in Old Forest. In Tokien's 
+    universe, Tom Bombadill is a mysterious mystic whose identity and 
+    purpose is never fully explained.
+    
+    If the player visits Tom Bombadil, he gets a chance to dialogue 
+    and receive some items.
     """
     def __init__(self, name, description, greetings):
         """
@@ -14,11 +19,12 @@ class TomBombadilHouse(UniquePlace):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-	@param greetings:	The greetings the user gets as he enters.        
-	"""
+        @param greetings:       The greetings the user gets as he enters.
+        """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
-
+        
+        #Spawn loot
         weapon = Weapon("Walking Cane", "Has a secret, sharpened edge", 3, 3, 3)
         potion = Potion("Forest Tonic", "Contains rare herbs", 1, 3, 2)
         self._gift = [weapon, potion]
@@ -29,6 +35,7 @@ class TomBombadilHouse(UniquePlace):
 
         @param player:  The current player.
         """
+        #Story
         print self._greetings
         print ""
         
@@ -40,8 +47,10 @@ class TomBombadilHouse(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         
+        #Give player loot
         for item in self._gift:
             player.addToInventory(item)
             self._gift.remove(item)
         print ""
+        
         print "\"Thank you for visiting me in these forests.\""

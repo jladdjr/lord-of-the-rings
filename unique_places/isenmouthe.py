@@ -16,16 +16,20 @@ import constants
 
 class Isenmouthe(UniquePlace):
     """
-    An instance of UniquePlace.
+    Isenmouthe is a unique place in Udun. In Tolkien's universe it represents a
+    scaled-down version of the Black Gate.
+    
+    If player visits Isenmouthe, he has the opportunity to break through to the 
+    Plateau of Gorgoth (the heart of Mordor).
     """
     def __init__(self, name, description, greetings):
         """
-        Initialize UniquePlace object.
+        Initializes Isenmouthe.
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-	@param greetings:	The greetings the user gets as he enters the inn.        
-	"""
+        @param greetings:       The greetings the user gets as he enters.
+        """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
         
@@ -76,7 +80,7 @@ class Isenmouthe(UniquePlace):
         
     def enter(self, player):
         """
-        Enter Isenmouthe.
+        Action sequence for Isenmouthe.
         
         @param player:   The current player.
         """
@@ -86,23 +90,36 @@ class Isenmouthe(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         
+        #Run battle action sequence
         self._battle(player)
         
     def _battle(self, player):
+        """
+        Battle sequence for Isenmouthe.
+        
+        @param player:   The current player.
+        """
+        #Wave 1
         print "Mouth of Sauron: \"You have overstayed your welcome.\""
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave)
         
+        #Wave 2
         print "Mouth of Sauron: \"Time... to... DIE!!!\""
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave2)
         
-        #Call _victorySequence
+        #Call victory sequence
         self._victorySequence(player)
         
     def _victorySequence(self, player):
+        """
+        Victory sequence for Isenmouthe.
+        
+        @param player:   The current player.
+        """
         print "You have secured the north-west route into Mordor!"
         raw_input("Press enter to continue. ")
         print ""

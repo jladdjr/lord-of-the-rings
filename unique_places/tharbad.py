@@ -11,9 +11,12 @@ import random
 
 class Tharbad(UniquePlace):
     """
-    A unique place in Mitheithel. Here the user is given the option of
-    exploring the ruins. Exploring the ruins grants the player the ability
-    to find items at the risk of a chance encounter with Nazgul.
+    Tharbad is a unique place in Mitheithel. It is the remains
+    of an city that was once inhabited by men.
+    
+    Here the user is given the option of exploring the ruins. 
+    Exploring the ruins grants the player the ability to find
+    items at the risk of a chance encounter with Nazgul.
     """
     def __init__(self, name, description, greetings):
         """
@@ -21,8 +24,8 @@ class Tharbad(UniquePlace):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-	@param greetings:	The greetings the user gets as he enters.        
-	"""
+        @param greetings:       The greetings the user gets as he enters.
+        """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
 
@@ -45,6 +48,7 @@ class Tharbad(UniquePlace):
 
         @param player:  The current player.
         """
+        #Story
         print self._greetings
         print ""
         
@@ -58,7 +62,8 @@ class Tharbad(UniquePlace):
         while choice not in acceptable:
             choice = raw_input("What would you like to do? Choices: 'explore' and 'leave.' ")
             print ""
-            
+        
+        #Execute user-dependent scripts
         if choice == "explore":
             self._explore(player)
         else:
@@ -67,7 +72,9 @@ class Tharbad(UniquePlace):
 
     def _explore(self, player):
         """
-        Player explores Tharbad. 
+        Action sequence for exploring Tharbad.
+
+        @param player:   The player object.
         """
         #Solicit user input
         choice = None
@@ -105,29 +112,33 @@ class Tharbad(UniquePlace):
             print "You leave Tharbad with a sense of loss."
             print ""
             
-    def _itemFind(self, player):
-        """
-        Determines if player finds an item and then gives player that item.
-        """
-        #If there are no items to find
-        if len(self._loot) == 0:
-            return
-        
-        #Determines if player finds item and which item player receives
-        if random.random() < constants.UniquePlaceConstants.TharbadItemFindProb:
-            print "You find something that may be of some value!"
-            item = random.choice(self._loot)
-            self._loot.remove(item)
-            player.addToInventory(item)
-            print ""
-
     def _chanceBattle(self, player):
         """
         Determines if a random battle is to occur."
+        
+        @param player:   The player object.
         """
         if random.random() < constants.UniquePlaceConstants.TharbadBattleProb:
             print "You hear some rustling in the shadows...."
             raw_input("Press enter to continue. ")
             print ""
-            
             battle(player, constants.BattleEngineContext.STORY, self._monsters)
+            
+    def _itemFind(self, player):
+        """
+        Determines if player finds an item and then gives player that item.
+        
+        @param player:   The player object.
+        """
+        #If there are no items to find
+        if len(self._loot) == 0:
+            return
+        
+        chance = random.random()
+        #Determines if player finds item and which item player receives
+        if chance < constants.UniquePlaceConstants.TharbadItemFindProb:
+            print "You find something that may be of some value!"
+            item = random.choice(self._loot)
+            self._loot.remove(item)
+            player.addToInventory(item)
+            print ""

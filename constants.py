@@ -313,3 +313,14 @@ class UniquePlaceConstants(object):
     DolGuldurWitchKingProb = .125
     CirithUngolSneakProb = .4
     CirithUngolDarknessBonus = 5
+    MoriaLowRiskSneakUpperLimit = .65
+    MoriaLowRiskNeutralLowerLimit = .65
+    MoriaLowRiskNeutralUpperLimit = .9
+    MoriaMediumRiskSneakUpperLimit = .3
+    MoriaMediumRiskNeutralLowerLimit = .3
+    MoriaMediumRiskNeutralUpperLimit = .7
+    MoriaHighRiskNeutralUpperLimit = .2
+    MoriaItemFindProbability = .3
+    MoriaLowRiskUpper = 1
+    MoriaMediumRiskLower = 1
+    MoriaMediumRiskUpper = 3

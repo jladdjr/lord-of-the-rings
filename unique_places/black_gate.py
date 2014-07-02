@@ -16,7 +16,13 @@ import constants
 
 class BlackGate(UniquePlace):
     """
-    An instance of UniquePlace.
+    The Black Gate is a unique place in Dead Marshes.
+    
+    The Black Gate is the most obvious way into Mordor. If player visits
+    the Black Gate, he is given the option of either fighting his way though 
+    the Gate or running. If he chooses to fight, he has to fight wave upon
+    wave of enemies to gain access into the next space. If he chooses to run,
+    he still has to fight a smaller amount of enemies.
     """
     def __init__(self, name, description, greetings):
         """
@@ -24,8 +30,8 @@ class BlackGate(UniquePlace):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-	@param greetings:	The greetings the user gets as he enters the inn.        
-	"""
+        @param greetings:       The greetings the user gets as he enters.
+        """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
         
@@ -97,16 +103,18 @@ class BlackGate(UniquePlace):
         
     def enter(self, player):
         """
-        Enter BlackGate.
+        The Black Gate's action sequence.
         
-        @param player:   The current player.
+        @param player:   The player object.
         """
+        #Story
         print self._greetings
         print ""
         print "\"Several armies rise up to meet you as you approach the Black Gate.\""
         raw_input("Press enter to continue. ")
         print ""
         
+        #Solicit user choice
         choice = self._choice()
         
         #If player chooses to frontal assault
@@ -118,33 +126,51 @@ class BlackGate(UniquePlace):
             self._run(player)
             
     def _choice(self):
+        """
+        Determines if user wants to attack or run.
+        """
         choice = None
         acceptable = ["frontal assault", "run"]
         while choice not in acceptable:
             choice = raw_input("What do you want to do? Choices: 'frontal assault' or 'run.' ")
         print ""
+        
         return choice
         
     def _frontalAssault(self, player):
+        """
+        The action sequence if the user decides to attack the Black Gate.
+        
+        @param player:   The player object.
+        """
+        #Battle wave 1
         print "Mouth of Sauron: \"I'm so glad you came! Slumber party!\""
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave)
         
+        #Battle wave 2
         print "Mouth of Sauron: \"Hmm. You appear to not like our house.\""
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave2)
         
+        #Battle wave 3
         print "Mouth of Sauron: \"Time to DIE!\""
         raw_input("Press enter to continue. ")
         print ""
         battle(player, constants.BattleEngineContext.STORY, self._wave3)
         
-        #Call _victorySequence
+        #Call the victory sequence
         self._victorySequence(player)
         
     def _victorySequence(self, player):
+        """
+        The victory sequence for securing the Black Gate.
+        
+        @param player:   The player object.
+        """
+        #Story
         print "You have taken the Black Gate and secured part of the north-western route into Mordor!"
         raw_input("Press enter to continue. ")
         print ""
@@ -159,15 +185,23 @@ class BlackGate(UniquePlace):
             self._loot = []
             print ""
         
+        #Story
         print "You continue your quest for better night-time entertainment."
         print ""
         
     def _run(self, player):
+        """
+        The action sequence given that the player tries to run. In this instance, 
+        a smaller chunk of enemies catch up to the player.
+        
+        @param player:   The player object.
+        """
+        #Battle wave 4
         print "The leading army catches up with you." 
         raw_input("Press enter to continue. ")
         print ""
-        
         battle(player, constants.BattleEngineContext.STORY, self._wave4)
-
+        
+        #Story
         print "You escape the rest of your pursuers!"
         print ""

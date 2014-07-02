@@ -18,16 +18,20 @@ import random
 
 class DolGuldur(UniquePlace):
     """
-    An instance of UniquePlace.
+    Dol Guldur is a unique place in Southern Mirkwood. In Tolkein's universe,
+    it is a fortress of sorcery. 
+    
+    If a player visits Dol Guldur, he has the opportunity to fight some difficult
+    monsters and gain some loot.
     """
     def __init__(self, name, description, greetings):
         """
-        Initialize UniquePlace object.
+        Initializes Dol Guldur.
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-	@param greetings:	The greetings the user gets as he enters the inn.        
-	"""
+        @param greetings:       The greetings the user gets as he enters.
+        """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
         
@@ -79,32 +83,41 @@ class DolGuldur(UniquePlace):
         
     def enter(self, player):
         """
-        Enter BlackGate.
+        The action sequence for Dol Guldur.
         
         @param player:   The current player.
         """
         print self._greetings
         print ""
         
+        #Solicit user choice
         choice = self._choice()
         
-        #If player chooses to frontal assault
+        #Carry out action sequence given user choice
         if choice == "frontal assault":
             self._frontalAssault(player)
-            
-        #If player chooses to escape
         if choice == "escape":
             self._run(player)
             
     def _choice(self):
+        """
+        Solicit user choice. Here, user is given option to attack or to run. 
+        """
         choice = None
         acceptable = ["frontal assault", "escape"]
         while choice not in acceptable:
             choice = raw_input("What do you want to do? Choices: 'frontal assault' or 'escape.' ")
         print ""
+        
         return choice
         
     def _frontalAssault(self, player):
+        """
+        Action sequence for frontal assault option.
+        
+        @param player:   The current player.
+        """
+        #Monster battles
         battle(player, constants.BattleEngineContext.STORY, self._wave)
         battle(player, constants.BattleEngineContext.STORY, self._wave2)
         
@@ -112,6 +125,12 @@ class DolGuldur(UniquePlace):
         self._victorySequence(player)
         
     def _victorySequence(self, player):
+        """
+        Victory sequence for taking Dol Guldur.
+        
+        @param player:   The current player.
+        """
+        #Story
         print "Although you have taken the tower of Dol Guldur, a deep sense of evil still lingers over the land."
         raw_input("Press enter to continue. ")
         print ""
@@ -126,14 +145,19 @@ class DolGuldur(UniquePlace):
             self._loot = []
             print ""
         
+        #Story
         print "You leave with a sense of foreboding."
         print ""
         
     def _run(self, player):
+        """
+        Action sequence for run option.
+        
+        @param player:   The current player.
+        """
         print "You find yourself surrounded."
         raw_input("Press enter to continue. ")
         print ""
-        
         battle(player, constants.BattleEngineContext.STORY, self._wave3)
 
         print "You escape with your life!"

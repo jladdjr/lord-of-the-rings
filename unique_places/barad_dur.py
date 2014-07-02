@@ -18,15 +18,18 @@ import constants
 
 class BaradDur(UniquePlace):
     """
-    An instance of UniquePlace.
+    Barad Dur is a unique place in Plateau of Gorgoth.
+    
+    Barad Dur is an enormous fortress that that the player really has no
+    reason to visit. If he visits, he encounters wave after wave of enemies.
     """
     def __init__(self, name, description, greetings):
         """
-        Initialize UniquePlace object.
+        Initialize Barad Dur.
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-        @param greetings:	The greetings the user gets as he enters the inn.        
+        @param greetings:       The greetings the user gets as he enters.
         """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
@@ -94,19 +97,26 @@ class BaradDur(UniquePlace):
         
     def enter(self, player):
         """
-        Enter BlackGate.
+        Barad Dur's action sequence.
         
-        @param player:   The current player.
+        @param player:   The player object.
         """
+        #Story
         print self._greetings
         print ""
         print "A host of figures rise up to meet you as you approach Barad Dur."
         raw_input("Press enter to continue. ")
         print ""
-         
+        
+        #Calls the battle sequence
         self._battle(player)
         
     def _battle(self, player):
+        """
+        Barad Dur's battle sequence. Player fights five waves of enemies.
+        
+        @param player:   The player object.
+        """
         print "Orc Commander I: \"We're having a blast upstairs! Slumber party!\""
         raw_input("Press enter to continue. ")
         print ""
@@ -136,6 +146,12 @@ class BaradDur(UniquePlace):
         self._victorySequence(player)
         
     def _victorySequence(self, player):
+        """
+        Barad Dur's victory sequence. Player gets loot.
+        
+        @param player:   The player object.
+        """
+        #Story
         print "You have defeated Lance, the Pokemon League champion!"
         raw_input("Press enter to continue. ")
         print ""
@@ -154,5 +170,6 @@ class BaradDur(UniquePlace):
             self._loot = []
             print ""
         
+        #Story
         print "You set off for other ventures within the Dark Land."
         print ""

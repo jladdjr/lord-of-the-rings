@@ -15,15 +15,16 @@ import constants
 
 class MinasMorgul(UniquePlace):
     """
-    An instance of UniquePlace.
+    Minas Morgul is a unique place in ephelDuath. In Tolkien's universe, it
+    is a city captive by witchcraft and home to the Nazgul.
     """
     def __init__(self, name, description, greetings):
         """
-        Initialize UniquePlace object.
+        Initializes Minas Morgul.
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-        @param greetings:	The greetings the user gets as he enters the inn.        
+        @param greetings:       The greetings the user gets as he enters.
         """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
@@ -49,7 +50,7 @@ class MinasMorgul(UniquePlace):
             self._wave2.append(monster)
         monster = WitchKing(constants.MONSTER_STATS[WitchKing])
         self._wave2.append(monster)
-            
+        
         #Create monster wave #3
         for monster in range(7):
             monster = Orc(constants.MONSTER_STATS[Orc])
@@ -73,16 +74,18 @@ class MinasMorgul(UniquePlace):
         
     def enter(self, player):
         """
-        Enter Minas Morgul.
+        Action sequence for Minas Morgul.
         
         @param player:   The current player.
         """
+        #Story
         print self._greetings
         print ""
-        print "Down to some business! Minas Morgul is a haunted fortress-city that is home to the Nazgul and hosts a huge garrison."
+        print "The haunted city of Minas Morgul chills your bones."
         raw_input("Press enter to continue. ")
         print ""
         
+        #Solicit user choice
         choice = self._choice()
         
         #If player chooses to frontal assault
@@ -94,34 +97,50 @@ class MinasMorgul(UniquePlace):
             self._run(player)
             
     def _choice(self):
+        """
+        Solicit user choice.
+        
+        @return:      User choice.
+        """
         choice = None
         acceptable = ["frontal assault", "run"]
         while choice not in acceptable:
             choice = raw_input("What do you want to do? Choices: 'frontal assault' or 'run.' ")
         print ""
+        
         return choice
         
     def _frontalAssault(self, player):
+        """
+        Battle sequence for Minas Morgul.
+        
+        @param player:   The current player.
+        """
+        #Wave 1
         print "Witch-King: \"Time for tea and crumpets. Please keep to the left and don't touch any of the artifacts.\" "
         raw_input("Press enter to continue. ")
         print ""
-        
         battle(player, constants.BattleEngineContext.STORY, self._wave)
         
         print "Witch-King: \"Hmm. You appear to not like my tea. How Rude....\"" 
         raw_input("Press enter to continue. ")
         print ""
         
+        #Wave 2
         print "Witch-King: \"Perhaps you will like this instead....\""
         raw_input("Press enter to continue. ")
         print ""
-        
         battle(player, constants.BattleEngineContext.STORY, self._wave2)
         
         #Call _victorySequence
         self._victorySequence(player)
         
     def _victorySequence(self, player):
+        """
+        Victory sequence for Minas Morgul.
+        
+        @param player:   The current player.
+        """
         print "You have taken the city of Minas Morgul and secured the western route into Mordor!"
         raw_input("Press enter to continue. ")
         print ""
@@ -140,10 +159,16 @@ class MinasMorgul(UniquePlace):
         print ""
         
     def _run(self, player):
+        """
+        The action sequence if player chooses to run. In this instance, player still 
+        gets attacked by a smaller wave of enemies while leaving.
+        
+        @param player:   The current player.
+        """
+        #Battle enemies
         print "As you rush out of the area, a large number of enemies catch up to you." 
         raw_input("Press enter to continue. ")
         print ""
-        
         battle(player, constants.BattleEngineContext.STORY, self._wave3)
 
         print "You narrowly escape your enemies."

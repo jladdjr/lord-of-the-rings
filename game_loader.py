@@ -43,7 +43,7 @@ from unique_places.black_gate import BlackGate
 from unique_places.isenmouthe import Isenmouthe
 from unique_places.barad_dur import BaradDur
 from unique_places.dol_guldur import DolGuldur
-from unique_places.cirith_ungol import CirithUngol
+from unique_places.tower_of_cirith_ungol import TowerOfCirithUngol
 from unique_places.moria import Moria
 import items.unique_items
 import constants
@@ -627,7 +627,7 @@ def getWorld():
     in northwestern Mordor and the Towers of the Teeth at Morannon.
     """
     greeting = "\"May it be a light to you in dark places.\""
-    towerOfCirithUngol = CirithUngol("Tower of Cirith Ungol", description, greeting)
+    towerOfCirithUngol = TowerOfCirithUngol("Tower of Cirith Ungol", description, greeting)
     #Cirith Ungol
     description = """Cirith Ungol is the pass through the western mountains of
     Mordor and the only way towards the land from the west. It is guarded by the
@@ -767,7 +767,7 @@ def getWorld():
             space.addItem(item)
     
     #TODO: return this to shire. For testing purposes
-    return mistyMountainsSouth
+    return weatherHills
     
 def getStartingInventory():
     """

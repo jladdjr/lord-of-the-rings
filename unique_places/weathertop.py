@@ -19,12 +19,12 @@ class Weathertop(UniquePlace):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-	@param greetings:	The greetings the user gets as he enters.        
-	"""
+        @param greetings:       The greetings the user gets as he enters.
+        """
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
 
-        #Generates list of Nazgul that user may fight
+        #Generates Nazgul wave
         self._monsters = []
         numberNazgul = random.randrange(0, 7)
         for monster in range(numberNazgul):
@@ -43,40 +43,47 @@ class Weathertop(UniquePlace):
         print self._greetings
         print ""
         
-        print "Even though you have no personal connection with the place, you feel a strong sense of nostalgia and belong at Weathertop."
+        print "Even though you have no personal connection with the place, you feel a strong sense of nostalgia at Weathertop."
         raw_input("Press enter to continue. ")
 
-        #Display user prompt and solicit user input
-        print \
-"""
-You are tired. Would you like to camp the night at Weathertop?
-\t\"Yes I would like to camp.\"       - 'camp'
-\t\"No I would like to keep moving.\" - 'keep moving'
-""" 
-        choice = None
-        acceptable = ["camp", "keep moving"]
-        
-        while choice not in acceptable:
-            choice = raw_input("Choice? ")
+        #Solicit user input
+        choice = self._choice()
+            
+        #Run user-dependent sequence
         if choice == "camp":
             self._camp(player)
         elif choice == "keep moving":
             print "You continue in your quest."
             print ""
-            return
-        else:
-            print "Huh?"
 
+    def _choice(self):
+        """
+        Solicits user choice
+        """
+        print \
+"""
+You are spent after a day of travel. Would you like
+to camp the night at Weathertop?
+\t\"Yes I would like to camp.\"       - 'camp'
+\t\"No I would like to keep moving.\" - 'keep moving'
+""" 
+        choice = None
+        acceptable = ["camp", "keep moving"]
+        while choice not in acceptable:
+            choice = raw_input("Choice? ")
+        print ""
+        
+        return choice
+        
     def _camp(self, player):
         """
-        The camping sequence. Either one of two things happen:
+        The camping action sequence. One of two things happen:
         -User gets attacked by a group of Nazgul.
-        -Player spends the night undisturbed and awakens fully healed.
+        -Player spends the night undisturbed and gets fully healed.
         """
         #Nazgul encounter
         if random.random() < constants.UniquePlaceConstants.WeathertopBattleProb:
             print "As you prepare your camping gear, you hear some rustling in the shadows...."
-            
             battle(player, constants.BattleEngineContext.STORY, self._monsters)
             
             print "Alas, peaceful rest was never to be. After all, you are a man being hunted."
