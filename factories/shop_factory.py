@@ -4,6 +4,7 @@ import random
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+from items.unique_items import lowLevelFindableUniques
 import constants
 
 def getItems(numItems, quality):
@@ -22,16 +23,26 @@ def getItems(numItems, quality):
         randDesc = random.random()
 
         #Generate items and append to items list
-        if randType < .3:
+        if randType < constants.ShopFactoryConstants.WEAPON_UPPER:
             item = genWeapon(quality, randWeaponType, randDesc)
             items.append(item)
-        elif .3 <= randType < .6:
+        elif constants.ShopFactoryConstants.ARMOR_LOWER <= randType < constants.ShopFactoryConstants.ARMOR_UPPER:
             item = genArmor(quality, randDesc)
             items.append(item)
-        else:
+        elif constants.ShopFactoryConstants.POTION_LOWER <= randType < constants.ShopFactoryConstants.POTION_UPPER:
             item = genPotion(quality, randDesc)
             items.append(item)
-
+        else:
+            #Only shops advanced in the game generate uniques
+            if 10 <= quality and lowLevelFindableUniques:
+                item = random.choice(lowLevelFindableUniques)
+                lowLevelFindableUniques.remove(item)
+                items.append(item)
+            #Low-level shops generate additional potions
+            else:
+                item = genPotion(quality, randDesc)
+                items.append(item)
+                
     return items
 
 #Generate weapon

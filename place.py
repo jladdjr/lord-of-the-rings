@@ -2,18 +2,20 @@
 
 class Place(object):
     """
-    Parent class to both the City object and the UniquePlace object.
+    Parent class to both the city object and the unique place object.
     """
-    def __init__(self, name, description):
+    def __init__(self, name, description, greetings):
         """
-        Initializes place object.
-
-        @param name:           The name of the city.
-        @param description:    A description of the city.
+        Initialize place object.
+        
+        @param name:           The name of the Place.
+        @param description:    A description of the Place.
+        @param greetings:      The greetings upon entering place.
         """
         self._name = name
         self._description = description
-
+        self._greetings = greetings
+    
     def getName(self):
         """
         Returns name of place.
@@ -29,6 +31,12 @@ class Place(object):
         @return:    The description of the place.
         """
         return self._description
+
+    def getGreeting(self):
+        """
+        Returns the greetings of place
+        """
+        return self._greetings
 
     def enter(self, player):
         """

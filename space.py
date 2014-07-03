@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from constants import Direction
+from constants import RegionType
 from items.item_set import ItemSet
 
 class Space(object):
@@ -8,20 +9,27 @@ class Space(object):
     A given location on the map. Connects with other spaces
     to form larger geographic areas.
     """
-    def __init__(self, name, description, items = None, city = None, uniquePlaces = None):
+    def __init__(self, name, description, region, items = None, city = None, uniquePlace = None, battleProbability = 0, battleBonusDifficulty = 0):
         """
         Initialize a Space object.
 
-        @param name:            Name of space.
-        @param description:     Description of space.
+        @param name:                     Name of space.
+        @param description:              Description of space.
 
-        @keyword items:         (Optional) Items found in the space.
-                                May be a reference to a single item or an ItemSet.
-        @keyword city:          (Optional) Reference to unique place(s).
-                                May be a reference to an object or a list.
-        @keyword uniquePlaces:  (Optional) Reerence to city/cities. 
-                                May be a reference to an object or a list.
+        @keyword items:                  (Optional) Items found in the space.
+                                         May be a reference to a single item or an ItemSet.
+        @keyword city:                   (Optional) Reference to the city objects in space.
+                                         May be a reference to an object or a list.
+        @keyword uniquePlace:            (Optional) Reference to the unique places in Middle Earth. 
+                                         May be a reference to an object or a list.
+        @keyword battleProbability:      (Optional) Probability between 0-1 that a random battle
+                                         will occur between commands in space.
+        @keyword battleBonusDifficulty:  Parameter between 0-1 that is used to determine battle bonus difficulty.
+                                         Parameter represents the percentage increase over default stats and
+                                         number spawn.
 
+                                         For instance, if battleBonusDifficulty = .5, stats will be set to 150%
+                                         of default and number of monsters will be 150% base number spawn.
         """
         self._exits = { Direction.NORTH : None,
                         Direction.SOUTH : None,
@@ -30,13 +38,16 @@ class Space(object):
 
         self._name = name
         self._description = description
+        self._region = region
         #TODO: Need to add items passed into method; items is currently ignored.
         #      Will need to check if items refers to single object or to an ItemSet.
         #      If it points to an ItemSet, you can just set self._items to that ItemSet. 
         #      (self._items = items)
         self._items = ItemSet()
         self._city = city
-        self._uniquePlaces = uniquePlaces
+        self._uniquePlace = uniquePlace
+        self._battleProbability = battleProbability
+        self._battleBonusDifficulty = battleBonusDifficulty
 
     def getName(self):
         """
@@ -53,6 +64,14 @@ class Space(object):
         @return:    Description of room.
         """
         return self._description
+        
+    def getRegion(self):
+        """
+        Returns the region of the space.
+        
+        @return:    The region of space.
+        """
+        return self._region
         
     def getItems(self):
         """
@@ -120,7 +139,24 @@ class Space(object):
         @return:    Reference to unique place(s).
                     May be reference to single unique place or list of unique places.
         """
-        return self._uniquePlaces
+        return self._uniquePlace
+
+    def getBattleProbability(self):
+        """
+        Returns probability of random battle.
+
+        @return:    The probability that a random battle occurs.
+        """
+        return self._battleProbability
+
+    def getBattleBonusDifficulty(self):
+        """
+        Returns bonus difficulty attribute of space.
+        Difficulty ranges between 0 and 1, inclusive.
+
+        @return:    The difficulty parameter of Space.
+        """
+        return self._battleBonusDifficulty
 
     def createExit(self, direction, space, outgoingOnly = False):
         """
@@ -196,6 +232,14 @@ class Space(object):
         space = self._exits[direction]
         return space
 
+    def getExits(self):
+        """
+        Returns dictionary of direction-space pairs.
+
+        @return:            Dictionary of direction-space pairs.
+        """
+        return self._exits
+
     def _isExit(self, exit):
         """
         Makes sure that a string represents a valid exit.
@@ -223,7 +267,7 @@ class Space(object):
             return Direction.NORTH
         elif direction == Direction.EAST:
             return Direction.WEST
-        elif direciton == Direction.WEST:
+        elif direction == Direction.WEST:
             return Direction.EAST
         else:
             raise AssertionError("Not a valid direction: %s" % direction)

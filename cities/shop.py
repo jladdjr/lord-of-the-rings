@@ -35,40 +35,36 @@ class Shop(Building):
         Returns the items in the shop.
         """
         print ""
-        print "- - - %s - - -" %self._name
-        print self._greetings + "."
+        print "- - - %s - - -" % self._name
+        print self._greetings
 
         #Determines and runs player choice
-        CHECK_ITEMS = 1
-        CHECK_ITEM_STATS = 2
-        SELL_ITEM = 3
-        PURCHASE_ITEM = 4
-        QUIT = 5
-        
         choice = None
-        while choice != 5:
-            print """
-            What is your choice?
-            1) Check items
-            2) Check item stats
-            3) Sell item in inventory
-            4) Purchase item
-            5) Quit
-            """
-            choice = int(raw_input("What do you want to do? "))
-            if choice == CHECK_ITEMS:
+        while choice != "quit":
+            print \
+"""
+What is your choice?
+\tCheck items             - 'check'
+\tCheck item stats        - 'check stats'
+\tSell item in inventory  - 'sell'
+\tPurchase item           - 'purchase'
+\tQuit                    - 'quit'
+"""
+            choice = raw_input("What do you want to do? ")
+            
+            if choice == "check":
                 self.checkItems()
-            elif choice == CHECK_ITEM_STATS:
+            elif choice == "check stats":
                 self.checkItemsStats()
-            elif choice == SELL_ITEM:
+            elif choice == "sell":
                 self.sellItems(player)
-            elif choice == PURCHASE_ITEM:
+            elif choice == "purchase":
                 self.buyItems(player)
-            elif choice == QUIT:
+            elif choice == "quit":
                 self.leaveShop()
                 break
             else:
-                print "Huh?"
+                print "'Huh?'"
 
     #Gives basic descriptions of items
     def checkItems(self):
@@ -104,18 +100,21 @@ class Shop(Building):
     def sellItems(self, player):
         #User prompt
         inventory = player.getInventory()
+        sellableItems = []
         print "Current inventory:"
         for item in player.getInventory():
-            sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
-            print "\t%s... with sell value: %s %s." % (item.getName(), sellValue, constants.CURRENCY)
+            if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Potion):
+                sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
+                print "\t%s... with sell value: %s %s." % (item.getName(), sellValue, constants.CURRENCY)
+                sellableItems.append(item)
         print ""
 
         itemToSell = raw_input("Which item would you like to sell? ")
         #Finds if item exists in inventory
-        for item in inventory:
+        for item in sellableItems:
             if item.getName() == itemToSell:
                 #Actual sale execution
-                choice = raw_input("Would you like to sell %s for %s rubles? Response: yes/no. " % (item.getName(), sellValue))
+                choice = raw_input("Would you like to sell %s for %s %s? Response: yes/no. " % (item.getName(), sellValue, constants.CURRENCY))
                 if choice.lower() == "yes":
                     player.removeFromInventory(item)
                     player.increaseMoney(sellValue)
@@ -134,6 +133,7 @@ class Shop(Building):
             print "\t%s... with cost of %s." % (item.getName(), item.getCost())
         print ""
         print "%s has %s rubles with which to spend." % (player.getName(), player.getMoney())
+        print ""
         itemToPurchase = raw_input("Which item would you like to purchase? ")
         #Check to find object associated with user-given string
         for item in self._items:
@@ -143,6 +143,7 @@ class Shop(Building):
                     print "Not enough money to purchase item."
                     return
                 #Actual purchase execution
+                print ""
                 player.addToInventory(item)
                 self._items.remove(item)
                 player.decreaseMoney(item.getCost())

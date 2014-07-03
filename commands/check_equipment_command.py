@@ -3,6 +3,7 @@
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor
+from items.charm import Charm
 
 class CheckEquipmentCommand(Command):
     """
@@ -14,7 +15,7 @@ class CheckEquipmentCommand(Command):
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
-        @param player:       The player object
+        @param player:       The player object.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
@@ -27,7 +28,7 @@ class CheckEquipmentCommand(Command):
         """
         playerName = self._player.getName()
         equipment = self._player.getEquipped()
-
+        
         #Sorts items
         sortedEquipment = []
         for item in equipment:
@@ -35,6 +36,9 @@ class CheckEquipmentCommand(Command):
                 sortedEquipment.append(item)
         for item in equipment:
             if isinstance(item, Armor):
+                sortedEquipment.append(item)
+        for item in equipment:
+            if isinstance(item, Charm):
                 sortedEquipment.append(item)
         equipment = sortedEquipment
 
@@ -46,9 +50,20 @@ class CheckEquipmentCommand(Command):
             if isinstance(item, Weapon):
                 attack = item.getAttack()
                 print "\tWeapon: %s." % itemName
-                print "\t%s yields a %s attack bonus." % (nameItem, attack)
+                print "\t%s yields a %s attack bonus." % (itemName, attack)
             elif isinstance(item, Armor):
                 defense = item.getDefense()
                 print "\tArmor: %s." % itemName
-                print "\t%s yields a %s defense bonus." % (nameItem, defense)
+                print "\t%s yields a %s defense bonus." % (itemName, defense)
+            elif isinstance(item, Charm):
+                attack = item.getAttack()
+                defense = item.getDefense()
+                hp = item.getHp()
+                print "\t%s:" % itemName
+                if item.getAttack():
+                    print "\t%s yields a %s attack bonus." % (itemName, attack)
+                if item.getDefense():
+                    print "\t%s yields a %s defense bonus." % (itemName, defense)
+                if item.getHp():
+                    print "\t%s yields a %s HP bonus." % (itemName, hp)
             print ""

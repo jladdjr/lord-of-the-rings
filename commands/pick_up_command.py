@@ -12,7 +12,7 @@ class PickUpCommand(Command):
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
-        @param player:       The player object
+        @param player:       The player object.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
@@ -37,7 +37,7 @@ class PickUpCommand(Command):
         item = locationItems.getItemByName(itemToAdd)
         
         if not item:
-            print "%s does not contain item." % space.getName()
+            print "%s does not contain item." % location.getName()
             return
 
         #Adds item to inventory

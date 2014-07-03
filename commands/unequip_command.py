@@ -12,7 +12,7 @@ class UnequipCommand(Command):
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
-        @param player:       The player object
+        @param player:       The player object.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
@@ -23,19 +23,25 @@ class UnequipCommand(Command):
         """
         Unequips player with item in inventory.
         """
-        itemToUnequip = raw_input("Which item do you want to unequip? \n")
-        inventory = self._player.getInventory()
         equipped = self._player.getEquipped()
+
+        #If no items to unequip
+        if equipped.count() == 0:
+            print "No items to unequip."
+            return
+
+        #User prompt
+        print "%s may unequip:" % self._player.getName()
+        for item in equipped:
+            print "\t%s" % item.getName()
+        print ""
         
-        itemInventory = inventory.getItemByName(itemToUnequip)
+        itemToUnequip = raw_input("Which item do you want to unequip? \n")
         itemEquipment = equipped.getItemByName(itemToUnequip)
         
-        #Checks if item is in inventory and is currently equipped
-        if not itemInventory:
-            print "%s is not in your inventory!" % itemToUnequip
-            return
-        
+        #Check if item is currently equipped
         if not itemEquipment:
+            print ""
             print "%s is not currently equipped!" % itemToUnequip
             return
 
