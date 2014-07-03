@@ -59,7 +59,7 @@ class CheckEquipmentCommand(Command):
                 attack = item.getAttack()
                 defense = item.getDefense()
                 hp = item.getHp()
-                print "\t%s:" % itemName
+                print "\tCharm: %s:" % itemName
                 if item.getAttack():
                     print "\t%s yields a %s attack bonus." % (itemName, attack)
                 if item.getDefense():

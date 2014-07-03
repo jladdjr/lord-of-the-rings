@@ -756,11 +756,11 @@ def getWorld():
             space.addItem(item)
     
     #Add miscellaneous unique items to spaces
-    for space in range(len(items.unique_items.miscellaneousUniques)):
-        if items.unique_items.miscellaneousUniques:
+    for space in range(len(items.unique_items.elvenRings)):
+        if items.unique_items.elvenRings:
             #Determine which unique item
-            item = random.choice(items.unique_items.miscellaneousUniques)
-            items.unique_items.miscellaneousUniques.remove(item)
+            item = random.choice(items.unique_items.elvenRings)
+            items.unique_items.elvenRings.remove(item)
             #Determine which space
             space = random.choice(spaces)
             #Add item to space

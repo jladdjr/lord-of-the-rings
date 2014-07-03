@@ -14,7 +14,7 @@ The unique items of the game. For instance, "The One Ring."
 #Items - Story
 #Starting
 sting = Weapon("Sting", "Elvish - made in Gondolin", 1, 5, 2)
-theOneRing = Item("The One Ring", "'...and in the darkness bind them'", 5)
+theOneRing = Charm("The One Ring", "'...and in the darkness bind them'", 5, 5, 5, 5, 5)
 leatherCloak = Armor("Leather Cloak", "Travel Tunic", 1, 2, 1)
 vodka = Potion("Vodka", "Good for health", 1, 1, 1)
 startingInventory = [sting, theOneRing, leatherCloak, vodka]
@@ -33,7 +33,7 @@ councilOfElrondItems = {"Elrond": [mithrilVest, anduril], "Legolas": legolasHair
 
 #The Pit
 water = Potion("Water", "For sobering up", 1, 5, 1)
-elvenRum = Potion("Elven Rum", "Bad for non-elves", 1, 5, -5)
+elvenRum = Potion("Elven Rum", "Bad for all other species", 1, 5, -5)
 thePitItems = {"Curufin": water, "Daeron": elvenRum}
 
 #Elvenking's Throne
@@ -70,7 +70,7 @@ auburnSquareCommons = {"Dmitriy": russianTea, "Jim 'The Dear Ladd' Jr.": freePiz
 #Market Square
 fruitSamples = Potion("Fruit Samples", "Meagerly", 1, 2, 0)
 foodHoards = Potion("Food Hoards", "It appears that some people are stocking up", 3, 10, 2)
-negativeThinking = Charm("Negative Thinking", "Not something you want", -3, -3, -3, -3, -3)
+negativeThinking = Charm("Negative Thinking", "Not something you want", 0, -3, -3, -3, -3)
 marketSquareItems = {"Calmacil": fruitSamples ,"Atanatar": foodHoards, "Castamir": negativeThinking}
 
 #Tower of Echelion
@@ -85,15 +85,16 @@ vodka = Potion("Vodka", "From the Gondorian heartland", 10, 5, 10)
 flowersAndTrinkets = Potion("Flowers And Trinkets", "Massive mental health bonuses", 10, 5, 10)
 beachItems = {"Gondorian bro #3": draagz, "Gondorian bro #2": flowersAndTrinkets}
 
-#Miscellaneous 
+#Isenguard
 keysOfOrthanc = Item("Keys to Orthanc", "Two gigantic black keys needed to gain entry to the Tower of Orthanc", 1)
 palatir = Item("Palatir", "Stones of Seeing", 4)
+
+#Elven Rings
 narya = Charm("Nanya", "Elven Ring of Fire", 10, 10, 10, 10, 10)
 nenya = Charm("Nenya", "Elven Ring of Water", 10, 10, 10, 10, 10)
 vilya = Charm("Vilya", "Elven Ring of Air", 10, 10, 10, 10, 10)
 
-#TODO - rings not implemented
-miscellaneousUniques = [windbeam, narya, nenya, vilya]
+elvenRings = [narya, nenya, vilya]
 
 #Low-level unique weapons
 guthwine = Weapon("Guthwine", "Eomer's sword. Where did you get it?", 10, 10, 20)

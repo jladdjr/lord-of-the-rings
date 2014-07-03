@@ -43,7 +43,7 @@ class TowerOfCirithUngol(UniquePlace):
         for monster in range(6):
             monster = OrcArcher(constants.MONSTER_STATS[OrcArcher])
             self._wave2.append(monster)
-             
+            
     def enter(self, player):
         """
         The action sequence for Tower of Cirith Ungol.
