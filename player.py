@@ -221,14 +221,14 @@ class Player(object):
         """
         #Check to see that preconditions are met
         if item not in self._inventory:
-            print "%s not currently in inventory." % item.getName()
-            return
+            statement =  "%s not currently in inventory." % item.getName()
+            return statement
         if not (isinstance(item, Armor) or isinstance(item, Weapon) or isinstance(item, Charm)):
-            print "Item must be a weapon, armor, or charm."
-            return
+            statement = "Item must be a weapon, armor, or charm."
+            return statement
         if item in self._equipped:
-            print "%s already equipped." % item.getName()
-            return
+            statement =  "%s already equipped." % item.getName()
+            return statement
         
         #Unequip currently equipped armor/weapon if necessary
         for currentItem in self._equipped:
@@ -255,7 +255,8 @@ class Player(object):
             self._totalDefense = self._armorDefense + self._charmDefense
             self._totalMaxHp = self._maxHp + self._charmHp
         
-        print "%s equipped %s." %(self._name, item.getName())
+        statement = "%s equipped %s." %(self._name, item.getName())
+        return statement
             
     def unequip(self, item):
         """
@@ -287,10 +288,12 @@ class Player(object):
                 self._totalDefense = self._armorDefense + self._charmDefense
                 self._totalMaxHp = self._maxHp + self._charmHp
                 
-            print "%s unequipped %s." % (self._name, item.getName())
+            statement = "%s unequipped %s." % (self._name, item.getName())
+            return statement
             
         else:
-            print "%s not in equipped items." % item.getName()
+            statement = "%s not in equipped items." % item.getName()
+            return statement
 
     def getEquipped(self):
         """

@@ -27,15 +27,18 @@ class EquipCommand(Command):
         """
         Equips player with item in inventory.
         """
+        #Create variables
         inventory = self._player.getInventory()
         equipped = self._player.getEquipped()
         equippable = ItemSet()
         
+        #Create list of equippable items
         for item in inventory:
             if (isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Charm)) and \
                item not in equipped:
                 equippable.addItem(item)
-
+        
+        #If no equippable items
         if equippable.count() == 0:
             print "No equippable items in inventory."
             return
@@ -45,13 +48,12 @@ class EquipCommand(Command):
         for item in equippable:
             print "\t%s" % item.getName()
         print ""
-
         itemToEquip = raw_input("Which item do you want to equip? ")
 
-        #Equip item
+        #Attempt to equip item
         item = inventory.getItemByName(itemToEquip)
         if item:
-            self._player.equip(item)
-            print "%s equipped %s!" % (self._player.getName(), item.getName())
+            statement = self._player.equip(item)
+            print statement
         else:
-            print "Cannot equip %s!" % itemToEquip
+            print "Item not in inventory."

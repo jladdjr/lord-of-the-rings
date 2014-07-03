@@ -45,5 +45,5 @@ class UnequipCommand(Command):
             print "%s is not currently equipped!" % itemToUnequip
             return
 
-        #Equips player with item
+        #Unequips player with item
         self._player.unequip(itemEquipment)
