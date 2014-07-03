@@ -73,8 +73,10 @@ class GoblinTown(UniquePlace):
         print "As you creep along High Pass hoping to avoid detection, you hear some creeping in the shadows...."
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        if not result:
+            return
+            
         #Story
         print "You have defeated some unsuspecting goblins! Escaping detection now may still be an option."
         raw_input("Press enter to continue. ")
@@ -132,8 +134,10 @@ class GoblinTown(UniquePlace):
             print "Great Goblin: \"Now I will feast on your flesh....\""
             raw_input("Press enter to continue. ")
             print ""
-            battle(player, constants.BattleEngineContext.STORY, self._wave4)
-
+            result = battle(player, constants.BattleEngineContext.STORY, self._wave4)
+            if not result:
+                return
+            
             #Call victory sequence
             self._victorySequence(player)
             
@@ -160,14 +164,18 @@ class GoblinTown(UniquePlace):
         print "Great Goblin: \"What makes you think that you can just charge into my city?\" "
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        if not result:
+            return
             
         #Frontal assault wave 2
         print "Great Goblin: \"You stupid fool it is now time to DIE!\" "
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave3)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        if not result:
+            return
+            
         #Call victory sequence
         self._victorySequence(player)
         

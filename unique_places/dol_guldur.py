@@ -118,9 +118,14 @@ class DolGuldur(UniquePlace):
         @param player:   The current player.
         """
         #Monster battles
-        battle(player, constants.BattleEngineContext.STORY, self._wave)
-        battle(player, constants.BattleEngineContext.STORY, self._wave2)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        if not result:
+            return
+            
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        if not result:
+            return
+            
         #Call _victorySequence
         self._victorySequence(player)
         
@@ -158,7 +163,9 @@ class DolGuldur(UniquePlace):
         print "You find yourself surrounded."
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave3)
-
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        if not result:
+            return
+        
         print "You escape with your life!"
         print ""

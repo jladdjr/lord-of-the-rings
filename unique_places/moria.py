@@ -123,7 +123,9 @@ class Moria(UniquePlace):
             print ""
             
             if battleOccurence:
-                battle(player, constants.BattleEngineContext.RANDOM)
+                result = battle(player, constants.BattleEngineContext.RANDOM)
+                if not result:
+                    return
         
         #Ending sequence
         print "You emerge from Moria into the light of day!"

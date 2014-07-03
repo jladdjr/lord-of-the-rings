@@ -114,7 +114,9 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            battle(player, constants.BattleEngineContext.STORY, self._wave)
+            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            if not result:
+                return
             
         print "You encounter a thick spider web."
         raw_input("Press enter to hack through the web. ")
@@ -123,8 +125,10 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            battle(player, constants.BattleEngineContext.STORY, self._wave)
-        
+            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            if not result:
+                return
+                
         print "...."
         raw_input("Press enter to continue. ")
         print ""
@@ -132,8 +136,10 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            battle(player, constants.BattleEngineContext.STORY, self._wave)
-        
+            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            if not result:
+                return
+                
         print "You encounter a thick spider web."
         raw_input("Press enter to hack through the web. ")
         print ""
@@ -141,8 +147,10 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            battle(player, constants.BattleEngineContext.STORY, self._wave)
-            
+            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            if not result:
+                return
+                
         print "...."
         raw_input("Press enter to continue. ")
         print ""
@@ -150,8 +158,10 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            battle(player, constants.BattleEngineContext.STORY, self._wave)
-        
+            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            if not result:
+                return
+                
         print "You have emerged through the darkness!"
         raw_input("Press enter to continue. ")
         print ""
@@ -176,8 +186,10 @@ class TowerOfCirithUngol(UniquePlace):
             print "As you attempt to sneak through the rest of the passage, you are discovered by an orc patrol."
             raw_input("Press enter to continue. ")
             print ""
-            battle(player, constants.BattleEngineContext.STORY, self._wave2)
-            
+            result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+            if not result:
+                return
+                
             #Story
             print "You make it into Mordor and Sauron has been alerted of your presence."
             raw_input("Press enter to continue. ")

@@ -60,7 +60,7 @@ def battle(player, context, monsters = None):
                 if random.random() < constants.RUN_PROBABILITY_SUCCESS:
                     print "You ran away succesfully!"
                     print ""
-                    return
+                    return True
                 else:
                     print "Your path is blocked!"
             else:
@@ -83,10 +83,13 @@ def battle(player, context, monsters = None):
             print ""
             print "Gandalf bails you out."
             player.heal(1)
-            return
+            
+            return False
 
     #Battle end sequence - loot received
     _endSequence(player, earnings)
+    
+    return True
 
 def _battleSetup(player, context):
     """

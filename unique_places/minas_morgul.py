@@ -120,7 +120,9 @@ class MinasMorgul(UniquePlace):
         print "Witch-King: \"Time for tea and crumpets. Please keep to the left and don't touch any of the artifacts.\" "
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave)
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        if not result:
+            return
         
         print "Witch-King: \"Hmm. You appear to not like my tea. How Rude....\"" 
         raw_input("Press enter to continue. ")
@@ -130,8 +132,10 @@ class MinasMorgul(UniquePlace):
         print "Witch-King: \"Perhaps you will like this instead....\""
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave2)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        if not result:
+            return
+            
         #Call _victorySequence
         self._victorySequence(player)
         
@@ -169,7 +173,9 @@ class MinasMorgul(UniquePlace):
         print "As you rush out of the area, a large number of enemies catch up to you." 
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave3)
-
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        if not result:
+            return
+            
         print "You narrowly escape your enemies."
         print ""

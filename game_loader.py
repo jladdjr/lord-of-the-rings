@@ -767,7 +767,7 @@ def getWorld():
             space.addItem(item)
     
     #TODO: return this to shire. For testing purposes
-    return weatherHills
+    return deadMarshes
     
 def getStartingInventory():
     """

@@ -258,14 +258,14 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  Goblin:            [1, 1, 1],
                  GreatGoblin:       [1, 1, 1],
                  KingOfTheBarrows:  [1, 1, 1],
-                 Nazgul:            [1, 1, 1],
+                 Nazgul:            [1, 100, 1],
                  Troll:             [1, 1, 1],
-                 WargRider:         [1, 1, 1],       
+                 WargRider:         [1, 1, 1],
                  UrukHai:           [1, 1, 1],
                  UrukHaiArcher:     [1, 1, 1],
                  EliteUrukHai:      [1, 1, 1],
                  Dunlending:        [1, 1, 1],
-                 Orc:               [1, 1, 1],
+                 Orc:               [1, 100, 1],
                  OrcArcher:         [1, 1, 1],
                  SiegeWorks:        [1, 1, 1],
                  DragonOfMordor:    [1, 1, 1],
@@ -310,7 +310,7 @@ class UniquePlaceConstants(object):
     """
     Constants used in unique places.
     """
-    WeathertopBattleProb = .3
+    WeathertopBattleProb = .4
     WeathertopWitchKingProb = .125
     TharbadBattleProb = .2
     TharbadItemFindProb = .5

@@ -98,7 +98,9 @@ class Isenguard(UniquePlace):
         #Wave 1
         print "Immediately as you approach the Ring of Isenguard, you are greeted with an a wave of Uruk...."
         raw_input("Press enter to continue. ")
-        battle(player, constants.BattleEngineContext.STORY, self._wave)
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        if not result:
+            return
         print ""
         
         #Wave 2
@@ -108,13 +110,17 @@ class Isenguard(UniquePlace):
         
         print "Sauroman: \"You shouldn't have come, foolish one. Were you haughty enough to think that you could take the Orthanc?\""
         raw_input("Press enter to continue. ")
-        battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        if not result:
+            return
         print ""
         
         #Wave 3
         print "Sauroman: \"You stupid fool....\""
         raw_input("Press enter to continue. ")
-        battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        if not result:
+            return
         print ""
 
         #Victory sequence

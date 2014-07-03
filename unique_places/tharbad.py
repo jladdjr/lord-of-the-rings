@@ -122,7 +122,9 @@ class Tharbad(UniquePlace):
             print "You hear some rustling in the shadows...."
             raw_input("Press enter to continue. ")
             print ""
-            battle(player, constants.BattleEngineContext.STORY, self._monsters)
+            result = battle(player, constants.BattleEngineContext.STORY, self._monsters)
+            if not result:
+                return
             
     def _itemFind(self, player):
         """

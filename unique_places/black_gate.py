@@ -147,20 +147,26 @@ class BlackGate(UniquePlace):
         print "Mouth of Sauron: \"I'm so glad you came! Slumber party!\""
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        if not result:
+            return
+            
         #Battle wave 2
         print "Mouth of Sauron: \"Hmm. You appear to not like our house.\""
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave2)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        if not result:
+            return
+            
         #Battle wave 3
         print "Mouth of Sauron: \"Time to DIE!\""
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave3)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        if not result:
+            return
+            
         #Call the victory sequence
         self._victorySequence(player)
         
@@ -200,8 +206,10 @@ class BlackGate(UniquePlace):
         print "The leading army catches up with you." 
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave4)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave4)
+        if not result:
+            return
+            
         #Story
         print "You escape the rest of your pursuers!"
         print ""

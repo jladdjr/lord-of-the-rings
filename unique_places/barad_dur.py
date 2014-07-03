@@ -120,28 +120,38 @@ class BaradDur(UniquePlace):
         print "Orc Commander I: \"We're having a blast upstairs! Slumber party!\""
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        if not result:
+            return
+            
         print "Orc Commander II: \"Didn't you read the sign? No %ss allowed.\"" % player.getName()
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave2)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        if not result:
+            return
+            
         print "Mouth of Sauron: \"You want ANOTHER slumber party?!\""
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave3)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        if not result:
+            return
+            
         print "Nazgul: \"AAAAEEEEEEEEEEE!!!\""
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave4)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave4)
+        if not result:
+            return
+            
         print "Lance of the Elite Four: \"I’ve been waiting for you, %s! I knew that you, with your skills, would eventually reach me here.\"" % player.getName()
         raw_input("Press enter to continue. ")
         print ""
-        battle(player, constants.BattleEngineContext.STORY, self._wave5)
-        
+        result = battle(player, constants.BattleEngineContext.STORY, self._wave5)
+        if not result:
+            return
+            
         #Call _victorySequence
         self._victorySequence(player)
         

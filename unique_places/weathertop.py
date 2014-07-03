@@ -84,8 +84,10 @@ to camp the night at Weathertop?
         #Nazgul encounter
         if random.random() < constants.UniquePlaceConstants.WeathertopBattleProb:
             print "As you prepare your camping gear, you hear some rustling in the shadows...."
-            battle(player, constants.BattleEngineContext.STORY, self._monsters)
-            
+            result = battle(player, constants.BattleEngineContext.STORY, self._monsters)
+            if not result:
+                return
+                
             print "Alas, peaceful rest was never to be. After all, you are a man being hunted."
             print ""
             
