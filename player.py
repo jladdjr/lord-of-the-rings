@@ -33,6 +33,7 @@ class Player(object):
         self._maxHp = self._level * constants.HP_STAT
         self._totalMaxHp = self._level * constants.HP_STAT
         self._attack = self._level * constants.ATTACK_STAT
+        self._weightLimit = self._level * constants.WEIGHT_LIMIT
         
         #Initialize player inventory and equipment
         self._inventory = ItemSet()
@@ -164,6 +165,7 @@ class Player(object):
             #Player has leveled up. Updates player level and stats.
             print "\n%s leveled up! %s is now level %s!" \
                   % (self._name, self._name, self._level)
+            self._weightLimit = self._level * constants.WEIGHT_LIMIT
             self._maxHp = self._level * constants.HP_STAT
             self._totalMaxHp = self._maxHp + self._charmHp
             self._attack = self._level * constants.ATTACK_STAT
@@ -308,13 +310,26 @@ class Player(object):
         Adds an item to inventory.
 
         @param item:   The item to be added to inventory.
+        
+        @return:       False if 
         """
+        #Make sure item would not put player over weight limit
+        itemWeight = item.getWeight()
+        inventoryWeight = self._inventory.getWeight()
+        
+        if itemWeight + inventoryWeight > self._weightLimit:
+            print "You are overburdened."
+            return False
+        
+        #Additional item-specific checks
         if (isinstance(item, Item) and (item not in self._inventory)):
             print "Added %s to inventory." % item.getName()
             self._inventory.addItem(item)
+            return True
         else:
             print "Cannot add %s to inventory." % item
-
+            return False
+            
     def removeFromInventory(self, item):
         """
         Removes an item from inventory. If item is currently equipped, unequips item.

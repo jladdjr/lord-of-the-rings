@@ -133,8 +133,8 @@ class Isenguard(UniquePlace):
         if self._battleEarnings:
             print "You have gained the Keys of the Orthanc!"
             print ""
-            player.addToInventory(keysOfOrthanc)
-            self._battleEarnings = None
+            if player.addToInventory(keysOfOrthanc):
+                self._battleEarnings = None
         
     def _summitPrompt(self):
         """
@@ -200,8 +200,8 @@ class Isenguard(UniquePlace):
         #Give player loot
         if self._summitFindings:
             print "You found Sauroman's Palatir!"
-            player.addToInventory(palatir)
-            self._summitFindings = None
+            if player.addToInventory(palatir):
+                self._summitFindings = None
         print ""
 
         #Story

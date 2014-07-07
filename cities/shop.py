@@ -142,9 +142,11 @@ What is your choice?
                 if player.getMoney() <= item.getCost():
                     print "Not enough money to purchase item."
                     return
-                #Actual purchase execution
                 print ""
-                player.addToInventory(item)
+                #Actual purchase execution
+                #If player is overburdened
+                if not player.addToInventory(item):
+                    return
                 self._items.remove(item)
                 player.decreaseMoney(item.getCost())
                 print "%s puchased %s!" % (player.getName(), item.getName())

@@ -52,6 +52,7 @@ class PlayerInitialization(object):
 HP_STAT = 20
 ATTACK_STAT = 2
 MAX_LEVEL = 20
+WEIGHT_LIMIT = 10
 
 #Item stat constants 
 SELL_LOSS_PERCENTAGE = .5

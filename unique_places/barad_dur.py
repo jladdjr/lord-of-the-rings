@@ -78,6 +78,7 @@ class BaradDur(UniquePlace):
         #Create monster wave #4 
         for monster in range(8):
             monster = Nazgul(constants.MONSTER_STATS[Nazgul])
+            self._wave4.append(monster)
         monster = WitchKing(constants.MONSTER_STATS[WitchKing])
         self._wave4.append(monster)
             
@@ -176,8 +177,8 @@ class BaradDur(UniquePlace):
             raw_input("Press enter to continue.")
             print ""
             for item in self._loot:
-                player.addToInventory(item)
-            self._loot = []
+                if player.addToInventory(item):
+                    self._loot.remove(item)
             print ""
         
         #Story

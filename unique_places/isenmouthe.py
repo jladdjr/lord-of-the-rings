@@ -134,8 +134,8 @@ class Isenmouthe(UniquePlace):
             raw_input("Press enter to continue.")
             print ""
             for item in self._loot:
-                player.addToInventory(item)
-            self._loot = []
+                if player.addToInventory(item):
+                    self._loot.remove(item)
             print ""
         
         print "Welcome to the heart of Mordor!"

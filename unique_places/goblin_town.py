@@ -191,8 +191,8 @@ class GoblinTown(UniquePlace):
 
         #Give player items
         for item in self._loot:
-            player.addToInventory(item)
-        self._loot = []
+            if player.addToInventory(item):
+                self._loot.remove(item)
         print ""
         
         self._createPort("south")

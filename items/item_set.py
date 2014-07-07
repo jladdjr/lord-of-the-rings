@@ -108,7 +108,7 @@ class ItemSet(object):
         """
         return len(self._items)
 
-    def weight(self):
+    def getWeight(self):
         """
         Determines total weight of items.
 

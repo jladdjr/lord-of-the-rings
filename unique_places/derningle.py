@@ -23,10 +23,10 @@ class Derningle(UniquePlace):
         UniquePlace.__init__(self, name, description, greetings)
 
         #Create loot
-        self._gift = []
+        self._loot = []
         for potion in range(3):
             potion = Potion("Ent Draught", "A mysterious elixir with extremely powerful nourishing properties", 1, 10, 5)
-            self._gift.append(potion)
+            self._loot.append(potion)
 
     def enter(self, player):
         """
@@ -142,6 +142,6 @@ class Derningle(UniquePlace):
         #Player receives loot
         print "\"Received three ent-draughts! These are legendary elixirs of incredible power.\""
         for item in self._gift:
-            player.addToInventory(item)
-        self._gift = []
+            if player.addToInventory(item):
+                self._loot.remove(item)
         print ""

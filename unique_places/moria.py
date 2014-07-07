@@ -210,8 +210,8 @@ class Moria(UniquePlace):
             item = random.choice(self._loot)
             print "You found %s while venturing through the Mines of Moria!" % item.getName()
             
-            player.addToInventory(item)
-            self._loot.remove(item)
+            if player.addToInventory(item):
+                self._loot.remove(item)
             
             raw_input("Press enter to continue. ")
             print ""

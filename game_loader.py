@@ -13,7 +13,7 @@ from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
 from commands.command_words import CommandWords
-from commands.help_command import HelpCommand 
+from commands.help_command import HelpCommand
 from commands.quit_command import QuitCommand
 from commands.describe_command import DescribeCommand
 from commands.drop_command import DropCommand
@@ -784,7 +784,7 @@ def getWorld():
             space.addItem(item)
     
     #TODO: return this to shire. For testing purposes
-    return deadMarshes
+    return shire
     
 def getStartingInventory():
     """

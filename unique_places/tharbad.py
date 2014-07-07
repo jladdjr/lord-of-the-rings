@@ -141,6 +141,7 @@ class Tharbad(UniquePlace):
         if chance < constants.UniquePlaceConstants.TharbadItemFindProb:
             print "You find something that may be of some value!"
             item = random.choice(self._loot)
-            self._loot.remove(item)
-            player.addToInventory(item)
+            if player.addToInventory(item):
+                self._loot.remove(item)
+            
             print ""

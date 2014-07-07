@@ -49,8 +49,8 @@ class TomBombadilHouse(UniquePlace):
         
         #Give player loot
         for item in self._gift:
-            player.addToInventory(item)
-            self._gift.remove(item)
+            if player.addToInventory(item):
+                self._gift.remove(item)
         print ""
         
         print "\"Thank you for visiting me in these forests.\""
