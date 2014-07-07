@@ -215,7 +215,7 @@ class ItemSetTest(unittest.TestCase):
 
         errorMsg = "Initial weight of ItemSet object incorrect."
         expectedWeight = ItemSetTest.INITIAL_WEIGHT
-        actualWeight = self._items.weight()
+        actualWeight = self._items.getWeight()
         self.assertEqual(expectedWeight, actualWeight, errorMsg)
 
         heavyRock = Item("heavy rock", "weighs a ton", 2000)
@@ -1315,7 +1315,7 @@ class PlayerTest(unittest.TestCase):
         errorMsg = "player._location did not initialize correctly."
         self.assertEqual(player._location, space, errorMsg)
         errorMsg = "player._money did not initialize correctly."
-        self.assertEqual(player._money, constants.STARTING_MONEY, errorMsg)
+        self.assertEqual(player._money, constants.PlayerInitialization.MONEY, errorMsg)
         
         emptyList = []
         errorMsg = "player._inventory was not initialized correctly."
@@ -1437,7 +1437,7 @@ class PlayerTest(unittest.TestCase):
         player.increaseExperience(10000)
         
         errorMsg = "Player experience failed to increase."
-        self.assertEqual(player._experience, constants.STARTING_EXPERIENCE + 10000, errorMsg)
+        self.assertEqual(player._experience, constants.PlayerInitialization.EXPERIENCE + 10000, errorMsg)
         errorMsg = "player._updateLevel() was not called."
         self.assertTrue(player._updateLevel.called, errorMsg)
         

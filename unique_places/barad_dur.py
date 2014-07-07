@@ -146,7 +146,7 @@ class BaradDur(UniquePlace):
         if not result:
             return
             
-        print "Lance of the Elite Four: \"I’ve been waiting for you, %s! I knew that you, with your skills, would eventually reach me here.\"" % player.getName()
+        print "Lance of the Elite Four: \"I've been waiting for you, %s! I knew that you, with your skills, would eventually reach me here.\"" % player.getName()
         raw_input("Press enter to continue. ")
         print ""
         result = battle(player, constants.BattleEngineContext.STORY, self._wave5)

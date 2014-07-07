@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-import random
 import math
+import random
 
 import constants
 import factories.monster_factory
@@ -17,6 +17,8 @@ def battle(player, context, monsters = None):
                        battles (e.g., boss battles).
     @param monsters:   An optional parameter used for story-based battles. Consists of the list
                        of monsters to fight.
+                       
+    @return:           True if battle was won; False otherwise.
 
     Differences between random battles and story-based battles:
     -Random battles: monster factory called by battle engine and monsters are supplied by

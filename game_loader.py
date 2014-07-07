@@ -784,7 +784,7 @@ def getWorld():
             space.addItem(item)
     
     #TODO: return this to shire. For testing purposes
-    return shire
+    return plateauOfGorgoth
     
 def getStartingInventory():
     """
