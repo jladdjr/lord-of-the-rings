@@ -225,14 +225,14 @@ class ItemSetTest(unittest.TestCase):
 
         errorMsg = "ItemSet.weight() reported incorrect weight." 
         expectedWeight += 2000
-        actualWeight = self._items.weight()
+        actualWeight = self._items.getWeight()
         self.assertEqual(expectedWeight, actualWeight, errorMsg)
 
         #Remove item
         self._items.removeItem(heavyRock)
 
         expectedWeight -= 2000
-        actualWeight = self._items.weight()
+        actualWeight = self._items.getWeight()
         self.assertEqual(expectedWeight, actualWeight, errorMsg)
 
     def testItemSetIter(self):
@@ -1324,9 +1324,9 @@ class PlayerTest(unittest.TestCase):
         self.assertEqual(player._equipped.getItems(), emptyList, errorMsg)
 
         errorMsg = "player._experience was not initialized correctly."
-        self.assertEqual(player._experience, constants.STARTING_EXPERIENCE, errorMsg)
+        self.assertEqual(player._experience, constants.PlayerInitialization.EXPERIENCE, errorMsg)
         errorMsg = "player._level was not initialized correctly."
-        self.assertEqual(player._level, constants.STARTING_LEVEL, errorMsg)
+        self.assertEqual(player._level, constants.PlayerInitialization.LEVEL, errorMsg)
 
         errorMsg = "Player was not created with full health."
         self.assertEqual(player._totalMaxHp, constants.HP_STAT, errorMsg)
@@ -2792,11 +2792,9 @@ class monsterFactory(unittest.TestCase):
         """
         from factories.monster_factory import getMonsters
         import constants
-
-        constants.RegionType.ERIADOR = MagicMock(return_value=1)
         
         spawn = getMonsters(5, constants.RegionType.ERIADOR, 0)
-        errorMsg = "getMonsters () should have spawned five monsters but did not."
+        errorMsg = "getMonsters () should have spawned five monsters but did not. Spawn is %s." % spawn
         self.assertEqual(len(spawn), 5, errorMsg)
         
     def testBonusDifficultySpawnNumber(self):
