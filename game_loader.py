@@ -519,7 +519,7 @@ def getWorld():
     The pass is heavily guarded with Fortresses and watchtowers.
     """
     greetings = "\"One does not simply walk into Mordor II.\""
-    isenmouthe = Isenmouthe("Isenmouthe", description, greeting)
+    isenmouthe = Isenmouthe("Isenmouthe", description, greetings)
     #Valley of Udun
     description = """Udun is a depressed valley in northwestern Mordor.
     It lies between Cirith Gorgor and Isenmouthe and is traversed
@@ -784,7 +784,7 @@ def getWorld():
             space.addItem(item)
     
     #TODO: return this to shire. For testing purposes
-    return highPass
+    return deadMarshes
     
 def getStartingInventory():
     """
