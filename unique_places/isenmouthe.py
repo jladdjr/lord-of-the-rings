@@ -140,3 +140,5 @@ class Isenmouthe(UniquePlace):
         
         print "Welcome to the heart of Mordor!"
         print ""
+        
+        self._createPort("south")

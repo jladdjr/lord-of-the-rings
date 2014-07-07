@@ -169,7 +169,7 @@ class Space(object):
         @param space:           Adjacent space.
         @keyword outgoingOnly:  By default, this method creates the appropriate
                                 exit in the second space. Set I{outgoingOnly}
-                                to False to supress this behavior.
+                                to False to suppress this behaviour.
         """
         #Make sure a valid direction has been specified
         if not self._isExit(direction):

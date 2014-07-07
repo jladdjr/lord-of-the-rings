@@ -127,6 +127,8 @@ class Isenguard(UniquePlace):
         print "Isenguard has a new overseer this day."
         print ""
         
+        self._createPort("south")
+        
         #Give player loot
         if self._battleEarnings:
             print "You have gained the Keys of the Orthanc!"

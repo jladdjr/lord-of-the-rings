@@ -37,7 +37,32 @@ class Place(object):
         Returns the greetings of place
         """
         return self._greetings
-
+        
+    def receiveSpaces(self, space, targetSpace):
+        """
+        Helper method used to create references to the two spaces
+        used in quest-dependent port creation.
+        
+        @param space:         Space player is currently in.
+        @param targetSpace:   The space to be linked with the current space.
+        """
+        self._space = space
+        self._targetSpace = targetSpace
+        
+    def _createPort(self, direction):
+        """
+        Creates a port between the space and targetSpace. In this
+        construction, targetSpace is to the direction of space.
+        
+        In LotR, this is used to unlock new space connections for 
+        quest completion.
+        
+        @param direction:     The direction targetSpace is in with respect to space.
+        """
+        self._space.createExit(direction, self._targetSpace, outgoingOnly = False)
+        
+        print "%s is now accessable to the %s." % (self._targetSpace.getName(), direction)
+        
     def enter(self, player):
         """
         Parent enter method. Should we overridden by children classes.

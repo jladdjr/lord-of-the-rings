@@ -128,9 +128,11 @@ class Moria(UniquePlace):
                     return
         
         #Ending sequence
-        print "You emerge from Moria into the light of day!"
+        print "You emerge from the Mines!"
         raw_input("Press enter to continue. ")
         print ""
+        
+        self._createPort("east")
         
     def _lowRiskTravel(self, player):
         """

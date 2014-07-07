@@ -87,7 +87,7 @@ def getWorld():
     shire = Space("Shire", description, constants.RegionType.ERIADOR, city = hobbiton)
 
     #The Old Forest - Tom Bombadil's House
-	#Unique Place
+    #Unique Place
     description = "The house of a mysterious and powerful being, who dwells in the valley of Withywindle."
     greeting = """
     \"Old Tom Bombadil is a merry fellow;
@@ -168,6 +168,8 @@ def getWorld():
     description = """The High Pass is a pass over the Misty Mountains.
     On its western end is the refuge of Rivendell and from there the
     Great East Road climbs into the mountains until it reaches Goblin-town.
+    
+    ***Mirkwood is accessible to the south through Goblin Town***
     """
     highPass = Space("High Pass", description, constants.RegionType.HIGH_PASS, uniquePlace = goblinTown)
 
@@ -302,6 +304,8 @@ def getWorld():
     is the grandest and most famous of the mansions of the Dwarves. There,
     for many thousands of years, a thriving Dwarvish community created the
     greatest city ever known.
+    
+    ***Lorien is accessible to the east through Moria***
     """
     mistyMountainsSouth = Space("Misty Mountains", description, constants.RegionType.MORIA, uniquePlace = moria)
 
@@ -379,7 +383,9 @@ def getWorld():
     description = """Calenardhon contains Isengard, a great fortress located
     within a valley at the southern end of the Misty Mountains near the Gap
     of Rohan.
-    """   
+    
+    ***Westfold is accessible to the south through Isenguard***
+    """
     calenardhon = Space("Calenardhon", description, constants.RegionType.ENEDWAITH, uniquePlace = isenguard)
 
     #Westfold - Helm's Deep
@@ -499,6 +505,8 @@ def getWorld():
     #Dead Marshes
     description = """The Dead Marshes are an area of swampland east of the
     Dagorlad plain. It is the site of the ancient Battle of Dagorlad.
+    
+    ***Udun is accessible to the east through The Black Gate***
     """
     deadMarshes = Space("Dead Marshes", description, constants.RegionType.MORDOR, uniquePlace = blackGate)
 
@@ -516,6 +524,8 @@ def getWorld():
     description = """Udun is a depressed valley in northwestern Mordor.
     It lies between Cirith Gorgor and Isenmouthe and is traversed
     by large armies of Sauron in times of war.
+    
+    ***Plateau of Gorgoth is accessible to the south through Isenmouthe***
     """
     udun = Space("Udun", description, constants.RegionType.MORDOR, uniquePlace = isenmouthe)
     
@@ -615,6 +625,8 @@ def getWorld():
     #Ephel Duath
     description = """The Ephel Dúath, or the Mountains of Shadow, are a range of
     mountains that guard Mordor's western and southern borders.
+    
+    ***Plateau of Gorgoth is accessible to the east through Minas Morgul***
     """
     ephelDuath = Space("Ephel Duath", description, constants.RegionType.MORDOR, uniquePlace = minasMorgul)
 
@@ -633,6 +645,8 @@ def getWorld():
     Mordor and the only way towards the land from the west. It is guarded by the
     Tower of Cirith Ungol, built by the Men of Gondor after the War of the Last
     Alliance of Elves and Men.
+    
+    ***Plateau of Gorgoth is accessible to the east through Tower of Cirith Ungol***
     """
     cirithUngol = Space("Cirith Ungol", description, constants.RegionType.MORDOR, uniquePlace = towerOfCirithUngol)
 
@@ -694,7 +708,6 @@ def getWorld():
     mistyMountainsNorth.createExit("east", highPass, outgoingOnly = False)
     barrowDowns.createExit("east", bruinen, outgoingOnly = False)
     swanfleet.createExit("east", mistyMountainsSouth, outgoingOnly = False)
-    mistyMountainsSouth.createExit("east", lorien, outgoingOnly = False)
     calenardhon.createExit("east", fangorn, outgoingOnly = False)
     fangorn.createExit("east", fieldOfCelebrant, outgoingOnly = False)
     fangorn.createExit("east", theWold, outgoingOnly = False)
@@ -704,12 +717,9 @@ def getWorld():
     eastemnet.createExit("east", emynMuil, outgoingOnly = False)
     eastfold.createExit("east", nindalf, outgoingOnly = False)
     nindalf.createExit("east", deadMarshes, outgoingOnly = False)
-    deadMarshes.createExit("east", udun, outgoingOnly = False)
     anorien.createExit("east", anduin, outgoingOnly = False)
     anduin.createExit("east", ephelDuath, outgoingOnly = False)
     lossamarch.createExit("east", ithilien, outgoingOnly = False)
-    ephelDuath.createExit("east", plateauOfGorgoth, outgoingOnly = False)
-    cirithUngol.createExit("east", plateauOfGorgoth, outgoingOnly = False)
     orodruin.createExit("east", plateauOfGorgoth, outgoingOnly = False)
 
     #Connections: North-South
@@ -717,7 +727,6 @@ def getWorld():
     weatherHills.createExit("south", barrowDowns, outgoingOnly = False)
     trollshaws.createExit("south", bruinen, outgoingOnly = False)
     bruinen.createExit("south", mitheithel, outgoingOnly = False)
-    highPass.createExit("south", mirkwood, outgoingOnly = False)
     mirkwood.createExit("south", southernMirkwood, outgoingOnly = False)
     southernMirkwood.createExit("south", emynMuil, outgoingOnly = False)
     mitheithel.createExit("south", swanfleet, outgoingOnly = False)
@@ -725,19 +734,27 @@ def getWorld():
     dunland.createExit("south", calenardhon, outgoingOnly = False)
     lorien.createExit("south", fieldOfCelebrant, outgoingOnly = False)
     fieldOfCelebrant.createExit("south", theWold, outgoingOnly = False)
-    calenardhon.createExit("south", westfold, outgoingOnly = False)
     fangorn.createExit("south", westemnet, outgoingOnly = False)
     theWold.createExit("south", eastemnet, outgoingOnly = False)
     westemnet.createExit("south", eastfold, outgoingOnly = False)
     eastemnet.createExit("south", nindalf, outgoingOnly = False)
     nindalf.createExit("south", cairAndros, outgoingOnly = False)
     emynMuil.createExit("south", deadMarshes, outgoingOnly = False)
-    udun.createExit("south", plateauOfGorgoth, outgoingOnly = False)
     cairAndros.createExit("south", anduin, outgoingOnly = False)
     cirithUngol.createExit("south", ephelDuath, outgoingOnly = False)
     anorien.createExit("south", lossamarch, outgoingOnly = False)
     anduin.createExit("south", ithilien, outgoingOnly = False)
     
+    #For quest-dependent ports
+    goblinTown.receiveSpaces(highPass, mirkwood)
+    moria.receiveSpaces(mistyMountainsSouth, lorien)
+    isenguard.receiveSpaces(calenardhon, westfold)
+    blackGate.receiveSpaces(deadMarshes, udun)
+    isenmouthe.receiveSpaces(udun, plateauOfGorgoth)
+    minasMorgul.receiveSpaces(ephelDuath, plateauOfGorgoth)
+    towerOfCirithUngol.receiveSpaces(cirithUngol, plateauOfGorgoth)
+    
+    #Create list of spaces for item distribution randomization
     spaces = [shire, oldForest, weatherHills, trollshaws, mistyMountainsNorth, highPass, mirkwood, 
     southernMirkwood, bruinen, mitheithel, swanfleet, dunland, mistyMountainsSouth, lorien, fangorn,
     fieldOfCelebrant, calenardhon, westfold, westemnet, eastemnet, emynMuil, eastfold, nindalf,
@@ -767,7 +784,7 @@ def getWorld():
             space.addItem(item)
     
     #TODO: return this to shire. For testing purposes
-    return deadMarshes
+    return highPass
     
 def getStartingInventory():
     """

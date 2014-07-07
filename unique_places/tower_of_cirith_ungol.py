@@ -194,3 +194,6 @@ class TowerOfCirithUngol(UniquePlace):
             print "You make it into Mordor and Sauron has been alerted of your presence."
             raw_input("Press enter to continue. ")
             print ""
+        
+        #Create port for quest completion
+        self._createPort("east")

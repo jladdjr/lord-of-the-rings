@@ -68,7 +68,7 @@ class GoblinTown(UniquePlace):
         """
         print self._greetings
         print ""
-
+        
         #Fight wave 1
         print "As you creep along High Pass hoping to avoid detection, you hear some creeping in the shadows...."
         raw_input("Press enter to continue. ")
@@ -193,3 +193,6 @@ class GoblinTown(UniquePlace):
         for item in self._loot:
             player.addToInventory(item)
         self._loot = []
+        print ""
+        
+        self._createPort("south")

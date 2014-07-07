@@ -195,6 +195,8 @@ class BlackGate(UniquePlace):
         print "You continue your quest for better night-time entertainment."
         print ""
         
+        self._createPort("east")
+        
     def _run(self, player):
         """
         The action sequence given that the player tries to run. In this instance, 

@@ -162,6 +162,8 @@ class MinasMorgul(UniquePlace):
         print "You quickly move on, knowing that Sauron is on the move too."
         print ""
         
+        self._createPort("east")
+        
     def _run(self, player):
         """
         The action sequence if player chooses to run. In this instance, player still 
