@@ -83,8 +83,8 @@ class Moria(UniquePlace):
         weapon4 = Weapon("Durnhelm", "An extremely tough helmet", 1, 1, 1)
         armor = Armor("Iron Cap", "Old but still effective", 1, 1, 1)
         armor2 = Armor("Boots of Travel", "May increase magic find", 1, 1, 1)
-        item = Item("Mithril", "One of Middle Earth's rarest metals", 1)
-        item2 = Item("Ancient Runes", "Magical properties?", 1)
+        item = Item("Mithril", "One of Middle Earth's rarest metals", 1, 0)
+        item2 = Item("Ancient Runes", "Magical properties?", 1, 0)
         self._loot = [weapon, weapon2, weapon3, weapon4, armor, armor2, item, item2]
         
     def enter(self, player):

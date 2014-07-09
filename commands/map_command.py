@@ -11,7 +11,7 @@ class MapCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new Map command.
+        Initializes Map command.
 
         @param name:            Command's name.
         @param explanation:     Description of what command does.
@@ -24,9 +24,8 @@ class MapCommand(Command):
 
     def execute(self):
         """
-        Runs Map Command. If player may move to any of the four cardinal
-        directions, the space corresponding to that direction is directed
-        to self._printInformation().
+        Calls self._printInformation on each of the spaces that are connected
+        to the player's current space.
         """        
         #Generate variables for map locations
         location = self._player.getLocation()
@@ -52,7 +51,7 @@ class MapCommand(Command):
             
     def _printInformation(self, space, direction):
         """
-        Prints the name of the space and any cities and unique places
+        Prints the name of the space and lists any cities and unique places
         that it may have.
         
         @param space:               The space that is currently being 

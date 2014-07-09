@@ -1,41 +1,37 @@
 #!/usr/bin/python
 
-from constants import ItemType
 from items.item import Item
+from constants import ItemType
 
 class Armor(Item):
     """
-    Armor class. Armor inherits from Item and has the defining parameter, defense.
+    Armor is a child class of Item.
+    
+    Armor serves as the class of defensive items in the game. It has a 
+    special attribute, "defense," which serves to reduce the damage that 
+    player receives.
     """
-    def __init__(self, name, description, weight, defense, cost):
+    def __init__(self, name, description, weight, cost, defense):
         """
         Initializes armor class.
 
-        @param name:         The name of the item.
+        @param name:         The name of the piece of armor.
         @param description:  Armor description.
         @param weight:       Armor weight.
-        @param defense:      The defense stat of the piece of armor. Reduces the amount
-                             of damage that player receives by this amount. 
+        @param cost:         The cost of the armor.
+        @param defense:      The defense stat of the piece of armor. 
         """
-        Item.__init__(self, name, description, weight)
+        Item.__init__(self, name, description, weight, cost)
+        
         self._defense = defense
-        self._cost = cost
-
+        
     def getDefense(self):
         """
-        Returns the item's defense stat.
+        Returns the armor's defense stat.
 
-        @return:    Armor's defense.
+        @return:    Armor defense.
         """
         return self._defense
-
-    def getCost(self):
-        """
-        Returns armor cost.
-
-        @return:    Armor cost
-        """
-        return self._cost
 
     def getType(self):
         """

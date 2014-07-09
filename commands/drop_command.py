@@ -4,7 +4,7 @@ from command import Command
 
 class DropCommand(Command):
     """
-    Allows player to drop an item from inventory into room.
+    Allows player to drop an item from inventory into space.
     """
     def __init__(self, name, explanation, player):
         """
@@ -21,12 +21,12 @@ class DropCommand(Command):
 
     def execute(self):
         """
-        Drops an item from inventory into room.
+        Drops an item from inventory into space.
         """
         name = self._player.getName()
         inventory = self._player.getInventory()
         
-        #Print inventory contents
+        #Display inventory contents
         print "The following may be dropped by %s:" % name
         for item in inventory:
             print "\t%s" % item.getName()
@@ -39,7 +39,7 @@ class DropCommand(Command):
         equipped = self._player.getEquipped()
         item = inventory.getItemByName(itemToRemove)
 
-        #Checks if item is in inventory
+        #Check if item is in inventory
         if not item:
             print "%s is not in your inventory!" % itemToRemove
             return
@@ -53,6 +53,6 @@ class DropCommand(Command):
         if equipped.containsItem(item):
             equipped.removeItem(item)
         
-        #Adds item to space
+        #Add item to space
         location = self._player.getLocation()
         location.addItem(item)

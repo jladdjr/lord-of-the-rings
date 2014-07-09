@@ -1,11 +1,14 @@
 #!/usr/bin/python
 
-from items.item import Item
 from cities.building import Building
+from items.item import Item
 
 class Square(Building):
     """
-    Squares are public spaces that allow players to interface with city folk.
+    Squares are children of Building and inhabit cities.
+    
+    Squares serve as public spaces that allow players to
+    interface with city folk.
     """
     def __init__(self, name, description, greetings, talk = None, items = None):
         """
@@ -14,7 +17,9 @@ class Square(Building):
         @param name:           The name of the square.
         @param description:    A description of the square.
         @param greetings:      The greetings the user gets as he enters a square.
-        @param talk:           A dictionary of people names and strings that are returned if a player talks in square.
+        @param talk:           A dictionary of names-responses used for dialogue.
+        @param items:          Items that the player may receive for talking to 
+                               people.
         """
         Building.__init__(self, name, description, greetings)
 
@@ -23,7 +28,9 @@ class Square(Building):
         
     def enter(self, player):
         """
-        The events sequence upon player entering square.
+        The action sequence for square.
+        
+        @param player:     The player object.
         """
         print ""
         print "- - - %s - - -" % self._name
@@ -32,12 +39,12 @@ class Square(Building):
 
         #If square is empty
         if self._talk == None:
-            print "%s finds %s completely deserted." % (player.getName(), self._name)
+            print "You find %s completely deserted." % self._name
             return
 
-        numPeople = len(self._talk)
-         
         #User prompt
+        numPeople = len(self._talk)
+        
         choice = None
         while choice != "quit":
             print "There are %s people to talk to in %s:" % (numPeople, self._name)
@@ -53,16 +60,18 @@ class Square(Building):
             #If person exists
             elif choice in self._talk:
                 print ""
-                print self._talk[choice] + "."
+                print self._talk[choice]
 
                 #If item in self._items, give player item
                 if choice in self._items:
                     gift = self._items[choice]
+                    
                     #If entry is single item
                     if isinstance(gift, Item):
                         print "Received %s from %s." % (gift.getName(), choice)
                         player.addToInventory(gift)
                         self._items[choice] = None
+                        
                     #If entry is a list
                     elif isinstance(gift, list):
                         for item in gift:
@@ -72,12 +81,7 @@ class Square(Building):
                 print ""
                     
             #If person doesn't exist
-            elif choice not in self._talk:
+            else:
                 print ""
                 print "Alas, '%s' could not be found in %s." % (choice, self._name)
-                print ""
-                
-            #For invalid choices
-            else:
-                print "Huh?"
                 print ""

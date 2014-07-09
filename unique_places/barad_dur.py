@@ -91,9 +91,9 @@ class BaradDur(UniquePlace):
         potion = Potion("Hyper Potion", "Extreme healing qualities", 2, 2, 2)
         potion2 = Potion("Super Potion", "Medium healing qualities", 2, 2, 2)
         potion3 = Potion("Dragon Milk", "Healing qualities", 2, 2 ,2)
-        item = Item("Masterball", "Can catch any Pokemon", 2)
-        item2 = Item("Moonstone", "Evolves normal Pokemon", 2)
-        item3 = Item("Nugget", "High resale value", 2)
+        item = Item("Masterball", "Can catch any Pokemon", 2, 0)
+        item2 = Item("Moonstone", "Evolves normal Pokemon", 2, 0)
+        item3 = Item("Nugget", "High resale value", 2, 0)
         self._loot = [potion, potion2, potion3, item, item2, item3]
         
     def enter(self, player):

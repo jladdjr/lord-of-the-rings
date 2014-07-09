@@ -29,23 +29,12 @@ class CheckEquipmentCommand(Command):
         playerName = self._player.getName()
         equipment = self._player.getEquipped()
         
-        #Sorts items
-        sortedEquipment = []
-        for item in equipment:
-            if isinstance(item, Weapon):
-                sortedEquipment.append(item)
-        for item in equipment:
-            if isinstance(item, Armor):
-                sortedEquipment.append(item)
-        for item in equipment:
-            if isinstance(item, Charm):
-                sortedEquipment.append(item)
-        equipment = sortedEquipment
-
+        sortedEquipment = self._sortEquipment(equipment)
+        
         #Prints currently equipped items
         print "%s's currently equipped items:\n" % playerName
         
-        for item in equipment:
+        for item in sortedEquipment:
             itemName = item.getName()
             if isinstance(item, Weapon):
                 attack = item.getAttack()
@@ -66,4 +55,28 @@ class CheckEquipmentCommand(Command):
                     print "\t%s yields a %s defense bonus." % (itemName, defense)
                 if item.getHp():
                     print "\t%s yields a %s HP bonus." % (itemName, hp)
+            else:
+                errorMsg = "CheckEquipmentCommand command given invalid item type."
+                raise AssertionError(errorMsg)
             print ""
+            
+    def _sortEquipment(self, equipment):
+        """
+        Sorts player equipment.
+        
+        @param equipment:     Player equipped object.
+        """
+        sortedEquipment = []
+        
+        #Sorts items
+        for item in equipment:
+            if isinstance(item, Weapon):
+                sortedEquipment.append(item)
+        for item in equipment:
+            if isinstance(item, Armor):
+                sortedEquipment.append(item)
+        for item in equipment:
+            if isinstance(item, Charm):
+                sortedEquipment.append(item)
+                
+        return sortedEquipment

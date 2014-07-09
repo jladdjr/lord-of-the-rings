@@ -5,11 +5,14 @@ from cities.building import Building
 
 class City(Place):
     """
-    Cities are the towns of the game. Cities may have inns, blacksmiths and people to talk to.
+    Cities inherit from Place.
+    
+    Cities serve as the towns of the game. Cities may have inns, blacksmiths
+    and squares.
     """
     def __init__(self, name, description, greetings, buildings = None):
         """
-        Initializes city object.
+        Initializes the city.
 
         @param name:           The name of the city.
         @param description:    A description of the city.
@@ -23,9 +26,10 @@ class City(Place):
 
     def getGreetings(self):
         """
-        Returns the string that represents a player greeting upon entering the city.
+        Returns the string that represents player greeting upon entering
+        the city.
 
-        @return:    String representing player greeting upon entering the city.
+        @return:    The string displayed upon entering a city.
         """
         return self._greetings
         
@@ -39,38 +43,45 @@ class City(Place):
 
     def getBuildingString(self, string):
         """
-        Returns building object given string parameter.
+        Returns the building object matching its name.
 
-        @param:    Name of the building.
+        @param string:    The name of the building.
+        
+        @return:          Either the building object if the object is found or
+                          None otherwise.
         """
         for building in self._buildings:
             if building.getName() == string:
                 return building
+        else:
+            return None
     
     def _createDictionaryOfBuildings(self):
         """
-        Creates a dictionary of building objects. The keys are 
-        the building names that references the building object.
+        Creates a dictionary of building objects. Name-pairs are 
+        building names and the objects they correspond to.
         
-        @return:    The dictionary of buildings contained in City.
+        @return:    A dictionary of buildings name and their 
+                    corresponding objects.
         """
         buildingDictionary = {}
         buildings = self.getBuildings()
-        #If there is 1 building
+        #If there is one building
         if isinstance(buildings, Building):
             buildingDictionary[buildings.getName()] = buildings
         #If there are multiple buildings
         elif isinstance(buildings, list):
             for building in buildings:
                 buildingDictionary[building.getName()] = building
+                
         return buildingDictionary
     
     def _printBuildings(self):
         """
-        The method for printing buildings in the city.
+        Helper method that prints the building contained in city.
         """
         buildings = self.getBuildings()
-        #If there is 1 building
+        #If there is one building
         if isinstance(buildings, Building):
             print "\t%s" % buildings.getName()
         #If there are multiple buildings
@@ -81,7 +92,7 @@ class City(Place):
         
     def enter(self, player):  
         """
-        The method for entering the buildings in the city.
+        The action sequence for city.
 
         @param player:       The current player
         """
@@ -98,19 +109,22 @@ class City(Place):
             #Print list of buildings
             self._printBuildings()
             
-            print "To go to a building type its name. Otherwise, type 'leave city'"
+            print "To go to a building type its name. Otherwise, type 'leave'"
             command = raw_input("Where would you like to go?\n")
             
             #If player chooses to leave the city
-            if command == 'leave city':
+            if command == 'leave':
                 print ""
                 print "Leaving %s." % self.getName()
                 return
-            #If player selects something other than to leave the city
+                
+            #For other choices
             if command in buildingDictionary.keys():
+            
                 #Enter building
                 buildingDictionary[command].enter(player)
-                #Player has left building, and chooses what to do next
+                
+                #Prompt for next action
                 print "\nYou are now back in %s." % self.getName()
                 print ""
             else:

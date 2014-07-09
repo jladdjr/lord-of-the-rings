@@ -6,26 +6,29 @@ class Item(object):
     """
     A generic item. May be held by a player, exist in a room, etc.
 
-    Direct use of this class is discouraged. Instead, create a 
-    subclass of Item based on its type (e.g. Potion, Weapon, Armor).
+    Item has various child classes such as Weapon and Armor.
     """
-    def __init__(self, name, description, weight):
+    def __init__(self, name, description, weight, cost):
         """
         Initializes an item object.
 
-        @param name:        Name of item.
-        @param description: Description of item.
-        @param weight:      Weight of item. (Must be positive integer)
+        @param name:          Name of item.
+        @param description:   Description of item.
+        @param weight:        Weight of item.
         """
         if (not name) or (not description):
             raise AssertionError("Item must have a name and description.")
         if weight < 0:
             errorMsg = "Invalid weight for item (%s); weight cannot be a negative number." % weight
             raise AssertionError(errorMsg)
+        if cost < 0:
+            errorMsg = "Invalid cost for item (%s); cost cannot be a negative number." % cost
+            raise AssertionError(errorMsg)
 
         self._name = name
         self._description = description
         self._weight = weight
+        self._cost = cost
 
     def getName(self):
         """
@@ -50,6 +53,14 @@ class Item(object):
         @return: Item's weight.
         """
         return self._weight
+        
+    def getCost(self):
+        """
+        Returns weapon cost.
+
+        @return:    Weapon cost.
+        """
+        return self._cost
 
     def getType(self):
         """

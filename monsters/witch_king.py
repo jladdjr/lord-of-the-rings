@@ -5,13 +5,16 @@ import constants
 
 class WitchKing(Monster):
     """
-    A type of Monster.
+    Inherits from Monster.
+    
+    In Tolkien's universe, the Witch King is the leader of the Nazgul.
     """
     def __init__(self, stats):
         """
-        Initializes a WitchKing monster. Inherits from Monster.
+        Initializes a WitchKing monster.
 
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.WitchKing, constants.MonsterDescriptions.WitchKing, stats, constants.MonsterAttackStrings.WitchKing, constants.MonsterDeathStrings.WitchKing) 
+        Monster.__init__(self, constants.MonsterNames.WitchKing, constants.MonsterDescriptions.WitchKing, \
+        stats, constants.MonsterAttackStrings.WitchKing, constants.MonsterDeathStrings.WitchKing)

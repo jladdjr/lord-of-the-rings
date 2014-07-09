@@ -37,7 +37,7 @@ class Tharbad(UniquePlace):
             self._monsters.append(nazgul)
 
         #Generate loot
-        scroll = Item("Ancient Scroll", "Ancient runes and symbols", 0)
+        scroll = Item("Ancient Scroll", "Ancient runes and symbols", 0, 0)
         weapon = Weapon("Rotting Staff", "Looks like it can break at any second", 1, 1, 1)
         armor = Armor("Rotting Shield", "Maybe one or two hits and it's through", 1, 1, 1)
         self._loot = [scroll, weapon, armor]

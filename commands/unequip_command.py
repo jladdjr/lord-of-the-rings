@@ -8,7 +8,7 @@ class UnequipCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new unequip command.
+        Initializes unequip command.
 
         @param name:         Command name.
         @param explanation:  Explanation of command.

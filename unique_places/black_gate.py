@@ -97,8 +97,8 @@ class BlackGate(UniquePlace):
         armor = Armor("Rotting Boots", "Completely useless", 5, 0, 0)
         potion = Potion("Orc Draught", "May contain human flesh", 1, 0, 2)
         potion2 = Potion("Orc Draught", "Basically the orcish version of Gatorade", 1, 0, 2)
-        item = Item("Orcish Pillow", "Basically, a rock", 1)
-        item2 = Item("Orcish Blankets", "For slumber parties", 1)
+        item = Item("Orcish Pillow", "Basically, a rock", 1, 0)
+        item2 = Item("Orcish Blankets", "For slumber parties", 1, 0)
         self._loot = [weapon, armor, potion, potion2, item, item2]
         
     def enter(self, player):

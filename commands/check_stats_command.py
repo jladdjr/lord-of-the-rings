@@ -3,6 +3,7 @@
 from command import Command
 from items.weapon import Weapon
 from items.armor import Armor
+from items.charm import Charm
 
 class CheckStatsCommand(Command):
     """
@@ -30,20 +31,25 @@ class CheckStatsCommand(Command):
         experience = self._player.getExperience()
         level = self._player.getLevel()
         
+        #Get HP stats
         hp = self._player.getHp()
-        totalMaxHp = self._player.getTotalMaxHp()
         charmHp = self._player.getCharmHp()
+        totalMaxHp = self._player.getTotalMaxHp()
+        
+        #Get attack stats
         attack = self._player.getAttack()
         charmAttack = self._player.getCharmAttack()
         totalAttack = self._player.getTotalAttack()
         
+        #Get defense stats
         charmDefense = self._player.getCharmDefense()
         totalDefense = self._player.getTotalDefense()
 
         #Create defaults - for determining of weapon and armor exist
         weapon = None
         armor = None
-
+        charm = None
+        
         #Get equipment bonuses
         equipment = self._player.getEquipped()
         equipmentList = equipment.getItems()
@@ -51,29 +57,31 @@ class CheckStatsCommand(Command):
             if isinstance(item, Weapon):
                 weaponsAttack = item.getAttack()
                 weapon = True
-            elif isinstance(item, Armor):
+            if isinstance(item, Armor):
                 armorDefense = item.getDefense()
                 armor = True
 
         #Print player stats
         print "%s's stats: \n" % name
         print "\t%s is level %s and has %s experience." % (name, level, experience)
-        print "\t%s's Hp: %s/%s." % (name, hp, totalMaxHp)
+        print "\t%s's HP: %s/%s." % (name, hp, totalMaxHp)
         print "\t%s gets a %s HP bonus from charms." % (name, charmHp)
         print ""
         
+        #For player weapon
         if weapon:
             print "\tCharacter-based attack is %s." % attack
             print "\tWeapons bonus is %s and charm bonus is %s." % (weaponsAttack, charmAttack)
             print "\tTotal attack is %s." % totalAttack
         else:
-            print "\tWeapon: [Unequipped]"
+            print "\tWeapon: [Unequipped]."
         print ""
         
+        #For player armor
         if armor:
             print "\tArmor-based defense is %s." % armorDefense
             print "\tCharm-based defense is %s." % charmDefense
             print "\tTotal defense is %s." % totalDefense
         else:
             print "\tArmor:  [Unequipped]" 
-                
+        print ""

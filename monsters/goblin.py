@@ -5,13 +5,16 @@ import constants
 
 class Goblin(Monster):
     """
-    A type of Monster.
+    Inherits from Monster.
+    
+    In Tolkien's universe, goblins are a specific type of orc.
     """
     def __init__(self, stats):
         """
-        Initializes a Goblin monster. Inherits from Monster.
+        Initializes a Goblin monster. 
 
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.Goblin, constants.MonsterDescriptions.Goblin, stats, constants.MonsterAttackStrings.Goblin, constants.MonsterDeathStrings.Goblin) 
+        Monster.__init__(self, constants.MonsterNames.Goblin, constants.MonsterDescriptions.Goblin, \
+        stats, constants.MonsterAttackStrings.Goblin, constants.MonsterDeathStrings.Goblin)

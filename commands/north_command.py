@@ -8,7 +8,7 @@ class NorthCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new north command.
+        Initializes north command.
 
         @param name:            Command's name.
         @param explanation:     Description of what command does.
@@ -23,19 +23,20 @@ class NorthCommand(Command):
         """
         Run North command.
         """
-        #Make sure there is a north exit
+        #Make sure that exit exists
         if not self._player.canMoveNorth():
             print "Cannot move North."
             return
 
-        #Move North
+        #User graphic
         print "--------------------------------"
         print "         Moving North"
         print "              /\                "
         print "              ||                "
         print "              ||                "
         print ""
-
+        
+        #Actual move execution and user output
         self._player.moveNorth()
 
         space = self._player.getLocation()

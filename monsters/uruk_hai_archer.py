@@ -5,13 +5,16 @@ import constants
 
 class UrukHaiArcher(Monster):
     """
-    A type of Monster.
+    Inherits from Monster.
+    
+    In Tolkien's universe, Uruk Hai were a cross-breed of men and orcs.
     """
     def __init__(self, stats):
         """
-        Initializes a UrukHaiArcher monster. Inherits from Monster.
+        Initializes a UrukHaiArcher monster.
 
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.UrukHaiArcher, constants.MonsterDescriptions.UrukHaiArcher, stats, constants.MonsterAttackStrings.UrukHaiArcher, constants.MonsterDeathStrings.UrukHaiArcher) 
+        Monster.__init__(self, constants.MonsterNames.UrukHaiArcher, constants.MonsterDescriptions.UrukHaiArcher, \
+        stats, constants.MonsterAttackStrings.UrukHaiArcher, constants.MonsterDeathStrings.UrukHaiArcher)

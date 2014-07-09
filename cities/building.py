@@ -2,16 +2,19 @@
 
 class Building(object):
     """
-    Generic Building object. Building children include Inns, Shops, and Squares.      
-    These objects will also have their own special methods.
+    A generic building object, used for inheritance.
+    
+    Building children include inns, shops, and squares.
+    These classes have their own set of methods.
     """
     def __init__(self, name, description, greetings):
         """
-        Initializes building object.
+        Initializes the building object.
 
         @param name:           The name of the building.
         @param description:    A description of the building.
-        @param greetings:      The greetings the user gets as (s)he enters building.
+        @param greetings:      The greetings the user gets as (s)he enters
+                               building.
         """
         self._name = name
         self._description = description
@@ -35,9 +38,11 @@ class Building(object):
 
     def greetings(self):
         """
-        Returns the string that represents player greeting upon entering building.
+        Returns the string that is displayed as player enteres 
+        the building.
 
-        @return:    The greetings player receives upon entering building.
+        @return:    The greetings player receives upon entering
+                    the building.
         """
         return self._greetings
 
@@ -45,7 +50,7 @@ class Building(object):
         """
         Default enter method. By default, does nothing.
 
-        This method should be overridden by child class.
+        This method should be overridden by child classes.
 
         @param player:   The player object.
         """

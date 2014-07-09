@@ -6,8 +6,7 @@ from monsters.uruk_hai_archer import UrukHaiArcher
 from monsters.elite_uruk_hai import EliteUrukHai
 from monsters.sauroman import Sauroman
 from battle_engine import battle
-from items.unique_items import keysOfOrthanc
-from items.unique_items import palatir
+from items.unique_items import isenguardItems
 import constants
 
 class Isenguard(UniquePlace):
@@ -63,8 +62,8 @@ class Isenguard(UniquePlace):
         self._wave3.append(sauroman)
 
         #Spawn loot
-        self._battleEarnings = keysOfOrthanc
-        self._summitFindings = palatir
+        self._battleEarnings = isenguardItems[0]
+        self._summitFindings = isenguardItems[1]
         
     def enter(self, player):
         """

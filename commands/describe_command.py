@@ -8,7 +8,7 @@ from unique_place import UniquePlace
 
 class DescribeCommand(Command):
     """
-    Describes the current space.
+    Describes the current space to the user.
     """
     def __init__(self, name, explanation, player):
         """
@@ -25,7 +25,7 @@ class DescribeCommand(Command):
 
     def execute(self):
         """
-        Runs Describe command.
+        Command execution.
         """
         #Create variables
         location = self._player.getLocation()
@@ -39,7 +39,7 @@ class DescribeCommand(Command):
         #Print space name and description
         print "%s: %s" % (locationName, locationDescription)
 
-        #If there are no cities or uniquePlaces in this space
+        #If there are no cities or uniquePlaces in space
         if not city and not uniquePlace:
             print "%s has no places for you to enter." % locationName
 
@@ -71,6 +71,6 @@ class DescribeCommand(Command):
         
         #If space has items
         if len(itemsList) > 0:
-            print "\nThe following items are in %s:" % locationName
+            print "The following items are in %s:" % locationName
             for item in itemsList:
-                print "--%s is in %s." % (item.getName(), locationName)
+                print "\t--%s." % item.getName()

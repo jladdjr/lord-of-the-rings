@@ -5,13 +5,16 @@ import constants
 
 class BlackNumernorian(Monster):
     """
-    A type of Monster.
+    Inherits from Monster.
+    
+    In Tolkien's universe, Black Numernorians were powerful occultists.
     """
     def __init__(self, stats):
         """
-        Initializes a BlackNumernorian monster. Inherits from Monster.
+        Initializes a BlackNumernorian monster.
 
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.BlackNumernorian, constants.MonsterDescriptions.BlackNumernorian, stats, constants.MonsterAttackStrings.BlackNumernorian, constants.MonsterDeathStrings.BlackNumernorian) 
+        Monster.__init__(self, constants.MonsterNames.BlackNumernorian, constants.MonsterDescriptions.BlackNumernorian, \
+        stats, constants.MonsterAttackStrings.BlackNumernorian, constants.MonsterDeathStrings.BlackNumernorian)

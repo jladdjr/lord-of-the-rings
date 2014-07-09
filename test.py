@@ -18,7 +18,7 @@ class GameTest(unittest.TestCase):
     def testGame1(self):
         """
         Testing that helpCommand.execute.called when command does not
-        involve passage of time. 
+        involve passage of time.
         """
         from game import Game
         g = Game()
@@ -1336,9 +1336,9 @@ class PlayerTest(unittest.TestCase):
         self.assertEqual(player._attack, constants.ATTACK_STAT, errorMsg)
 
         errorMsg = "player._weaponAttack was not initialized correctly."
-        self.assertEqual(player._weaponAttack, constants.STARTING_WEAPON_ATTACK, errorMsg)
+        self.assertEqual(player._weaponAttack, constants.PlayerInitialization.WEAPON_ATTACK, errorMsg)
         errorMsg = "player._armorDefense was not initialized correctly."
-        self.assertEqual(player._armorDefense, constants.STARTING_ARMOR_DEFENSE, errorMsg)
+        self.assertEqual(player._armorDefense, constants.PlayerInitialization.ARMOR_DEFENSE, errorMsg)
         errorMsg = "player._totalAttack did not initiate correctly."
         self.assertEqual(player._totalAttack, player._attack + player._weaponAttack, errorMsg)
         
@@ -2792,9 +2792,11 @@ class monsterFactory(unittest.TestCase):
         """
         from factories.monster_factory import getMonsters
         import constants
+
+        constants.RegionType.ERIADOR = MagicMock(return_value=1)
         
         spawn = getMonsters(5, constants.RegionType.ERIADOR, 0)
-        errorMsg = "getMonsters () should have spawned five monsters but did not. Spawn is %s." % spawn
+        errorMsg = "getMonsters () should have spawned five monsters but did not."
         self.assertEqual(len(spawn), 5, errorMsg)
         
     def testBonusDifficultySpawnNumber(self):
@@ -2812,22 +2814,22 @@ class monsterFactory(unittest.TestCase):
         self.assertEqual(len(spawn), 10, errorMsg)
         
         """
-    -Tests default monster creation, that monsters are in fact created.
-    -Testing difficulty feature - that default stats are implemented when
-    difficulty set to zero. 
-    -Testing difficulty feature - that monster stats increase as
-    percentage over default. For instance, difficulty = 1 should result
-    in monsters with 200% base monster stats.
-    -Testing difficulty feature - that default monster spawn occurs when
-    difficulty is set to zero.
-    -Testing difficulty feature - that monster spawn increases as a percentage
-    over default. For instance, difficulty = 1 should result in a 100% increase
-    in monster spawn over base.
-    -Testing that regional spawns work: that monster spawn reflects
-    regional monster distributions held in constants. 
+        -Tests default monster creation, that monsters are in fact created.
+        -Testing difficulty feature - that default stats are implemented when
+        difficulty set to zero. 
+        -Testing difficulty feature - that monster stats increase as
+        percentage over default. For instance, difficulty = 1 should result
+        in monsters with 200% base monster stats.
+        -Testing difficulty feature - that default monster spawn occurs when
+        difficulty is set to zero.
+        -Testing difficulty feature - that monster spawn increases as a percentage
+        over default. For instance, difficulty = 1 should result in a 100% increase
+        in monster spawn over base.
+        -Testing that regional spawns work: that monster spawn reflects
+        regional monster distributions held in constants. 
 
-    Note params for getMonster: getMonsters(number, region, difficulty).
-    """
+        Note params for getMonster: getMonsters(number, region, difficulty).
+        """
 
     def testDefaultStatGeneration(self):
         #Testing difficulty feature - that default stats are implemented when

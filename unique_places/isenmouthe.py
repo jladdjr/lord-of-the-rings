@@ -74,8 +74,8 @@ class Isenmouthe(UniquePlace):
         armor = Armor("Troll Shield", "Enormous and unwieldy", 4, 0, 0)
         potion = Potion("Orc Draught", "Disgusting", 1, 0, 2)
         potion2 = Potion("Orc Draught", "Potentially toxic", 1, 0, 2)
-        item = Item("Orcish Banister", "Perhaps of high resale value", 1)
-        item2 = Item("Screw and bolts", "Useless", 1)
+        item = Item("Orcish Banister", "Perhaps of high resale value", 1, 0)
+        item2 = Item("Screw and bolts", "Useless", 1, 0)
         self._loot = [weapon, armor, potion, potion2, item, item2]
         
     def enter(self, player):

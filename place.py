@@ -2,15 +2,15 @@
 
 class Place(object):
     """
-    Parent class to both the city object and the unique place object.
+    Parent class to both City and unique place classes.
     """
     def __init__(self, name, description, greetings):
         """
-        Initialize place object.
+        Initialize Place object.
         
         @param name:           The name of the Place.
         @param description:    A description of the Place.
-        @param greetings:      The greetings upon entering place.
+        @param greetings:      The greetings upon entering Place.
         """
         self._name = name
         self._description = description
@@ -43,8 +43,9 @@ class Place(object):
         Helper method used to create references to the two spaces
         used in quest-dependent port creation.
         
-        @param space:         Space player is currently in.
-        @param targetSpace:   The space to be linked with the current space.
+        @param space:         Player's current space.
+        @param targetSpace:   The space to be linked with the 
+                              current space.
         """
         self._space = space
         self._targetSpace = targetSpace
@@ -54,10 +55,11 @@ class Place(object):
         Creates a port between the space and targetSpace. In this
         construction, targetSpace is to the direction of space.
         
-        In LotR, this is used to unlock new space connections for 
-        quest completion.
+        In LotR, this is used to unlock new space connections as a  
+        reward for quest completion.
         
-        @param direction:     The direction targetSpace is in with respect to space.
+        @param direction:     The direction targetSpace is in with 
+                              respect to space.
         """
         self._space.createExit(direction, self._targetSpace, outgoingOnly = False)
         
@@ -65,8 +67,8 @@ class Place(object):
         
     def enter(self, player):
         """
-        Parent enter method. Should we overridden by children classes.
+        Parent enter method. Should be overridden by child classes.
         
         @param player:  The current player.
         """
-        print "This enter method should be overridden by child class"
+        print "This enter method should be overridden by child class."

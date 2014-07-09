@@ -1,13 +1,17 @@
 #!/usr/bin/python
 
-from constants import ItemType
 from items.item import Item
+from constants import ItemType
 
 class Charm(Item):
     """
-    Charm class. Charm inherits from Item and can modify any number of player attributes.
+    Charm is a child class of Item.
+
+    Charms can modify any number of player attributes. The most prominent 
+    example of a charm in LotR is a Ring of Power, which may modify multiple
+    player stats.
     """
-    def __init__(self, name, description, weight, attack, defense, hp, cost):
+    def __init__(self, name, description, weight, cost, attack, defense, hp):
         """
         Initializes charm class.
 
@@ -19,11 +23,11 @@ class Charm(Item):
                              of damage that player receives by this amount.
         @param hp:           The hp bonus of the charm. 
         """
-        Item.__init__(self, name, description, weight)
+        Item.__init__(self, name, description, weight, cost)
+        
         self._attack = attack
         self._defense = defense
         self._hp = hp
-        self._cost = cost
         
     def getAttack(self):
         """
@@ -48,14 +52,6 @@ class Charm(Item):
         @return:    Charm's hp bonus.
         """
         return self._hp
-        
-    def getCost(self):
-        """
-        Returns charm cost.
-
-        @return:    Charm's cost stat.
-        """
-        return self._cost
 
     def getType(self):
         """

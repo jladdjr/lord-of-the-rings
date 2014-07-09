@@ -69,7 +69,7 @@ class MinasMorgul(UniquePlace):
         armor2 = Armor("Travel Boots", "Too small for a human", 4, 0, 0)
         potion = Potion("Orcish Tea", "Strange ingredients", 1, 0, 2)
         potion2 = Potion("Orcish Tea", "Of questionable health value", 1, 0, 2)
-        item = Item("Orcish Banister", "Of potential value on the free market", 1)
+        item = Item("Orcish Banister", "Of potential value on the free market", 1, 0)
         self._loot = [weapon, weapon2, armor, armor2, potion, potion2, item]
         
     def enter(self, player):

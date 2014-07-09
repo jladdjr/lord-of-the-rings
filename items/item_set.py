@@ -4,7 +4,7 @@ from items.item import Item
 
 class ItemSet(object):
     """
-    A simple collection of items.
+    A collection of items.
     """
     def __init__(self, itemSet=None):
         """
@@ -33,9 +33,6 @@ class ItemSet(object):
     def addItem(self, item):
         """
         Adds an item.
-
-        @precondition: Item's name must not be used
-        by any items already contained in ItemSet.
 
         @param item:    An item.
         """
@@ -67,6 +64,7 @@ class ItemSet(object):
         for item in self._items:
             if item.getName() == name:
                 return item
+                
         return None
     
     def removeItem(self, item):
@@ -91,13 +89,15 @@ class ItemSet(object):
         """
         Determines if item is contained in this collection.
         
-        @param itemName: Items's name
+        @param itemName:     Items's name
         
-        @return: True if item with givne name is present, False otherwise
+        @return:             True if item with given name is present,
+                             False otherwise
         """
         for item in self._items:
             if item._name == itemName:
                 return True
+                
         return False
 
     def count(self):
@@ -112,12 +112,12 @@ class ItemSet(object):
         """
         Determines total weight of items.
 
-        @return: Total weight of items.
+        @return:    Total weight of items.
         """
         return self._weight 
  
     def __iter__(self):
         """
-        Provides an iterator for this set of items.
+        Provides an iterator for sets of items.
         """
         return iter(self._items)

@@ -5,13 +5,17 @@ import constants
 
 class Sauroman(Monster):
     """
-    A type of Monster.
+    Inherits from Monster.
+    
+    In Tolkien's universe, Sauroman was the chief of the wizards 
+    of Middle Earth.
     """
     def __init__(self, stats):
         """
-        Initializes a Sauroman monster. Inherits from Monster.
+        Initializes a Sauroman monster.
 
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.Sauroman, constants.MonsterDescriptions.Sauroman, stats, constants.MonsterAttackStrings.Sauroman, constants.MonsterDeathStrings.Sauroman) 
+        Monster.__init__(self, constants.MonsterNames.Sauroman, constants.MonsterDescriptions.Sauroman, \
+        stats, constants.MonsterAttackStrings.Sauroman, constants.MonsterDeathStrings.Sauroman)

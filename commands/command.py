@@ -20,18 +20,22 @@ class Command(object):
     def getName(self):
         """
         Returns command's name.
+        
+        @return:    Command name.
         """
         return self._name
 
     def getExplanation(self):
         """
         Returns command's explanation.
+        
+        @return:    Command explanation.
         """
         return self._explanation
 
     def getTime(self):
         """
-        Returns time parameter of command.
+        Returns time attribute of command.
 
         @return:   Time attribute of command. Represents
                    whether time is passing with command

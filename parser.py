@@ -9,7 +9,7 @@ class Parser(object):
     """
     def __init__(self, commandWords):
         """
-        Initializes new parser.
+        Initializes parser.
 
         @param commandWords:     List of commands.
         """

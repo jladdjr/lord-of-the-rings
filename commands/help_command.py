@@ -8,7 +8,7 @@ class HelpCommand(Command):
     """
     def __init__(self, name, explanation, commandWords):
         """
-        Initializes new help command.
+        Initializes help command.
         
         @param commandWords:        CommandWords used in game.
         """

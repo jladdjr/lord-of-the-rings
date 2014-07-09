@@ -1,13 +1,13 @@
 #!/usr/bin/python
 
+from math import floor
+
 from items.item import Item
-from items.item_set import ItemSet
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
 from items.charm import Charm
-from math import floor
-
+from items.item_set import ItemSet
 import constants
 
 class Player(object):

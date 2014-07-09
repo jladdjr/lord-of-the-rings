@@ -4,11 +4,11 @@ from command import Command
 
 class PickUpCommand(Command):
     """
-    Allows a player to pick up an item from a location.
+    Allows a player to pick up an item from its current space.
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new pick up command.
+        Initializes pick up command.
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
@@ -27,7 +27,7 @@ class PickUpCommand(Command):
         location = self._player.getLocation()
         locationItems = location.getItems()
 
-        #Prompt player for item selection
+        #User prompt
         print "The following may be picked up by %s:" % name
         for item in locationItems:
             print "\t%s" % item.getName()
@@ -40,11 +40,11 @@ class PickUpCommand(Command):
             print "%s does not contain item." % location.getName()
             return
 
-        #Adds item to inventory
+        #Add item to inventory
         inventory = self._player.getInventory()
         inventory.addItem(item)
         print ""
         print "Added %s to inventory." % item.getName()
 
-        #Removes item from space
+        #Remove item from space
         location.removeItem(item)

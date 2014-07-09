@@ -6,16 +6,16 @@ class Monster(object):
     """
     def __init__(self, name, description, stats, attackString, deathString):
         """
-        Initializes an item object.
+        Initializes a monster object.
 
         @param name:           Name of monster.
         @param description:    Description of monster.
         @param stats:          3-element list of Monster stats including attack, hp,
                                and experience (in that order).
-        @param attackString:   The string associated with monsterAttack. For instance, Miles
+        @param attackString:   The string displayed with an monster attack. For instance, Miles
                                "got really pissed and started charging around."
-        @param deathString:    The string that gets printed with monster death. For instance,
-                               "Miles decided that he's had enough and went back to bed."
+        @param deathString:    The string displayed with monster death. For instance,
+                               "Miles decided that he's had enough and went back home."
         """
         self._name = name
         self._description = description
@@ -29,7 +29,7 @@ class Monster(object):
         """
         Gets monster name.
 
-        @return: Monster's name.
+        @return: Monster name.
         """
         return self._name
     
@@ -37,7 +37,7 @@ class Monster(object):
         """
         Gets monster's description.
 
-        @return: Monster's description.
+        @return: Monster description.
         """
         return self._description
 
@@ -45,7 +45,7 @@ class Monster(object):
         """
         Get monster's HP.
         
-        @return: Monster's HP.
+        @return: Monster HP.
         """
         return self._hp
     
@@ -53,7 +53,7 @@ class Monster(object):
         """
         Simulates attacking a given target.
 
-        @param target:      Target to attack.
+        @param target: Target to attack.
         """
         target.takeAttack(self._attack)
 
@@ -61,16 +61,16 @@ class Monster(object):
         """
         Get monster's attack.
         
-        @return: Monster's attack.
+        @return: Monster attack.
         """
         return self._attack
         
     def takeAttack(self, attack): 
         """
         Simulates taking an attack.
-        Hp is floored at zero.
+        HP cannot be less than zero.
 
-        @param attack:      Amount of attack taken.
+        @param attack: Amount of attack taken.
         """
         self._hp = max(self._hp - attack, 0)
         
@@ -78,7 +78,7 @@ class Monster(object):
         """
         Gets monster's experience.
 
-        @return: Monster's experience.
+        @return: Monster experience.
         """
         return self._experience
 
@@ -86,7 +86,7 @@ class Monster(object):
         """
         Gets monster's attack string.
 
-        @return: Monster's attack string.
+        @return: Monster attack string.
         """
         return self._attackString
 
@@ -94,6 +94,6 @@ class Monster(object):
         """
         Gets monster's death string.
 
-        @return: Monster's death string.
+        @return: Monster death string.
         """
         return self._deathString

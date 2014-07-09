@@ -5,6 +5,7 @@ from items.item import Item
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+from items.charm import Charm
 
 class CheckInventoryCommand(Command):
     """
@@ -14,9 +15,9 @@ class CheckInventoryCommand(Command):
         """
         Initializes new check inventory command.
 
-        @param name: Command name.
-        @param explanation: Explanation of command.
-        @param player: The player object.
+        @param name:         Command name.
+        @param explanation:  Explanation of command.
+        @param player:       The player object.
         """
         #Call parent's init method
         Command.__init__(self, name, explanation)
@@ -32,9 +33,60 @@ class CheckInventoryCommand(Command):
         inventory = self._player.getInventory()
         inventoryList = inventory.getItems()
 
-        totalWeight = 0
+        #Sort player inventory
+        inventoryList = self._sortInventory(inventoryList)
 
-        #Sort inventory
+        #Cycle through player's inventory, obtaining item stats
+        print "%s's inventory:\n" %playerName
+        for item in inventoryList:
+            itemName = item.getName()
+            itemDescription = item.getDescription()
+            itemWeight = str(item.getWeight())
+            itemCost = str(item.getCost())
+            
+            if isinstance(item, Armor):
+                itemDefense = str(item.getDefense())
+            elif isinstance(item, Weapon):
+                itemAttack = str(item.getAttack())
+            elif isinstance(item, Potion):
+                itemHeal = str(item.getHealing())
+            elif isinstance(item, Charm):
+                itemDefense = str(item.getDefense())
+                itemAttack = str(item.getAttack())
+                itemHp = str(item.getHp())
+            else:
+                errorMsg = "CheckInventoryCommand given invalid item type."
+                raise AssertionError(errorMsg)
+            
+            #Print stats of given item in inventory
+            print "\t%s: %s." % (itemName, itemDescription)
+
+            if isinstance(item, Armor):
+                print "\t%s has a defense of %s." % (itemName, itemDefense)
+            elif isinstance(item, Weapon):
+                print "\t%s has an attack value of %s." % (itemName, itemAttack)
+            elif isinstance(item, Potion):
+                print "\t%s has a healing value of %s." % (itemName, itemHeal)
+            elif isinstance(item, Charm):
+                print "\t%s has an attack bonus of %s, a defense bonus of %s, and a HP bonus of %s." \
+                % (itemName, itemAttack, itemDefense, itemHp)
+            else:
+                errorMsg = "CheckInventoryCommand given invalid item type."
+                raise AssertionError(errorMsg)
+            
+            print "\t%s weights %s and costs %s." % (itemName, itemWeight, itemCost)
+            print ""
+
+        print "\tTotal weight of inventory: %s." % inventory.getWeight()
+    
+    def _sortInventory(self, inventoryList):
+        """
+        Sorts player inventory.
+        
+        @param inventoryList:    List of inventory objects.
+        
+        @return:                 Sorted inventory list.
+        """
         sortedInventory = []
         for item in inventoryList:
             if isinstance(item, Weapon):
@@ -46,37 +98,10 @@ class CheckInventoryCommand(Command):
             if isinstance(item, Potion):
                 sortedInventory.append(item)
         for item in inventoryList:
+            if isinstance(item, Charm):
+                sortedInventory.append(item)
+        for item in inventoryList:
             if item not in sortedInventory:
                 sortedInventory.append(item)
-            
-        inventoryList = sortedInventory
-
-        #Cycle through player's inventory, obtaining item stats
-        print "%s's inventory:\n" %playerName
-        for item in inventoryList:
-            itemName = item.getName()
-            itemDescription = item.getDescription()
-            itemWeight = str(item.getWeight())
-
-            if isinstance(item, Armor):
-                itemDefense = str(item.getDefense())
-            elif isinstance(item, Weapon):
-                itemAttack = str(item.getAttack())
-            elif isinstance(item, Potion):
-                itemHeal = str(item.getHealing())
-
-            #Print item stats of given item in inventory
-            print "\t%s: %s." %(itemName, itemDescription)
-
-            if isinstance(item, Armor):
-                print "\t%s has a defense of %s." %(itemName, itemDefense)
-            elif isinstance(item, Weapon):
-                print "\t%s has an attack value of %s." %(itemName, itemAttack)
-            elif isinstance(item, Potion):
-                print "\t%s has a healing value of %s." %(itemName, itemHeal)
-            print "\t%s weights %s." %(itemName, itemWeight)
-            print ""
-
-            totalWeight += int(itemWeight)
-
-        print "\tTotal weight of inventory: %s." %totalWeight
+                
+        return sortedInventory

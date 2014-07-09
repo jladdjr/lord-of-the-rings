@@ -8,7 +8,7 @@ class EastCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new east command.
+        Initializes east command.
 
         @param name:            Command's name.
         @param explanation:     Description of what command does.
@@ -23,18 +23,19 @@ class EastCommand(Command):
         """
         Run east command.
         """
-        #Make sure there is an east exit
+        #Make sure that exit exists
         if not self._player.canMoveEast():
             print "Cannot move East."
             return
 
-        #Move East
+        #User graphic
         print "--------------------------------"
         print "         Moving East"
         print "      ----------------->        "
         print ""
         print "--------------------------------"
-
+        
+        #Actual move execution and user output
         self._player.moveEast()
 
         space = self._player.getLocation()
@@ -42,4 +43,4 @@ class EastCommand(Command):
         description = space.getDescription()
         
         print "Welcome to %s." % name 
-        print description 
+        print description

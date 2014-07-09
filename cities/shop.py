@@ -1,23 +1,26 @@
 #!/usr/bin/python
 
 from cities.building import Building
+import factories.shop_factory 
 from items.item import Item
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
-import factories.shop_factory 
+from items.charm import Charm
 import constants
 
 class Shop(Building):
     """
-    Shops are buildings that allow player to buy and sell items.
+    Shops inherit from Building.
+    
+    Shops serve as the markets of the game.
     """
     def __init__(self, name, description, greetings, numItems, quality):
         """
-        Initializes shop object.
+        Initializes shop.
 
         @param name:           The name of the shop.
-        @param description:    A description of the shop.
+        @param description:    The description of the shop.
         @param greetings:      The greetings the user gets as he enters a shop.
         @param numItems:       The number of items that can be bought at the shop.
         @param quality:        The quality of the items that may be bought at shop.
@@ -28,17 +31,20 @@ class Shop(Building):
         #Create items attributes and generate items objects
         self._numItems = numItems
         self._quality = quality
+        
         self._items = factories.shop_factory.getItems(numItems, quality)
     
     def enter(self, player):
         """
-        Returns the items in the shop.
+        Action sequence for shop.
+        
+        @param player:    The player object.
         """
         print ""
         print "- - - %s - - -" % self._name
         print self._greetings
 
-        #Determines and runs player choice
+        #Determine and carry out player choice
         choice = None
         while choice != "quit":
             print \
@@ -64,10 +70,13 @@ What is your choice?
                 self.leaveShop()
                 break
             else:
-                print "'Huh?'"
+                print "\"Huh?\""
 
     #Gives basic descriptions of items
     def checkItems(self):
+        """
+        Lists shop items in brief.
+        """
         print "Here are our wares:"
         for item in self._items:
             print "\t%s: %s." % (item.getName(), item.getDescription())
@@ -79,7 +88,10 @@ What is your choice?
                 print "\t\tHealing: %s" % item.getHealing()
                 
     #Gives advanced descriptions of items 
-    def checkItemsStats(self):           
+    def checkItemsStats(self):
+        """
+        Lists shop items in detail.
+        """
         print "Item stats:"
         for item in self._items:
             print "\t%s: %s." % (item.getName(), item.getDescription())
@@ -98,12 +110,18 @@ What is your choice?
 
     #For selling items in inventory to shop
     def sellItems(self, player):
+        """
+        Allows for player to sell items to shop. After each sale,
+        the sold item gets added to shop wares.
+        
+        @param player:    The player object.
+        """
         #User prompt
         inventory = player.getInventory()
         sellableItems = []
         print "Current inventory:"
         for item in player.getInventory():
-            if isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Potion):
+            if isinstance(item, Item):
                 sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
                 print "\t%s... with sell value: %s %s." % (item.getName(), sellValue, constants.CURRENCY)
                 sellableItems.append(item)
@@ -127,12 +145,18 @@ What is your choice?
                     
     #For buying items from shop
     def buyItems(self, player):
+        """
+        Allows for items to buy items from shop wares. As player buys items,
+        these items get removed from shop wares.
+        
+        @param player:     The player object.
+        """
         #User prompt
         print "Items available for purchase:"
         for item in self._items:
             print "\t%s... with cost of %s." % (item.getName(), item.getCost())
         print ""
-        print "%s has %s rubles with which to spend." % (player.getName(), player.getMoney())
+        print "%s has %s %s with which to spend." % (player.getName(), player.getMoney(), constants.CURRENCY)
         print ""
         itemToPurchase = raw_input("Which item would you like to purchase? ")
         #Check to find object associated with user-given string
@@ -144,7 +168,6 @@ What is your choice?
                     return
                 print ""
                 #Actual purchase execution
-                #If player is overburdened
                 if not player.addToInventory(item):
                     return
                 self._items.remove(item)

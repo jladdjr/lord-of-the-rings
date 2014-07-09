@@ -77,8 +77,8 @@ class DolGuldur(UniquePlace):
         weapon2 = Weapon("Cursed Axe", "You lose confidence holding this", 5, 0, 0)
         armor = Armor("Cursed Shield", "Gaping holes", 5, 0, 0)
         potion = Potion("Cursed Elixir", "An unknown substance", 1, 0, 2)
-        item = Item("Cursed Mirror", "Odd distortions and shadows", 1)
-        item2 = Item("Cursed Books", "Grimoires", 1)
+        item = Item("Cursed Mirror", "Odd distortions and shadows", 1, 0)
+        item2 = Item("Cursed Books", "Grimoires", 1, 0)
         self._loot = [weapon, weapon2, armor, potion, item, item2]
         
     def enter(self, player):

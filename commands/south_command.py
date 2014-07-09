@@ -8,7 +8,7 @@ class SouthCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new south command.
+        Initializes south command.
 
         @param name:            Command's name.
         @param explanation:     Description of what command does.
@@ -23,19 +23,20 @@ class SouthCommand(Command):
         """
         Run South command.
         """
-        #Make sure there is a south exit
+        #Make sure that exit exists
         if not self._player.canMoveSouth():
             print "Cannot move South."
             return
 
-        #Move South
+        #User graphic
         print "--------------------------------"
         print "         Moving South"
         print "              ||                "
         print "              ||                "
         print "              \/                "
         print ""
-
+        
+        #Actual move execution and user output
         self._player.moveSouth()
 
         space = self._player.getLocation()
@@ -43,4 +44,4 @@ class SouthCommand(Command):
         description = space.getDescription()
         
         print "Welcome to %s." % name 
-        print description 
+        print description

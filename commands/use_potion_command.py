@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 from command import Command
-from items.item_set import ItemSet
 from items.potion import Potion
+from items.item_set import ItemSet
 
 class UsePotionCommand(Command):
     """
@@ -10,7 +10,7 @@ class UsePotionCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new use potion command.
+        Initializes use potion command.
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
@@ -25,15 +25,15 @@ class UsePotionCommand(Command):
         """
         Uses potion in inventory to heal player.
         """
-        #First check if player has potion
+        #Check that potions in inventory
         inventory = self._player.getInventory()
         potions = ItemSet()
-
+        
         for item in inventory:
             if isinstance(item, Potion):
                 potions.addItem(item)
         if potions.count() == 0:
-            print "Ack! %s has no potions!" % self._player.getName()
+            print "%s has no potions." % self._player.getName()
             return
         
         #User prompt
@@ -41,7 +41,7 @@ class UsePotionCommand(Command):
         for potion in potions:
             print "\t%s with %s healing power." % (potion.getName(), potion.getHealing())
         print ""
-
+    
         choice = None
         while True:
             choice = raw_input("Which potion would you like to use? ")
@@ -62,4 +62,5 @@ class UsePotionCommand(Command):
         
         inventory.removeItem(potionChoice)
         
-        print "%s was healed by %s! %s's health is now %s." % (self._player.getName(), healed, self._player.getName(), self._player.getHp())
+        print "%s was healed by %s! %s's health is now %s." \
+        % (self._player.getName(), healed, self._player.getName(), self._player.getHp())

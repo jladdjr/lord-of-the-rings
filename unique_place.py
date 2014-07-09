@@ -4,8 +4,10 @@ from place import Place
 
 class UniquePlace(Place):
     """
-    A unique place inherits from the Place parent class.
-    A unique place on the map. Different from cities, but exists within a space.
+    Inherits from the Place parent class.
+    
+    A unique place on the map. May have any number of features, 
+    including battles and story interaction.
     """
     def __init__(self, name, description, greetings):
         """
@@ -13,7 +15,7 @@ class UniquePlace(Place):
         
         @param name:            The name of the UniquePlace.
         @param description:     A description of the UniquePlace.
-        @param greetings:	The greetings the user gets as he enters the inn.
+        @param greetings:       The greetings the user gets as he enters.
         """
         #Call parent class init function
         Place.__init__(self, name, description, greetings)

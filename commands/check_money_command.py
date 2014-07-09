@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from command import Command
+import constants
 
 class CheckMoneyCommand(Command):
     """
@@ -8,7 +9,7 @@ class CheckMoneyCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new check stats command.
+        Initializes new check money command.
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
@@ -26,4 +27,4 @@ class CheckMoneyCommand(Command):
         money = self._player.getMoney()
         name = self._player.getName()
 
-        print "%s currently has %s rubbles!" % (name, money)
+        print "%s currently has %s %s!" % (name, money, constants.CURRENCY)

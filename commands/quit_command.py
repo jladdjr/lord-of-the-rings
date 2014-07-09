@@ -9,7 +9,7 @@ class QuitCommand(Command):
     """
     def __init__(self, name, explanation):
         """
-        Initializes new quit command.
+        Initializes quit command.
 
         @param name:          The name of the command.
         @param explanation:   Explanation of the Command.

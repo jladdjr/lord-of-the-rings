@@ -5,23 +5,28 @@ import constants
 
 class Inn(Building):
     """
+    Inns inherit from Building.
+    
     Inns are buildings that allow player to heal for a price.
     """
     def __init__(self, name, description, greetings, cost):
         """
-        Initializes inn object.
+        Initializes the inn.
 
         @param name:           The name of the inn.
-        @param description:    A description of the inn.
+        @param description:    The description of the inn.
         @param greetings:      The greetings the user gets as he enters the inn.
         @param cost:           The cost of using the inn.
         """
         Building.__init__(self, name, description, greetings)
+        
         self._cost = cost
         
     def enter(self, player):
         """
-        The events sequence upon player entering inn.
+        The action sequence upon player entering inn.
+        
+        @param player:     The player object.
         """
         cost = self.getCost()
 
@@ -61,7 +66,7 @@ class Inn(Building):
     
     def getCost(self):
         """
-        Returns cost for using inn.
+        Returns inn cost.
         
         @return:    Cost of using inn.
         """
@@ -71,7 +76,7 @@ class Inn(Building):
         """
         Heals player to maxHp.
 
-        @param player:	  The player object.
+        @param player:    The player object.
         """
         maxHp = player.getMaxHp()
         hp = player.getHp()

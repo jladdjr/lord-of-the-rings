@@ -3,9 +3,9 @@
 import math
 import random
 
-import constants
 import factories.monster_factory
 from commands.use_potion_command import UsePotionCommand
+import constants
 
 def battle(player, context, monsters = None):
     """
@@ -174,7 +174,7 @@ def _monsterNumGen(player):
         raise AssertionError(errorMsg)
         
     #Apply normal distribution to introduce variation
-    standardDeviation = monsterCount/constants.STANDARD_DEVIATION_CONSTANT
+    standardDeviation = monsterCount/constants.STANDARD_DEVIATION
     
     monsterCount = random.normalvariate(monsterCount, standardDeviation)
     monsterCount = math.floor(monsterCount)

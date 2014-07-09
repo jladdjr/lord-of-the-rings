@@ -10,7 +10,7 @@ class EnterCommand(Command):
     """
     def __init__(self, name, explanation, player):
         """
-        Initializes new enter command.
+        Initializes enter command.
 
         @param name:         Command name.
         @param explanation:  Explanation of command.
@@ -33,6 +33,7 @@ class EnterCommand(Command):
         #If there are no cities or unique places
         if not (city or uniquePlace):
             print "No places to enter."
+        
         #Otherwise print the possible places to enter
         else:
             if isinstance(city, City):
@@ -55,8 +56,9 @@ class EnterCommand(Command):
         
     def _createDictionaryOfPlaces(self):
         """
-        Creates a dictionary of places that are within the space. 
-        The keys are the names of the places and reference the actual places. 
+        Creates a dictionary of the places that are within space. Key-
+        definition pairs are object names and their corresponding 
+        objects.
         """
         space = self._player.getLocation()
         city = space.getCity()
@@ -87,8 +89,8 @@ class EnterCommand(Command):
         #Show the places that player may enter
         self._displayPlacesToEnter()
         
-        #Create a dictionary of places within space. 
-        #Keys are the names of places that reference the actual places
+        #Create a dictionary of places within space
+        #Key-value pairs are names and their corresponding objects
         dictionary = self._createDictionaryOfPlaces()
         
         space = self._player.getLocation()
@@ -101,8 +103,8 @@ class EnterCommand(Command):
         
         #Entering the place that the player chooses to enter
         placeToEnter = raw_input("Which of these would you like to enter?\n")
-        while (placeToEnter not in dictionary.keys()) or placeToEnter == 'stop':
-            if placeToEnter == 'stop':
+        while (placeToEnter not in dictionary.keys()) or placeToEnter == "stop":
+            if placeToEnter == "stop":
                 break 
             print "\nThat name does not match the names of any of the places here."
             print "Try again, or type 'stop' to stop entering a place.\n"

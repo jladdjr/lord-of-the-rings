@@ -14,15 +14,15 @@ class CommandWords(object):
         """
         Adds command to dictionary of commands.
 
-        @precondition:      name not already assigned mapped to command.
+        @precondition:      name not already assigned.
 
         @param name:        Name of command.
         @param command:     Command object.
         """
         #Does command already exist?
         if self.isCommand(name):
-            errorMsg = "Cannot add '%s' to CommandWords; command name already in use." % \
-                    name
+            errorMsg = "Cannot add '%s' to CommandWords; command name already in use." \
+            % name
             raise AssertionError(errorMsg)
 
         #Add command

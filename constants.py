@@ -26,9 +26,8 @@ from monsters.shelob import Shelob
 from monsters.balrog import Balrog
 
 """
-Constants for Lord of the Rings.
+Constants used in Lord of the Rings.
 """
-
 #Game constants
 COMMAND_PROMPT = "> "
 CURRENCY = "rubles"
@@ -37,7 +36,7 @@ SPACES_WITH_UNIQUE_ITEMS = 7
 #Player initialization
 class PlayerInitialization(object):
     """
-    Constants used for player initialization
+    Constants used in player initialization.
     """
     EXPERIENCE = 0
     LEVEL = 1
@@ -52,7 +51,7 @@ class PlayerInitialization(object):
 HP_STAT = 20
 ATTACK_STAT = 2
 MAX_LEVEL = 20
-WEIGHT_LIMIT = 10
+WEIGHT_LIMIT = 100
 
 #Item stat constants 
 SELL_LOSS_PERCENTAGE = .5
@@ -62,8 +61,7 @@ ARMOR_COST = 2
 #Item type enumeration
 class ItemType(object):
     """
-    When a new item is created, its type should
-    be added here. (e.g. POTION = 1, WEAPON = 2, ARMOR = 3, etc.)
+    Enumerated typing for items. 
     """
     GENERIC = 1
     ARMOR   = 2
@@ -114,7 +112,7 @@ class RegionBaseSpawn(object):
 #Monster names
 class MonsterNames(object):
     """
-    Names of monsters.
+    Contains the names of the monsters in LotR.
     """
     BarrowWight = "Barrow Wight"
     Goblin = "Goblin"
@@ -144,7 +142,7 @@ class MonsterNames(object):
 #Monster descriptions
 class MonsterDescriptions(object):
     """
-    Descriptions of monsters.
+    Contains the descriptions of the monsters in LotR.
     """
     BarrowWight = "A sad soul left haunting the Downs."
     Goblin = "\"Give me all of your stuff!\""
@@ -174,7 +172,8 @@ class MonsterDescriptions(object):
 #Monster attack strings
 class MonsterAttackStrings(object):
     """
-    Attack strings for monsters.
+    Contains the attack strings of the monsters in LotR. For instance,
+    "Goblin *sliced and diced* %s for %s damage!"
     """
     BarrowWight = "sang a sad song"
     Goblin = "slice and diced"
@@ -203,7 +202,8 @@ class MonsterAttackStrings(object):
     
 class MonsterDeathStrings(object):
     """
-    Death strings for monsters.
+    Contains the death strings of the monsters in LotR. These strings
+    are displayed as player kills monster.
     """
     BarrowWight = "\"Good. I am going back to sleep now.\""
     Goblin = "\"I'm going back home now.\""
@@ -232,9 +232,9 @@ class MonsterDeathStrings(object):
     
 #Region monster distribution
 """
-A dictionary of dictionaries where the higher-level pairs are region-distribution pairs.
-The inner set contains the class-probability pairs that are used as probability
-distribution functions for monster spawn.
+A dictionary of dictionaries where the higher-level pairs are region-probability 
+distribution pairs. The inner set contains the monster class-probability pairs
+that are used as probability distribution functions for monster spawn.
 
 monster_factory's getMonsters() generates a random number between [0, 1). If the
 randomly generated number falls within the range of each class, a monster of that class
@@ -252,21 +252,22 @@ REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
 
 #Monster base stats
 """
-Monster base stats. Stats are a 3-element list whose elements
-are: hp, attack, and experience in that order. 
+Monster base stats are the only paramater used in monster creation.
+Stats are a 3-element list whose elements are: hp, attack, and
+experience in that order. 
 """
 MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  Goblin:            [1, 1, 1],
                  GreatGoblin:       [1, 1, 1],
                  KingOfTheBarrows:  [1, 1, 1],
-                 Nazgul:            [1, 100, 1],
+                 Nazgul:            [1, 1, 1],
                  Troll:             [1, 1, 1],
                  WargRider:         [1, 1, 1],
                  UrukHai:           [1, 1, 1],
                  UrukHaiArcher:     [1, 1, 1],
                  EliteUrukHai:      [1, 1, 1],
                  Dunlending:        [1, 1, 1],
-                 Orc:               [1, 100, 1],
+                 Orc:               [1, 1, 1],
                  OrcArcher:         [1, 1, 1],
                  SiegeWorks:        [1, 1, 1],
                  DragonOfMordor:    [1, 1, 1],
@@ -283,9 +284,7 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
 #Battle engine context
 class BattleEngineContext(object):
     """
-    BattleEngine has a parameter that determines if the
-    battle is treated as a random battle or if the battle
-    is treated as a story/boss battle.
+    Constants used for BattleEngine that determine its mode.
     """
     RANDOM = 1
     STORY  = 2
@@ -293,12 +292,12 @@ class BattleEngineContext(object):
 #Battle engine constants
 RUN_PROBABILITY_SUCCESS = 1
 BATTLE_EARNINGS = 4
-STANDARD_DEVIATION_CONSTANT = 3
+STANDARD_DEVIATION = 3
 
 #Shop factory probability constants
 class ShopFactoryConstants(object):
     """
-    Constants used in shop factory. 
+    Constants used in shop factory item type generation.
     """
     WEAPON_UPPER = .3
     ARMOR_LOWER = .3
@@ -309,7 +308,7 @@ class ShopFactoryConstants(object):
 #Unique Place constants
 class UniquePlaceConstants(object):
     """
-    Constants used in unique places.
+    Constants used for unique places.
     """
     WeathertopBattleProb = .4
     WeathertopWitchKingProb = .125

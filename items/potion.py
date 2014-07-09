@@ -1,41 +1,37 @@
 #!/usr/bin/python
 
-from constants import ItemType
 from items.item import Item
+from constants import ItemType
 
 class Potion(Item):
     """
-    A class of potions. Potions have the defining parameter, healing. 
+    Potions are a child class of Item. 
+    
+    Potions are a one-time use item that serve to heal player. Potions 
+    heal according to their defining parameter, healing. 
     """
-    def __init__(self, name, description, weight, healing, cost):
+    def __init__(self, name, description, weight, cost, healing):
         """
         Initializes potions class.
 
         @param name:          Name of portion.
         @param description:   Description of potion.
         @param weight:        Weight of weapon.
-        @param healing:       Healing stat of weapon. Player heals by the maximum
-                              of this amount when player uses potion.
+        @param cost:          The cost of the potion.
+        @param healing:       Healing stat of potion. Player may heal at most this 
+                              amount upon use.
         """
-        Item.__init__(self, name, description, weight)
+        Item.__init__(self, name, description, weight, cost)
+        
         self._healing = healing
-        self._cost = cost
-
+        
     def getHealing(self):
         """
-        Returns the potion's healing stat.
+        Returns potion healing value.
 
-        @return: Potion's healing stat.
+        @return: Potion healing value.
         """
         return self._healing
-
-    def getCost(self):
-        """
-        Returns the potion's cost.
-
-        @return: The cost of potion.
-        """
-        return self._cost
 
     def getType(self):
         """
