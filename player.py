@@ -19,37 +19,38 @@ class Player(object):
         Initializes the player.
         
         @param name:             The name of the player (e.g. "Frodo").
-        @param location:         The location of player.
+        @param location:         The location of player. When initialized,
+                                 given space "shire."
         """
         self._name      = name
         self._location  = location
-        self._money     = constants.PlayerInitialization.MONEY
-
-        #Initialize player stats
-        self._experience = constants.PlayerInitialization.EXPERIENCE
-        self._level = constants.PlayerInitialization.LEVEL
         
-        self._hp = self._level * constants.HP_STAT
-        self._maxHp = self._level * constants.HP_STAT
-        self._totalMaxHp = self._level * constants.HP_STAT
-        self._attack = self._level * constants.ATTACK_STAT
+        #Initialize player stats
+        self._money      = constants.PlayerInitialization.MONEY
+        self._experience = constants.PlayerInitialization.EXPERIENCE
+        self._level      = constants.PlayerInitialization.LEVEL
+        
+        self._hp          = self._level * constants.HP_STAT
+        self._maxHp       = self._level * constants.HP_STAT
+        self._attack      = self._level * constants.ATTACK_STAT
         self._weightLimit = self._level * constants.WEIGHT_LIMIT
         
         #Initialize player inventory and equipment
         self._inventory = ItemSet()
-        self._equipped = ItemSet()
+        self._equipped  = ItemSet()
 
-        #Initialize items bonuses
+        #Initialize item-based bonuses
         self._weaponAttack = constants.PlayerInitialization.WEAPON_ATTACK
         self._armorDefense = constants.PlayerInitialization.ARMOR_DEFENSE
         
-        self._charmAttack = constants.PlayerInitialization.CHARM_ATTACK
-        self._charmDefense = constants.PlayerInitialization.CHARM_DEFENSE
-        self._charmHp = constants.PlayerInitialization.CHARM_HP
+        self._charmAttack   = constants.PlayerInitialization.CHARM_ATTACK
+        self._charmDefense  = constants.PlayerInitialization.CHARM_DEFENSE
+        self._charmHp       = constants.PlayerInitialization.CHARM_HP
 
-        self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
-        self._totalDefense = self._armorDefense + self._charmDefense
-        self._totalMaxHp = self._maxHp + self._charmHp
+        #Update player stats for item-based bonuses
+        self._totalAttack    = self._attack + self._weaponAttack + self._charmAttack
+        self._totalDefense   = self._armorDefense + self._charmDefense
+        self._totalMaxHp     = self._maxHp + self._charmHp
         
     def getName(self):
         """
@@ -111,7 +112,7 @@ class Player(object):
         """
         Returns player's charm defense.
         
-        @return:     Player's charm stat.
+        @return:     Player's charm defense stat.
         """
         return self._charmDefense
         
@@ -137,7 +138,8 @@ class Player(object):
         Runs _updateLevel() upon receiving additional
         experience.
 
-        @param newExperience:    The experience player is to receive.
+        @param newExperience:    The experience player 
+                                 is to receive.
         """
         self._experience += newExperience
         self._updateLevel()
@@ -165,12 +167,12 @@ class Player(object):
             #Player has leveled up. Updates player level and stats.
             print "\n%s leveled up! %s is now level %s!" \
                   % (self._name, self._name, self._level)
-            self._weightLimit = self._level * constants.WEIGHT_LIMIT
-            self._maxHp = self._level * constants.HP_STAT
-            self._totalMaxHp = self._maxHp + self._charmHp
-            self._attack = self._level * constants.ATTACK_STAT
-            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
-                  
+            self._maxHp         = self._level * constants.HP_STAT
+            self._totalMaxHp    = self._maxHp + self._charmHp
+            self._attack        = self._level * constants.ATTACK_STAT
+            self._totalAttack   = self._attack + self._weaponAttack + self._charmAttack
+            self._weightLimit   = self._level * constants.WEIGHT_LIMIT
+            
     def getHp(self):
         """
         Returns player hp.
@@ -197,14 +199,15 @@ class Player(object):
         
     def heal(self, amount):
         """
-        Allows player to heal up to maximum starting hp.
+        Allows player to heal up to totalMaxHp.
 
         @param amount:    The amount of hp to be healed.
         """
         #If amount that player may be healed is less than amount possible
         if self._totalMaxHp - self._hp < amount:
             amountHealed = self._totalMaxHp - self._hp
-        #If amount that player may be healed is equal to or more than amount possible
+            
+        #If amount that player may be healed is greater than or equal to the amount possible
         else:
             amountHealed = amount
             
@@ -216,7 +219,7 @@ class Player(object):
         
         Preconditions:
         -Item in inventory.
-        -Item is instance of Armor or Weapon.
+        -Item is instance of Armor, Weapon, or Charm.
         -Item is not currently in self._equipped.
 
         @param item:    The item to be equipped.
@@ -266,36 +269,35 @@ class Player(object):
 
         @param item:    The item to be unequipped.
         """
-        print ""
-        if item in self._equipped:
-            self._equipped.removeItem(item)
-            
-            #Update player to reflect equipment
-            if isinstance(item, Weapon):
-                self._weaponAttack = 0
-                self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
-            if isinstance(item, Armor):
-                self._armorDefense = 0
-                self._totalDefense = self._armorDefense + self._charmDefense
-            if isinstance(item, Charm):
-                charmAttack = item.getAttack()
-                charmDefense = item.getDefense()
-                charmHp = item.getHp()
-                
-                self._charmAttack -= charmAttack
-                self._charmDefense -= charmDefense
-                self._charmHp -= charmHp
-                
-                self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
-                self._totalDefense = self._armorDefense + self._charmDefense
-                self._totalMaxHp = self._maxHp + self._charmHp
-                
-            statement = "%s unequipped %s." % (self._name, item.getName())
-            return statement
-            
-        else:
+        #Precondition - that item is currently equipped.
+        if item not in self._equipped:
             statement = "%s not in equipped items." % item.getName()
             return statement
+        
+        #Unequip item and update player stats
+        self._equipped.removeItem(item)
+        
+        if isinstance(item, Weapon):
+            self._weaponAttack = 0
+            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+        if isinstance(item, Armor):
+            self._armorDefense = 0
+            self._totalDefense = self._armorDefense + self._charmDefense
+        if isinstance(item, Charm):
+            charmAttack = item.getAttack()
+            charmDefense = item.getDefense()
+            charmHp = item.getHp()
+            
+            self._charmAttack -= charmAttack
+            self._charmDefense -= charmDefense
+            self._charmHp -= charmHp
+            
+            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+            self._totalDefense = self._armorDefense + self._charmDefense
+            self._totalMaxHp = self._maxHp + self._charmHp
+            
+        statement = "%s unequipped %s." % (self._name, item.getName())
+        return statement
 
     def getEquipped(self):
         """
@@ -311,9 +313,19 @@ class Player(object):
 
         @param item:   The item to be added to inventory.
         
-        @return:       False if 
+        @return:       True if execution suceeds, False 
+                       otherwise.
         """
-        #Make sure item would not put player over weight limit
+        #If user input is not an item
+        if not isinstance(item, Item):
+            print "Not an item."
+            return False
+        
+        #Item cannot already be inventory
+        if item in self._inventory:
+            print "Item already in inventory."
+        
+        #Check inventory weight restriction
         itemWeight = item.getWeight()
         inventoryWeight = self._inventory.getWeight()
         
@@ -321,25 +333,27 @@ class Player(object):
             print "You are overburdened."
             return False
         
-        #Additional item-specific checks
-        if (isinstance(item, Item) and (item not in self._inventory)):
-            print "Added %s to inventory." % item.getName()
-            self._inventory.addItem(item)
-            return True
-        else:
-            print "Cannot add %s to inventory." % item
-            return False
+        #Successful execution
+        print "Added %s to inventory." % item.getName()
+        self._inventory.addItem(item)
+        return True
             
     def removeFromInventory(self, item):
         """
-        Removes an item from inventory. If item is currently equipped, unequips item.
+        Removes an item from inventory. If item is currently 
+        equipped, unequips item.
 
         @param item:   The item to be removed.
         """
-        if item in self._inventory:
-            if item in self._equipped:
-                self.unequip(item)
-            self._inventory.removeItem(item)
+        #Item must be in inventory
+        if not item in self._inventory:
+            return
+        
+        #Unequip if necessary
+        if item in self._equipped:
+            self.unequip(item)
+            
+        self._inventory.removeItem(item)
     
     def getInventory(self):
         """
@@ -362,7 +376,7 @@ class Player(object):
         Increases player money.
         """
         if amount < 0:
-            errorMsg = "Method increaseMoney() was given a negative value"
+            errorMsg = "Method increaseMoney() was given a negative value."
             raise AssertionError(errorMsg)
 
         self._money += amount
@@ -371,8 +385,8 @@ class Player(object):
         """
         Decreases player money.
         """
-        if amount <= 0:
-            errorMsg = "Method decreaseMoney() was given a negative value"
+        if amount < 0:
+            errorMsg = "Method decreaseMoney() was given a negative value."
             raise AssertionError(errorMsg)
 
         self._money -= amount
@@ -387,6 +401,7 @@ class Player(object):
 
         if exit:
             return True
+            
         return False
 
     def canMoveSouth(self):
@@ -399,6 +414,7 @@ class Player(object):
 
         if exit:
             return True
+            
         return False
 
     def canMoveEast(self):
@@ -411,6 +427,7 @@ class Player(object):
 
         if exit:
             return True
+            
         return False
 
     def canMoveWest(self):
@@ -423,8 +440,8 @@ class Player(object):
 
         if exit:
             return True
+            
         return False
-
 
     def moveNorth(self):
         """
@@ -435,7 +452,8 @@ class Player(object):
         #If north space does not exist, do nothing
         if not northSpace:
             return
-        #...otherwise, move to new space 
+            
+        #...Otherwise, move to new space
         self._location = northSpace
 
     def moveSouth(self):
@@ -447,7 +465,8 @@ class Player(object):
         #If south space does not exist, do nothing
         if not southSpace:
             return
-        #...otherwise, move to new space 
+            
+        #...Otherwise, move to new space 
         self._location = southSpace 
 
     def moveEast(self):
@@ -459,7 +478,8 @@ class Player(object):
         #If east space does not exist, do nothing
         if not eastSpace:
             return
-        #...otherwise, move to new space 
+            
+        #...Otherwise, move to new space 
         self._location = eastSpace 
 
     def moveWest(self):
@@ -471,13 +491,14 @@ class Player(object):
         #If west space does not exist, do nothing
         if not westSpace:
             return
-        #...otherwise, move to new space 
+            
+        #...Otherwise, move to new space 
         self._location = westSpace 
 
     def getLocation(self):
         """
-        Returns player's current location (i.e. space).
+        Returns player's current location.
 
-        @return:    Player's current location.
+        @return:    Player current location.
         """
         return self._location

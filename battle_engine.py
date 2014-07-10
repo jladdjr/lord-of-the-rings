@@ -22,7 +22,7 @@ def battle(player, context, monsters = None):
 
     Differences between random battles and story-based battles:
     -Random battles: monster factory called by battle engine and monsters are supplied by
-    monster factory. Player can choose to "run" in random battles.
+    monster factory. Player can run successfully in random battles.
     -Story-based battles: monsters must be supplied through the "monsters" parameter.
     Player cannot run from battle.
     """
@@ -71,7 +71,7 @@ def battle(player, context, monsters = None):
         #Code - eliminates all enemies
         elif choice == "explode":
             monsters = []
-            earnings = [0,0]
+            earnings = [0, 0]
 
         #Break between player and monster phases
         raw_input("Press 'enter' to continue. ")
@@ -87,7 +87,7 @@ def battle(player, context, monsters = None):
             player.heal(1)
             
             return False
-
+        
     #Battle end sequence - loot received
     _endSequence(player, earnings)
     
@@ -197,7 +197,7 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
                           First element is money earned, second
                           element is experience received.
     """
-    #Starting battle earnings - by default, 0
+    #Starting battle earnings
     money      = 0
     experience = 0
 
@@ -209,15 +209,18 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
         if monster.getName() == target:
             #Carry out attack
             player.attack(monster)
-            print "%s did %s damage to %s!" % (player.getName(), player.getTotalAttack(), monster.getName())
+            print "%s did %s damage to %s!" % (player.getName(), \
+            player.getTotalAttack(), monster.getName())
             #If monster is still alive
             if monster.getHp() > 0:
-                print "%s has %s hp remaining." % (monster.getName(), monster.getHp())
+                print "%s has %s hp remaining." % (monster.getName(), \
+                monster.getHp())
             #If monster has died
             else:
                 print "%s" % monster.getDeathString()
                 #Generate earnings from winning battle
-                money += constants.BATTLE_EARNINGS * monster.getExperience() * (1 + bonusDifficulty)
+                money += constants.BATTLE_EARNINGS * monster.getExperience() \
+                * (1 + bonusDifficulty)
                 experience += monster.getExperience() * (1 + bonusDifficulty)
                 #Remove monster from monsters list
                 for monster in monsters:
@@ -235,7 +238,8 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
 def _usePotion(player):
     """
     Creates an additional UsePotionCommand object
-    for battle purposes only.
+    for battle purposes only and then executes the 
+    action sequence of this usePotion.
 
     @param player:   The player object.
     """
@@ -255,12 +259,17 @@ def _monsterAttackPhase(player, monsters):
     #Monsters attack
     for monster in monsters:
         monster.attack(player)
-        print "%s %s for %s damage!" % (monster.getName(), monster.getAttackString(), monster.getAttack())
-        print "%s has %s hp remaining." % (player.getName(), player.getHp())
-        #If player loses battle
+        print "%s %s for %s damage!" % (monster.getName(), \
+        monster.getAttackString(), monster.getAttack())
+        print "%s has %s HP remaining." % (player.getName(), player.getHp())
+        
+        #Battle ends
         if player.getHp() == 0:
+            print ""
             return False
+            
     print ""
+    #Battle continuation
     return True
     
 def _endSequence(player, earnings):
@@ -270,14 +279,16 @@ def _endSequence(player, earnings):
     -Player experience and money increase.
 
     @param player:      The player object.
-    @param earnings:    2-element tuple: first element is money and second is experience.
+    @param earnings:    2-element tuple: first element is 
+                        money and second is experience.
     """
     money = earnings[0]
     experience = earnings[1]
     
     #Calculate splash screen variables
     victoryDeclaration = "Enemies are vanguished!"
-    gainsDeclaration = "%s gains %s %s and %s experience!" % (player.getName(), money, constants.CURRENCY, experience)
+    gainsDeclaration = "%s gains %s %s and %s experience!" \
+    % (player.getName(), money, constants.CURRENCY, experience)
     
     lengthBar = len(gainsDeclaration)
     victoryDeclaration = victoryDeclaration.center(lengthBar)
@@ -291,4 +302,3 @@ def _endSequence(player, earnings):
     player.increaseExperience(experience)
     print bar
     print ""
-    

@@ -46,4 +46,5 @@ class UnequipCommand(Command):
             return
 
         #Unequips player with item
-        self._player.unequip(itemEquipment)
+        statement = self._player.unequip(itemEquipment)
+        print statement

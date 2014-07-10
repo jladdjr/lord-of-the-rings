@@ -1,17 +1,20 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
+import random
+
 from space import Space
+from player import Player
 from cities.city import City
 from cities.inn import Inn
 from cities.square import Square
 from cities.shop import Shop
 from unique_place import UniquePlace
-from player import Player
 from items.item import Item
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
+import items.unique_items
 from commands.command_words import CommandWords
 from commands.help_command import HelpCommand
 from commands.quit_command import QuitCommand
@@ -45,10 +48,7 @@ from unique_places.barad_dur import BaradDur
 from unique_places.dol_guldur import DolGuldur
 from unique_places.tower_of_cirith_ungol import TowerOfCirithUngol
 from unique_places.moria import Moria
-import items.unique_items
 import constants
-
-import random
 
 def getWorld():
     #Shire - Hobbiton
