@@ -51,6 +51,13 @@ from unique_places.moria import Moria
 import constants
 
 def getWorld():
+    """
+    Creates Middle Earth. Middle Earth consists of a series of linked spaces. 
+    Spaces may have cities and unique places. Cities may have inns, squares, 
+    and shops.
+    
+    @return:            List of created spaces.
+    """
     #Shire - Hobbiton
     #Inn
     description = "A place for strangers."
@@ -62,15 +69,17 @@ def getWorld():
     sallyShop = Shop("Sally's Shop", description, greeting, 4, 3)
     #Square
     description = "Lots of hobbits, mostly gossip."
-    greeting = "Did you hear the latest news on Lobelia Baggins?"
+    greeting = "Did you hear the latest news?"
     talk = {
     "Lobelia Baggins": "Get lost!",
     "Naftel Took": "Going adventuring are ya? Here's my walking cane.",
-    "Amaranth Brandybuck": "Nice weather isn't it?",
-    "Balbo Baggins": "The word on the street is that Lobelia is trying to acquire the Baggins estate!",
+    "Amaranth Brandybuck": "Have some treats!",
+    "Balbo Baggins": ("The word on the street is that Lobelia is trying to" 
+    " acquire the \nBaggins estate!"),
     "Ferdinand Took": "I wonder when Gandalf will visit?"
     }
-    hobbitonSquare = Square("Hobbiton Square", description, greeting, talk, items.unique_items.hobbitonSquareItems)
+    hobbitonSquare = Square("Hobbiton Square", description, greeting, talk, 
+    items.unique_items.hobbitonSquareItems)
     #City
     description = """Hobbiton is a village in the central regions of the
     Shire within the borders of the Westfarthing. Hobbiton is located
@@ -78,7 +87,8 @@ def getWorld():
     neighboring village of Bywater.
     """
     greeting = "\"Have you heard the news?\""
-    hobbiton = City("Hobbiton", description, greeting, [sallyInn, sallyShop, hobbitonSquare])
+    hobbiton = City("Hobbiton", description, greeting, [sallyInn, sallyShop, 
+    hobbitonSquare])
     #The Shire
     description = """The Shire is divided into four farthings, North, South,
     East and West; its chief town is Michel Delving on the White Downs in the
@@ -89,28 +99,32 @@ def getWorld():
     well-suited for farming. One of its chief products is Shire
     Leaf, grown especially in the warmer regions of the Southfarthing.
     """
-    shire = Space("Shire", description, constants.RegionType.ERIADOR, city = hobbiton)
+    shire = Space("Shire", description, constants.RegionType.ERIADOR, 
+    city = hobbiton)
 
     #The Old Forest - Tom Bombadil's House
     #Unique Place
-    description = "The house of a mysterious and powerful being, who dwells in the valley of Withywindle."
+    description = ("The house of a mysterious and powerful being who dwells in"
+    " the valley \nof Withywindle.")
     greeting = """
     \"Old Tom Bombadil is a merry fellow;
     Bright blue his jacket is, and his boots are yellow.\"
     """
-    tomBombadil = TomBombadilHouse("Tom Bombadil's House", description, greeting)
+    tomBombadil = TomBombadilHouse("Tom Bombadil's House", description, 
+    greeting)
     #The Old Forest
     description = """
     The Old Forest is one of the few surviving primordial forests
     which covered most of Eriador before the Second Age. The Old Forest
     has been known to play tricks on travelers in response to its
-    massive deforestation. 
+    massive deforestation.
     """
-    oldForest = Space("Old Forest", description, constants.RegionType.ERIADOR, uniquePlace = tomBombadil)
+    oldForest = Space("Old Forest", description, constants.RegionType.ERIADOR, 
+    uniquePlace = tomBombadil)
 
     #The Weather Hills - Weathertop
     #Unique Place
-    description = "Once a great watchtower, guarding the entire region."
+    description = "Once a great watchtower, guarding an entire region."
     greeting = "The Weathertop ruins whisper of its former glory."
     weathertop = Weathertop("Weathertop", description, greeting)
     #The Weather Hills
@@ -120,7 +134,8 @@ def getWorld():
     border between the lands of Arthedain and Rhudaur. Weathertop, or
     Amon Sûl, lays at the southern end of this range.
     """
-    weatherHills = Space("Weather Hills", description, constants.RegionType.ERIADOR, uniquePlace = weathertop)
+    weatherHills = Space("Weather Hills", description, 
+    constants.RegionType.ERIADOR, uniquePlace = weathertop)
 
     #Trollshaws
     description = """
@@ -137,7 +152,8 @@ def getWorld():
     mistyInn = Inn("Misty Mountain Inn", description, greeting, 5) 
     #Shop
     description = "New Elvenware! Look like your favorite elf!"
-    greeting = "Welcome to ElvenWares! Here we have the latest in elven gadgetry."
+    greeting = ("Welcome to ElvenWares! Here we have the latest in elven" 
+    " gadgetry.")
     elvenWares = Shop("ElvenWares", description, greeting, 5, 6)
     #Square
     description = "Hotshots only."
@@ -147,24 +163,28 @@ def getWorld():
     "Legolas": "What do you think about my hair?", 
     "Aragorn": "Check out these knife tricks!", 
     "Gimli": "I bet I can eat more hotdogs than you.", 
-    "Gandalf": "Did you know I have the Ring of Fire?"
+    "Gandalf": "Ahrekhabekamahna...."
     }
-    councilOfElrond = Square("Council of Elrond", description, greeting, talk, items.unique_items.councilOfElrondItems)
+    councilOfElrond = Square("Council of Elrond", description, greeting, 
+    talk, items.unique_items.councilOfElrondItems)
     #City
     description = """
     Rivendell, also known as Imladris, is an Elven outpost in Middle-earth.
     It is also referred to as "The Last Homely House East of the Sea," a
     reference to Valinor, which is west of the Great Sea in Aman.
     """
-    greeting = "Rivendell is a sight for sore eyes, truly a mountain paradise."
-    rivendell = City("Rivendell", description, greeting, [mistyInn, elvenWares, councilOfElrond])
+    greeting = ("Rivendell is a sight for sore eyes and truly paradise in" 
+    " the mountains.")
+    rivendell = City("Rivendell", description, greeting, [mistyInn, 
+    elvenWares, councilOfElrond])
     #Misty Mountains North
     description = """The Misty Mountains or Mountains of Mist is a great
     mountain range that lies between Eriador in the west and the Great
     River Anduin in the east. It runs 795 miles (1,280 kilometers) from
     Mount Gundabad in the far north to Methedras in the south.
     """
-    mistyMountainsNorth = Space("Misty Mountains", description, constants.RegionType.ERIADOR, city = rivendell)
+    mistyMountainsNorth = Space("Misty Mountains", description, 
+    constants.RegionType.ERIADOR, city = rivendell)
 
     #High Pass - Goblintown
     #Unique Place
@@ -177,24 +197,25 @@ def getWorld():
     goblinTown = GoblinTown("Goblin Town", description, greeting)
     #High Pass
     description = """The High Pass is a pass over the Misty Mountains.
-    On its western end is the refuge of Rivendell and from there the
-    Great East Road climbs into the mountains until it reaches Goblin-town.
+    On its western end is the refuge of Rivendell. From there the Great 
+    East Road climbs into the mountains until it reaches Goblin-town.
     
     ***Mirkwood is accessible to the south through Goblin Town***
     """
-    highPass = Space("High Pass", description, constants.RegionType.HIGH_PASS, uniquePlace = goblinTown)
+    highPass = Space("High Pass", description, constants.RegionType.HIGH_PASS, 
+    uniquePlace = goblinTown)
 
     #Mirkwood - Elvenking's Halls
     #Inn
-    description = "A woodland experience...."
-    greeting = "Welcome to Sihirli Mutfak!"
-    sihirliMutfak = Inn("Sihirli Mutfak", description, greeting, 5)
+    description = "A woodland experience!"
+    greeting = "Welcome to Quenta Mutfak!"
+    sihirliMutfak = Inn("Quenta Mutfak", description, greeting, 5)
     #Shop
     description = "Your local ElvenWares!"
     greeting = "Great variety of elven gadgetry available!"
     elvenWares = Shop("ElvenWares", description, greeting, 7, 10)
     #Square
-    description = "Drinks on Thrandruil!"
+    description = "\"Drinks on Thrandruil!\""
     greeting = "You arrive to find a mass of drunken elves."
     talk = {
     "Cananthir": "Gaaalaaaagh....", 
@@ -203,47 +224,55 @@ def getWorld():
     "Ecthelion": "Glaaaaaaack....", 
     "Earwen": "[Ignores you.]"
     }
-    thePit = Square("The Pit", description, greeting, talk, items.unique_items.thePitItems)
+    thePit = Square("The Pit", description, greeting, talk, 
+    items.unique_items.thePitItems)
     #Square
     description = "Thrandruil's throne room."
-    greeting = "What makes you think that you belong here?"
+    greeting = "\"What makes you think that you belong here?\""
     talk = {
-    "Thranduil": "Hmmph! I'm elvenking!", 
-    "Angrod": "Much gnashing of teeth here. You probably won't find what you're looking for.", 
+    "Thranduil": "Hmmph! I'm the King of Mirkwood!", 
+    "Angrod": ("Much gnashing of teeth here. You probably won't find what"
+    " you're looking for."), 
     "Aredhel": "Hmmph! Humans!", 
-    "Argon": "Hmmph! Didn't you know that you're wearing yesterday's ElvenWare?", 
+    "Argon": ("Hmmph! Didn't you know that you're wearing yesterday's"
+    " ElvenWare?"), 
     "Beleg": "Hmmph! Dress in better ElvenWare!"
     }
-    elvenkingsThrone = Square("Elvenking's Throne", description, greeting, talk, items.unique_items.elvenkingsThroneItems)
+    elvenkingsThrone = Square("Elvenking's Throne", description, greeting, 
+    talk, items.unique_items.elvenkingsThroneItems)
     #City
-    description = """The Elvenking's Halls is the cave system in northern
+    description = """Elvenking's Halls is the cave system in northern
     Mirkwood in which King Thranduil and many of the Elves of Mirkwood
     live.
     """
     greeting = "You arrive to find a bustling network of caves."
-    elvenkingsHalls = City("Elvenking's Halls", description, greeting, [sihirliMutfak, elvenWares, thePit, elvenkingsThrone])
+    elvenkingsHalls = City("Elvenking's Halls", description, greeting, 
+    [sihirliMutfak, elvenWares, thePit, elvenkingsThrone])
     #Mirkwood
-    description = """Mirkwood or the Forest of Great Fear is a great
-    forest in Rhovanion. Mirkwood is once called Greenwood the Great
+    description = """Mirkwood or \"The Forest of Great Fear\" is a great
+    forest in Rhovanion. Mirkwood was once called Greenwood the Great
     and later became the Wood of Greenleaves."""
-    mirkwood = Space("Mirkwood", description, constants.RegionType.RHOVANION, city = elvenkingsHalls)
+    mirkwood = Space("Mirkwood", description, constants.RegionType.RHOVANION, 
+    city = elvenkingsHalls)
 
     #Southern Mirkwood - Dol Guldur
     #Unique Place
     description = "Hill fortress of Sauron."
-    greeting = "You are overcome with an overwhelming sense of fear as you approach the citadel of Dol Guldur."
+    greeting = ("You are overcome with an overwhelming sense of fear as you"
+    " approach the Citadel of Dol Guldur.")
     dolGuldur = DolGuldur("Dol Guldur", description, greeting)
     #The Old Forest
     description = """
-    During the time of the War of the Ring, Southern Mirkwood was
+    During the War of the Ring, Southern Mirkwood was
     occupied by Dol Guldur, Sauron's northern fortress. 
     """
-    southernMirkwood = Space("Southern Mirkwood", description, constants.RegionType.RHOVANION, uniquePlace = dolGuldur)
+    southernMirkwood = Space("Southern Mirkwood", description, 
+    constants.RegionType.RHOVANION, uniquePlace = dolGuldur)
 
     #Barrow Downs - Bree
     #Inn
     description = "A quiet inn, tucked away in the outskirts of Bree."
-    greeting = "Hi I'm Linda, the innkeeper."
+    greeting = "\"Hi I'm Linda, the innkeeper.\""
     lindasInn = Inn("Linda's Inn", description, greeting, 5)
     #Shop
     description = "COME GET YOUR ORC-KILLING GEAR HERE!"
@@ -251,7 +280,8 @@ def getWorld():
     hanksBattleGear = Shop("Hank's Battle Gear", description, greeting, 8, 4)
     #Square
     description = "A noisy hole in the wall known for quarrels."
-    greeting = "You are greeted with silence. Two people stare at you briefly \nbefore turning back to their drinks."
+    greeting = ("You are greeted with silence. Two people stare at you briefly" 
+    " before turning back to their drinks.")
     talk = {
     "Bill Ferny": "I hear there's been Nazgul in these parts.", 
     "Harry Goatleaf": "The entire town is scared of Nazgul....", 
@@ -259,22 +289,25 @@ def getWorld():
     "Dudo Baggins": "What am I even doing here?", 
     "Estella Brandybuck": "Time to go home I think...."
     }
-    prancingPony = Square("Prancing Pony", description, greeting, talk, items.unique_items.prancingPonyItems)
+    prancingPony = Square("Prancing Pony", description, greeting, talk, 
+    items.unique_items.prancingPonyItems)
     #City
-    description = """Bree was settled in the early Third Age, in the
+    description = """Bree was settled in the early Third Age in the
     realm Cardolan. Though the Princes of Cardolan claimed it, Bree
     continued to thrive without any central authority or government
     for many centuries. 
     """
-    greeting = "Nazgul have been visiting the area at night!"
-    bree = City("Bree", description, greeting, [lindasInn, hanksBattleGear, prancingPony])
+    greeting = "\"Nazgul have been visiting the area at night!\""
+    bree = City("Bree", description, greeting, [lindasInn, hanksBattleGear, 
+    prancingPony])
     #Barrow Downs
     description = """Barrow-downs or Tyrn Gorthad is a series of low
     hills east of the Shire, behind the Old Forest and west of the
     village of Bree. Many of the hills are crowned with megaliths
     and barrows.
     """
-    barrowDowns = Space("Barrow Downs", description, constants.RegionType.BARROW_DOWNS, city = bree)
+    barrowDowns = Space("Barrow Downs", description, 
+    constants.RegionType.BARROW_DOWNS, city = bree)
 
     #Bruinen
     description = """Bruinen or Loudwater is a river in eastern Eriador.
@@ -285,14 +318,17 @@ def getWorld():
 
     #Mitheithel - Tharbad
     #Unique Place
-    description = "Once a fortified town on the River Greyflood, Tharbad now lies in ruins."
-    greeting = "An eerie mist greets you as you enter the ruins of the once great Tharbad...."
+    description = ("Once a fortified town on the River Greyflood, Tharbad now" 
+    " lies in ruins.")
+    greeting = ("An eerie mist greets you as you enter the ruins of the once" 
+    " great Tharbad....")
     tharbad = Tharbad("Tharbad", description, greeting)
     #Mitheithel
     description = """Mitheithel is the long river that rises in a place
     in the icy north of Middle-earth called Hoarwell.
     """
-    mitheithel = Space("Mitheithel", description, constants.RegionType.ERIADOR, uniquePlace = tharbad)
+    mitheithel = Space("Mitheithel", description, 
+    constants.RegionType.ERIADOR, uniquePlace = tharbad)
 
     #Swanfleet - Ost In Edhil
     #Unique Place
@@ -306,12 +342,13 @@ def getWorld():
     eastern Eriador where the lower reaches of the Glanduin flows
     before it joins Mitheithel. Swanfleet is an inland delta.
     """
-    swanfleet = Space("Swanfleet", description, constants.RegionType.ERIADOR, uniquePlace = ostInEdhil)
+    swanfleet = Space("Swanfleet", description, constants.RegionType.ERIADOR, 
+    uniquePlace = ostInEdhil)
     
     #Dunland
     description = """Dunland is the land of the Dunlendings. Dunland means
-    Hill Land in the language of neighbouring Rohan, whose people named it
-    after arriving in nearby Calenardhon in the later Third Age. It is a
+    \"Hill Land\" in the language of neighbouring Rohan, whose people named 
+    it after arriving in nearby Calenardhon in the later Third Age. It is a
     land of wild men.
     """
     dunland = Space("Mitheithel", description, constants.RegionType.RHOVANION)
@@ -319,24 +356,22 @@ def getWorld():
     #Misty Mountains South
     #Unique Place
     description = """Moria consists of an enormous underground complex in
-    north-western Middle-earth, comprising a vast network of tunnels,
-    chambers, mines and huge halls or mansions, that ran under and ultimately 
-    through the Misty Mountains. 
+    northwestern Middle Earth, comprising a vast network of tunnels,
+    chambers, mines, halls, and mansions. 
     """
-    greeting = """Welcome to the Mines of Moria, where an unspeakable evil
-    lurks in the shadows.
-    """
+    greeting = "Eerie silence greets as you as you enter the mines."
     moria = Moria("Moria", description, greeting)
     #Misty Mountains South
     description = """Khazad-dum, (also known as Moria, The Black Chasm,
     The Black Pit, Dwarrowdelf, Hadhodrond, Casarrondo, and Phurunargian)
-    is the grandest and most famous of the mansions of the Dwarves. There,
-    for many thousands of years, a thriving Dwarvish community created the
+    is the grandest and most famous of the dwarven cities. There, for 
+    many thousands of years, a thriving Dwarvish community created the
     greatest city ever known.
     
     ***Lorien is accessible to the east through Moria***
     """
-    mistyMountainsSouth = Space("Misty Mountains", description, constants.RegionType.MORIA, uniquePlace = moria)
+    mistyMountainsSouth = Space("Misty Mountains", description, 
+    constants.RegionType.MORIA, uniquePlace = moria)
 
     #Lorien - Caras Galadhon
     #Inn
@@ -349,25 +384,29 @@ def getWorld():
     elvenWares = Shop("ElvenWares", description, greeting, 7, 8)
     #Square
     description = "For prophesy as well as plain old-fashioned vanity."
-    greeting = "A strange sight: Galadriel's mirror as well as Galadriel herself!"
+    greeting = "A strange sight: Galadriel herself!"
     talk = {
     "Galadriel": "Check out this new ElvenWare! How do you think I look?"
     }
-    galadrielsMirror = Square("Galadriel's Mirror", description, greeting, talk, items.unique_items.galadrielsMirrorItems)
+    galadrielsMirror = Square("Galadriel's Mirror", description, greeting, 
+    talk, items.unique_items.galadrielsMirrorItems)
     #City
-    description = """Caras Galadhon is a city located in Lorien. Its inhabitants
-    dwell in large flets in the trees, reachable by white ladders. On the top
-    of the hill in the greatest of trees is the house of Celeborn and Galadriel.
+    description = """Caras Galadhon is a city located in Lorien. Its 
+    inhabitants dwell in large flets in the trees, reachable by white ladders. 
+    On the top of the hill in the greatest of trees is the house of Celeborn 
+    and Galadriel.
     """
     greeting = "Welcome to Caras Galdhon! Celeborn and Galadriel reside here."
-    carasGaladhon = City("Caras Galadhon", description, greeting, [elvenWaters, elvenWares, galadrielsMirror])
+    carasGaladhon = City("Caras Galadhon", description, greeting, 
+    [elvenWaters, elvenWares, galadrielsMirror])
     #Lorien
     description = """Lothlorien is a kingdom of Silvan Elves on the
     eastern side of the Hithaeglir. It is considered one of the most
     beautiful places in Middle-earth and has the only mallorn-trees
     east of the sea.
     """
-    lorien = Space("Lorien", description, constants.RegionType.RHOVANION, city = carasGaladhon)
+    lorien = Space("Lorien", description, constants.RegionType.RHOVANION, 
+    city = carasGaladhon)
 
     #Fangorn - Derningle
     #Unique Place
@@ -377,10 +416,11 @@ def getWorld():
     #Fangorn
     description = """Fangorn Forest is a deep, dark woodland that grows
     beneath the southern tips of the Misty Mountains under the eastern flanks
-    of that range. It gains notoriety for its Ents. The forest, known as
-    Entwood in Rohan, was named after its oldest Ent, Fangorn.
+    of that range. It is known for its Ents. The forest, known as Entwood in
+    Rohan, was named after its oldest Ent, Fangorn.
     """
-    fangorn = Space("Fangorn", description, constants.RegionType.ROHAN, uniquePlace = derningle)
+    fangorn = Space("Fangorn", description, constants.RegionType.ROHAN, 
+    uniquePlace = derningle)
 
     #The Wold
     description = """The Wold is the northernmost and least populated part
@@ -399,30 +439,31 @@ def getWorld():
     Battle of the Field of Celebrant where the men of Rohan rose up to
     aid Gondor happened here.
     """
-    fieldOfCelebrant = Space("Field of Celebrant", description, constants.RegionType.MORDOR)
+    fieldOfCelebrant = Space("Field of Celebrant", description, 
+    constants.RegionType.MORDOR)
 
     #Calenardhon - Isenguard
     #Unique Place
     description = """Isengard ("Iron Fortress" or Angrenost in Sindarin) is
     a great fortress located within a valley at the southern end of the Misty
-    Mountains near the Gap of Rohan. In the centre of the Ring of Isengard
+    Mountains near the Gap of Rohan. In the center of the Ring of Isengard
     stands the stone tower of Orthanc.
     """
     greetings = "Charred skies greet you as you approach Isenguard...."
     isenguard = Isenguard("Isenguard", description, greetings)
     #Calenardhon
     description = """Calenardhon contains Isengard, a great fortress located
-    within a valley at the southern end of the Misty Mountains near the Gap
-    of Rohan.
+    within a valley at the southern end of the Misty Mountains.
     
     ***Westfold is accessible to the south through Isenguard***
     """
-    calenardhon = Space("Calenardhon", description, constants.RegionType.ENEDWAITH, uniquePlace = isenguard)
+    calenardhon = Space("Calenardhon", description, 
+    constants.RegionType.ENEDWAITH, uniquePlace = isenguard)
 
     #Westfold - Helm's Deep
     #Inn
     description = "Where people go to sober up."
-    greeting = "[No one is there to greet you.]"
+    greeting = "No one is there to greet you."
     sobrietyRoom = Inn("Sobriety Room", description, greeting, 0)
     #Shop
     description = "The Armory [read: booze shop]."
@@ -435,21 +476,24 @@ def getWorld():
     "Erkenbrand": "Ughhhhhhh....",
     "Gambling the Old": "Merrrrrrrrrrrrr...."
     }
-    helmsDeepCommons = Square("Helms Deep Commons", description, greeting, talk, items.unique_items.helmsDeepCommonsItems)
+    helmsDeepCommons = Square("Helms Deep Commons", description, greeting, 
+    talk, items.unique_items.helmsDeepCommonsItems)
     #City
     description = """Helm's Deep is a large valley gorge in northwestern
-    Ered Nimrais below the Thrihyrne. It is the name of the whole
-    defensive system including its major defensive structure, the Hornburg.
+    Ered Nimrais below the Thrihyrne. It consists of a massive defensive 
+    system called the Hornburg.
     """
-    greeting = "Welcome to Helm's Deep! WHOOO!!! PARTY!"
-    helmsDeep = City("Helm's Deep", description, greeting, [sobrietyRoom, theArmory, helmsDeepCommons])
+    greeting = "\"Welcome to Helm's Deep! WHOOO!!! PARTY!\""
+    helmsDeep = City("Helm's Deep", description, greeting, 
+    [sobrietyRoom, theArmory, helmsDeepCommons])
     #Westfold
     description = """The Westfold is the western part of Rohan, close to
     the White Mountains and situated between the river Isen and the Folde.
     The North-South Road runs through the Westfold from the Fords of Isen
     to Edoras. Its strongpoint is Helm's Deep.
     """
-    westfold = Space("Westfold", description, constants.RegionType.ROHAN, city = helmsDeep)
+    westfold = Space("Westfold", description, constants.RegionType.ROHAN, 
+    city = helmsDeep)
 
     #Westemnet
     description = """The Eastemnet is part of Rohan. It is an area of
@@ -473,61 +517,69 @@ def getWorld():
 
     #Eastfold - Edoras
     #Inn
-    description = "Edoras' old folks' home."
-    greeting = "Here sonnie, thanks for coming to visit."
-    sunsetVillage = Inn("Sunset Village", description, greeting, 5)
+    description = "A quaint inn settled on an open plain."
+    greeting = "\"Travelers! We'd be glad to have you for the night.\""
+    sunsetVillage = Inn("Prairie View", description, greeting, 5)
     #Shop
     description = "Crafts and various collectibles."
     greeting = "We have items dating back from T.A. 1497!"
     twiceRemembered = Shop("Twice Remembered", description, greeting, 12, 8)
     #Square
-    description = "Home of bingo and other festivities."
-    greeting = "How are you sonnie?"
+    description = "A country square full of mostly older folk."
+    greeting = "\"We love our lands.\""
     talk = {
-    "Helm Gammerhand": "What is this 'War of the Ring' you speak of?",
-    "Brytta Leofa": "Back in my day, we fought against a guy named Morgoth. I bet you've never even heard of Morgoth.", 
-    "Morwen Steelsheen": "You youngsters are so impatient these days. Always rushing off into battles that you don't need to be involved in....", 
-    "Frealaf Hildeson": "I have no idea what you're talking about with this 'Sauron' business."
+    "Helm Gammerhand": "I wish you the best on your journey.",
+    "Brytta Leofa": "I have several daughters your age.", 
+    "Morwen Steelsheen": ("I would love to teach you blacksmithing if you have" 
+    " the time."), 
+    "Frealaf Hildeson": ("Mostly older folks here. My kids are off to work in" 
+    " the city.")
     }
-    edorasCommons = Square("Edoras Commons", description, greeting, talk, items.unique_items.edorasCommonsItems)
+    edorasCommons = Square("Edoras Commons", description, greeting, talk, 
+    items.unique_items.edorasCommonsItems)
     #City
-    description = """Rohan's first capital was at Aldburg in the Folde
-    until Eorl the Young's son Brego built Edoras. It is Rohan's
-    only real city and holds the Golden Hall of Meduseld.
+    description = """Rohan's first capital was at Aldburg until
+    Eorl the Young's son Brego built Edoras. It is Rohan's only 
+    real city and holds the Golden Hall of Meduseld.
     """
-    greeting = "Welcome to Edoras, Rohan's greatest retirement community!"
-    edoras = City("Edoras", description, greeting, [sunsetVillage, twiceRemembered, edorasCommons])
+    greeting = "\"Welcome to Edoras!\""
+    edoras = City("Edoras", description, greeting, [sunsetVillage, 
+    twiceRemembered, edorasCommons])
     #Eastfold - Aldburg
     #Inn
     description = "Innkeeper is a man by the name of Seth."
-    greeting = "Sleepytime for Seth. I'll see you guys later."
+    greeting = "\"We'd be glad to have you for the night.\""
     sethsHostel = Inn("Seth's Hostel", description, greeting, 5)
     #Shop
-    description = "Other dishes too."
-    greeting = "Coooooookie crisp!"
-    milesCookieFactory = Shop("Miles' Cookie Factory", description, greeting, 15, 4)
+    description = "Other items too."
+    greeting = "\"Would you like some samples?\""
+    milesCookieFactory = Shop("Miles' Cookie Factory", description, greeting, 
+    15, 4)
     #Square
-    description = "For late-night programming, among other things."
-    greeting = "What the heck is going on?"
+    description = "Many interesting discussions."
+    greeting = "\"I wonder how this works...?\""
     talk = {
-    "Dmitriy": "The isomorphic properties of this list lends itself to three-tailed development.", 
-    "Jim 'The Dear Ladd' Jr.": "???", 
-    "Chris 'Chocolate Rain' Wang": "I am from China."
+    "Dmitriy": "Dante.", 
+    "Jim \"The Dear Ladd\" Jr.": "Let's fobrinicate the fobazz!", 
+    "Chris": "I am from China."
     }
-    auburnSquare = Square("Auburn Square Commons", description, greeting, talk, items.unique_items.auburnSquareCommons)
+    auburnSquare = Square("Auburn Square Commons", description, greeting, 
+    talk, items.unique_items.auburnSquareCommons)
     #City
-    description = """Aldburg was built by Eorl in the region known as the Folde,
-    east of Edoras. The Kings of Rohan moved to Edoras after Brego, son of Eorl,
-    completed the Golden Hall.
+    description = """Aldburg was built by Eorl in the region known as the 
+    Folde, east of Edoras. The Kings of Rohan moved to Edoras after Brego, son 
+    of Eorl, completed the Golden Hall.
     """
-    greeting = "Welcome to Aldburg! Home of Jim Ladd Jr."
-    aldburg = City("Aldburg", description, greeting, [sethsHostel, milesCookieFactory, auburnSquare])
+    greeting = "\"Welcome to Aldburg!\""
+    aldburg = City("Aldburg", description, greeting, [sethsHostel, 
+    milesCookieFactory, auburnSquare])
     #Eastfold
     description = """Eastfold is a part of the realm of Rohan. Bounded
-    by the Mering Stream and Snowbourn River, it contains the city of
-    Edoras.
+    by the Mering Stream and Snowbourn River, it contains the cities of
+    Aldburg and Edoras.
     """
-    eastfold = Space("Eastfold", description, constants.RegionType.ROHAN, city = [edoras, aldburg])
+    eastfold = Space("Eastfold", description, constants.RegionType.ROHAN, 
+    city = [edoras, aldburg])
 
     #Nindalf
     description = """The swamps of Nindalf or Wetwang lie to the south of
@@ -543,7 +595,7 @@ def getWorld():
     to prevent invasion through the Pass of Cirith Gorgor, the gap between
     the Ered Lithui and the Ephel Duath.
     """
-    greetings = "\"May it be a light to you in dark places.\""
+    greetings = "\"One does not simply walk into Mordor.\""
     blackGate = BlackGate("Black Gate", description, greetings)
     #Dead Marshes
     description = """The Dead Marshes are an area of swampland east of the
@@ -551,7 +603,8 @@ def getWorld():
     
     ***Udun is accessible to the east through The Black Gate***
     """
-    deadMarshes = Space("Dead Marshes", description, constants.RegionType.MORDOR, uniquePlace = blackGate)
+    deadMarshes = Space("Dead Marshes", description, 
+    constants.RegionType.MORDOR, uniquePlace = blackGate)
 
     #Valley of Udun - Isenmouthe
     #Unique Place
@@ -559,9 +612,9 @@ def getWorld():
     northeastern part of Mordor and guards the southern end of the valley,
     Udun.
     
-    The pass is heavily guarded with Fortresses and watchtowers.
+    The pass is heavily guarded with fortresses and watchtowers.
     """
-    greetings = "\"One does not simply walk into Mordor II.\""
+    greetings = "\"One does not simply walk into Mordor part II.\""
     isenmouthe = Isenmouthe("Isenmouthe", description, greetings)
     #Valley of Udun
     description = """Udun is a depressed valley in northwestern Mordor.
@@ -570,7 +623,8 @@ def getWorld():
     
     ***Plateau of Gorgoth is accessible to the south through Isenmouthe***
     """
-    udun = Space("Udun", description, constants.RegionType.MORDOR, uniquePlace = isenmouthe)
+    udun = Space("Udun", description, constants.RegionType.MORDOR, 
+    uniquePlace = isenmouthe)
     
     #Cair Andros
     description = """Cair Andros, meaning "Ship of the Long-Foam," is an
@@ -578,7 +632,8 @@ def getWorld():
     of Osgiliath.  It is of paramount importance to Gondor because it
     prevents the enemy from crossing the river and entering into Anorien.
     """ 
-    cairAndros = Space("Cair Andros", description, constants.RegionType.GONDOR, greeting)
+    cairAndros = Space("Cair Andros", description, 
+    constants.RegionType.GONDOR, greeting)
 
     #Orodruin
     description = """Mount Doom, also known as Orodruin and Amon Amarth, is
@@ -589,123 +644,135 @@ def getWorld():
 
     #Anorien - Minas Tirith
     #Inn
-    description = "Home of elite Gondorian healers."
-    greeting = "Welcome to the Houses of Healing. What can I do for you?"
+    description = "Where elite Gondorian healers do their work."
+    greeting = "\"Welcome to the Houses of Healing. What can I do for you?\""
     housesOfHealing = Inn("Houses of Healing", description, greeting, 5)
     #Shop
     description = "An elite armory, used by the best Gondorian troops."
-    greeting = "Welcome to the Smithy of Kings! We have forged legendary blades...."
+    greeting = "Welcome to the Smithy of Kings! We have legendary blades...."
     smithyOfKings = Shop("Smithy of Kings", description, greeting, 15, 12)
     #Square
     description = "Minas Tirith commons."
-    greeting = "Welcome to our square. This place used to be a lot more lively."
+    greeting = "Tension greets you as you enter Minas Tirith Commons."
     talk = {
     "Calmacil": "Would you like to buy some fruit?", 
-    "Castamir": "Everyone is afraid.", 
+    "Castamir": "Everyone is afraid....", 
     "Ciryandil": "Orcish raids have been increasing in the outlying lands....", 
     "Minalcar": "I wonder what we can do with Mordor....", 
     "Narmacil": "I wonder if the king will return", 
-    "Tarondor": "I hope Rohan will bring aid.", 
-    "Atanatar": "Word has it that Mordor is preparing to attack."
+    "Tarondor": "I hope Rohan will bring aid....", 
+    "Atanatar": "Word has it that Mordor is preparing to attack...."
     }
-    marketSquare = Square("Market Square", description, greeting, talk, items.unique_items.marketSquareItems)
+    marketSquare = Square("Market Square", description, greeting, talk, 
+    items.unique_items.marketSquareItems)
     #Square
-    description = "Home to Gondorian royalty."
+    description = "Site of Gondorian royalty."
     greeting = "Denethor would like to see you...."
     talk = {
     "Denethor": "You are the true king of Gondor.", 
     "Faramir": "The lands recently stolen by Sauron should be retaken....", 
     "Boromir": "Nice ring. Give it to me!", 
     "Prince Imrahil": "Sauron plans on moving soon....", 
-    "Swan Knight": "The men are afraid. The land is covered in shadow...."
+    "Swan Knight": "Here is a gift to help you fight!"
     }
-    towerOfEcthelion = Square("Tower of Ecthelion", description, greeting, talk, items.unique_items.towerOfEchelionItems)
+    towerOfEcthelion = Square("Tower of Ecthelion", description, greeting, 
+    talk, items.unique_items.towerOfEchelionItems)
     #City
-    description = """Minas Tirith is a city of Gondor originally called Minas Anor.
-    From T.A. 1640 onwards it became the capital of the South-kingdom and the seat of
-    its Kings and ruling Stewards.
+    description = """Minas Tirith is a city of Gondor originally called Minas 
+    Anor. From T.A. 1640 onwards it became the capital of the South-kingdom 
+    and the seat of its Kings and ruling Stewards.
     """
-    greeting = "Welcome to the last stronghold of the West, Minas Tirith."
-    minasTirith = City("Minas Tirith", description, greeting, [housesOfHealing, marketSquare, towerOfEcthelion, smithyOfKings])
+    greeting = "\"Welcome to the last stronghold of the West, Minas Tirith.\""
+    minasTirith = City("Minas Tirith", description, greeting, 
+    [housesOfHealing, marketSquare, towerOfEcthelion, smithyOfKings])
     #Anorien
-    description = """Anorien is the fiefdom of Gondor containing Minas Tirith, the
-    capital of Gondor. Originally known as Minas Anor, it replaced Osgiliath
-    as capital of Gondor as Osgiliath became lost to Sauron.
+    description = """Anorien is the fiefdom of Gondor containing Minas Tirith, 
+    the capital of Gondor. Originally known as Minas Anor, it replaced 
+    Osgiliath as capital of Gondor as Osgiliath was lost to Sauron.
     """
-    anorien = Space("Anorien", description, constants.RegionType.GONDOR, city = minasTirith)
+    anorien = Space("Anorien", description, constants.RegionType.GONDOR, 
+    city = minasTirith)
 
     #Anduin - Argonath
     #Unique Place
     description = "Great for dates."
-    greeting = "\"Welcome to Argonath! Stay within the designated areas and listen to your guide.\""
+    greeting = ("\"Welcome to Argonath! Stay within the designated areas and" 
+    " listen to your guide.\"")
     argonath = Argonath("Argonath", description, greeting)
     #Anduin - Osgiliath
     #Inn
     description = "A place to rest in the midst of battle."
-    greeting = "Your cot is on the top left."
+    greeting = "\"Your cot is on the top left.\""
     soldierBarracks = Inn("Soldier Barracks", description, greeting, 5)
     #Shop
     description = "Rapidly depleting inventories."
-    greeting = "What would you like? We are running low on everything...."
+    greeting = "What would you like? We are low on everything...."
     osgiliathArmory = Shop("Osgiliath Armory", description, greeting, 4, 15)
     #Square
     description = "Once a glorious square in the capital of Gondor."
-    greeting = "You find the square in ruins and completely deserted."
+    greeting = "You find the square in ruins and deserted."
     talk = {}
-    osgiliathCommons = Square("Osgiliath Commons", description, greeting, talk)
+    osgiliathCommons = Square("Osgiliath Commons", description, greeting, 
+    talk)
     #City
-    description = """Osgiliath was the ancient capital of the Kingdom of Gondor.
-    Depopulated during the Third Age, it gradually fell into ruin. Osgiliath has
-    strategic importance as a crossing point over the Anduin.
+    description = """Osgiliath was the ancient capital of the Kingdom of 
+    Gondor. Depopulated during the Third Age, it gradually fell into ruin. 
+    Osgiliath has strategic importance as a crossing point over the Anduin.
     """
-    greeting = "AEIEEE!!! WE'RE UNDER SEIGE!"
-    osgiliath = City("Osgiliath", description, greeting, [soldierBarracks, osgiliathArmory, osgiliathCommons])
+    greeting = "\"Be on your guard. We are constantly under attack.\""
+    osgiliath = City("Osgiliath", description, greeting, [soldierBarracks, 
+    osgiliathArmory, osgiliathCommons])
     #Anduin
-    description = """Anduin is a river that crosses most of Middle-earth east
+    description = """Anduin is a river that crosses most of Middle-Earth east
     of the Misty Mountains. Passing through many lands, it has many names:
-    Langflood by the ancestors of the Rohirrim, the Great River of Wilderland in
-    the Westron of Rivendell and the Shire, and simply the Great River in Gondor.
+    Langflood by the ancestors of the Rohirrim, the Great River of Wilderland 
+    in the Westron of Rivendell and the Shire, and simply the Great River in 
+    Gondor.
     """
-    anduin = Space("Anduin", description, constants.RegionType.GONDOR, city = osgiliath, uniquePlace = argonath)
+    anduin = Space("Anduin", description, constants.RegionType.GONDOR, 
+    city = osgiliath, uniquePlace = argonath)
 
     #Ephel Duath - Minas Morgul
     #Unique Place
-    description = """Minas Morgul is a city-fortress in Mordor. Originally created
-    as a Gondorian outpost and the sister city to Minas Anor, Minas Ithil safeguarded
-    the eastern borders of the Kingdom of Gondor and its capital from the forces of
-    Mordor during the early part of the Third Age.
+    description = """Minas Morgul is a fortress-city in Mordor. Originally 
+    created as a Gondorian outpost and the sister city of Minas Anor, Minas 
+    Ithil safeguarded the eastern borders of the Kingdom of Gondor and its 
+    capital from the forces of Mordor during the early part of the Third Age.
 
-    Minas Morgul is now home to the Nazgul.
+    Minas Morgul is home to the Nazgul.
     """
     greeting = "\"One does not simply walk into Mordor.\""
     minasMorgul = MinasMorgul("Minas Morgul", description, greeting)
     #Ephel Duath
-    description = """The Ephel Dúath, or the Mountains of Shadow, are a range of
-    mountains that guard Mordor's western and southern borders.
+    description = """The Ephel Dúath, or the Mountains of Shadow, is a range of
+    mountains that guards Mordor's western and southern borders.
     
     ***Plateau of Gorgoth is accessible to the east through Minas Morgul***
     """
-    ephelDuath = Space("Ephel Duath", description, constants.RegionType.MORDOR, uniquePlace = minasMorgul)
+    ephelDuath = Space("Ephel Duath", description, 
+    constants.RegionType.MORDOR, uniquePlace = minasMorgul)
 
     #Cirith Ungol - Tower of Cirith Ungol
     #Unique Place
     description = """Gondor occupied the fortress until T.A. 1636 when the
     Great Plague killed large parts of Gondor's population. After the plague,
     Gondor never again manned the Tower of Cirith Ungol and evil was allowed
-    to return to Mordor. Similar fates suffered the mountain fortress of Durthang
-    in northwestern Mordor and the Towers of the Teeth at Morannon.
+    to return to Mordor. Similar fates suffered the mountain fortress of 
+    Durthang in northwestern Mordor and the Towers of the Teeth at Morannon.
     """
     greeting = "\"May it be a light to you in dark places.\""
-    towerOfCirithUngol = TowerOfCirithUngol("Tower of Cirith Ungol", description, greeting)
+    towerOfCirithUngol = TowerOfCirithUngol("Tower of Cirith Ungol", 
+    description, greeting)
     #Cirith Ungol
     description = """Cirith Ungol is the pass through the western mountains of
-    Mordor and the only way towards the land from the west. It is guarded by the
-    Tower of Cirith Ungol, built by the Men of Gondor after the War of the Last
-    Alliance of Elves and Men.
+    Mordor and the only way towards the land from the west. It is guarded by 
+    the Tower of Cirith Ungol, built by the Men of Gondor after the War of the 
+    Last Alliance of Elves and Men.
     
     ***Plateau of Gorgoth is accessible to the east through Tower of Cirith Ungol***
     """
-    cirithUngol = Space("Cirith Ungol", description, constants.RegionType.MORDOR, uniquePlace = towerOfCirithUngol)
+    cirithUngol = Space("Cirith Ungol", description, 
+    constants.RegionType.MORDOR, uniquePlace = towerOfCirithUngol)
 
     #Plateau of Gorgoth - Barad Dur
     #Unique Place
@@ -714,53 +781,61 @@ def getWorld():
     and held together by dark magic, it is the largest fortress in
     Middle-earth.
     """
-    greeting = """Rising black, blacker and darker than the vast shades amid which it stood,
-    the cruel pinnacles and iron crown of the topmost tower of Barad-dur."""
+    greeting = """\"Rising black, blacker and darker than the vast shades amid 
+    which it stood, the cruel pinnacles and iron crown of the topmost tower of 
+    Barad-dur....\""""
     baradDur = BaradDur("Barad Dur", description, greeting)
     #Plateau of Gorgoth
-    description = """Plateau of Gorgoroth is a region in the northwestern region of
-    Mordor. Gorgoroth is the location of the mines and forges which supply Mordor's
-    armies with weapons and armor.
+    description = """Plateau of Gorgoroth is a region in the northwestern 
+    region of Mordor. Gorgoroth is the location of the mines and forges which 
+    supply Mordor's armies with weapons and armor.
     """
-    plateauOfGorgoth = Space("Plateau of Gorgoth", description, constants.RegionType.MORDOR, uniquePlace = baradDur)
+    plateauOfGorgoth = Space("Plateau of Gorgoth", description, 
+    constants.RegionType.MORDOR, uniquePlace = baradDur)
 
     #Lossamarch - Pelargir
     #Inn
-    description = "Beach resort along Gondor's finest coast!"
-    greeting = "Hey bro! Welcome to Sunnyside Inn!"
+    description = "Beach resort along one of Gondor's finest coasts!"
+    greeting = "\"Hey bro! Welcome to Sunnyside Inn!\""
     sunnysideInn = Inn("Sunnyside Inn", description, greeting, 5)
     #Shop
     description = "Beach accessories and paraphernalia."
-    greeting = "Hey dude, let's hit the beach later!"
+    greeting = "\"Hey whaddup bro?\""
     palmTreeHut = Shop("Palm Tree Hut", description, greeting, 6, 14)
     #Square
-    description = "Class-three waves and hot chicks!"
+    description = "Class-three waves!"
     greeting = "\"Bro, did you see those waves?\""
     talk = {
     "Gondorian bro #1": "Bro, let's hit the beach!", 
-    "Gondorian bro #2": "Bro! Let's just chill for awhile... bro?", 
-    "Gondorian bro #3": "Bro! I hear there's going to be a party later tonight.", 
+    "Gondorian bro #2": "Bro! Let's just chill for awhile....", 
+    "Gondorian bro #3": ("Bro! I hear there's going to be a party later" 
+    " tonight."), 
     "Gondorian chick #1": "Bro, I have a boyfriend....", 
     "Gondorian chick #2": "Bro, what are you doing later?"
     }
-    beach = Square("Pelargir Beach", description, greeting, talk, items.unique_items.beachItems)
+    beach = Square("Pelargir Beach", description, greeting, talk, 
+    items.unique_items.beachItems)
     #City
     description = """One of the oldest cities in Middle Earth, Pelargir served
     as chief haven of the faithful as Numenorians migrated to Middle Earth to
-    escape persecution. In later years, Pelargir served as chief port of Gondor.
+    escape persecution. In later years, Pelargir served as chief port of 
+    Gondor.
     """
     greeting = "Enjoy a relaxing stay at Pelargir, port city of Gondor."
-    pelargir = City("Pelargir", description, greeting, [sunnysideInn, palmTreeHut, beach])
+    pelargir = City("Pelargir", description, greeting, [sunnysideInn, 
+    palmTreeHut, beach])
     #Lossamarch
-    description = """Lossarnach is a region and fiefdom in Southern Gondor. Known
-    as the Vale of flowers, it is a fertile region lying south of the White Mountains.
+    description = """Lossarnach is a region and fiefdom in Southern Gondor. 
+    Known as the Vale of Flowers, it is a fertile region lying south of the 
+    White Mountains.
     """ 
-    lossamarch = Space("Lossamarch", description, constants.RegionType.GONDOR, city = pelargir)
+    lossamarch = Space("Lossamarch", description, constants.RegionType.GONDOR, 
+    city = pelargir)
 
     #Ithilien
-    description = """Ithilien iss the region and fiefdom of Gondor bordering Mordor
-    from the southwest.
-    """ 
+    description = """Ithilien is the fiefdom of Gondor bordering Mordor from 
+    the southwest.
+    """
     ithilien = Space("Ithilien", description, constants.RegionType.GONDOR)
 
     #Connections: East-West
@@ -817,12 +892,13 @@ def getWorld():
     minasMorgul.receiveSpaces(ephelDuath, plateauOfGorgoth)
     towerOfCirithUngol.receiveSpaces(cirithUngol, plateauOfGorgoth)
     
-    #Create list of spaces for item distribution randomization
-    spaces = [shire, oldForest, weatherHills, trollshaws, mistyMountainsNorth, highPass, mirkwood, 
-    southernMirkwood, bruinen, mitheithel, swanfleet, dunland, mistyMountainsSouth, lorien, fangorn,
-    fieldOfCelebrant, calenardhon, westfold, westemnet, eastemnet, emynMuil, eastfold, nindalf,
-    deadMarshes, udun, cairAndros, orodruin, anorien, anduin, ephelDuath, cirithUngol, plateauOfGorgoth,
-    lossamarch, ithilien]
+    #Create list of spaces
+    spaces = [shire, oldForest, weatherHills, trollshaws, mistyMountainsNorth, 
+    highPass, mirkwood, southernMirkwood, bruinen, mitheithel, swanfleet, 
+    dunland, mistyMountainsSouth, lorien, fangorn, fieldOfCelebrant, 
+    calenardhon, westfold, westemnet, eastemnet, emynMuil, eastfold, nindalf,
+    deadMarshes, udun, cairAndros, orodruin, anorien, anduin, ephelDuath, 
+    cirithUngol, plateauOfGorgoth, lossamarch, ithilien]
     
     #Add low-level findable unique items to spaces
     for space in range(constants.SPACES_WITH_UNIQUE_ITEMS):
@@ -835,7 +911,7 @@ def getWorld():
             #Add item to space
             space.addItem(item)
     
-    #Add miscellaneous unique items to spaces
+    #Add elven rings to spaces
     for space in range(len(items.unique_items.elvenRings)):
         if items.unique_items.elvenRings:
             #Determine which unique item
@@ -883,63 +959,75 @@ def getCommandList(player):
     commandWords = CommandWords()
     
     #Commands
+    checkEquipmentCmd = CheckEquipmentCommand("equipment", 
+    "Displays current equipment and equipment stats.", player)
+    commandWords.addCommand("equipment", checkEquipmentCmd)
+    
+    checkInventoryCmd = CheckInventoryCommand("inventory", 
+    "Displays contents of inventory.", player)
+    commandWords.addCommand("inventory", checkInventoryCmd)
+
+    checkMoneyCmd = CheckMoneyCommand("money", "Displays player money", 
+    player)
+    commandWords.addCommand("money", checkMoneyCmd)
+
+    checkStatsCmd = CheckStatsCommand("stats", 
+    "Displays current character stats.", player)
+    commandWords.addCommand("stats", checkStatsCmd)
+    
+    descCmd = DescribeCommand("describe", 
+    "Gives description of current space", player)
+    commandWords.addCommand("describe", descCmd)
+    
+    dropCmd = DropCommand("drop", 
+    "Drops an item from inventory into local environment.", player)
+    commandWords.addCommand("drop", dropCmd)
+    
+    eastCmd = EastCommand("east", 
+    "Moves the player to the space east of current space", player)
+    commandWords.addCommand("east", eastCmd)
+    
+    enterCmd = EnterCommand("enter", 
+    "Allows player to enter a building.", player)
+    commandWords.addCommand("enter", enterCmd)
+    
+    equipCmd = EquipCommand("equip", 
+    "Equips item in inventory.", player)
+    commandWords.addCommand("equip", equipCmd)
+    
     helpCmd = HelpCommand("help", 
         "Provides help information for game.", commandWords)
     commandWords.addCommand("help", helpCmd)
-
-    quitCmd = QuitCommand("quit", "Exits the game.")
-    commandWords.addCommand("quit", quitCmd)
-   
-    dropCmd = DropCommand("drop", "Drops an item from inventory into local environment.", player)
-    commandWords.addCommand("drop", dropCmd)
-
-    enterCmd = EnterCommand("enter", "Allows player to enter a building.", player)
-    commandWords.addCommand("enter", enterCmd)
-
-    pickupCmd = PickUpCommand("pick up", "Picks up an item from a location and adds to inventory.", player)
-    commandWords.addCommand("pick up", pickupCmd)
-
-    equipCmd = EquipCommand("equip", "Equips item in inventory.", player)
-    commandWords.addCommand("equip", equipCmd)
-
-    unequipCmd = UnequipCommand("unequip", "Unequips item that is currently equipped.", player)
-    commandWords.addCommand("unequip", unequipCmd)
-
-    usePotionCmd = UsePotionCommand("use potion", "Uses potion in inventory.", player)
-    commandWords.addCommand("use potion", usePotionCmd)
-
-    checkInventoryCmd = CheckInventoryCommand("inventory", "Displays contents of inventory.", player)
-    commandWords.addCommand("inventory", checkInventoryCmd)
-
-    checkEquipmentCmd = CheckEquipmentCommand("equipment", "Displays current equipment and equipment stats.", player)
-    commandWords.addCommand("equipment", checkEquipmentCmd)
-
-    checkMoneyCmd = CheckMoneyCommand("money", "Displays player money", player)
-    commandWords.addCommand("money", checkMoneyCmd)
-
-    checkStatsCmd = CheckStatsCommand("stats", "Displays current character stats.", player)
-    commandWords.addCommand("stats", checkStatsCmd)
-
-    mapCmd = MapCommand("map", "Displays map of current location", player)
+    
+    mapCmd = MapCommand("map", 
+    "Displays map of current location", player)
     commandWords.addCommand("map", mapCmd)
-
+    
     northCmd = NorthCommand("north", 
-                "Moves the player to the space north of current space", player)
+    "Moves the player to the space north of current space", player)
     commandWords.addCommand("north", northCmd)
     
+    pickupCmd = PickUpCommand("pick up", 
+    "Picks up an item from a location and adds to inventory.", player)
+    commandWords.addCommand("pick up", pickupCmd)
+    
+    quitCmd = QuitCommand("quit", "Exits the game.")
+    commandWords.addCommand("quit", quitCmd)
+    
     southCmd = SouthCommand("south", 
-                "Moves the player to the space south of current space", player)
+    "Moves the player to the space south of current space", player)
     commandWords.addCommand("south", southCmd)
-    
-    eastCmd = EastCommand("east", 
-                "Moves the player to the space east of current space", player)
-    commandWords.addCommand("east", eastCmd)
-    
+
+    unequipCmd = UnequipCommand("unequip", 
+    "Unequips item that is currently equipped.", player)
+    commandWords.addCommand("unequip", unequipCmd)
+
+    usePotionCmd = UsePotionCommand("use potion", 
+    "Uses potion in inventory.", player)
+    commandWords.addCommand("use potion", usePotionCmd)
+
     westCmd = WestCommand("west", 
-                "Moves the player to the space west of current space", player)
+    "Moves the player to the space west of current space", player)
     commandWords.addCommand("west", westCmd)
     
-    descCmd = DescribeCommand("describe", "Gives description of current space", player)
-    commandWords.addCommand("describe", descCmd)
-
     return commandWords

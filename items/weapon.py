@@ -19,8 +19,8 @@ class Weapon(Item):
         @param description:   Description of weapon.
         @param weight:        Weight of weapon.
         @param cost:          The cost of the weapon.
-        @param attack:        Attack stat of weapon. Player damage increases by this
-                              amount when weapon is equipped.
+        @param attack:        Attack stat of weapon. Player damage increases 
+                              by this amount when weapon is equipped.
         """
         Item.__init__(self, name, description, weight, cost)
         

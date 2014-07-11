@@ -16,5 +16,7 @@ class ArmoredMumakil(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.ArmoredMumakil, constants.MonsterDescriptions.ArmoredMumakil, \
-        stats, constants.MonsterAttackStrings.ArmoredMumakil, constants.MonsterDeathStrings.ArmoredMumakil)
+        Monster.__init__(self, constants.MonsterNames.ArmoredMumakil, 
+        constants.MonsterDescriptions.ArmoredMumakil, stats, 
+        constants.MonsterAttackStrings.ArmoredMumakil, 
+        constants.MonsterDeathStrings.ArmoredMumakil)

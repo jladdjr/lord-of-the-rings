@@ -17,5 +17,7 @@ class Shelob(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.Shelob, constants.MonsterDescriptions.Shelob, \
-        stats, constants.MonsterAttackStrings.Shelob, constants.MonsterDeathStrings.Shelob)
+        Monster.__init__(self, constants.MonsterNames.Shelob, 
+        constants.MonsterDescriptions.Shelob, stats, 
+        constants.MonsterAttackStrings.Shelob, 
+        constants.MonsterDeathStrings.Shelob)

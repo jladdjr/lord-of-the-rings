@@ -12,7 +12,8 @@ def getItems(numItems, quality):
     Generates random items for shop.
 
     @param numItems:     The number of items to generate
-    @param quality:      Integer from 1-20 that determines quality of items generated.
+    @param quality:      Integer from 1-20 that determines quality of items 
+                         generated.
     @return:             A list of randomly generated item objects.
     """
     items = []
@@ -51,8 +52,10 @@ def genWeapon(quality, randWeaponType, randDesc):
     Generates a single weapon object.
 
     @param quality:         The quality (1-20) of the weapon.
-    @param randTypeWeapon:  Random number that determines the type of weapon generated.
-    @param randDesc:        Random number that determines the description of the item.
+    @param randTypeWeapon:  Random number that determines the type of weapon 
+                            generated.
+    @param randDesc:        Random number that determines the description of 
+                            the item.
     @return:                The randomly generated weapon.
     """
     #Generate prefix
@@ -140,7 +143,8 @@ def genArmor(quality, randDesc):
     """
     Generates random piece of armor.
 
-    @param quality:      The quality statistic (1-20) used to determine armor statistics.
+    @param quality:      The quality statistic (1-20) used to determine armor 
+                         statistics.
     @param randDesc:     Random number used to generate armor description.
     @return:             A randomly generated armor object.
     """
@@ -230,7 +234,8 @@ def genPotion(quality, randDesc):
     """
     Generates potion object.
 
-    @param quality:   Quality statistic (1-20) that determines potion attributes.
+    @param quality:   Quality statistic (1-20) that determines potion 
+                      attributes.
     @param randDesc:  Random number used to generate potion description.
     @return:          A potion object. 
     """

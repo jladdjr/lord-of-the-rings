@@ -16,5 +16,7 @@ class OrcArcher(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.OrcArcher, constants.MonsterDescriptions.OrcArcher, \
-        stats, constants.MonsterAttackStrings.OrcArcher, constants.MonsterDeathStrings.OrcArcher)
+        Monster.__init__(self, constants.MonsterNames.OrcArcher, 
+        constants.MonsterDescriptions.OrcArcher, stats, 
+        constants.MonsterAttackStrings.OrcArcher, 
+        constants.MonsterDeathStrings.OrcArcher)

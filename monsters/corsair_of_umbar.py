@@ -16,5 +16,7 @@ class CorsairOfUmbar(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.CorsairOfUmbar, constants.MonsterDescriptions.CorsairOfUmbar, \
-        stats, constants.MonsterAttackStrings.CorsairOfUmbar, constants.MonsterDeathStrings.CorsairOfUmbar)
+        Monster.__init__(self, constants.MonsterNames.CorsairOfUmbar, 
+        constants.MonsterDescriptions.CorsairOfUmbar, stats, 
+        constants.MonsterAttackStrings.CorsairOfUmbar, 
+        constants.MonsterDeathStrings.CorsairOfUmbar)

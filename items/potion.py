@@ -18,8 +18,8 @@ class Potion(Item):
         @param description:   Description of potion.
         @param weight:        Weight of weapon.
         @param cost:          The cost of the potion.
-        @param healing:       Healing stat of potion. Player may heal at most this 
-                              amount upon use.
+        @param healing:       Healing stat of potion. Player may heal at most 
+                              this amount upon use.
         """
         Item.__init__(self, name, description, weight, cost)
         

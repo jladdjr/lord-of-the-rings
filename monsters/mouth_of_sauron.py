@@ -17,5 +17,7 @@ class MouthOfSauron(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.MouthOfSauron, constants.MonsterDescriptions.MouthOfSauron, \
-        stats, constants.MonsterAttackStrings.MouthOfSauron, constants.MonsterDeathStrings.MouthOfSauron)
+        Monster.__init__(self, constants.MonsterNames.MouthOfSauron, 
+        constants.MonsterDescriptions.MouthOfSauron, stats, 
+        constants.MonsterAttackStrings.MouthOfSauron, 
+        constants.MonsterDeathStrings.MouthOfSauron)

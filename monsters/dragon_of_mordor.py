@@ -16,5 +16,7 @@ class DragonOfMordor(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.DragonOfMordor, constants.MonsterDescriptions.DragonOfMordor, \
-        stats, constants.MonsterAttackStrings.DragonOfMordor, constants.MonsterDeathStrings.DragonOfMordor)
+        Monster.__init__(self, constants.MonsterNames.DragonOfMordor, 
+        constants.MonsterDescriptions.DragonOfMordor, stats, 
+        constants.MonsterAttackStrings.DragonOfMordor, 
+        constants.MonsterDeathStrings.DragonOfMordor)

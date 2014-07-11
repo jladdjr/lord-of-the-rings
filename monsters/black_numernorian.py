@@ -16,5 +16,7 @@ class BlackNumernorian(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.BlackNumernorian, constants.MonsterDescriptions.BlackNumernorian, \
-        stats, constants.MonsterAttackStrings.BlackNumernorian, constants.MonsterDeathStrings.BlackNumernorian)
+        Monster.__init__(self, constants.MonsterNames.BlackNumernorian, 
+        constants.MonsterDescriptions.BlackNumernorian, stats, 
+        constants.MonsterAttackStrings.BlackNumernorian, 
+        constants.MonsterDeathStrings.BlackNumernorian)

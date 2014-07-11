@@ -17,5 +17,7 @@ class Nazgul(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.Nazgul, constants.MonsterDescriptions.Nazgul, \
-        stats, constants.MonsterAttackStrings.Nazgul, constants.MonsterDeathStrings.Nazgul)
+        Monster.__init__(self, constants.MonsterNames.Nazgul, 
+        constants.MonsterDescriptions.Nazgul, stats, 
+        constants.MonsterAttackStrings.Nazgul, 
+        constants.MonsterDeathStrings.Nazgul)

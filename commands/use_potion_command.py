@@ -39,7 +39,8 @@ class UsePotionCommand(Command):
         #User prompt
         print "%s currently has:" % self._player.getName()
         for potion in potions:
-            print "\t%s with %s healing power." % (potion.getName(), potion.getHealing())
+            print "\t%s with %s healing power." % (potion.getName(), 
+            potion.getHealing())
         print ""
     
         choice = None
@@ -63,4 +64,5 @@ class UsePotionCommand(Command):
         inventory.removeItem(potionChoice)
         
         print "%s was healed by %s! %s's health is now %s." \
-        % (self._player.getName(), healed, self._player.getName(), self._player.getHp())
+        % (self._player.getName(), healed, self._player.getName(), 
+        self._player.getHp())

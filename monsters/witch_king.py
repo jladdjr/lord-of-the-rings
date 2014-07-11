@@ -16,5 +16,7 @@ class WitchKing(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.WitchKing, constants.MonsterDescriptions.WitchKing, \
-        stats, constants.MonsterAttackStrings.WitchKing, constants.MonsterDeathStrings.WitchKing)
+        Monster.__init__(self, constants.MonsterNames.WitchKing, 
+        constants.MonsterDescriptions.WitchKing, stats, 
+        constants.MonsterAttackStrings.WitchKing, 
+        constants.MonsterDeathStrings.WitchKing)

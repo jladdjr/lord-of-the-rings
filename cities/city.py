@@ -16,7 +16,8 @@ class City(Place):
 
         @param name:           The name of the city.
         @param description:    A description of the city.
-        @param greetings:      The greetings the user gets as he enters the city.
+        @param greetings:      The greetings the user gets as he enters the 
+                               city.
         @param buildings:      A list of the buildings in the city.
         """
         #Call parent's init method
@@ -101,6 +102,8 @@ class City(Place):
         print "Entering %s!" % self.getName()
         print "\n%s" % self.getDescription()
         print "%s" % self.getGreetings()
+        print ""
+        raw_input("Press enter to continue. ")
         print ""
         
         while True:

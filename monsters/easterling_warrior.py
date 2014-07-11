@@ -17,5 +17,7 @@ class EasterlingWarrior(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.EasterlingWarrior, constants.MonsterDescriptions.EasterlingWarrior, \
-        stats, constants.MonsterAttackStrings.EasterlingWarrior, constants.MonsterDeathStrings.EasterlingWarrior)
+        Monster.__init__(self, constants.MonsterNames.EasterlingWarrior, 
+        constants.MonsterDescriptions.EasterlingWarrior, stats, 
+        constants.MonsterAttackStrings.EasterlingWarrior, 
+        constants.MonsterDeathStrings.EasterlingWarrior)

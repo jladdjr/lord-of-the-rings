@@ -21,8 +21,8 @@ class CommandWords(object):
         """
         #Does command already exist?
         if self.isCommand(name):
-            errorMsg = "Cannot add '%s' to CommandWords; command name already in use." \
-            % name
+            errorMsg = ("Cannot add '%s' to CommandWords; command name already" 
+            " in use." % name)
             raise AssertionError(errorMsg)
 
         #Add command
@@ -63,7 +63,8 @@ class CommandWords(object):
         @param name:        Name of command.
         """
         if not self.isCommand(name):
-            errorMsg = "Cannot remove '%s' from CommandWords; command not recognized." % name
+            errorMsg = ("Cannot remove '%s' from CommandWords; command not" 
+            " recognized." % name)
             raise AssertionError(errorMsg)
         del self._commandWords[name]
 

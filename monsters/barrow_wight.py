@@ -7,7 +7,8 @@ class BarrowWight(Monster):
     """
     Inherits from Monster.
     
-    In Tolkien's universe, Barrow Wights were evil spirits that inhabited the Downs.
+    In Tolkien's universe, Barrow Wights were evil spirits that inhabited the 
+    Downs.
     """
     def __init__(self, stats):
         """
@@ -16,5 +17,7 @@ class BarrowWight(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.BarrowWight, constants.MonsterDescriptions.BarrowWight, \
-        stats, constants.MonsterAttackStrings.BarrowWight, constants.MonsterDeathStrings.BarrowWight)
+        Monster.__init__(self, constants.MonsterNames.BarrowWight, 
+        constants.MonsterDescriptions.BarrowWight, stats, 
+        constants.MonsterAttackStrings.BarrowWight, 
+        constants.MonsterDeathStrings.BarrowWight)

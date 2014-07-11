@@ -17,5 +17,7 @@ class Troll(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.Troll, constants.MonsterDescriptions.Troll, \
-        stats, constants.MonsterAttackStrings.Troll, constants.MonsterDeathStrings.Troll)
+        Monster.__init__(self, constants.MonsterNames.Troll, 
+        constants.MonsterDescriptions.Troll, stats, 
+        constants.MonsterAttackStrings.Troll, 
+        constants.MonsterDeathStrings.Troll)

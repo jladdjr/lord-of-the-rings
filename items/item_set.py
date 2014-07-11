@@ -25,7 +25,8 @@ class ItemSet(object):
         elif isinstance(itemSet, list):
             for item in itemSet:
                 if not isinstance(item, Item):
-                    errorMsg = "ItemSet initialized with list containing non-Item object(s)."
+                    errorMsg = ("ItemSet initialized with list containing" 
+                    " non-Item object(s).")
                     raise AssertionError(errorMsg)
                 self._items.append(item)
                 self._weight += int(item.getWeight())

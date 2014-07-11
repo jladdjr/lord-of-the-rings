@@ -16,5 +16,7 @@ class Goblin(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.Goblin, constants.MonsterDescriptions.Goblin, \
-        stats, constants.MonsterAttackStrings.Goblin, constants.MonsterDeathStrings.Goblin)
+        Monster.__init__(self, constants.MonsterNames.Goblin, 
+        constants.MonsterDescriptions.Goblin, stats, 
+        constants.MonsterAttackStrings.Goblin, 
+        constants.MonsterDeathStrings.Goblin)

@@ -16,5 +16,7 @@ class KingOfTheBarrows(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.KingOfTheBarrows, constants.MonsterDescriptions.KingOfTheBarrows, \
-        stats, constants.MonsterAttackStrings.KingOfTheBarrows, constants.MonsterDeathStrings.KingOfTheBarrows)
+        Monster.__init__(self, constants.MonsterNames.KingOfTheBarrows, 
+        constants.MonsterDescriptions.KingOfTheBarrows, stats, 
+        constants.MonsterAttackStrings.KingOfTheBarrows, 
+        constants.MonsterDeathStrings.KingOfTheBarrows)

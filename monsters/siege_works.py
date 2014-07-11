@@ -16,5 +16,7 @@ class SiegeWorks(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.SiegeWorks, constants.MonsterDescriptions.SiegeWorks, \
-        stats, constants.MonsterAttackStrings.SiegeWorks, constants.MonsterDeathStrings.SiegeWorks)
+        Monster.__init__(self, constants.MonsterNames.SiegeWorks, 
+        constants.MonsterDescriptions.SiegeWorks, stats, 
+        constants.MonsterAttackStrings.SiegeWorks, 
+        constants.MonsterDeathStrings.SiegeWorks)

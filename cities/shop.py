@@ -19,12 +19,14 @@ class Shop(Building):
         """
         Initializes shop.
 
-        @param name:           The name of the shop.
-        @param description:    The description of the shop.
-        @param greetings:      The greetings the user gets as he enters a shop.
-        @param numItems:       The number of items that can be bought at the shop.
-        @param quality:        The quality of the items that may be bought at shop.
-                               Ranges from 1-20.
+        @param name:        The name of the shop.
+        @param description: The description of the shop.
+        @param greetings:   The greetings the user gets as he enters a shop.
+        @param numItems:    The number of items that can be bought at the 
+                            shop.
+        @param quality:     The quality of the items that may be bought at 
+                            shop.
+                            Ranges from 1-20.
         """
         Building.__init__(self, name, description, greetings)
 
@@ -123,7 +125,8 @@ What is your choice?
         for item in player.getInventory():
             if isinstance(item, Item):
                 sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
-                print "\t%s... with sell value: %s %s." % (item.getName(), sellValue, constants.CURRENCY)
+                print "\t%s... with sell value: %s %s." % (item.getName(), 
+                sellValue, constants.CURRENCY)
                 sellableItems.append(item)
         print ""
 
@@ -132,7 +135,9 @@ What is your choice?
         for item in sellableItems:
             if item.getName() == itemToSell:
                 #Actual sale execution
-                choice = raw_input("Would you like to sell %s for %s %s? Response: yes/no. " % (item.getName(), sellValue, constants.CURRENCY))
+                choice = raw_input("Would you like to sell %s for %s %s?"
+                " Response: yes/no. " % (item.getName(), sellValue, 
+                constants.CURRENCY))
                 if choice.lower() == "yes":
                     player.removeFromInventory(item)
                     player.increaseMoney(sellValue)
@@ -156,7 +161,8 @@ What is your choice?
         for item in self._items:
             print "\t%s... with cost of %s." % (item.getName(), item.getCost())
         print ""
-        print "%s has %s %s with which to spend." % (player.getName(), player.getMoney(), constants.CURRENCY)
+        print "%s has %s %s with which to spend." % (player.getName(), 
+        player.getMoney(), constants.CURRENCY)
         print ""
         itemToPurchase = raw_input("Which item would you like to purchase? ")
         #Check to find object associated with user-given string

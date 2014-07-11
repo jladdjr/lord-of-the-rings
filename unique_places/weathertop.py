@@ -43,7 +43,8 @@ class Weathertop(UniquePlace):
         print self._greetings
         print ""
         
-        print "Even though you have no personal connection with the place, you feel a strong sense of nostalgia at Weathertop."
+        print ("Even though you have no personal connection with the place,"
+        " you \nfeel a strong sense of nostalgia at Weathertop.")
         raw_input("Press enter to continue. ")
 
         #Solicit user input
@@ -83,12 +84,15 @@ to camp the night at Weathertop?
         """
         #Nazgul encounter
         if random.random() < constants.UniquePlaceConstants.WeathertopBattleProb:
-            print "As you prepare your camping gear, you hear some rustling in the shadows...."
-            result = battle(player, constants.BattleEngineContext.STORY, self._monsters)
+            print ("As you prepare your camping gear, you hear some rustling" 
+            " in the \nshadows....")
+            result = battle(player, constants.BattleEngineContext.STORY, 
+            self._monsters)
             if not result:
                 return
                 
-            print "Alas, peaceful rest was never to be. After all, you are a man being hunted."
+            print ("Alas, peaceful rest was never to be. After all, you are a" 
+            " man being \nhunted.")
             print ""
             
         #Peaceful rest

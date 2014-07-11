@@ -17,5 +17,7 @@ class Sauroman(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.Sauroman, constants.MonsterDescriptions.Sauroman, \
-        stats, constants.MonsterAttackStrings.Sauroman, constants.MonsterDeathStrings.Sauroman)
+        Monster.__init__(self, constants.MonsterNames.Sauroman, 
+        constants.MonsterDescriptions.Sauroman, stats, 
+        constants.MonsterAttackStrings.Sauroman, 
+        constants.MonsterDeathStrings.Sauroman)

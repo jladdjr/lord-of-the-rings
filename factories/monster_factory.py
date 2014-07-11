@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-from monsters.monster import Monster
-import constants
-
 from math import floor
 import random
+
+from monsters.monster import Monster
+import constants
 
 def getMonsters(number, region, bonusDifficulty):
     """

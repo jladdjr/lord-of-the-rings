@@ -63,7 +63,8 @@ class CheckStatsCommand(Command):
 
         #Print player stats
         print "%s's stats: \n" % name
-        print "\t%s is level %s and has %s experience." % (name, level, experience)
+        print "\t%s is level %s and has %s experience." % (name, level, 
+        experience)
         print "\t%s's HP: %s/%s." % (name, hp, totalMaxHp)
         print "\t%s gets a %s HP bonus from charms." % (name, charmHp)
         print ""
@@ -71,7 +72,8 @@ class CheckStatsCommand(Command):
         #For player weapon
         if weapon:
             print "\tCharacter-based attack is %s." % attack
-            print "\tWeapons bonus is %s and charm bonus is %s." % (weaponsAttack, charmAttack)
+            print ("\tWeapons bonus is %s and charm bonus is %s." 
+            % (weaponsAttack, charmAttack))
             print "\tTotal attack is %s." % totalAttack
         else:
             print "\tWeapon: [Unequipped]."

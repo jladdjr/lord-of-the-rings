@@ -61,13 +61,15 @@ class DescribeCommand(Command):
             #If space has one uniquePlace object
             if isinstance(uniquePlace, UniquePlace):
                 uniquePlaceName = uniquePlace.getName() 
-                print "%s:\n%s" % (uniquePlaceName, uniquePlace.getDescription())
+                print "%s:\n%s" % (uniquePlaceName, 
+                uniquePlace.getDescription())
             
             #If space has multiple uniquePlaces
             if isinstance(uniquePlace, list):
                 for eachUniquePlace in uniquePlace:
                     eachUniquePlaceName = eachUniquePlace.getName()
-                    print "%s:\n%s" % (eachUniquePlaceName, eachUniquePlace.getDescription())
+                    print "%s:\n%s" % (eachUniquePlaceName, 
+                    eachUniquePlace.getDescription())
         
         #If space has items
         if len(itemsList) > 0:

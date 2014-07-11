@@ -36,12 +36,14 @@ class Argonath(UniquePlace):
         #Story
         print self._greetings
         print ""
-        print "As you gaze upon the kings of old, you think about the present age and its current darkness."
+        print ("As you gaze upon the kings of old, you think about the present"
+        " age and its \ncurrent darkness.")
         raw_input("Press enter to continue. ")
         print ""
             
         #Player receives reward
-        print "You draw up deep reserves of strength within yourself to finish the quest. Mordor awaits."
+        print ("You draw up deep reserves of strength within yourself to" 
+        " finish \nthe quest. Mordor awaits.")
         print "%s gains %s experience." % (name, experienceIncrease)
         player.increaseExperience(experienceIncrease)
         player.heal(maxHp)

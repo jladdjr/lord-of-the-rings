@@ -34,8 +34,8 @@ class EquipCommand(Command):
         
         #Create list of equippable items
         for item in inventory:
-            if (isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Charm)) \
-            and item not in equipped:
+            if (isinstance(item, Weapon) or isinstance(item, Armor) or 
+            isinstance(item, Charm)) and item not in equipped:
                 equippable.addItem(item)
         
         #If no equippable items

@@ -23,7 +23,8 @@ class EnterCommand(Command):
     
     def _displayPlacesToEnter(self):
         """
-        Displays the possible places (Cities or UniquePlaces) that player may enter.
+        Displays the possible places (Cities or UniquePlaces) that player may 
+        enter.
         """
         playerName = self._player.getName()
         space = self._player.getLocation()
@@ -36,23 +37,20 @@ class EnterCommand(Command):
         
         #Otherwise print the possible places to enter
         else:
+            print "%s may enter the following:" % playerName
             if isinstance(city, City):
-                print "%s may enter the following city:" % playerName
-                print "\t%s" % city.getName()
+                print "\t-%s" % city.getName()
             elif isinstance(city, list):
-                print "%s may enter the following cities:" % playerName
                 for eachCity in city:
-                    print "\t%s" % eachCity.getName()
-
+                    print "\t-%s" % eachCity.getName()
+            
         #Display uniquePlaces that player may enter
             if isinstance(uniquePlace, UniquePlace):
-                print "%s may enter the following:" % playerName
-                print "\t%s" % uniquePlace.getName()
+                print "\t-%s" % uniquePlace.getName()
             elif isinstance(uniquePlace, list):
-                print "%s may enter the following:" % playerName
                 for eachUniquePlace in uniquePlace:
-                    print "\t%s" % eachUniquePlace.getName()
-        print ""
+                    print "\t-%s" % eachUniquePlace.getName()
+            print ""
         
     def _createDictionaryOfPlaces(self):
         """
@@ -102,13 +100,13 @@ class EnterCommand(Command):
             return
         
         #Entering the place that the player chooses to enter
-        placeToEnter = raw_input("Which of these would you like to enter?\n")
-        while (placeToEnter not in dictionary.keys()) or placeToEnter == "stop":
-            if placeToEnter == "stop":
+        choice = raw_input("Which of these would you like to enter?\n")
+        while (choice not in dictionary.keys()) or choice == "stop":
+            if choice == "stop":
                 break 
-            print "\nThat name does not match the names of any of the places here."
-            print "Try again, or type 'stop' to stop entering a place.\n"
-            placeToEnter = raw_input("Which of these would you like to enter?\n")
+            print "\nThat does not match the names of any of the places here."
+            print "Try again, or type 'stop.'\n"
+            choice = raw_input("Where would you like to enter?\n")
         else:
             print "\n"
-            dictionary[placeToEnter].enter(self._player)
+            dictionary[choice].enter(self._player)

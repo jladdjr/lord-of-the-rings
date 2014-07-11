@@ -16,5 +16,7 @@ class UrukHaiElite(Monster):
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.UrukHaiElite, constants.MonsterDescriptions.UrukHaiElite, \
-        stats, constants.MonsterAttackStrings.UrukHaiElite, constants.MonsterDeathStrings.UrukHaiElite)
+        Monster.__init__(self, constants.MonsterNames.UrukHaiElite, 
+        constants.MonsterDescriptions.UrukHaiElite, stats, 
+        constants.MonsterAttackStrings.UrukHaiElite, 
+        constants.MonsterDeathStrings.UrukHaiElite)

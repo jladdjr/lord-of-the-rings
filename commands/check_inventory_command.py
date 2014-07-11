@@ -64,17 +64,20 @@ class CheckInventoryCommand(Command):
             if isinstance(item, Armor):
                 print "\t%s has a defense of %s." % (itemName, itemDefense)
             elif isinstance(item, Weapon):
-                print "\t%s has an attack value of %s." % (itemName, itemAttack)
+                print "\t%s has an attack value of %s." % (itemName, 
+                itemAttack)
             elif isinstance(item, Potion):
                 print "\t%s has a healing value of %s." % (itemName, itemHeal)
             elif isinstance(item, Charm):
-                print "\t%s has an attack bonus of %s, a defense bonus of %s, and a HP bonus of %s." \
-                % (itemName, itemAttack, itemDefense, itemHp)
+                print ("\t%s has an attack bonus of %s, a defense bonus of %s," 
+                " and a HP bonus of %s." % (itemName, itemAttack, itemDefense, 
+                itemHp))
             else:
                 errorMsg = "CheckInventoryCommand given invalid item type."
                 raise AssertionError(errorMsg)
             
-            print "\t%s weights %s and costs %s." % (itemName, itemWeight, itemCost)
+            print "\t%s weights %s and costs %s." % (itemName, itemWeight, 
+            itemCost)
             print ""
 
         print "\tTotal weight of inventory: %s." % inventory.getWeight()

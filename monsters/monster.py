@@ -2,20 +2,23 @@
 
 class Monster(object):
     """
-    A generic monster to be used as a parent for specific future monster classes.
+    A generic monster to be used as a parent for specific future monster 
+    classes.
     """
     def __init__(self, name, description, stats, attackString, deathString):
         """
         Initializes a monster object.
 
-        @param name:           Name of monster.
-        @param description:    Description of monster.
-        @param stats:          3-element list of Monster stats including attack, hp,
-                               and experience (in that order).
-        @param attackString:   The string displayed with an monster attack. For instance, Miles
-                               "got really pissed and started charging around."
-        @param deathString:    The string displayed with monster death. For instance,
-                               "Miles decided that he's had enough and went back home."
+        @param name:          Name of monster.
+        @param description:   Description of monster.
+        @param stats:         3-element list of Monster stats including 
+                              attack, hp, and experience (in that order).
+        @param attackString:  The string displayed with an monster attack. For 
+                              instance, Miles "got really pissed and started 
+                              charging around."
+        @param deathString:   The string displayed with monster death. For 
+                              instance, "Miles decided that he's had enough 
+                              and went back home."
         """
         self._name = name
         self._description = description

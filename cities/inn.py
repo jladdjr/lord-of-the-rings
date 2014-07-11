@@ -13,10 +13,10 @@ class Inn(Building):
         """
         Initializes the inn.
 
-        @param name:           The name of the inn.
-        @param description:    The description of the inn.
-        @param greetings:      The greetings the user gets as he enters the inn.
-        @param cost:           The cost of using the inn.
+        @param name:         The name of the inn.
+        @param description:  The description of the inn.
+        @param greetings:    The greetings the user gets as he enters the inn.
+        @param cost:         The cost of using the inn.
         """
         Building.__init__(self, name, description, greetings)
         
@@ -39,7 +39,8 @@ class Inn(Building):
         choice = None
         while choice != "no":
             print ""
-            choice = raw_input("Would you like to stay for the night? Response: 'yes' or 'no.' ")
+            choice = raw_input("Would you like to stay for the night?" 
+            " Response: 'yes' or 'no.' ")
             
             #Heal option   
             if choice == "yes":
@@ -49,7 +50,8 @@ class Inn(Building):
                     #Actual healing operation
                     self._heal(player)
                     print "%s was healed at %s cost! %s has %s %s remaining." \
-                          % (player.getName(), cost, player.getName(), player.getMoney(), constants.CURRENCY)
+                          % (player.getName(), cost, player.getName(), 
+                          player.getMoney(), constants.CURRENCY)
                     break
                 #Not enough money
                 else:

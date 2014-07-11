@@ -50,13 +50,16 @@ class CheckEquipmentCommand(Command):
                 hp = item.getHp()
                 print "\tCharm: %s:" % itemName
                 if item.getAttack():
-                    print "\t%s yields a %s attack bonus." % (itemName, attack)
+                    print "\t%s yields a %s attack bonus." % (itemName, 
+                    attack)
                 if item.getDefense():
-                    print "\t%s yields a %s defense bonus." % (itemName, defense)
+                    print "\t%s yields a %s defense bonus." % (itemName, 
+                    defense)
                 if item.getHp():
                     print "\t%s yields a %s HP bonus." % (itemName, hp)
             else:
-                errorMsg = "CheckEquipmentCommand command given invalid item type."
+                errorMsg = ("CheckEquipmentCommand command given invalid item" 
+                " type.")
                 raise AssertionError(errorMsg)
             print ""
             
