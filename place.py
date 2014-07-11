@@ -61,9 +61,11 @@ class Place(object):
         @param direction:     The direction targetSpace is in with 
                               respect to space.
         """
-        self._space.createExit(direction, self._targetSpace, outgoingOnly = False)
+        self._space.createExit(direction, self._targetSpace, 
+        outgoingOnly = False)
         
-        print "%s is now accessable to the %s." % (self._targetSpace.getName(), direction)
+        print "%s is now accessable to the %s." % (self._targetSpace.getName(), 
+        direction)
         
     def enter(self, player):
         """

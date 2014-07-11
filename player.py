@@ -48,7 +48,8 @@ class Player(object):
         self._charmHp       = constants.PlayerInitialization.CHARM_HP
 
         #Update player stats for item-based bonuses
-        self._totalAttack    = self._attack + self._weaponAttack + self._charmAttack
+        self._totalAttack    = (self._attack + self._weaponAttack + 
+            self._charmAttack)
         self._totalDefense   = self._armorDefense + self._charmDefense
         self._totalMaxHp     = self._maxHp + self._charmHp
         
@@ -170,7 +171,8 @@ class Player(object):
             self._maxHp         = self._level * constants.HP_STAT
             self._totalMaxHp    = self._maxHp + self._charmHp
             self._attack        = self._level * constants.ATTACK_STAT
-            self._totalAttack   = self._attack + self._weaponAttack + self._charmAttack
+            self._totalAttack   = (self._attack + self._weaponAttack + 
+                self._charmAttack)
             self._weightLimit   = self._level * constants.WEIGHT_LIMIT
             
     def getHp(self):
@@ -207,7 +209,8 @@ class Player(object):
         if self._totalMaxHp - self._hp < amount:
             amountHealed = self._totalMaxHp - self._hp
             
-        #If amount that player may be healed is greater than or equal to the amount possible
+        #If amount that player may be healed is greater than or equal to the 
+        #amount possible
         else:
             amountHealed = amount
             
@@ -228,7 +231,8 @@ class Player(object):
         if item not in self._inventory:
             statement =  "%s not currently in inventory." % item.getName()
             return statement
-        if not (isinstance(item, Armor) or isinstance(item, Weapon) or isinstance(item, Charm)):
+        if not (isinstance(item, Armor) or isinstance(item, Weapon) or 
+            isinstance(item, Charm)):
             statement = "Item must be a weapon, armor, or charm."
             return statement
         if item in self._equipped:
@@ -246,7 +250,8 @@ class Player(object):
         if isinstance(item, Weapon):
             self._equipped.addItem(item)
             self._weaponAttack = item.getAttack()
-            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+            self._totalAttack = (self._attack + self._weaponAttack + 
+                self._charmAttack)
         elif isinstance(item, Armor):
             self._equipped.addItem(item)
             self._armorDefense = item.getDefense()
@@ -256,7 +261,8 @@ class Player(object):
             self._charmAttack += item.getAttack()
             self._charmDefense += item.getDefense()
             self._charmHp += item.getHp()
-            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+            self._totalAttack = (self._attack + self._weaponAttack + 
+                self._charmAttack)
             self._totalDefense = self._armorDefense + self._charmDefense
             self._totalMaxHp = self._maxHp + self._charmHp
         
@@ -279,7 +285,8 @@ class Player(object):
         
         if isinstance(item, Weapon):
             self._weaponAttack = 0
-            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+            self._totalAttack = (self._attack + self._weaponAttack + 
+                self._charmAttack)
         if isinstance(item, Armor):
             self._armorDefense = 0
             self._totalDefense = self._armorDefense + self._charmDefense
@@ -292,7 +299,8 @@ class Player(object):
             self._charmDefense -= charmDefense
             self._charmHp -= charmHp
             
-            self._totalAttack = self._attack + self._weaponAttack + self._charmAttack
+            self._totalAttack = (self._attack + self._weaponAttack + 
+                self._charmAttack)
             self._totalDefense = self._armorDefense + self._charmDefense
             self._totalMaxHp = self._maxHp + self._charmHp
             

@@ -12,19 +12,20 @@ def battle(player, context, monsters = None):
     The battle engine of Lord of the Rings.
 
     @param player:     The player object.
-    @param context:    Context constant for battle engine. Battle engine behaves differently
-                       in different contexts. Battles are either random battles or story-based
-                       battles (e.g., boss battles).
-    @param monsters:   An optional parameter used for story-based battles. Consists of the list
-                       of monsters to fight.
+    @param context:    Context constant for battle engine. Battle engine 
+                       behaves differently
+                       in different contexts. Battles are either random battles 
+                       or story-based battles (e.g., boss battles).
+    @param monsters:   An optional parameter used for story-based battles. 
+                       Consists of the list of monsters to fight.
                        
     @return:           True if battle was won; False otherwise.
 
     Differences between random battles and story-based battles:
-    -Random battles: monster factory called by battle engine and monsters are supplied by
-    monster factory. Player can run successfully in random battles.
-    -Story-based battles: monsters must be supplied through the "monsters" parameter.
-    Player cannot run from battle.
+    -Random battles: monster factory called by battle engine and monsters are 
+    supplied by monster factory. Player can run successfully in random battles.
+    -Story-based battles: monsters must be supplied through the "monsters" 
+    parameter. Player cannot run from battle.
     """
     #Battle setup
     output = _battleSetup(player, context)
@@ -107,7 +108,8 @@ def _battleSetup(player, context):
 
         #Spawn monsters
         monsterCount = _monsterNumGen(player)
-        monsters = factories.monster_factory.getMonsters(monsterCount, region, bonusDifficulty)
+        monsters = factories.monster_factory.getMonsters(monsterCount, region, 
+        bonusDifficulty)
 
         #Declare battle
         print "Zonkle-tronks! Wild monsters appeared!"
@@ -123,10 +125,9 @@ def _battleSetup(player, context):
         bonusDifficulty = location.getBattleBonusDifficulty()
     
         #Display splash screen
-        print \
-"""
+        print """
 ()==[:::::::::::::> ()==[:::::::::::::> ()==[:::::::::::::>
-""" 
+"""
         return bonusDifficulty
     
     else:
@@ -152,23 +153,32 @@ def _monsterNumGen(player):
 
     #Calculate region spawn
     if region == constants.RegionType.ERIADOR:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.ERIADOR
     elif region == constants.RegionType.BARROW_DOWNS:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.BARROW_DOWNS
     elif region == constants.RegionType.HIGH_PASS:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.HIGH_PASS
     elif region == constants.RegionType.ENEDWAITH:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.ENEDWAITH
     elif region == constants.RegionType.MORIA:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.MORIA
     elif region == constants.RegionType.RHOVANION:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.RHOVANION   
     elif region == constants.RegionType.ROHAN:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.ROHAN       
     elif region == constants.RegionType.GONDOR:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.GONDOR      
     elif region == constants.RegionType.MORDOR:
-        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
+        monsterCount = (1 + bonusDifficulty) * 
+        constants.RegionBaseSpawn.MORDOR
     else:
         errorMsg = "Invalid region - region base monster determination."
         raise AssertionError(errorMsg)
@@ -209,18 +219,18 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
         if monster.getName() == target:
             #Carry out attack
             player.attack(monster)
-            print "%s did %s damage to %s!" % (player.getName(), \
-            player.getTotalAttack(), monster.getName())
+            print ("%s did %s damage to %s!" % (player.getName(), 
+            player.getTotalAttack(), monster.getName()))
             #If monster is still alive
             if monster.getHp() > 0:
-                print "%s has %s hp remaining." % (monster.getName(), \
-                monster.getHp())
+                print ("%s has %s hp remaining." % (monster.getName(), 
+                monster.getHp()))
             #If monster has died
             else:
                 print "%s" % monster.getDeathString()
                 #Generate earnings from winning battle
-                money += constants.BATTLE_EARNINGS * monster.getExperience() \
-                * (1 + bonusDifficulty)
+                money += (constants.BATTLE_EARNINGS * monster.getExperience() 
+                * (1 + bonusDifficulty))
                 experience += monster.getExperience() * (1 + bonusDifficulty)
                 #Remove monster from monsters list
                 for monster in monsters:
@@ -259,8 +269,8 @@ def _monsterAttackPhase(player, monsters):
     #Monsters attack
     for monster in monsters:
         monster.attack(player)
-        print "%s %s for %s damage!" % (monster.getName(), \
-        monster.getAttackString(), monster.getAttack())
+        print ("%s %s for %s damage!" % (monster.getName(), 
+        monster.getAttackString(), monster.getAttack()))
         print "%s has %s HP remaining." % (player.getName(), player.getHp())
         
         #Battle ends
@@ -287,8 +297,8 @@ def _endSequence(player, earnings):
     
     #Calculate splash screen variables
     victoryDeclaration = "Enemies are vanguished!"
-    gainsDeclaration = "%s gains %s %s and %s experience!" \
-    % (player.getName(), money, constants.CURRENCY, experience)
+    gainsDeclaration = ("%s gains %s %s and %s experience!" 
+    % (player.getName(), money, constants.CURRENCY, experience))
     
     lengthBar = len(gainsDeclaration)
     victoryDeclaration = victoryDeclaration.center(lengthBar)

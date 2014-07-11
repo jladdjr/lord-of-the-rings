@@ -241,7 +241,8 @@ randomly generated number falls within the range of each class, a monster of tha
 is spawned.
 """
 REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
-                                 RegionType.BARROW_DOWNS : {BarrowWight: [0, .85], KingOfTheBarrows: [.85, 1]},
+                                 RegionType.BARROW_DOWNS : {BarrowWight: [0, .85], 
+                                 KingOfTheBarrows: [.85, 1]},
                                  RegionType.HIGH_PASS : {Goblin: [0, 1]},
                                  RegionType.ENEDWAITH : {WargRider: [0, .3], Dunlending: [.3, .6], UrukHai: [.6, .8], UrukHaiArcher: [.8, .9], EliteUrukHai: [.9, 1]},
                                  RegionType.MORIA : {Orc: [0, .7], OrcArcher: [.7, .925], Troll: [.925, .98], Balrog: [.98, 1]},

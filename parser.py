@@ -27,7 +27,8 @@ class Parser(object):
         userInput = userInput.strip().lower()
 
         while not self._commandRecognized(userInput):
-            print "Command '%s' not recognized. Type 'help' for help." % userInput
+            print ("Command '%s' not recognized. Type 'help' for help." 
+            % userInput)
             print ""
 
             userInput = raw_input(constants.COMMAND_PROMPT)

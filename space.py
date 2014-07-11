@@ -14,24 +14,30 @@ class Space(object):
         """
         Initialize a Space object.
 
-        @param name:                     Name of space.
-        @param description:              Description of space.
-        @param battleProbability:        Probability between [0, 1] that a random battle will
-                                         occur between successive game command executions.
-        @param battleBonusDifficulty:    Probability between [0, 1] that is used to determine
-                                         battle bonus difficulty. This stat results in a 
-                                         percentage increase over default monster stats and 
-                                         number for any given space.
-                                         
-                                         For instance, if bonus difficulty is set to .5, space
-                                         will spawn 50% more monsters with 150% base stats.
-                                         
-        @keyword items:                  (Optional) Items found in the space.
-                                         May be a reference to a single item or an ItemSet.
-        @keyword city:                   (Optional) City objects in space.
-                                         May be a reference to an individual object or a list.
-        @keyword uniquePlace:            (Optional) Reference to unique places in space. 
-                                         May be a reference to an individual object or a list.
+        @param name:                   Name of space.
+        @param description:            Description of space.
+        @param battleProbability:      Probability between [0, 1] that a 
+                                       random battle will occur between 
+                                       successive game command executions.
+        @param battleBonusDifficulty:  Probability between [0, 1] that is used 
+                                       to determine battle bonus difficulty. 
+                                       This stat results in a percentage 
+                                       increase over default monster stats and 
+                                       number for any given space.
+                                       
+                                       For instance, if bonus difficulty is 
+                                       set to .5, space will spawn 50% more 
+                                       monsters with 150% base stats.
+                                       
+        @keyword items:                (Optional) Items found in the space.
+                                       May be a reference to a single item or 
+                                       an ItemSet.
+        @keyword city:                 (Optional) City objects in space.
+                                       May be a reference to an individual 
+                                       object or a list.
+        @keyword uniquePlace:          (Optional) Reference to unique places 
+                                       in space. May be a reference to an 
+                                       individual object or a list.
         """
         self._exits = {Direction.NORTH : None,
                        Direction.SOUTH : None,

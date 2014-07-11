@@ -83,8 +83,10 @@ class Game(object):
                                       \$$$$$$
         """
         print splashScreen
-        print "An adventure game where Russian tries to take on the hoards of Mordor."
-        print "A little help from Dear Ladd Jr., Miles, Seth, and C-$ along the way."
+        print ("An adventure game where Russian tries to take on the hoards of" 
+        " Mordor.")
+        print ("A little help from Dear Ladd Jr., Miles, Seth, and C-$ along" 
+        " the way.")
         print "...~Money~..."
         print ""
         print "(Type 'help' for a list of available commands)"
@@ -123,7 +125,8 @@ class Game(object):
         
         #If player has won the game
         if self._winningConditions():
-            print "Congratulations! %s has saved Middle Earth!" % self._player.getName()
+            print ("Congratulations! %s has saved Middle Earth!" 
+            % self._player.getName())
             raw_input("Press enter to exit. ")
             sys.exit()
             
@@ -172,12 +175,13 @@ class Game(object):
         #Determines if random battle will occur
         if random.random() < battleProbability:
             #Call on battle to resolve battle
-            battle_engine.battle(self._player, constants.BattleEngineContext.RANDOM)
+            battle_engine.battle(self._player, 
+            constants.BattleEngineContext.RANDOM)
     
     def _winningConditions(self):
         """
-        Evaluates if player has won the game. Criteria for winning the game is that 
-        theOneRing has been dropped in the space, orodruin (Mount Doom). 
+        Evaluates if player has won the game. Criteria for winning the game is 
+        that the OneRing has been dropped in the space, orodruin (Mount Doom). 
         """
         if self._orodruin.containsItem(theOneRing):
             return True
