@@ -131,7 +131,7 @@ class Isenmouthe(UniquePlace):
         #Give player loot
         if len(self._loot) != 0:
             print "While looting the battlefield, you find strange items."
-            raw_input("Press enter to continue.")
+            raw_input("Press enter to continue. ")
             print ""
             for item in self._loot:
                 if player.addToInventory(item):

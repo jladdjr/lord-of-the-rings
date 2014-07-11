@@ -32,7 +32,7 @@ class OstInEdhil(UniquePlace):
         print self._greetings
         print ""
         print "You decide that this is a good place to spend the night."
-        raw_input("Press enter to continue." )
+        raw_input("Press enter to continue. ")
         print ""
             
         player.heal(healing)

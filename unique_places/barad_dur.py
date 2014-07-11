@@ -179,7 +179,7 @@ class BaradDur(UniquePlace):
         #Give player loot
         if len(self._loot) != 0:
             print "While looting the battlefield, you find several interesting items. The tower itself remains locked, however."
-            raw_input("Press enter to continue.")
+            raw_input("Press enter to continue. ")
             print ""
             for item in self._loot:
                 if player.addToInventory(item):
