@@ -54,7 +54,8 @@ class TowerOfCirithUngol(UniquePlace):
         print self._greetings
         print ""
         
-        print "As you climb the path of Cirith Ungol, you stare at the ghastly city of Minas Morgul."
+        print ("As you climb the path of Cirith Ungol, you stare at the"
+            " ghastly city of Minas \nMorgul.")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -78,7 +79,8 @@ class TowerOfCirithUngol(UniquePlace):
         choice = None
         acceptable = ["yes", "no"]
         while choice not in acceptable:
-            choice = raw_input("Would you like to continue? Choices: 'yes' and 'no.' ")
+            choice = raw_input("Would you like to continue? Choices:"
+                " 'yes' and 'no.' ")
         print ""
         
         return choice
@@ -90,7 +92,8 @@ class TowerOfCirithUngol(UniquePlace):
         @param player:   The player object.
         """
         #Story
-        print "As you enter into Shelob's Clef, you are surrounded by a supernatural darkness and the stench of rotting corpses."
+        print ("As you enter into Shelob's Clef, you are surrounded by a"
+            " supernatural darkness and \nthe stench of rotting corpses.")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -104,7 +107,8 @@ class TowerOfCirithUngol(UniquePlace):
             raw_input("Press enter to continue. ")
             print ""
             
-            print "The light gives you strength... and Shelob backs away, afraid of the light."
+            print ("The light gives you strength... and Shelob backs away,"
+            " afraid of the light.")
             raw_input("Press enter to continue. ")
             print ""
             
@@ -114,7 +118,8 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            result = battle(player, constants.BattleEngineContext.STORY, 
+                self._wave)
             if not result:
                 return
             
@@ -125,7 +130,8 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            result = battle(player, constants.BattleEngineContext.STORY, 
+                self._wave)
             if not result:
                 return
                 
@@ -147,7 +153,8 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            result = battle(player, constants.BattleEngineContext.STORY, 
+                self._wave)
             if not result:
                 return
                 
@@ -158,7 +165,8 @@ class TowerOfCirithUngol(UniquePlace):
         #A potential encounter with Shelob
         shelobAppearance = random.random()
         if shelobAppearance < .4:
-            result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+            result = battle(player, constants.BattleEngineContext.STORY, 
+                self._wave)
             if not result:
                 return
                 
@@ -177,21 +185,25 @@ class TowerOfCirithUngol(UniquePlace):
         """
         successfulEscape = random.random()
         #If player manages to escape undetected
-        if successfulEscape < constants.UniquePlaceConstants.CirithUngolSneakProb:
-            print "You manage to sneak through the Tower of Cirith Ungol and are now in the heart of Mordor."
+        if successfulEscape < constants.UniquePlace.CirithUngolSneakProb:
+            print ("You manage to sneak through the Tower of Cirith Ungol and"
+                " are now in the heart \nof Mordor.")
             raw_input("Press enter to continue. ")
             print ""
         #If player gets detected
         else:
-            print "As you attempt to sneak through the rest of the passage, you are discovered by an orc patrol."
+            print ("As you attempt to sneak through the rest of the passage,"
+                " you are discovered \nby an orc patrol.")
             raw_input("Press enter to continue. ")
             print ""
-            result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+            result = battle(player, constants.BattleEngineContext.STORY, 
+                self._wave2)
             if not result:
                 return
                 
             #Story
-            print "You make it into Mordor and Sauron has been alerted of your presence."
+            print ("You make it into Mordor and Sauron has been alerted of"
+                " your presence.")
             raw_input("Press enter to continue. ")
             print ""
         

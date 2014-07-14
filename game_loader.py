@@ -56,7 +56,7 @@ def getWorld():
     Spaces may have cities and unique places. Cities may have inns, squares, 
     and shops.
     
-    @return:            List of created spaces.
+    @return:    List of created spaces.
     """
     #Shire - Hobbiton
     #Inn
@@ -81,10 +81,10 @@ def getWorld():
     hobbitonSquare = Square("Hobbiton Square", description, greeting, talk, 
     items.unique_items.hobbitonSquareItems)
     #City
-    description = """Hobbiton is a village in the central regions of the
-    Shire within the borders of the Westfarthing. Hobbiton is located
-    on both sides of the Water approximately a mile northwest of the
-    neighboring village of Bywater.
+    description = """Hobbiton is a village in the central regions of the Shire 
+    within the borders of the Westfarthing. Hobbiton is located on both sides 
+    of the Water approximately a mile northwest of the neighboring village of 
+    Bywater.
     """
     greeting = "\"Have you heard the news?\""
     hobbiton = City("Hobbiton", description, greeting, [sallyInn, sallyShop, 
@@ -95,9 +95,9 @@ def getWorld():
     Westfarthing. The Mayor of Michel Delving is the most important of the
     Shire-hobbits.
 
-    The Shire is largely dependent on agriculture and its land is
-    well-suited for farming. One of its chief products is Shire
-    Leaf, grown especially in the warmer regions of the Southfarthing.
+    The Shire is largely dependent on agriculture and its land is well-suited 
+    for farming. One of its chief products is Shire Leaf, grown especially in 
+    the warmer regions of the Southfarthing.
     """
     shire = Space("Shire", description, constants.RegionType.ERIADOR, 
     city = hobbiton)
@@ -114,10 +114,10 @@ def getWorld():
     greeting)
     #The Old Forest
     description = """
-    The Old Forest is one of the few surviving primordial forests
-    which covered most of Eriador before the Second Age. The Old Forest
-    has been known to play tricks on travelers in response to its
-    massive deforestation.
+    The Old Forest is one of the few surviving primordial forests which 
+    covered most of Eriador before the Second Age. The Old Forest has been 
+    known to play tricks on travelers in response to its massive 
+    deforestation.
     """
     oldForest = Space("Old Forest", description, constants.RegionType.ERIADOR, 
     uniquePlace = tomBombadil)
@@ -129,19 +129,19 @@ def getWorld():
     weathertop = Weathertop("Weathertop", description, greeting)
     #The Weather Hills
     description = """
-    Weather Hills is the name among Men for the range of hills
-    that lay in central Eriador and in ancient times marked part of the
-    border between the lands of Arthedain and Rhudaur. Weathertop, or
-    Amon Sûl, lays at the southern end of this range.
+    Weather Hills is the name among Men for the range of hills that lay in 
+    central Eriador and in ancient times marked part of the border between the 
+    lands of Arthedain and Rhudaur. Weathertop, or Amon Sûl, lays at the 
+    southern end of this range.
     """
     weatherHills = Space("Weather Hills", description, 
     constants.RegionType.ERIADOR, uniquePlace = weathertop)
 
     #Trollshaws
     description = """
-    Trollshaws are the upland woods that lay to the west of Rivendell and
-    the Rivers Hoarwell and Loudwater. They were the haunt of Trolls, three
-    of which waylaid Bilbo and his companions during the Quest of Erebor.
+    Trollshaws are the upland woods that lay to the west of Rivendell and the 
+    Rivers Hoarwell and Loudwater. They were the haunt of Trolls, three of 
+    which waylaid Bilbo and his companions during the Quest of Erebor.
     """
     trollshaws = Space("Trollshaws", description, constants.RegionType.ERIADOR)
 
@@ -169,8 +169,8 @@ def getWorld():
     talk, items.unique_items.councilOfElrondItems)
     #City
     description = """
-    Rivendell, also known as Imladris, is an Elven outpost in Middle-earth.
-    It is also referred to as "The Last Homely House East of the Sea," a
+    Rivendell, also known as Imladris, is an Elven outpost in Middle-earth. It 
+    is also referred to as "The Last Homely House East of the Sea," a 
     reference to Valinor, which is west of the Great Sea in Aman.
     """
     greeting = ("Rivendell is a sight for sore eyes and truly paradise in" 
@@ -179,26 +179,26 @@ def getWorld():
     elvenWares, councilOfElrond])
     #Misty Mountains North
     description = """The Misty Mountains or Mountains of Mist is a great
-    mountain range that lies between Eriador in the west and the Great
-    River Anduin in the east. It runs 795 miles (1,280 kilometers) from
-    Mount Gundabad in the far north to Methedras in the south.
+    mountain range that lies between Eriador in the west and the Great River 
+    Anduin in the east. It runs 795 miles (1,280 kilometers) from Mount 
+    Gundabad in the far north to Methedras in the south.
     """
     mistyMountainsNorth = Space("Misty Mountains", description, 
     constants.RegionType.ERIADOR, city = rivendell)
 
     #High Pass - Goblintown
     #Unique Place
-    description = """Goblin-town is a Goblin dwelling which lies
-    under the High Pass in the Misty Mountains and is ruled by the Great
-    Goblin. Gullum's cave is deep beneath Goblin-town and is connected
-    to the Goblins' tunnels.
+    description = """Goblin-town is a Goblin dwelling which lies under the 
+    High Pass in the Misty Mountains and is ruled by the Great Goblin. 
+    Gullum's cave is deep beneath Goblin-town and is connected to the Goblins' 
+    tunnels.
     """
     greeting = "\"What is better: subtlety or aggression?\""
     goblinTown = GoblinTown("Goblin Town", description, greeting)
     #High Pass
-    description = """The High Pass is a pass over the Misty Mountains.
-    On its western end is the refuge of Rivendell. From there the Great 
-    East Road climbs into the mountains until it reaches Goblin-town.
+    description = """The High Pass is a pass over the Misty Mountains. On its 
+    western end is the refuge of Rivendell. From there the Great East Road 
+    climbs into the mountains until it reaches Goblin-town.
     
     ***Mirkwood is accessible to the south through Goblin Town***
     """
@@ -241,17 +241,16 @@ def getWorld():
     elvenkingsThrone = Square("Elvenking's Throne", description, greeting, 
     talk, items.unique_items.elvenkingsThroneItems)
     #City
-    description = """Elvenking's Halls is the cave system in northern
-    Mirkwood in which King Thranduil and many of the Elves of Mirkwood
-    live.
+    description = """Elvenking's Halls is the cave system in northern Mirkwood 
+    in which King Thranduil and many of the Elves of Mirkwood live.
     """
     greeting = "You arrive to find a bustling network of caves."
     elvenkingsHalls = City("Elvenking's Halls", description, greeting, 
     [sihirliMutfak, elvenWares, thePit, elvenkingsThrone])
     #Mirkwood
-    description = """Mirkwood or \"The Forest of Great Fear\" is a great
-    forest in Rhovanion. Mirkwood was once called Greenwood the Great
-    and later became the Wood of Greenleaves."""
+    description = """Mirkwood or \"The Forest of Great Fear\" is a great 
+    forest in Rhovanion. Mirkwood was once called Greenwood the Great and 
+    later became the Wood of Greenleaves."""
     mirkwood = Space("Mirkwood", description, constants.RegionType.RHOVANION, 
     city = elvenkingsHalls)
 
@@ -263,8 +262,8 @@ def getWorld():
     dolGuldur = DolGuldur("Dol Guldur", description, greeting)
     #The Old Forest
     description = """
-    During the War of the Ring, Southern Mirkwood was
-    occupied by Dol Guldur, Sauron's northern fortress. 
+    During the War of the Ring, Southern Mirkwood was occupied by Dol Guldur, 
+    Sauron's northern fortress.
     """
     southernMirkwood = Space("Southern Mirkwood", description, 
     constants.RegionType.RHOVANION, uniquePlace = dolGuldur)
@@ -292,27 +291,25 @@ def getWorld():
     prancingPony = Square("Prancing Pony", description, greeting, talk, 
     items.unique_items.prancingPonyItems)
     #City
-    description = """Bree was settled in the early Third Age in the
-    realm Cardolan. Though the Princes of Cardolan claimed it, Bree
-    continued to thrive without any central authority or government
-    for many centuries. 
+    description = """Bree was settled in the early Third Age in the realm 
+    Cardolan. Though the Princes of Cardolan claimed it, Bree continued to 
+    thrive without any central authority or government for many centuries. 
     """
     greeting = "\"Nazgul have been visiting the area at night!\""
     bree = City("Bree", description, greeting, [lindasInn, hanksBattleGear, 
     prancingPony])
     #Barrow Downs
-    description = """Barrow-downs or Tyrn Gorthad is a series of low
-    hills east of the Shire, behind the Old Forest and west of the
-    village of Bree. Many of the hills are crowned with megaliths
-    and barrows.
+    description = """Barrow-downs or Tyrn Gorthad is a series of low hills 
+    east of the Shire, behind the Old Forest and west of the village of Bree. 
+    Many of the hills are crowned with megaliths and barrows.
     """
     barrowDowns = Space("Barrow Downs", description, 
     constants.RegionType.BARROW_DOWNS, city = bree)
 
     #Bruinen
-    description = """Bruinen or Loudwater is a river in eastern Eriador.
-    It begins with two tributaries flowing from the western slopes of the
-    Misty Mountains.
+    description = """Bruinen or Loudwater is a river in eastern Eriador. It 
+    begins with two tributaries flowing from the western slopes of the Misty 
+    Mountains.
     """
     bruinen = Space("Bruinen", description, constants.RegionType.ERIADOR)
 
@@ -324,8 +321,8 @@ def getWorld():
     " great Tharbad....")
     tharbad = Tharbad("Tharbad", description, greeting)
     #Mitheithel
-    description = """Mitheithel is the long river that rises in a place
-    in the icy north of Middle-earth called Hoarwell.
+    description = """Mitheithel is the long river that rises in a place in the 
+    icy north of Middle-earth called Hoarwell.
     """
     mitheithel = Space("Mitheithel", description, 
     constants.RegionType.ERIADOR, uniquePlace = tharbad)
@@ -334,39 +331,39 @@ def getWorld():
     #Unique Place
     description = """Once a great elven city, now destroyed by Sauron. The 
     Rings of Power were forged by Celebrimbor here."""
-    greeting = """You arrive at a strange sight: the once great city of Ost
-    In Edhil now an ancient ruin. Strange symbols cover the land."""
+    greeting = """You arrive at a strange sight: the once great city of Ost In 
+    Edhil now an ancient ruin. Strange symbols cover the land."""
     ostInEdhil = OstInEdhil("Ost In Edhil", description, greeting)
     #Swanfleet
-    description = """The Swanfleet or Nin-in-Eilph is a marshy area in
-    eastern Eriador where the lower reaches of the Glanduin flows
-    before it joins Mitheithel. Swanfleet is an inland delta.
+    description = """The Swanfleet or Nin-in-Eilph is a marshy area in eastern 
+    Eriador where the lower reaches of the Glanduin flows before it joins 
+    Mitheithel. Swanfleet is an inland delta.
     """
     swanfleet = Space("Swanfleet", description, constants.RegionType.ERIADOR, 
     uniquePlace = ostInEdhil)
     
     #Dunland
-    description = """Dunland is the land of the Dunlendings. Dunland means
-    \"Hill Land\" in the language of neighbouring Rohan, whose people named 
-    it after arriving in nearby Calenardhon in the later Third Age. It is a
-    land of wild men.
+    description = """Dunland is the land of the Dunlendings. Dunland means 
+    \"Hill Land\" in the language of neighbouring Rohan, whose people named it 
+    after arriving in nearby Calenardhon in the later Third Age. It is a land 
+    of wild men.
     """
     dunland = Space("Mitheithel", description, constants.RegionType.RHOVANION)
 
     #Misty Mountains South
     #Unique Place
     description = """Moria consists of an enormous underground complex in
-    northwestern Middle Earth, comprising a vast network of tunnels,
-    chambers, mines, halls, and mansions. 
+    northwestern Middle Earth, comprising a vast network of tunnels, chambers, 
+    mines, halls, and mansions. 
     """
     greeting = "Eerie silence greets as you as you enter the mines."
     moria = Moria("Moria", description, greeting)
     #Misty Mountains South
-    description = """Khazad-dum, (also known as Moria, The Black Chasm,
-    The Black Pit, Dwarrowdelf, Hadhodrond, Casarrondo, and Phurunargian)
-    is the grandest and most famous of the dwarven cities. There, for 
-    many thousands of years, a thriving Dwarvish community created the
-    greatest city ever known.
+    description = """Khazad-dum, (also known as Moria, The Black Chasm, The 
+    Black Pit, Dwarrowdelf, Hadhodrond, Casarrondo, and Phurunargian) is the 
+    grandest and most famous of the dwarven cities. There, for many thousands 
+    of years, a thriving Dwarvish community created the greatest city ever 
+    known.
     
     ***Lorien is accessible to the east through Moria***
     """
@@ -400,10 +397,9 @@ def getWorld():
     carasGaladhon = City("Caras Galadhon", description, greeting, 
     [elvenWaters, elvenWares, galadrielsMirror])
     #Lorien
-    description = """Lothlorien is a kingdom of Silvan Elves on the
-    eastern side of the Hithaeglir. It is considered one of the most
-    beautiful places in Middle-earth and has the only mallorn-trees
-    east of the sea.
+    description = """Lothlorien is a kingdom of Silvan Elves on the eastern 
+    side of the Hithaeglir. It is considered one of the most beautiful places 
+    in Middle-earth and has the only mallorn-trees east of the sea.
     """
     lorien = Space("Lorien", description, constants.RegionType.RHOVANION, 
     city = carasGaladhon)
@@ -423,9 +419,9 @@ def getWorld():
     uniquePlace = derningle)
 
     #The Wold
-    description = """The Wold is the northernmost and least populated part
-    of Rohan, lying between Fangorn Forest and the Anduin, bordered to the
-    north by the Limlight.
+    description = """The Wold is the northernmost and least populated part of 
+    Rohan, lying between Fangorn Forest and the Anduin, bordered to the north 
+    by the Limlight.
 
     Its main inhabitants were nomadic Men of Rohan who use the land to graze
     cattle. In recent years, these men have fled in response to frequent
@@ -434,18 +430,18 @@ def getWorld():
     theWold = Space("The Wold", description, constants.RegionType.MORDOR)
 
     #Field of Celebrant
-    description = """The Field of Celebrant lies between the Rivers Anduin
-    and Limlight and southeast of Lothlorien. In T.A. 2510, the decisive
-    Battle of the Field of Celebrant where the men of Rohan rose up to
-    aid Gondor happened here.
+    description = """The Field of Celebrant lies between the Rivers Anduin and 
+    Limlight and southeast of Lothlorien. In T.A. 2510, the decisive Battle of 
+    the Field of Celebrant where the men of Rohan rose up to aid Gondor 
+    happened here.
     """
     fieldOfCelebrant = Space("Field of Celebrant", description, 
     constants.RegionType.MORDOR)
 
     #Calenardhon - Isenguard
     #Unique Place
-    description = """Isengard ("Iron Fortress" or Angrenost in Sindarin) is
-    a great fortress located within a valley at the southern end of the Misty
+    description = """Isengard ("Iron Fortress" or Angrenost in Sindarin) is a 
+    great fortress located within a valley at the southern end of the Misty
     Mountains near the Gap of Rohan. In the center of the Ring of Isengard
     stands the stone tower of Orthanc.
     """
@@ -479,39 +475,38 @@ def getWorld():
     helmsDeepCommons = Square("Helms Deep Commons", description, greeting, 
     talk, items.unique_items.helmsDeepCommonsItems)
     #City
-    description = """Helm's Deep is a large valley gorge in northwestern
-    Ered Nimrais below the Thrihyrne. It consists of a massive defensive 
-    system called the Hornburg.
+    description = """Helm's Deep is a large valley gorge in northwestern Ered 
+    Nimrais below the Thrihyrne. It consists of a massive defensive system 
+    called the Hornburg.
     """
     greeting = "\"Welcome to Helm's Deep! WHOOO!!! PARTY!\""
     helmsDeep = City("Helm's Deep", description, greeting, 
     [sobrietyRoom, theArmory, helmsDeepCommons])
     #Westfold
-    description = """The Westfold is the western part of Rohan, close to
-    the White Mountains and situated between the river Isen and the Folde.
-    The North-South Road runs through the Westfold from the Fords of Isen
-    to Edoras. Its strongpoint is Helm's Deep.
+    description = """The Westfold is the western part of Rohan, close to the 
+    White Mountains and situated between the river Isen and the Folde. The 
+    North-South Road runs through the Westfold from the Fords of Isen to 
+    Edoras. Its strongpoint is Helm's Deep.
     """
     westfold = Space("Westfold", description, constants.RegionType.ROHAN, 
     city = helmsDeep)
 
     #Westemnet
-    description = """The Eastemnet is part of Rohan. It is an area of
-    wide, grassy plains east of the Entwash River.
+    description = """The Eastemnet is part of Rohan. It is an area of wide, 
+    grassy plains east of the Entwash River.
     """ 
     westemnet = Space("West Emmet", description, constants.RegionType.ROHAN)
 
     #Eastemnet
-    description = """The Eastemnet is part of Rohan. It contains
-    wide, grassy plains and is east of the Entwash and west of
-    the Great River, Anduin.
+    description = """The Eastemnet is part of Rohan. It contains wide, grassy 
+    plains and is east of the Entwash and west of the Great River, Anduin.
     """ 
     eastemnet = Space("East Emmet", description, constants.RegionType.ROHAN)
 
     #Emyn Muil
-    description = """Emyn Muil is a range of hills south of the Brown
-    Lands and north of Nindalf. The Anduin cuts through these hills
-    and pools in Nen Hithoel.
+    description = """Emyn Muil is a range of hills south of the Brown Lands 
+    and north of Nindalf. The Anduin cuts through these hills and pools in Nen 
+    Hithoel.
     """ 
     emynMuil = Space("Emyn Muil", description, constants.RegionType.MORDOR)
 
@@ -538,9 +533,9 @@ def getWorld():
     edorasCommons = Square("Edoras Commons", description, greeting, talk, 
     items.unique_items.edorasCommonsItems)
     #City
-    description = """Rohan's first capital was at Aldburg until
-    Eorl the Young's son Brego built Edoras. It is Rohan's only 
-    real city and holds the Golden Hall of Meduseld.
+    description = """Rohan's first capital was at Aldburg until Eorl the 
+    Young's son Brego built Edoras. It is Rohan's only real city and holds the 
+    Golden Hall of Meduseld.
     """
     greeting = "\"Welcome to Edoras!\""
     edoras = City("Edoras", description, greeting, [sunsetVillage, 
@@ -574,26 +569,26 @@ def getWorld():
     aldburg = City("Aldburg", description, greeting, [sethsHostel, 
     milesCookieFactory, auburnSquare])
     #Eastfold
-    description = """Eastfold is a part of the realm of Rohan. Bounded
-    by the Mering Stream and Snowbourn River, it contains the cities of
-    Aldburg and Edoras.
+    description = """Eastfold is a part of the realm of Rohan. Bounded by the 
+    Mering Stream and Snowbourn River, it contains the cities of Aldburg and 
+    Edoras.
     """
     eastfold = Space("Eastfold", description, constants.RegionType.ROHAN, 
     city = [edoras, aldburg])
 
     #Nindalf
-    description = """The swamps of Nindalf or Wetwang lie to the south of
-    Emyn Muil and east of the Great River Anduin and are fed by the great
-    inland delta of Entwash. The Dead Marshes lie further east and are
-    an extension of Nindalf.
+    description = """The swamps of Nindalf or Wetwang lie to the south of Emyn 
+    Muil and east of the Great River Anduin and are fed by the great inland 
+    delta of Entwash. The Dead Marshes lie further east and are an extension 
+    of Nindalf.
     """ 
     nindalf = Space("Nimdalf", description, constants.RegionType.MORDOR)
 
     #Dead Marshes - Black Gate
     #Unique Place
-    description = """The Black Gate of Mordor is a gate built by Sauron
-    to prevent invasion through the Pass of Cirith Gorgor, the gap between
-    the Ered Lithui and the Ephel Duath.
+    description = """The Black Gate of Mordor is a gate built by Sauron to 
+    prevent invasion through the Pass of Cirith Gorgor, the gap between the 
+    Ered Lithui and the Ephel Duath.
     """
     greetings = "\"One does not simply walk into Mordor.\""
     blackGate = BlackGate("Black Gate", description, greetings)
@@ -608,18 +603,17 @@ def getWorld():
 
     #Valley of Udun - Isenmouthe
     #Unique Place
-    description = """Isenmouthe or Carach Angren is a pass in the
-    northeastern part of Mordor and guards the southern end of the valley,
-    Udun.
+    description = """Isenmouthe or Carach Angren is a pass in the northeastern 
+    part of Mordor and guards the southern end of the valley, Udun.
     
     The pass is heavily guarded with fortresses and watchtowers.
     """
     greetings = "\"One does not simply walk into Mordor part II.\""
     isenmouthe = Isenmouthe("Isenmouthe", description, greetings)
     #Valley of Udun
-    description = """Udun is a depressed valley in northwestern Mordor.
-    It lies between Cirith Gorgor and Isenmouthe and is traversed
-    by large armies of Sauron in times of war.
+    description = """Udun is a depressed valley in northwestern Mordor. It 
+    lies between Cirith Gorgor and Isenmouthe and is traversed by large armies 
+    of Sauron in times of war.
     
     ***Plateau of Gorgoth is accessible to the south through Isenmouthe***
     """
@@ -628,9 +622,9 @@ def getWorld():
     
     #Cair Andros
     description = """Cair Andros, meaning "Ship of the Long-Foam," is an
-    island in the river Anduin, resting nearly forty miles to the north
-    of Osgiliath.  It is of paramount importance to Gondor because it
-    prevents the enemy from crossing the river and entering into Anorien.
+    island in the river Anduin, resting nearly forty miles to the north of 
+    Osgiliath. It is of paramount importance to Gondor because it prevents the 
+    enemy from crossing the river and entering into Anorien.
     """ 
     cairAndros = Space("Cair Andros", description, 
     constants.RegionType.GONDOR, greeting)
@@ -776,10 +770,9 @@ def getWorld():
 
     #Plateau of Gorgoth - Barad Dur
     #Unique Place
-    description = """Barad-dur is the Dark Lord Sauron's sanctuary fortress
-    in Mordor and serves as his base of operations. Over 1400 meters high
-    and held together by dark magic, it is the largest fortress in
-    Middle-earth.
+    description = """Barad-dur is the Dark Lord Sauron's sanctuary fortress in 
+    Mordor and serves as his base of operations. Over 1400 meters high and 
+    held together by dark magic, it is the largest fortress in Middle-earth.
     """
     greeting = """\"Rising black, blacker and darker than the vast shades amid 
     which it stood, the cruel pinnacles and iron crown of the topmost tower of 

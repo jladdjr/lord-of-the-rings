@@ -15,8 +15,8 @@ import constants
 
 class MinasMorgul(UniquePlace):
     """
-    Minas Morgul is a unique place in ephelDuath. In Tolkien's universe, it
-    is a city captive by witchcraft and home to the Nazgul.
+    Minas Morgul is a unique place in ephelDuath. In Tolkien's universe, it is 
+    a city captive by witchcraft and home to the Nazgul.
     """
     def __init__(self, name, description, greetings):
         """
@@ -63,13 +63,20 @@ class MinasMorgul(UniquePlace):
             self._wave3.append(monster)
         
         #Create loot
-        weapon = Weapon("Morgul Blade", "Seems to have a mind of its own", 5, 0, 0)
-        weapon2 = Weapon("Morgul Blade", "Rusted over", 4, 0 ,0)
-        armor = Armor("Rotting Shield", "Completely useless", 5, 0, 0)
-        armor2 = Armor("Travel Boots", "Too small for a human", 4, 0, 0)
-        potion = Potion("Orcish Tea", "Strange ingredients", 1, 0, 2)
-        potion2 = Potion("Orcish Tea", "Of questionable health value", 1, 0, 2)
-        item = Item("Orcish Banister", "Of potential value on the free market", 1, 0)
+        description = "Seems to have a mind of its own"
+        weapon = Weapon("Morgul Blade", description, 5, 0, 0)
+        description = "Rusted over"
+        weapon2 = Weapon("Morgul Blade", description, 4, 0 ,0)
+        description = "Completely useless"
+        armor = Armor("Rotting Shield", description, 5, 0, 0)
+        description = "Too small for a human"
+        armor2 = Armor("Travel Boots", description, 4, 0, 0)
+        description = "Strange ingredients"
+        potion = Potion("Orcish Tea", description, 1, 0, 2)
+        description = "Of questionable health value"
+        potion2 = Potion("Orcish Tea", description, 1, 0, 2)
+        description = "Of potential value on the free market"
+        item = Item("Orcish Banister", description, 1, 0)
         self._loot = [weapon, weapon2, armor, armor2, potion, potion2, item]
         
     def enter(self, player):
@@ -105,7 +112,8 @@ class MinasMorgul(UniquePlace):
         choice = None
         acceptable = ["frontal assault", "run"]
         while choice not in acceptable:
-            choice = raw_input("What do you want to do? Choices: 'frontal assault' or 'run.' ")
+            choice = raw_input("What do you want to do? Choices: 'frontal" 
+                " assault' or 'run.' ")
         print ""
         
         return choice
@@ -117,10 +125,12 @@ class MinasMorgul(UniquePlace):
         @param player:   The current player.
         """
         #Wave 1
-        print "Witch-King: \"Time for tea and crumpets. Please keep to the left and don't touch any of the artifacts.\" "
+        print ("Witch-King: \"Time for tea and crumpets. Please keep to the" 
+            " left and don't \ntouch any of the artifacts.\" ")
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave)
         if not result:
             return
         
@@ -132,7 +142,8 @@ class MinasMorgul(UniquePlace):
         print "Witch-King: \"Perhaps you will like this instead....\""
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave2)
         if not result:
             return
             
@@ -145,7 +156,8 @@ class MinasMorgul(UniquePlace):
         
         @param player:   The current player.
         """
-        print "You have taken the city of Minas Morgul and secured the western route into Mordor!"
+        print ("You have taken the city of Minas Morgul and secured the" 
+            " western route into Mordor!")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -166,16 +178,18 @@ class MinasMorgul(UniquePlace):
         
     def _run(self, player):
         """
-        The action sequence if player chooses to run. In this instance, player still 
-        gets attacked by a smaller wave of enemies while leaving.
+        The action sequence if player chooses to run. In this instance, player 
+        still gets attacked by a smaller wave of enemies while leaving.
         
         @param player:   The current player.
         """
         #Battle enemies
-        print "As you rush out of the area, a large number of enemies catch up to you." 
+        print ("As you rush out of the area, a large number of enemies catch" 
+        " up to you.")
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave3)
         if not result:
             return
             

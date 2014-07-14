@@ -21,8 +21,8 @@ class DolGuldur(UniquePlace):
     Dol Guldur is a unique place in Southern Mirkwood. In Tolkein's universe,
     it is a fortress of sorcery. 
     
-    If a player visits Dol Guldur, he has the opportunity to fight some difficult
-    monsters and gain some loot.
+    If a player visits Dol Guldur, he has the opportunity to fight some 
+    difficult monsters and gain some loot.
     """
     def __init__(self, name, description, greetings):
         """
@@ -55,7 +55,7 @@ class DolGuldur(UniquePlace):
         for monster in range(numberNazgul):
             nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
             self._wave2.append(nazgul)
-        if random.random() < constants.UniquePlaceConstants.DolGuldurWitchKingProb:
+        if random.random() < constants.UniquePlace.DolGuldurWitchKingProb:
             witchKing = WitchKing(constants.MONSTER_STATS[WitchKing])
             self._wave2.append(witchKing)
         for monster in range(8):
@@ -74,7 +74,8 @@ class DolGuldur(UniquePlace):
         
         #Create loot
         weapon = Weapon("Cursed Sword", "Fills you with fear", 5, 0, 0)
-        weapon2 = Weapon("Cursed Axe", "You lose confidence holding this", 5, 0, 0)
+        weapon2 = Weapon("Cursed Axe", 
+            "You lose confidence holding this", 5, 0, 0)
         armor = Armor("Cursed Shield", "Gaping holes", 5, 0, 0)
         potion = Potion("Cursed Elixir", "An unknown substance", 1, 0, 2)
         item = Item("Cursed Mirror", "Odd distortions and shadows", 1, 0)
@@ -106,7 +107,8 @@ class DolGuldur(UniquePlace):
         choice = None
         acceptable = ["frontal assault", "escape"]
         while choice not in acceptable:
-            choice = raw_input("What do you want to do? Choices: 'frontal assault' or 'escape.' ")
+            choice = raw_input("What do you want to do? Choices: 'frontal" 
+                " assault' or 'escape.' ")
         print ""
         
         return choice
@@ -118,11 +120,13 @@ class DolGuldur(UniquePlace):
         @param player:   The current player.
         """
         #Monster battles
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave)
         if not result:
             return
             
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave2)
         if not result:
             return
             
@@ -136,7 +140,8 @@ class DolGuldur(UniquePlace):
         @param player:   The current player.
         """
         #Story
-        print "Although you have taken the tower of Dol Guldur, a deep sense of evil still lingers over the land."
+        print ("Although you have taken the tower of Dol Guldur, a deep sense" 
+            " of evil still \nlingers over the land.")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -163,7 +168,8 @@ class DolGuldur(UniquePlace):
         print "You find yourself surrounded."
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave3)
         if not result:
             return
         

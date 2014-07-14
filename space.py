@@ -32,9 +32,9 @@ class Space(object):
         @keyword items:                (Optional) Items found in the space.
                                        May be a reference to a single item or 
                                        an ItemSet.
-        @keyword city:                 (Optional) City objects in space.
-                                       May be a reference to an individual 
-                                       object or a list.
+        @keyword city:                 (Optional) City objects in space. May 
+                                       be a reference to an individual object 
+                                       or a list.
         @keyword uniquePlace:          (Optional) Reference to unique places 
                                        in space. May be a reference to an 
                                        individual object or a list.

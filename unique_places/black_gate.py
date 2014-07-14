@@ -18,11 +18,11 @@ class BlackGate(UniquePlace):
     """
     The Black Gate is a unique place in Dead Marshes.
     
-    The Black Gate is the most obvious way into Mordor. If player visits
-    the Black Gate, he is given the option of either fighting his way though 
-    the Gate or running. If he chooses to fight, he has to fight wave upon
-    wave of enemies to gain access into the next space. If he chooses to run,
-    he still has to fight a smaller amount of enemies.
+    The Black Gate is the most obvious way into Mordor. If player visits the 
+    Black Gate, he is given the option of either fighting his way though the 
+    Gate or running. If he chooses to fight, he has to fight wave upon wave of 
+    enemies to gain access into the next space. If he chooses to run, he still 
+    has to fight a smaller amount of enemies.
     """
     def __init__(self, name, description, greetings):
         """
@@ -96,7 +96,8 @@ class BlackGate(UniquePlace):
         weapon = Weapon("Orcish Knife", "Jagged and old", 5, 0, 0)
         armor = Armor("Rotting Boots", "Completely useless", 5, 0, 0)
         potion = Potion("Orc Draught", "May contain human flesh", 1, 0, 2)
-        potion2 = Potion("Orc Draught", "Basically the orcish version of Gatorade", 1, 0, 2)
+        potion2 = Potion("Orc Draught", 
+            "Basically the orcish version of Gatorade", 1, 0, 2)
         item = Item("Orcish Pillow", "Basically, a rock", 1, 0)
         item2 = Item("Orcish Blankets", "For slumber parties", 1, 0)
         self._loot = [weapon, armor, potion, potion2, item, item2]
@@ -110,7 +111,8 @@ class BlackGate(UniquePlace):
         #Story
         print self._greetings
         print ""
-        print "\"Several armies rise up to meet you as you approach the Black Gate.\""
+        print ("\"Several armies rise up to meet you as you approach the Black" 
+            " Gate.\"")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -132,7 +134,8 @@ class BlackGate(UniquePlace):
         choice = None
         acceptable = ["frontal assault", "run"]
         while choice not in acceptable:
-            choice = raw_input("What do you want to do? Choices: 'frontal assault' or 'run.' ")
+            choice = raw_input("What do you want to do? Choices: 'frontal" 
+                " assault' or 'run.' ")
         print ""
         
         return choice
@@ -147,7 +150,8 @@ class BlackGate(UniquePlace):
         print "Mouth of Sauron: \"I'm so glad you came! Slumber party!\""
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave)
         if not result:
             return
             
@@ -155,7 +159,8 @@ class BlackGate(UniquePlace):
         print "Mouth of Sauron: \"Hmm. You appear to not like our house.\""
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave2)
         if not result:
             return
             
@@ -163,7 +168,8 @@ class BlackGate(UniquePlace):
         print "Mouth of Sauron: \"Time to DIE!\""
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave3)
         if not result:
             return
             
@@ -177,7 +183,8 @@ class BlackGate(UniquePlace):
         @param player:   The player object.
         """
         #Story
-        print "You have taken the Black Gate and secured part of the north-western route into Mordor!"
+        print ("You have taken the Black Gate and secured part of the" 
+            " north-western route into \nMordor!")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -199,8 +206,8 @@ class BlackGate(UniquePlace):
         
     def _run(self, player):
         """
-        The action sequence given that the player tries to run. In this instance, 
-        a smaller chunk of enemies catch up to the player.
+        The action sequence given that the player tries to run. In this 
+        instance, a smaller chunk of enemies catch up to the player.
         
         @param player:   The player object.
         """
@@ -208,7 +215,8 @@ class BlackGate(UniquePlace):
         print "The leading army catches up with you." 
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave4)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave4)
         if not result:
             return
             

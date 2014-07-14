@@ -45,42 +45,6 @@ class Game(object):
         Executes main game loop.
         """
         splashScreen = """
- __                                  __                   ______        
-|  \                                |  \                 /      \       
-| $$        ______    ______    ____| $$        ______  |  $$$$$$\      
-| $$       /      \  /      \  /      $$       /      \ | $$_  \$$      
-| $$      |  $$$$$$\|  $$$$$$\|  $$$$$$$      |  $$$$$$\| $$ \          
-| $$      | $$  | $$| $$   \$$| $$  | $$      | $$  | $$| $$$$          
-| $$_____ | $$__/ $$| $$      | $$__| $$      | $$__/ $$| $$            
-| $$     \ \$$    $$| $$       \$$    $$       \$$    $$| $$            
- \$$$$$$$$  \$$$$$$  \$$        \$$$$$$$        \$$$$$$  \$$            
-                                                                        
-                                                                        
-                                                                        
-                   ________  __                                         
-                  |        \|  \                                        
-                   \$$$$$$$$| $$____    ______                          
-                     | $$   | $$    \  /      \                         
-                     | $$   | $$$$$$$\|  $$$$$$\                        
-                     | $$   | $$  | $$| $$    $$                        
-                     | $$   | $$  | $$| $$$$$$$$                        
-                     | $$   | $$  | $$ \$$     \                        
-                      \$$    \$$   \$$  \$$$$$$$                        
-                                                                        
-                                                                        
-                                                                        
-             _______   __                                               
-            |       \ |  \                                              
-            | $$$$$$$\ \$$ _______    ______    _______                 
-            | $$__| $$|  \|       \  /      \  /       \                
-            | $$    $$| $$| $$$$$$$\|  $$$$$$\|  $$$$$$$                
-            | $$$$$$$\| $$| $$  | $$| $$  | $$ \$$    \                 
-            | $$  | $$| $$| $$  | $$| $$__| $$ _\$$$$$$\                
-            | $$  | $$| $$| $$  | $$ \$$    $$|       $$                
-             \$$   \$$ \$$ \$$   \$$ _\$$$$$$$ \$$$$$$$                 
-                                    |  \__| $$                          
-                                     \$$    $$                          
-                                      \$$$$$$
         """
         print splashScreen
         print ("An adventure game where Russian tries to take on the hoards of" 
@@ -98,13 +62,13 @@ class Game(object):
     def _nextTurn(self):
         """
         Gets nextCommand from player. If nextCommand may be executed
-        successfully and involves a passing of time, there is a chance
-        that a random battle will occur before nextCommand is executed.
+        successfully and involves a passing of time, there is a chance that a 
+        random battle will occur before nextCommand is executed.
         
-        Commands with a chance of unsuccessful execution: the four 
-        movement commands and enter command. These commands are 
-        unsuccesful when player cannot actually move into an adjacent 
-        space or space has no places to enter.
+        Commands with a chance of unsuccessful execution: the four movement 
+        commands and enter command. These commands are unsuccesful when player 
+        cannot actually move into an adjacent space or space has no places to 
+        enter.
         """
         #Executes next command
         nextCommand = self._parser.getNextCommand()
@@ -132,8 +96,8 @@ class Game(object):
             
     def _executionCheck(self, nextCommand):
         """
-        Checks if the user's command may be carried out. This only applies
-        to the four movement commands and enter command.
+        Checks if the user's command may be carried out. This only applies to 
+        the four movement commands and enter command.
         
         This method is intended to prevent random battles from occuring in 
         instances where the command cannot be executed.

@@ -4,9 +4,8 @@ from unique_place import UniquePlace
 
 class OstInEdhil(UniquePlace):
     """
-    OstInEdhil is a unique place in Anduin. OstInEdhil was once a 
-    great city that was inhabited by elves before Sauron destroyed
-    it.
+    OstInEdhil is a unique place in Anduin. OstInEdhil was once a great city 
+    that was inhabited by elves before Sauron destroyed it.
 
     If player visits OstInEdhil, he gets healed.
     """

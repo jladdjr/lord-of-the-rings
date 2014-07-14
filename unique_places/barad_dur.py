@@ -105,7 +105,8 @@ class BaradDur(UniquePlace):
         #Story
         print self._greetings
         print ""
-        print "A host of figures rise up to meet you as you approach Barad Dur."
+        print ("A host of figures rise up to meet you as you approach Barad"
+            " Dur.")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -122,15 +123,16 @@ class BaradDur(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         result = battle(player, constants.BattleEngineContext.STORY, 
-        self._wave)
+            self._wave)
         if not result:
             return
             
-        print "Orc Commander II: \"Didn't you read the sign? No %ss allowed.\"" % player.getName()
+        print ("Orc Commander II: \"Didn't you read the sign? No %ss" 
+            " allowed.\"" % player.getName())
         raw_input("Press enter to continue. ")
         print ""
         result = battle(player, constants.BattleEngineContext.STORY, 
-        self._wave2)
+            self._wave2)
         if not result:
             return
             
@@ -138,7 +140,7 @@ class BaradDur(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         result = battle(player, constants.BattleEngineContext.STORY, 
-        self._wave3)
+            self._wave3)
         if not result:
             return
             
@@ -146,15 +148,17 @@ class BaradDur(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         result = battle(player, constants.BattleEngineContext.STORY, 
-        self._wave4)
+            self._wave4)
         if not result:
             return
             
-        print "Lance of the Elite Four: \"I've been waiting for you, %s! I knew that you, with your skills, would eventually reach me here.\"" % player.getName()
+        print ("Lance of the Elite Four: \"I've been waiting for you, %s! I" 
+            " knew \nthat you, with your skills, would eventually reach me here.\"" 
+            % player.getName())
         raw_input("Press enter to continue. ")
         print ""
         result = battle(player, constants.BattleEngineContext.STORY, 
-        self._wave5)
+            self._wave5)
         if not result:
             return
             
@@ -178,7 +182,8 @@ class BaradDur(UniquePlace):
         
         #Give player loot
         if len(self._loot) != 0:
-            print "While looting the battlefield, you find several interesting items. The tower itself remains locked, however."
+            print ("While looting the battlefield, you find several" 
+                " interesting items. The tower itself remains locked, however.")
             raw_input("Press enter to continue. ")
             print ""
             for item in self._loot:

@@ -30,20 +30,21 @@ class Argonath(UniquePlace):
         #Generate reward
         name = player.getName()
         playerExperience = player.getExperience()
-        experienceIncrease = playerExperience * constants.UniquePlaceConstants.ArgonathExperienceIncrease
+        experienceIncrease = (playerExperience * 
+            constants.UniquePlace.ArgonathExperienceIncrease)
         maxHp = player.getMaxHp()
             
         #Story
         print self._greetings
         print ""
         print ("As you gaze upon the kings of old, you think about the present"
-        " age and its \ncurrent darkness.")
+            " \nage and its \ncurrent darkness.")
         raw_input("Press enter to continue. ")
         print ""
             
         #Player receives reward
         print ("You draw up deep reserves of strength within yourself to" 
-        " finish \nthe quest. Mordor awaits.")
+            " finish the quest. \nMordor awaits.")
         print "%s gains %s experience." % (name, experienceIncrease)
         player.increaseExperience(experienceIncrease)
         player.heal(maxHp)

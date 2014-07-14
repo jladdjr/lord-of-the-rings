@@ -8,8 +8,8 @@ class Derningle(UniquePlace):
     """
     Derningle (or Fangorn Forest) is a unique place in Fangorn. 
 
-    If player visits Derningle, he has the opportunity to interact
-    with Treebeard, gain items and experience.
+    If player visits Derningle, he has the opportunity to interact with 
+    Treebeard, gain items and experience.
     """
     def __init__(self, name, description, greetings):
         """
@@ -25,7 +25,9 @@ class Derningle(UniquePlace):
         #Create loot
         self._loot = []
         for potion in range(3):
-            potion = Potion("Ent Draught", "A mysterious elixir with extremely powerful nourishing properties", 1, 10, 5)
+            description = ("A mysterious elixir with extremely powerful" 
+                " nourishing properties")
+            potion = Potion("Ent Draught", description, 1, 10, 5)
             self._loot.append(potion)
 
     def enter(self, player):
@@ -37,7 +39,8 @@ class Derningle(UniquePlace):
         #Story
         print self._greetings
         print ""
-        print "You find yourself deep within Fangorn Forest and it appears as though the trees are alive."
+        print ("You find yourself deep within Fangorn Forest and it appears" 
+            " as though the \ntrees are alive.")
         raw_input("Press enter to continue. ")
         print ""
 
@@ -60,7 +63,8 @@ class Derningle(UniquePlace):
                 print "You leave Fangorn blessed."
                 print ""
             else:
-                print "You leave Fangorn in a hurry, feeling watched the entire time."
+                print ("You leave Fangorn in a hurry, feeling watched the" 
+                " entire time.")
                 print ""
             
     def _fork(self):
@@ -70,7 +74,8 @@ class Derningle(UniquePlace):
         choice = None
         acceptable = ["left", "straight"]
         while choice not in acceptable:
-            choice = raw_input("What would you like to do? Options: 'left' or 'straight.' ")
+            choice = raw_input("What would you like to do? Options: 'left' or" 
+            " 'straight.' ")
         print ""
         
         return choice
@@ -83,14 +88,18 @@ class Derningle(UniquePlace):
         @param player:  The current player.
         """
         #Calculate experience increase
-        experienceIncrease = player.getExperience() * constants.UniquePlaceConstants.DeringleExperienceIncrease
+        experienceIncrease = (player.getExperience() * 
+            constants.UniquePlace.DeringleExperienceIncrease)
         
         #Story
-        print "You find yourself in a sunny pasture deep within the depths of Fangorn Forest."
+        print ("You find yourself in a sunny pasture deep within the depths of"
+        " Fangorn Forest.")
         raw_input("Press enter to continue. ")
         print ""
         
-        print "You realize that you are not only fighting for yourself but for beautiful places such as this. Great strength wells up within your inner man."
+        print ("You realize that you are not only fighting for yourself but" 
+        " for beautiful places \nsuch as this. Great strength wells up within" 
+        " your inner man.")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -102,11 +111,13 @@ class Derningle(UniquePlace):
 
     def _straightDestination(self):
         """
-        Potentially non-terminal destination given that user choose to go 'straight.' 
-        User is prompted to go continue deeper into the forest or turn around.
+        Potentially non-terminal destination given that user choose to go 
+        'straight.' User is prompted to go continue deeper into the forest or 
+        turn around.
         """
         #Story
-        print "You find yourself in a dark passage in Fangorn and you feel uneasy. You hear rustling about."
+        print ("You find yourself in a dark passage in Fangorn and you feel" 
+            " uneasy. You hear \nrustling about.")
         raw_input("Press enter to continue. ")
         print ""
         
@@ -114,15 +125,16 @@ class Derningle(UniquePlace):
         choice = None
         acceptable = ["yes", "no"]
         while choice not in acceptable:
-            choice = raw_input("Would you like to continue venturing deeper into the forest? Options: 'yes' or 'no.' ")
+            choice = raw_input("Would you like to continue venturing deeper" 
+                " into the forest? \nOptions: 'yes' or 'no.' ")
         print ""
         
         return choice
 
     def _continueDestination(self, player):
         """
-        Terminal destination given that use picks 'straight' and 'yes.' Here, player
-        meets Treebeard and gets some loot.
+        Terminal destination given that use picks 'straight' and 'yes.' Here, 
+        player meets Treebeard and gets some loot.
                
         @param player:  The current player.
         """
@@ -135,12 +147,14 @@ class Derningle(UniquePlace):
         raw_input("Press enter to answer. ")
         print ""
 
-        print "\"Ah I see. Please continue fighting for what is right and receive this blessing from us.\""
+        print ("\"Ah I see. Please continue fighting for what is right and" 
+            " receive this blessing \nfrom us.\"")
         raw_input("Press enter to receive. ")
         print ""
         
         #Player receives loot
-        print "\"Received three ent-draughts! These are legendary elixirs of incredible power.\""
+        print ("\"Received three ent-draughts! These are legendary elixirs of" 
+            " incredible power.\"")
         for item in self._gift:
             if player.addToInventory(item):
                 self._loot.remove(item)

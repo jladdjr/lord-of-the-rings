@@ -103,7 +103,8 @@ class Isenmouthe(UniquePlace):
         print "Mouth of Sauron: \"You have overstayed your welcome.\""
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave)
         if not result:
             return
         
@@ -111,7 +112,8 @@ class Isenmouthe(UniquePlace):
         print "Mouth of Sauron: \"Time... to... DIE!!!\""
         raw_input("Press enter to continue. ")
         print ""
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave2)
         if not result:
             return
             

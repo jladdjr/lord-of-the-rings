@@ -30,7 +30,7 @@ class Weathertop(UniquePlace):
         for monster in range(numberNazgul):
             nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
             self._monsters.append(nazgul)
-        if random.random() < constants.UniquePlaceConstants.WeathertopWitchKingProb:
+        if random.random() < constants.UniquePlace.WeathertopWitchKingProb:
             witchKing = WitchKing(constants.MONSTER_STATS[WitchKing])
             self._monsters.append(witchKing)
                 
@@ -83,11 +83,11 @@ to camp the night at Weathertop?
         -Player spends the night undisturbed and gets fully healed.
         """
         #Nazgul encounter
-        if random.random() < constants.UniquePlaceConstants.WeathertopBattleProb:
+        if random.random() < constants.UniquePlace.WeathertopBattleProb:
             print ("As you prepare your camping gear, you hear some rustling" 
             " in the \nshadows....")
             result = battle(player, constants.BattleEngineContext.STORY, 
-            self._monsters)
+                self._monsters)
             if not result:
                 return
                 

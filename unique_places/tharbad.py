@@ -11,12 +11,12 @@ import random
 
 class Tharbad(UniquePlace):
     """
-    Tharbad is a unique place in Mitheithel. It is the remains
-    of an city that was once inhabited by men.
+    Tharbad is a unique place in Mitheithel. It is the remains of an city that 
+    was once inhabited by men.
     
-    Here the user is given the option of exploring the ruins. 
-    Exploring the ruins grants the player the ability to find
-    items at the risk of a chance encounter with Nazgul.
+    Here the user is given the option of exploring the ruins. Exploring the 
+    ruins grants the player the ability to find items at the risk of a chance 
+    encounter with Nazgul.
     """
     def __init__(self, name, description, greetings):
         """
@@ -37,9 +37,12 @@ class Tharbad(UniquePlace):
             self._monsters.append(nazgul)
 
         #Generate loot
-        scroll = Item("Ancient Scroll", "Ancient runes and symbols", 0, 0)
-        weapon = Weapon("Rotting Staff", "Looks like it can break at any second", 1, 1, 1)
-        armor = Armor("Rotting Shield", "Maybe one or two hits and it's through", 1, 1, 1)
+        description = "Ancient runes and symbols"
+        scroll = Item("Ancient Scroll", description, 0, 0)
+        description = "Looks like it can break at any second"
+        weapon = Weapon("Rotting Staff", description, 1, 1, 1)
+        description = "Maybe one or two hits and it's through"
+        armor = Armor("Rotting Shield", description, 1, 1, 1)
         self._loot = [scroll, weapon, armor]
         
     def enter(self, player):
@@ -52,7 +55,8 @@ class Tharbad(UniquePlace):
         print self._greetings
         print ""
         
-        print "You gaze upon the ancient ruins of the once great city of Tharbad and see some very strange sights."
+        print ("You gaze upon the ancient ruins of the once great city of" 
+            " Tharbad and see some very strange sights.")
         raw_input("Press enter to continue. ")
         print ""
 
@@ -60,14 +64,16 @@ class Tharbad(UniquePlace):
         choice = None
         acceptable = ["explore", "leave"]
         while choice not in acceptable:
-            choice = raw_input("What would you like to do? Choices: 'explore' and 'leave.' ")
+            choice = raw_input("What would you like to do? Choices: 'explore'"
+                " and 'leave.' ")
             print ""
         
         #Execute user-dependent scripts
         if choice == "explore":
             self._explore(player)
         else:
-            print "You bid farewell to the ruins of Tharbad and continue on your journey."
+            print ("You bid farewell to the ruins of Tharbad and continue on" 
+                " your journey.")
             print ""
 
     def _explore(self, player):
@@ -80,12 +86,14 @@ class Tharbad(UniquePlace):
         choice = None
         acceptable = ["ruined mill", "ancient bridge"]
         while choice not in acceptable:
-            choice = raw_input("Where would you like to explore? Options: 'ruined mill' and 'ancient bridge.' ")
+            choice = raw_input("Where would you like to explore? Options:"
+                " 'ruined mill' and 'ancient bridge.' ")
         print ""
 
         #If user chooses to explore ruined mill
         if choice == "ruined mill":
-            print "You find lots of rotting instruments and the remains of farming equipment."
+            print ("You find lots of rotting instruments and the remains of"
+                " farming equipment.")
             raw_input("Press enter to continue. ")
             print ""
             self._itemFind(player)
@@ -93,7 +101,9 @@ class Tharbad(UniquePlace):
 
         #If user choose to explore ancient bridge
         elif choice == "ancient bridge":
-            print "You find the ruins of the ancient North-South Road bridge crossing. This was once one of the greatest causeways in all of Middle Eart."
+            print ("You find the ruins of the ancient North-South Road bridge"
+                " crossing. This was \nonce one of the greatest causeways in all"
+                " of Middle Earth.")
             raw_input("Press enter to continue. ")
             print ""
             self._itemFind(player)
@@ -103,7 +113,8 @@ class Tharbad(UniquePlace):
         choice = None
         acceptable = ["yes", "no"]
         while choice not in acceptable:
-            choice = raw_input("Would you like to keep exploring? Options: 'yes' and 'no.' ")
+            choice = raw_input("Would you like to keep exploring? Options:"
+                " 'yes' and 'no.' ")
         print ""
         
         if choice == "yes":
@@ -118,11 +129,12 @@ class Tharbad(UniquePlace):
         
         @param player:   The player object.
         """
-        if random.random() < constants.UniquePlaceConstants.TharbadBattleProb:
+        if random.random() < constants.UniquePlace.TharbadBattleProb:
             print "You hear some rustling in the shadows...."
             raw_input("Press enter to continue. ")
             print ""
-            result = battle(player, constants.BattleEngineContext.STORY, self._monsters)
+            result = battle(player, constants.BattleEngineContext.STORY, 
+                self._monsters)
             if not result:
                 return
             
@@ -138,10 +150,9 @@ class Tharbad(UniquePlace):
         
         chance = random.random()
         #Determines if player finds item and which item player receives
-        if chance < constants.UniquePlaceConstants.TharbadItemFindProb:
+        if chance < constants.UniquePlace.TharbadItemFindProb:
             print "You find something that may be of some value!"
             item = random.choice(self._loot)
             if player.addToInventory(item):
                 self._loot.remove(item)
-            
             print ""

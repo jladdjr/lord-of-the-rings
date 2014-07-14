@@ -236,20 +236,49 @@ A dictionary of dictionaries where the higher-level keys are regions.
 The inner set contains the monster class-probability pairs that are 
 used as probability distribution functions for monster spawn.
 
-monster_factory's getMonsters() generates a random number between [0, 1). If the
-randomly generated number falls within the range of each class, a monster of that class
-is spawned.
+monster_factory's getMonsters() generates a random number between [0, 1). If 
+the randomly generated number falls within the range of each class, a monster 
+of that class is spawned.
 """
-REGIONAL_MONSTER_DISTRIBUTION = {RegionType.ERIADOR : {Nazgul: [0, 1]},
-                                 RegionType.BARROW_DOWNS : {BarrowWight: [0, .85], 
-                                 KingOfTheBarrows: [.85, 1]},
-                                 RegionType.HIGH_PASS : {Goblin: [0, 1]},
-                                 RegionType.ENEDWAITH : {WargRider: [0, .3], Dunlending: [.3, .6], UrukHai: [.6, .8], UrukHaiArcher: [.8, .9], EliteUrukHai: [.9, 1]},
-                                 RegionType.MORIA : {Orc: [0, .7], OrcArcher: [.7, .925], Troll: [.925, .98], Balrog: [.98, 1]},
-                                 RegionType.RHOVANION : {Orc: [0, .5], OrcArcher: [.5, .7], Nazgul: [.7, .85], BlackNumernorian: [.85, 1]},
-                                 RegionType.ROHAN : {UrukHai: [0, .5], UrukHaiArcher: [.5, .7], EliteUrukHai: [.7, .8], WargRider: [.8, 1]},
-                                 RegionType.GONDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .775], DragonOfMordor: [.775, .8], CorsairOfUmbar: [.8, .85], ArmoredMumakil: [.85, .9], SiegeWorks: [.9, .95], BlackNumernorian: [.95, 1]},
-                                 RegionType.MORDOR : {Orc: [0, .5], OrcArcher: [.5, .65], Troll: [.65, .75], Nazgul: [.75, .85], DragonOfMordor: [.85, .9], BlackNumernorian: [.9, .95], SiegeWorks: [.95, 1]}}
+REGIONAL_MONSTER_DISTRIBUTION = {
+    RegionType.ERIADOR:      {Nazgul: [0, 1]},
+    RegionType.BARROW_DOWNS: {BarrowWight: [0, .85], 
+                              KingOfTheBarrows: [.85, 1]},
+    RegionType.HIGH_PASS:    {Goblin: [0, 1]},
+    RegionType.ENEDWAITH:    {WargRider: [0, .3], 
+                              Dunlending: [.3, .6], 
+                              UrukHai: [.6, .8], 
+                              UrukHaiArcher: [.8, .9], 
+                              EliteUrukHai: [.9, 1]},
+     RegionType.MORIA:       {Orc: [0, .7], 
+                              OrcArcher: [.7, .925], 
+                              Troll: [.925, .98], 
+                              Balrog: [.98, 1]},
+     RegionType.RHOVANION:   {Orc: [0, .5], 
+                              OrcArcher: [.5, .7], 
+                              Nazgul: [.7, .85], 
+                              BlackNumernorian: [.85, 1]},
+     RegionType.ROHAN:       {UrukHai: [0, .5], 
+                              UrukHaiArcher: [.5, .7], 
+                              EliteUrukHai: [.7, .8], 
+                              WargRider: [.8, 1]},
+     RegionType.GONDOR:      {Orc: [0, .5], 
+                              OrcArcher: [.5, .65], 
+                              Troll: [.65, .75], 
+                              Nazgul: [.75, .775], 
+                              DragonOfMordor: [.775, .8], 
+                              CorsairOfUmbar: [.8, .85], 
+                              ArmoredMumakil: [.85, .9], 
+                              SiegeWorks: [.9, .95], 
+                              BlackNumernorian: [.95, 1]},
+     RegionType.MORDOR:      {Orc: [0, .5], 
+                              OrcArcher: [.5, .65], 
+                              Troll: [.65, .75], 
+                              Nazgul: [.75, .85], 
+                              DragonOfMordor: [.85, .9], 
+                              BlackNumernorian: [.9, .95], 
+                              SiegeWorks: [.95, 1]}
+     }
 
 #Monster base stats
 """
@@ -307,7 +336,7 @@ class ShopFactoryConstants(object):
     POTION_UPPER = .975
 
 #Unique Place constants
-class UniquePlaceConstants(object):
+class UniquePlace(object):
     """
     Constants used for unique places.
     """

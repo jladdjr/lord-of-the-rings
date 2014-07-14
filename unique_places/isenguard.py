@@ -95,7 +95,8 @@ class Isenguard(UniquePlace):
         @param player:  The current player.
         """
         #Wave 1
-        print "Immediately as you approach the Ring of Isenguard, you are greeted with an a wave of Uruk...."
+        print ("Immediately as you approach the Ring of Isenguard, you are" 
+            " greeted with an a wave of Uruk....")
         raw_input("Press enter to continue. ")
         result = battle(player, constants.BattleEngineContext.STORY, self._wave)
         if not result:
@@ -103,13 +104,16 @@ class Isenguard(UniquePlace):
         print ""
         
         #Wave 2
-        print "As you gaze over bodies of your slain enemies, Sauroman the Great Wizard appears."
+        print ("As you gaze over bodies of your slain enemies, Sauroman the" 
+            " Great Wizard appears.")
         raw_input("Press enter to continue. ")
         print ""
         
-        print "Sauroman: \"You shouldn't have come, foolish one. Were you haughty enough to think that you could take the Orthanc?\""
+        print ("Sauroman: \"You shouldn't have come, foolish one. Were you" 
+            " haughty enough to think that you could take the Orthanc?\"")
         raw_input("Press enter to continue. ")
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave2)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave2)
         if not result:
             return
         print ""
@@ -117,7 +121,8 @@ class Isenguard(UniquePlace):
         #Wave 3
         print "Sauroman: \"You stupid fool....\""
         raw_input("Press enter to continue. ")
-        result = battle(player, constants.BattleEngineContext.STORY, self._wave3)
+        result = battle(player, constants.BattleEngineContext.STORY, 
+            self._wave3)
         if not result:
             return
         print ""
@@ -161,41 +166,6 @@ class Isenguard(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         
-        print "Here is your view:"
-        print \
-"""
-  .       ..       .
-    |\      ||      /|
-    | \     ||     / |
-    |  \    ||    /  |
-    |  :\___JL___/   |
-    |  :|##XLJ: :|   |
-    '\ :|###||: X|  /'
-      \:|###||:X#| /
-       |==========|
-        |###XXX;;|
-        |##XX:: :|
-        |##Xn:: :|
-        |##XU:: :|
-        |##XX:: :|
-        |##XX:: :|
-        |##XX:: :|
-        |##XX:: n|
-        |##XX:: U|
-        |##XX:: :|
-        |##XX:: :|
-        |##XX:: :|
-        |##Xn:: :|
-        |##XU:: :|
-        |##XX:: :|
-        |##XX:: :|
-        |##XX:: :|
-        |##XX:: n|
-        |##XX:: U|
-"""
-        raw_input("Press enter to continue. ")
-        print ""
-        
         #Give player loot
         if self._summitFindings:
             print "You found Sauroman's Palatir!"
@@ -206,4 +176,3 @@ class Isenguard(UniquePlace):
         #Story
         print "Congratulations on your victory!"
         print ""
-        
