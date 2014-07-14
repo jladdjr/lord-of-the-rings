@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import random
+
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
@@ -45,7 +46,7 @@ def getItems(numItems, quality):
                 items.append(item)
                 
     return items
-
+                
 #Generate weapon
 def genWeapon(quality, randWeaponType, randDesc):
     """

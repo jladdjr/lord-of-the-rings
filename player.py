@@ -8,6 +8,7 @@ from items.armor import Armor
 from items.potion import Potion
 from items.charm import Charm
 from items.item_set import ItemSet
+
 import constants
 
 class Player(object):
@@ -267,7 +268,39 @@ class Player(object):
             self._totalMaxHp = self._maxHp + self._charmHp
         
         statement = "%s equipped %s." %(self._name, item.getName())
+        
+        #Sort self._equipped
+        self._sortEquipped()
+        
         return statement
+    
+    def _sortEquipped(self):
+        """
+        Sorts items in self._equipped._items.
+        """
+        sortedEquipped = []
+        charms = {}
+        equipped = self.getEquipped.getItems()
+        
+        #Weapon is first
+        for item in equipped:
+            if isinstance(item, Weapon):
+                sortedEquipped.append(item)
+        #Armor is second
+        for item in equipped:
+            if isinstance(item, Armor):
+                sortedEquipped.append(item)
+                
+        #Sort charms by name
+        for item in equipped:
+            if isinstance(item, Charm):
+                charmName = item.getName()
+                charms[charmName] = item
+        
+        #Add charms last
+        sortedCharms = collections.OrderedDict(sorted(charms.items()))
+        for charmName in sortedCharms:
+            sortedEquipped.append(sortedCharms[charmName])
             
     def unequip(self, item):
         """

@@ -7,6 +7,7 @@ from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
 from items.charm import Charm
+from items.unique_items import theOneRing
 import constants
 
 class Shop(Building):
@@ -143,11 +144,33 @@ What is your choice?
                     player.increaseMoney(sellValue)
                     self._items.append(item)
                     print "Sold %s for %s." % (item.getName(), sellValue)
+                    #Check to see if item sold was theOneRing
+                    result = self._checkTheOneRingSale(item)
+                    #If it is, then theOneRing is removed from shop wares
+                    if result:
+                        print "Some strange men come and buy The One Ring."
+                        self._items.remove(item)
                 elif choice.lower() == "no":
                     print "Didn't sell item." 
                 else:
                     print "Invalid choice."
                     
+    #Checks if sold item was theOneRing
+    def _checkTheOneRingSale(self, item):
+        """
+        Helper method for item sales. 
+        
+        Checks to see if item sold was theOneRing.
+        
+        @param item:    The sold item.
+        
+        @return:        True if item is theOneRing; False otherwise.
+        """
+        if item is theOneRing:
+            return True
+        
+        return False
+        
     #For buying items from shop
     def buyItems(self, player):
         """

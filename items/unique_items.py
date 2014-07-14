@@ -17,7 +17,9 @@ sting = Weapon("Sting", "Elvish - made in Gondolin", 2, 10, 10)
 theOneRing = Charm("The One Ring", "Very important", 10, 100, 0, 10, 0)
 leatherCloak = Armor("Leather Cloak", "Travel Tunic", 2, 2, 1)
 vodka = Potion("Vodka", "Good for health", 1, 1, 5)
-startingInventory = [sting, theOneRing, leatherCloak, vodka]
+charm = Charm("s", "s", 0,0,0,0,0)
+charm2 = Charm("z", "z", 0,0,0,0,0)
+startingInventory = [sting, theOneRing, leatherCloak, vodka, charm, charm2]
 
 #Hobbiton Square
 walkingCane = Item("Walking Cane", "Dubiously helpful", 1, 1)
@@ -161,3 +163,25 @@ belthronding, dramborleg, helmOfHador, harlequinCrestShako]
 
 eliteLevelFindableUniques = [aeglos, ananruth, ringil, scepterOfAnnuminas, 
 grond, crownOfElendil, ironCrown]
+
+"""
+#Shop weapons
+walkingStick = Weapon("Walking Stick", "Offensive properties", 1, 1, 1)
+gardenShovel = Weapon("Garden Shoven", 
+    "Hobbits are ill-equipped for combat", 1, 1, 1)
+gardenSythe = Weapon("Garden Sythe", "Very intimidating", 1, 1, 1)
+shortSword = Weapon("Short Sword", "Hobbit-sized", 1, 1, 1)
+
+mediumSword = Weapon("Medium Sword", "A vestige of arnor", 1, 1, 1)
+ironSword = Weapon("Iron Sword", "Has seen battle use", 1, 1, 1)
+rohirricLance = Weapon("Rohirric Lance", "Battle worn", 1, 1, 1)
+battleMace = Weapon("Battle Mace", "Rohirric in origin", 1, 1, 1)
+
+elvenTrainerBow = Weapon("Elven Trainer Bow", "Made of yew", 1, 1, 1)
+elvenBlade = Weapon("Elven Blade", "Glows as enemies near", 1, 1 , 1)
+elvenBow = Weapon("Elven Bow", "Standard grade", 1, 1, 1)
+longSword = Weapon("Long Sword", "A Gondorian blade", 1, 1, 1)
+eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 1, 1, 1)
+eliteElvenSword = Weapon("Elite Elven Sword", "A historic blade", 1, 1, 1)
+eliteElvenBow = Weapon("Elite Elven Longbow", "Made of mallorn", 1, 1, 1)
+"""

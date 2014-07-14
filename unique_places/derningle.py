@@ -24,9 +24,9 @@ class Derningle(UniquePlace):
 
         #Create loot
         self._loot = []
+        description = ("A mysterious elixir with extremely powerful" 
+            " nourishing properties")
         for potion in range(3):
-            description = ("A mysterious elixir with extremely powerful" 
-                " nourishing properties")
             potion = Potion("Ent Draught", description, 1, 10, 5)
             self._loot.append(potion)
 
