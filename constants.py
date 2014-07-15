@@ -336,28 +336,24 @@ class ShopFactoryConstants(object):
     POTION_UPPER = .975
 
 #Unique Place constants
-class UniquePlace(object):
-    """
-    Constants used for unique places.
-    """
-    WeathertopBattleProb = .999
-    WeathertopWitchKingProb = .125
-    TharbadBattleProb = .2
-    TharbadItemFindProb = .5
-    ArgonathExperienceIncrease = .1
-    DeringleExperienceIncrease = .05
-    GoblinTownCaveEvasion = .4
-    DolGuldurWitchKingProb = .125
-    CirithUngolSneakProb = .4
-    CirithUngolDarknessBonus = 5
-    MoriaLowRiskSneakUpperLimit = .65
-    MoriaLowRiskNeutralLowerLimit = .65
-    MoriaLowRiskNeutralUpperLimit = .9
-    MoriaMediumRiskSneakUpperLimit = .3
-    MoriaMediumRiskNeutralLowerLimit = .3
-    MoriaMediumRiskNeutralUpperLimit = .7
-    MoriaHighRiskNeutralUpperLimit = .2
-    MoriaItemFindProbability = .3
-    MoriaLowRiskUpper = 1
-    MoriaMediumRiskLower = 1
-    MoriaMediumRiskUpper = 3
+"""
+Constants used for unique places.
+"""
+WEATHERTOP_BATTLE_PROB = .5
+WEATHERTOP_WITCH_KING_PROB = .125
+THARBAD_BATTLE_PROB = .2
+THARBAD_ITEM_FIND_PROB = .5
+ARGONATH_EXP_INCREASE = .1
+DERINGLE_EXP_INCREASE = .05
+GOBLIN_TOWN_EVASION_PROB = .4
+DOL_GULDUR_WITCH_KING_PROB = .125
+CIRITH_UNGOL_EVASION_PROB = .4
+CIRITH_UNGOL_SHELOB_PROB = .4
+MORIA_ITEM_FIND_PROB = .3
+MORIA_LOW_RISK_UPPER_LIMIT = 1
+MORIA_MED_RISK_UPPER_LIMIT = 3
+MORIA_LOW_RISK_SNEAK_UPPER_LIMIT = .65
+MORIA_LOW_RISK_NEUTRAL_UPPER_LIMIT = .9
+MORIA_MED_RISK_SNEAK_UPPER_LIMIT = .3
+MORIA_MED_RISK_NEUTRAL_UPPER_LIMIT = .7
+MORIA_HIGH_RISK_NEUTRAL_UPPER_LIMIT = .2

@@ -89,7 +89,7 @@ class Derningle(UniquePlace):
         """
         #Calculate experience increase
         experienceIncrease = (player.getExperience() * 
-            constants.UniquePlace.DeringleExperienceIncrease)
+            constants.DERINGLE_EXP_INCREASE)
         
         #Story
         print ("You find yourself in a sunny pasture deep within the depths of"

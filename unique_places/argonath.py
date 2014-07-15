@@ -31,7 +31,7 @@ class Argonath(UniquePlace):
         name = player.getName()
         playerExperience = player.getExperience()
         experienceIncrease = (playerExperience * 
-            constants.UniquePlace.ArgonathExperienceIncrease)
+            constants.ARGONATH_EXP_INCREASE)
         maxHp = player.getMaxHp()
             
         #Story

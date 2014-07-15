@@ -55,7 +55,7 @@ class DolGuldur(UniquePlace):
         for monster in range(numberNazgul):
             nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
             self._wave2.append(nazgul)
-        if random.random() < constants.UniquePlace.DolGuldurWitchKingProb:
+        if random.random() < constants.DOL_GULDUR_WITCH_KING_PROB:
             witchKing = WitchKing(constants.MONSTER_STATS[WitchKing])
             self._wave2.append(witchKing)
         for monster in range(8):

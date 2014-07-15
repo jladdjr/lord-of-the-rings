@@ -117,7 +117,7 @@ class TowerOfCirithUngol(UniquePlace):
         
         #A potential encounter with Shelob
         shelobAppearance = random.random()
-        if shelobAppearance < .4:
+        if shelobAppearance < constants.CIRITH_UNGOL_SHELOB_PROB:
             result = battle(player, constants.BattleEngineContext.STORY, 
                 self._wave)
             if not result:
@@ -129,7 +129,7 @@ class TowerOfCirithUngol(UniquePlace):
         
         #A potential encounter with Shelob
         shelobAppearance = random.random()
-        if shelobAppearance < .4:
+        if shelobAppearance < constants.CIRITH_UNGOL_SHELOB_PROB:
             result = battle(player, constants.BattleEngineContext.STORY, 
                 self._wave)
             if not result:
@@ -141,7 +141,7 @@ class TowerOfCirithUngol(UniquePlace):
         
         #A potential encounter with Shelob
         shelobAppearance = random.random()
-        if shelobAppearance < .4:
+        if shelobAppearance < constants.CIRITH_UNGOL_SHELOB_PROB:
             result = battle(player, constants.BattleEngineContext.STORY, self._wave)
             if not result:
                 return
@@ -152,7 +152,7 @@ class TowerOfCirithUngol(UniquePlace):
         
         #A potential encounter with Shelob
         shelobAppearance = random.random()
-        if shelobAppearance < .4:
+        if shelobAppearance < constants.CIRITH_UNGOL_SHELOB_PROB:
             result = battle(player, constants.BattleEngineContext.STORY, 
                 self._wave)
             if not result:
@@ -164,7 +164,7 @@ class TowerOfCirithUngol(UniquePlace):
         
         #A potential encounter with Shelob
         shelobAppearance = random.random()
-        if shelobAppearance < .4:
+        if shelobAppearance < constants.CIRITH_UNGOL_SHELOB_PROB:
             result = battle(player, constants.BattleEngineContext.STORY, 
                 self._wave)
             if not result:
@@ -185,7 +185,7 @@ class TowerOfCirithUngol(UniquePlace):
         """
         successfulEscape = random.random()
         #If player manages to escape undetected
-        if successfulEscape < constants.UniquePlace.CirithUngolSneakProb:
+        if successfulEscape < constants.CIRITH_UNGOL_EVASION_PROB:
             print ("You manage to sneak through the Tower of Cirith Ungol and"
                 " are now in the heart \nof Mordor.")
             raw_input("Press enter to continue. ")

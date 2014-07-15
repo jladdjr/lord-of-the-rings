@@ -126,7 +126,7 @@ class GoblinTown(UniquePlace):
         print ""
 
         #If player ventures through undetected
-        if random.random() < constants.UniquePlace.GoblinTownCaveEvasion:
+        if random.random() < constants.GOBLIN_TOWN_EVASION_PROB:
             print "You make it through the mountains safely!"
             raw_input("Press enter to continue. ")
             print ""

@@ -6,6 +6,7 @@ from items.item import Item
 from items.weapon import Weapon
 from items.armor import Armor
 import constants
+
 import random
 
 class Moria(UniquePlace):
@@ -89,7 +90,7 @@ class Moria(UniquePlace):
         weapon2 = Weapon("Durin's Hammer", description, 1, 1, 1)
         description = "A legendary spear"
         weapon3 = Weapon("Aeowyln", description, 1, 1, 1)
-        description = "An extremely tough helmet"
+        description = "A legendary helmet"
         weapon4 = Weapon("Durnhelm", description, 1, 1, 1)
         description = "Old but still effective"
         armor = Armor("Iron Cap", description, 1, 1, 1)
@@ -122,10 +123,10 @@ class Moria(UniquePlace):
 
         #Player journeys through Moria
         for time in range(timeInMoria):
-            if self._danger < constants.UniquePlace.MoriaLowRiskUpper:
+            if self._danger < constants.MORIA_LOW_RISK_UPPER_LIMIT:
                 result = self._lowRiskTravel(player)
-            elif (constants.UniquePlace.MoriaMediumRiskLower <= self._danger < 
-                constants.UniquePlace.MoriaMediumRiskUpper):
+            elif (constants.MORIA_LOW_RISK_UPPER_LIMIT <= self._danger < 
+                constants.MORIA_MED_RISK_UPPER_LIMIT):
                 result = self._mediumRiskTravel(player)
             else:
                 result = self._highRiskTravel(player)
@@ -159,12 +160,12 @@ class Moria(UniquePlace):
         @param player:  The current player.
         """
         chance = random.random()
-        if chance < constants.UniquePlace.MoriaLowRiskSneakUpperLimit:
+        if chance < constants.MORIA_LOW_RISK_SNEAK_UPPER_LIMIT:
             statement = random.choice(self._sneakString)
             battle = False
             self._itemFind(player)
-        elif (constants.UniquePlace.MoriaLowRiskNeutralLowerLimit <= chance < 
-            constants.UniquePlace.MoriaLowRiskNeutralUpperLimit):
+        elif (constants.MORIA_LOW_RISK_SNEAK_UPPER_LIMIT <= chance < 
+            constants.MORIA_LOW_RISK_NEUTRAL_UPPER_LIMIT):
             statement = random.choice(self._neutralString)
             battle = False
             self._itemFind(player)
@@ -183,12 +184,12 @@ class Moria(UniquePlace):
         @param player:  The current player.
         """
         chance = random.random()
-        if chance < constants.UniquePlace.MoriaMediumRiskSneakUpperLimit:
+        if chance < constants.MORIA_MED_RISK_SNEAK_UPPER_LIMIT:
             statement = random.choice(self._sneakString)
             battle = False
             self._itemFind(player)
-        elif (constants.UniquePlace.MoriaMediumRiskNeutralLowerLimit <= chance < 
-            constants.UniquePlace.MoriaMediumRiskNeutralUpperLimit):
+        elif (constants.MORIA_MED_RISK_SNEAK_UPPER_LIMIT <= chance < 
+            constants.MORIA_MED_RISK_NEUTRAL_UPPER_LIMIT):
             statement = random.choice(self._neutralString)
             battle = False
             self._itemFind(player)
@@ -198,7 +199,7 @@ class Moria(UniquePlace):
             battle = True
                
         return statement, battle
-            
+        
     def _highRiskTravel(self, player):
         """
         Determines outcome of the player as he ventures through the 
@@ -207,7 +208,7 @@ class Moria(UniquePlace):
         @param player:  The current player.
         """
         chance = random.random()
-        if chance < constants.UniquePlace.MoriaHighRiskNeutralUpperLimit:
+        if chance < constants.MORIA_HIGH_RISK_NEUTRAL_UPPER_LIMIT:
             statement = random.choice(self._neutralString)
             battle = False
             self._itemFind(player)
@@ -220,12 +221,13 @@ class Moria(UniquePlace):
         
     def _itemFind(self, player):
         """
-        Helper method that determines if the player finds and item and what item.
+        Helper method that determines if the player finds an item and what 
+        item.
         
         @param player:  The current player.
         """
         chance = random.random()
-        if self._loot and chance < constants.UniquePlace.MoriaItemFindProbability:
+        if self._loot and chance < constants.MORIA_ITEM_FIND_PROB:
             item = random.choice(self._loot)
             print ("You found %s while venturing through the Mines of Moria!" 
                 % item.getName())

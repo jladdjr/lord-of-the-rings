@@ -129,7 +129,7 @@ class Tharbad(UniquePlace):
         
         @param player:   The player object.
         """
-        if random.random() < constants.UniquePlace.TharbadBattleProb:
+        if random.random() < constants.THARBAD_BATTLE_PROB:
             print "You hear some rustling in the shadows...."
             raw_input("Press enter to continue. ")
             print ""
@@ -150,7 +150,7 @@ class Tharbad(UniquePlace):
         
         chance = random.random()
         #Determines if player finds item and which item player receives
-        if chance < constants.UniquePlace.TharbadItemFindProb:
+        if chance < constants.THARBAD_ITEM_FIND_PROB:
             print "You find something that may be of some value!"
             item = random.choice(self._loot)
             if player.addToInventory(item):
