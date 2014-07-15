@@ -351,6 +351,31 @@ class Player(object):
         inventory.addItem(item)
         self._sortItems(inventory)
         return True
+            
+    def removeFromInventory(self, item):
+        """
+        Removes an item from inventory. If item is currently 
+        equipped, unequips item.
+
+        @param item:   The item to be removed.
+        """
+        #Item must be in inventory
+        if not item in self._inventory:
+            return
+        
+        #Unequip if necessary
+        if item in self._equipped:
+            self.unequip(item)
+            
+        self._inventory.removeItem(item)
+    
+    def getInventory(self):
+        """
+        Returns the player's inventory.
+
+        @return:    Player's inventory.
+        """
+        return self._inventory
         
     def _sortItems(self, items):
         """
@@ -387,32 +412,7 @@ class Player(object):
 
         items.clearItems()
         items.addItems(sortedItems)
-            
-    def removeFromInventory(self, item):
-        """
-        Removes an item from inventory. If item is currently 
-        equipped, unequips item.
-
-        @param item:   The item to be removed.
-        """
-        #Item must be in inventory
-        if not item in self._inventory:
-            return
         
-        #Unequip if necessary
-        if item in self._equipped:
-            self.unequip(item)
-            
-        self._inventory.removeItem(item)
-    
-    def getInventory(self):
-        """
-        Returns the player's inventory.
-
-        @return:    Player's inventory.
-        """
-        return self._inventory
-
     def getMoney(self):
         """
         Returns player's money.

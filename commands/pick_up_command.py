@@ -41,9 +41,9 @@ class PickUpCommand(Command):
             return
 
         #Add item to inventory
-        self._player.addToInventory(item)
-        print ""
-        print "Added %s to inventory." % item.getName()
+        if self._player.addToInventory(item):
+            print ""
+            print "Added %s to inventory." % item.getName()
 
-        #Remove item from space
-        location.removeItem(item)
+            #Remove item from space
+            location.removeItem(item)
