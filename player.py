@@ -248,17 +248,15 @@ class Player(object):
                 self.unequip(currentItem)
 
         #Equip new item
+        self._equipped.addItem(item)
         if isinstance(item, Weapon):
-            self._equipped.addItem(item)
             self._weaponAttack = item.getAttack()
             self._totalAttack = (self._attack + self._weaponAttack + 
                 self._charmAttack)
         elif isinstance(item, Armor):
-            self._equipped.addItem(item)
             self._armorDefense = item.getDefense()
             self._totalDefense = self._armorDefense + self._charmDefense
         elif isinstance(item, Charm):
-            self._equipped.addItem(item)
             self._charmAttack += item.getAttack()
             self._charmDefense += item.getDefense()
             self._charmHp += item.getHp()
@@ -270,38 +268,11 @@ class Player(object):
         statement = "%s equipped %s." %(self._name, item.getName())
         
         #Sort self._equipped
-        self._sortEquipped()
+        equipped = self._equipped
+        self._sortItems(equipped)
         
         return statement
-    
-    def _sortEquipped(self):
-        """
-        Sorts items in self._equipped._items.
-        """
-        sortedEquipped = []
-        charms = {}
-        equipped = self.getEquipped.getItems()
         
-        #Weapon is first
-        for item in equipped:
-            if isinstance(item, Weapon):
-                sortedEquipped.append(item)
-        #Armor is second
-        for item in equipped:
-            if isinstance(item, Armor):
-                sortedEquipped.append(item)
-                
-        #Sort charms by name
-        for item in equipped:
-            if isinstance(item, Charm):
-                charmName = item.getName()
-                charms[charmName] = item
-        
-        #Add charms last
-        sortedCharms = collections.OrderedDict(sorted(charms.items()))
-        for charmName in sortedCharms:
-            sortedEquipped.append(sortedCharms[charmName])
-            
     def unequip(self, item):
         """
         Allows a character to unequip a currently equipped item.
@@ -357,27 +328,65 @@ class Player(object):
         @return:       True if execution suceeds, False 
                        otherwise.
         """
+        inventory = self._inventory
+        
         #If user input is not an item
         if not isinstance(item, Item):
             print "Not an item."
             return False
         
         #Item cannot already be inventory
-        if item in self._inventory:
+        if item in inventory:
             print "Item already in inventory."
         
         #Check inventory weight restriction
         itemWeight = item.getWeight()
-        inventoryWeight = self._inventory.getWeight()
+        inventoryWeight = inventory.getWeight()
         
         if itemWeight + inventoryWeight > self._weightLimit:
             print "You are overburdened."
             return False
         
         #Successful execution
-        print "Added %s to inventory." % item.getName()
-        self._inventory.addItem(item)
+        inventory.addItem(item)
+        self._sortItems(inventory)
         return True
+        
+    def _sortItems(self, items):
+        """
+        Sorts items in an ItemSet.
+        
+        @param items:   The ItemSet to sort.
+        """
+        #Create variables
+        itemsList = items.getItems()
+        sortedItems = []
+        charms = {}
+        charmNames = []
+        
+        #Weapon is first
+        for item in itemsList:
+            if isinstance(item, Weapon):
+                sortedItems.append(item)
+        
+        #Armor is second
+        for item in itemsList:
+            if isinstance(item, Armor):
+                sortedItems.append(item)
+                
+        #Sort charms by name
+        for item in itemsList:
+            if isinstance(item, Charm):
+                charmName = item.getName()
+                charmNames.append(charmName)
+                charms[charmName] = item
+
+        charmNames.sort()
+        for charmName in charmNames:
+            sortedItems.append(charms[charmName])
+
+        items.clearItems()
+        items.addItems(sortedItems)
             
     def removeFromInventory(self, item):
         """

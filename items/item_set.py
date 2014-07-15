@@ -44,6 +44,25 @@ class ItemSet(object):
 
         self._items.append(item)
         self._weight += int(item.getWeight())
+        
+    def addItems(self, items):
+        """
+        Adds a list of items.
+        
+        @param items:    List of items.
+        """
+        #Check preconditions
+        errorMsg = "ItemSet.addItems() given something other than a list."
+        if not isinstance(items, list):
+            raise AssertionError(errorMsg)
+        errorMsg = "ItemSet.addItems() given a list containing a non-Item object."
+        for item in items:
+            if not isinstance(item, Item):
+                raise AssertionError(errorMsg)
+        
+        #Add items in list to ItemSet
+        for item in items:
+            self.addItem(item)
 
     def getItems(self):
         """
@@ -76,6 +95,12 @@ class ItemSet(object):
         """
         self._items.remove(item)
         self._weight -= int(item.getWeight())
+        
+    def clearItems(self):
+        """
+        Clears items stored in ItemSet.
+        """
+        self._items = []
    
     def containsItem(self, item):
         """

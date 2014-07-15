@@ -41,8 +41,7 @@ class PickUpCommand(Command):
             return
 
         #Add item to inventory
-        inventory = self._player.getInventory()
-        inventory.addItem(item)
+        self._player.addToInventory(item)
         print ""
         print "Added %s to inventory." % item.getName()
 

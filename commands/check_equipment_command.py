@@ -29,12 +29,10 @@ class CheckEquipmentCommand(Command):
         playerName = self._player.getName()
         equipment = self._player.getEquipped()
         
-        sortedEquipment = self._sortEquipment(equipment)
-        
         #Prints currently equipped items
         print "%s's currently equipped items:\n" % playerName
         
-        for item in sortedEquipment:
+        for item in equipment:
             itemName = item.getName()
             if isinstance(item, Weapon):
                 attack = item.getAttack()
@@ -62,24 +60,3 @@ class CheckEquipmentCommand(Command):
                 " type.")
                 raise AssertionError(errorMsg)
             print ""
-            
-    def _sortEquipment(self, equipment):
-        """
-        Sorts player equipment.
-        
-        @param equipment:     Player equipped object.
-        """
-        sortedEquipment = []
-        
-        #Sorts items
-        for item in equipment:
-            if isinstance(item, Weapon):
-                sortedEquipment.append(item)
-        for item in equipment:
-            if isinstance(item, Armor):
-                sortedEquipment.append(item)
-        for item in equipment:
-            if isinstance(item, Charm):
-                sortedEquipment.append(item)
-                
-        return sortedEquipment

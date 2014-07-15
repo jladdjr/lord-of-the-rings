@@ -17,8 +17,8 @@ sting = Weapon("Sting", "Elvish - made in Gondolin", 2, 10, 10)
 theOneRing = Charm("The One Ring", "Very important", 10, 100, 0, 10, 0)
 leatherCloak = Armor("Leather Cloak", "Travel Tunic", 2, 2, 1)
 vodka = Potion("Vodka", "Good for health", 1, 1, 5)
-charm = Charm("s", "s", 0,0,0,0,0)
-charm2 = Charm("z", "z", 0,0,0,0,0)
+charm = Charm("A", "a", 0,0,0,0,0)
+charm2 = Charm("B", "b", 0,0,0,0,0)
 startingInventory = [sting, theOneRing, leatherCloak, vodka, charm, charm2]
 
 #Hobbiton Square

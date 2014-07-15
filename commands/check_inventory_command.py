@@ -33,9 +33,6 @@ class CheckInventoryCommand(Command):
         inventory = self._player.getInventory()
         inventoryList = inventory.getItems()
 
-        #Sort player inventory
-        inventoryList = self._sortInventory(inventoryList)
-
         #Cycle through player's inventory, obtaining item stats
         print "%s's inventory:\n" %playerName
         for item in inventoryList:
@@ -81,30 +78,3 @@ class CheckInventoryCommand(Command):
             print ""
 
         print "\tTotal weight of inventory: %s." % inventory.getWeight()
-    
-    def _sortInventory(self, inventoryList):
-        """
-        Sorts player inventory.
-        
-        @param inventoryList:    List of inventory objects.
-        
-        @return:                 Sorted inventory list.
-        """
-        sortedInventory = []
-        for item in inventoryList:
-            if isinstance(item, Weapon):
-                sortedInventory.append(item)
-        for item in inventoryList:
-            if isinstance(item, Armor):
-                sortedInventory.append(item)
-        for item in inventoryList:
-            if isinstance(item, Potion):
-                sortedInventory.append(item)
-        for item in inventoryList:
-            if isinstance(item, Charm):
-                sortedInventory.append(item)
-        for item in inventoryList:
-            if item not in sortedInventory:
-                sortedInventory.append(item)
-                
-        return sortedInventory
