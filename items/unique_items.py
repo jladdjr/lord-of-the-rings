@@ -111,6 +111,126 @@ nenya = Charm("Nenya", "Elven Ring of Water", 10, 10, 10, 10, 10)
 vilya = Charm("Vilya", "Elven Ring of Air", 10, 10, 10, 10, 10)
 elvenRings = [narya, nenya, vilya]
 
+#Shop weapons
+#Eriador Shops - levels 1-6
+walkingStick = Weapon("Walking Stick", "Offensive properties", 1, 1, 1)
+gardenShovel = Weapon("Garden Shoven", 
+    "The best weapon we could find", 1, 1, 1)
+gardenSythe = Weapon("Garden Sythe", "Very intimidating", 1, 1, 1)
+shortSword = Weapon("Short Sword", "Hobbit-sized", 1, 1, 1)
+hobbitElite = Weapon("Elite Hobbit Battle Gear", "Basically, rocks", 1, 1, 1)
+
+eriadorWeaponsDist = {
+    walkingStick: [0, 2],
+    gardenShovel: [1, 3],
+    gardenSythe: [3, 5],
+    shortSword: [4, 5],
+    hobbitElite: [4, 20]
+}
+
+#Rohan Shops - levels 8-12
+ironSword = Weapon("Iron Sword", "Strange markings", 1, 1, 1)
+mediumSword = Weapon("Medium Sword", "Battle tested", 1, 1, 1)
+rohirricBow = Weapon("Rohirric Bow", "Historic embroidery", 1, 1, 1)
+battleMace = Weapon("Battle Mace", "Classic for knights", 1, 1, 1)
+battleLance = Weapon("Battle Lance", "Essential for knights", 1, 1, 1)
+
+rohanWeaponsDist = {
+    ironSword: [0 , 10],
+    mediumSword: [10 , 14],
+    rohirricBow: [10 , 20],
+    battleMace: [9 , 12],
+    battleLance: [8 , 15],
+}
+
+#Rhovanion Shops - levels 6-15
+elvenTrainerBow = Weapon("Elven Trainer Bow", "For elf children", 1, 1, 1)
+elvenBlade = Weapon("Elven Blade", "Glows as enemies near", 1, 1 , 1)
+elvenBow = Weapon("Elven Bow", "Standard grade", 1, 1, 1)
+doubleBlades = Weapon("Double Blades", "Slice and dice", 1, 1, 1)
+eliteElvenSword = Weapon("Elite Elven Blade", "Powerful, magical properties", 
+    1, 1, 1)
+eliteElvenBow = Weapon("Elite Elven Longbow", "Made of mallorn", 1, 1, 1)
+
+rhovanionWeaponsDist = {
+    elvenTrainerBow: [0, 8],
+    elvenBlade: [8, 10],
+    elvenBow: [9, 11],
+    doubleBlades: [10, 12],
+    elilteElvenSword: [12, 20],
+    eliteElvenBow: [12, 20],
+}
+
+#Gondor Shops - levels 12-20
+soldersSword = Weapon("Soldier's Sword", "Standard grade", 1, 1, 1)
+longSword = Weapon("Long Sword", "A Gondorian blade", 1, 1, 1)
+compoundBow = Weapon("Compound Bow", "Extreme range", 1, 1, 1)
+eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 1, 1, 1)
+gondorianLongbow = Weapon("Gondorian Longbow", "Extreme range", 1, 1, 1)
+
+gondorWeaponsDist: {
+    soldersSword: [],
+    longSword: [12, 14],
+    compoundBow: [],
+    eliteLongSword: [],
+    gondorianLongbow: [],
+}
+
+#Shop armor
+#Eriador Shops - levels 1-5
+farmerShawl = Armor("Farmer's Shawls", "Protection from the sun", 1, 1, 1)
+travelCloak = Armor("Travel Cloak", "A dark shroud", 1, 1, 1)
+leatherCloak = Armor("Leather Cloak", "Stuffy", 1, 1, 1)
+
+eriadorArmorDist: {
+    farmerShawl: [],
+    travelCloak: [],
+    leatherCloak: []
+}
+
+#Rohan Shops - levels 8-12
+leatherArmor = Armor("Leather Armor", "Light and lithe", 1, 1, 1)
+chainmail = Armor("Chainmail", "Took an incredibly long time to make", 1, 1, 1)
+suitOfArmor = Armor("Suit of Armor", "To become a knight in shining armor", 
+    1, 1, 1)
+rohirricBreastplate = Armor("Rohirric Breastplate", "Aged with dignity", 
+    1, 1, 1)
+    
+rohanArmorDist: {
+    leatherArmor: [],
+    chainmail: [],
+    suitOfArmor: [],
+    rohirricBreastplate: []
+}
+
+#Rhovanion Shops - levels 6-15
+workersGear = Armor("Worker's Gear", "Poor-elf's clothes", 1, 1, 1)
+elvenWare = Armor("Elven Ware", "A time-tested classic", 1, 1, 1)
+eliteElvenWare = Armor("Elite Elven Ware", "At a huge premium", 1, 1, 1)
+velvetSuit = Armor("Velvet Suit", "Sex appeal", 1, 1, 1)
+
+rhovanionArmorDist: {
+    workersGear: [],
+    elvenWare: [],
+    eliteElvenWare: [],
+    velvetSuit: []
+}
+
+#Gondorian Shops - levels 12-20
+standardSoldiersArmor = Armor("Standard Soldier's Armor", "Sells for a reason", 
+    1, 1, 1)
+platemail = Armor("Platemail", "Can take a wallop", 1, 1, 1)
+magneticArmor = Armor("Magnetic Armor", "Repels attacks", 1, 1, 1)
+eliteGondorianArmor = Armor("Elite Gondorian Armor", "Elite Platemail", 
+    1, 1, 1)
+    
+gondorArmorDist: {
+    standardSoldiersArmor: [12, 16],
+    platemail: [14, 16],
+    magneticArmor: [16, 20],
+    eliteGondorianArmor: [18, 20]
+}
+
 #Low-level unique weapons
 guthwine = Weapon("Guthwine", "Eomer's sword. Stolen goods", 10, 10, 20)
 herugrim = Weapon("Herugrim", 
@@ -161,25 +281,3 @@ belthronding, dramborleg, helmOfHador, harlequinCrestShako]
 
 eliteLevelFindableUniques = [aeglos, ananruth, ringil, scepterOfAnnuminas, 
 grond, crownOfElendil, ironCrown]
-
-"""
-#Shop weapons
-walkingStick = Weapon("Walking Stick", "Offensive properties", 1, 1, 1)
-gardenShovel = Weapon("Garden Shoven", 
-    "Hobbits are ill-equipped for combat", 1, 1, 1)
-gardenSythe = Weapon("Garden Sythe", "Very intimidating", 1, 1, 1)
-shortSword = Weapon("Short Sword", "Hobbit-sized", 1, 1, 1)
-
-mediumSword = Weapon("Medium Sword", "A vestige of arnor", 1, 1, 1)
-ironSword = Weapon("Iron Sword", "Has seen battle use", 1, 1, 1)
-rohirricLance = Weapon("Rohirric Lance", "Battle worn", 1, 1, 1)
-battleMace = Weapon("Battle Mace", "Rohirric in origin", 1, 1, 1)
-
-elvenTrainerBow = Weapon("Elven Trainer Bow", "Made of yew", 1, 1, 1)
-elvenBlade = Weapon("Elven Blade", "Glows as enemies near", 1, 1 , 1)
-elvenBow = Weapon("Elven Bow", "Standard grade", 1, 1, 1)
-longSword = Weapon("Long Sword", "A Gondorian blade", 1, 1, 1)
-eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 1, 1, 1)
-eliteElvenSword = Weapon("Elite Elven Sword", "A historic blade", 1, 1, 1)
-eliteElvenBow = Weapon("Elite Elven Longbow", "Made of mallorn", 1, 1, 1)
-"""

@@ -16,13 +16,15 @@ class Shop(Building):
     
     Shops serve as the markets of the game.
     """
-    def __init__(self, name, description, greetings, numItems, quality):
+    def __init__(self, name, description, greetings, region, numItems, 
+        quality):
         """
         Initializes shop.
 
         @param name:        The name of the shop.
         @param description: The description of the shop.
         @param greetings:   The greetings the user gets as he enters a shop.
+        @param region:      The region the shop is in.
         @param numItems:    The number of items that can be bought at the 
                             shop.
         @param quality:     The quality of the items that may be bought at 
@@ -32,10 +34,12 @@ class Shop(Building):
         Building.__init__(self, name, description, greetings)
 
         #Create items attributes and generate items objects
+        self._region = region
         self._numItems = numItems
         self._quality = quality
         
-        self._items = factories.shop_factory.getItems(numItems, quality)
+        self._items = factories.shop_factory.getItems(region, numItems, 
+            quality)
     
     def enter(self, player):
         """
@@ -87,8 +91,18 @@ What is your choice?
                 print "\t\tAttack: %s" % item.getAttack()
             elif isinstance(item, Armor):
                 print "\t\tDefense: %s" % item.getDefense()
-            else:
+            elif isinstnace(item, Charm):
+                if item.getAttack():
+                    print "\t\tAttack: %s" % item.getAttack()
+                if item.getDefense():
+                    print "\t\tDefense: %s" % item.getDefense()
+                if item.getHp():
+                    print "\t\tHP Bonus: %s" % item.getHp()
+            elif isinstance(item, Potion):
                 print "\t\tHealing: %s" % item.getHealing()
+            else:
+                errorMsg = "Invalid item - shop_factory, checkItems()"
+                raise AssertionError(errorMsg)
                 
     #Gives advanced descriptions of items 
     def checkItemsStats(self):
@@ -106,11 +120,23 @@ What is your choice?
                 print "\t\tDefense: %s" % item.getDefense()
                 print "\t\tWeight: %s" % item.getWeight()
                 print "\t\tCost: %s" % item.getCost()
-            else:
+            elif isinstance(item, Charm):
+                if item.getAttack():
+                    print "\t\tAttack: %s" % item.getAttack()
+                if item.getDefense():
+                    print "\t\tDefense: %s" % item.getDefense()
+                if item.getHp():
+                    print "\t\tHP Bonus: %s" % item.getHp()
+                print "\t\tWeight: %s" % item.getWeight()
+                print "\t\tCost: %s" % item.getCost()
+            elif isinstance(item, Potion):
                 print "\t\tHealing: %s" % item.getHealing()
                 print "\t\tWeight: %s" % item.getWeight()
                 print "\t\tCost: %s" % item.getCost()
-
+            else:
+                errorMsg = "Invalid item - shop_factory, checkItemsStats()"
+                raise AssertionError(errorMsg)
+                
     #For selling items in inventory to shop
     def sellItems(self, player):
         """
