@@ -125,8 +125,7 @@ class Moria(UniquePlace):
         for time in range(timeInMoria):
             if self._danger < constants.MORIA_LOW_RISK_UPPER_LIMIT:
                 result = self._lowRiskTravel(player)
-            elif (constants.MORIA_LOW_RISK_UPPER_LIMIT <= self._danger < 
-                constants.MORIA_MED_RISK_UPPER_LIMIT):
+            elif self._danger < constants.MORIA_MED_RISK_UPPER_LIMIT:
                 result = self._mediumRiskTravel(player)
             else:
                 result = self._highRiskTravel(player)
@@ -164,8 +163,7 @@ class Moria(UniquePlace):
             statement = random.choice(self._sneakString)
             battle = False
             self._itemFind(player)
-        elif (constants.MORIA_LOW_RISK_SNEAK_UPPER_LIMIT <= chance < 
-            constants.MORIA_LOW_RISK_NEUTRAL_UPPER_LIMIT):
+        elif chance < constants.MORIA_LOW_RISK_NEUTRAL_UPPER_LIMIT:
             statement = random.choice(self._neutralString)
             battle = False
             self._itemFind(player)
@@ -188,8 +186,7 @@ class Moria(UniquePlace):
             statement = random.choice(self._sneakString)
             battle = False
             self._itemFind(player)
-        elif (constants.MORIA_MED_RISK_SNEAK_UPPER_LIMIT <= chance < 
-            constants.MORIA_MED_RISK_NEUTRAL_UPPER_LIMIT):
+        elif chance < constants.MORIA_MED_RISK_NEUTRAL_UPPER_LIMIT:
             statement = random.choice(self._neutralString)
             battle = False
             self._itemFind(player)
