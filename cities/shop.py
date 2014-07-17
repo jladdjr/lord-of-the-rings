@@ -1,13 +1,14 @@
 #!/usr/bin/python
 
 from cities.building import Building
-import factories.shop_factory 
+import factories.shop_factory
 from items.item import Item
 from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
 from items.charm import Charm
 from items.unique_items import theOneRing
+from util.helpers import sortItems
 import constants
 
 class Shop(Building):
@@ -40,6 +41,9 @@ class Shop(Building):
         
         self._items = factories.shop_factory.getItems(region, numItems, 
             quality)
+        
+        #Sort items
+        sortItems(self._items)
     
     def enter(self, player):
         """
@@ -64,6 +68,7 @@ What is your choice?
 \tQuit                    - 'quit'
 """
             choice = raw_input("What do you want to do? ")
+            print ""
             
             if choice == "check":
                 self.checkItems()
@@ -91,7 +96,7 @@ What is your choice?
                 print "\t\tAttack: %s" % item.getAttack()
             elif isinstance(item, Armor):
                 print "\t\tDefense: %s" % item.getDefense()
-            elif isinstnace(item, Charm):
+            elif isinstance(item, Charm):
                 if item.getAttack():
                     print "\t\tAttack: %s" % item.getAttack()
                 if item.getDefense():
@@ -136,6 +141,7 @@ What is your choice?
             else:
                 errorMsg = "Invalid item - shop_factory, checkItemsStats()"
                 raise AssertionError(errorMsg)
+            print ""
                 
     #For selling items in inventory to shop
     def sellItems(self, player):

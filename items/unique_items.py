@@ -5,6 +5,7 @@ from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
 from items.charm import Charm
+import constants
 
 """
 A storing place for some of the unique items of the game.
@@ -140,7 +141,7 @@ rohanWeaponsDist = {
     mediumSword: [10 , 14],
     rohirricBow: [10 , 20],
     battleMace: [9 , 12],
-    battleLance: [8 , 15],
+    battleLance: [8 , 20],
 }
 
 #Rhovanion Shops - levels 6-15
@@ -157,7 +158,7 @@ rhovanionWeaponsDist = {
     elvenBlade: [8, 10],
     elvenBow: [9, 11],
     doubleBlades: [10, 12],
-    elilteElvenSword: [12, 20],
+    eliteElvenSword: [12, 20],
     eliteElvenBow: [12, 20],
 }
 
@@ -168,12 +169,12 @@ compoundBow = Weapon("Compound Bow", "Extreme range", 1, 1, 1)
 eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 1, 1, 1)
 gondorianLongbow = Weapon("Gondorian Longbow", "Extreme range", 1, 1, 1)
 
-gondorWeaponsDist: {
-    soldersSword: [],
-    longSword: [12, 14],
-    compoundBow: [],
-    eliteLongSword: [],
-    gondorianLongbow: [],
+gondorWeaponsDist = {
+    soldersSword: [0, 14],
+    longSword: [12, 15],
+    compoundBow: [14, 16],
+    eliteLongSword: [16, 20],
+    gondorianLongbow: [16, 20],
 }
 
 #Shop armor
@@ -182,10 +183,10 @@ farmerShawl = Armor("Farmer's Shawls", "Protection from the sun", 1, 1, 1)
 travelCloak = Armor("Travel Cloak", "A dark shroud", 1, 1, 1)
 leatherCloak = Armor("Leather Cloak", "Stuffy", 1, 1, 1)
 
-eriadorArmorDist: {
-    farmerShawl: [],
-    travelCloak: [],
-    leatherCloak: []
+eriadorArmorDist = {
+    farmerShawl: [0, 2],
+    travelCloak: [2, 4],
+    leatherCloak: [3, 20]
 }
 
 #Rohan Shops - levels 8-12
@@ -196,11 +197,11 @@ suitOfArmor = Armor("Suit of Armor", "To become a knight in shining armor",
 rohirricBreastplate = Armor("Rohirric Breastplate", "Aged with dignity", 
     1, 1, 1)
     
-rohanArmorDist: {
-    leatherArmor: [],
-    chainmail: [],
-    suitOfArmor: [],
-    rohirricBreastplate: []
+rohanArmorDist = {
+    leatherArmor: [0, 12],
+    chainmail: [8, 15],
+    suitOfArmor: [13, 15],
+    rohirricBreastplate: [14, 20]
 }
 
 #Rhovanion Shops - levels 6-15
@@ -209,11 +210,11 @@ elvenWare = Armor("Elven Ware", "A time-tested classic", 1, 1, 1)
 eliteElvenWare = Armor("Elite Elven Ware", "At a huge premium", 1, 1, 1)
 velvetSuit = Armor("Velvet Suit", "Sex appeal", 1, 1, 1)
 
-rhovanionArmorDist: {
-    workersGear: [],
-    elvenWare: [],
-    eliteElvenWare: [],
-    velvetSuit: []
+rhovanionArmorDist = {
+    workersGear: [0, 9],
+    elvenWare: [8, 12],
+    eliteElvenWare: [12, 15],
+    velvetSuit: [15, 20]
 }
 
 #Gondorian Shops - levels 12-20
@@ -224,13 +225,79 @@ magneticArmor = Armor("Magnetic Armor", "Repels attacks", 1, 1, 1)
 eliteGondorianArmor = Armor("Elite Gondorian Armor", "Elite Platemail", 
     1, 1, 1)
     
-gondorArmorDist: {
-    standardSoldiersArmor: [12, 16],
+gondorArmorDist = {
+    standardSoldiersArmor: [0, 16],
     platemail: [14, 16],
     magneticArmor: [16, 20],
     eliteGondorianArmor: [18, 20]
 }
 
+#Shop potions
+#Eriador shops
+hobbitTea = Potion("Hobbit Tea", "Bay leaf", 1, 1, 1)
+shireWater = Potion("Shire Water", "From the Brandywine", 1, 1, 1)
+shireWater2 = Potion("Shire Water", "From the Shirebourne", 1, 1, 1)
+
+eriadorPotionDist = {
+    hobbitTea: [0, 2],
+    shireWater: [2, 4],
+    shireWater2: [4, 20]
+}
+
+#Rohan shops
+adornWater = Potion("Adorn Water", "From the Adorn River", 1, 1, 1)
+rohirricTea = Potion("Rohirric Tea", "Calming effects", 1, 1, 1)
+fangornWater = Potion("Entwash Water", "Extreme restorative properties", 1, 1, 1)
+
+rohanPotionDist = {
+    adornWater: [0, 12],
+    shireWater: [10, 12],
+    shireWater2: [12, 20]
+}
+
+#Rhovanion shops
+elvenTea = Potion("Elven Tea", "Magical effects", 1, 1, 1)
+mirkwoodWater = Potion("Elven Water", "From the Misty Mountains", 1, 1, 1)
+magicalElixir = Potion("Magical Elixir", "Has a strange glow", 1, 1, 1)
+
+rhovanionPotionDist = {
+    elvenTea: [0, 12],
+    mirkwoodWater: [12, 14],
+    magicalElixir: [14, 20]
+}
+
+#Gondor shops
+anduinWater = Potion("Anduin Water", "All the way from the Anduin River", 1, 1, 1)
+snowmelt = Potion("Snowmelt", "From the White Mountains", 1, 1, 1)
+advancedElixir = Potion("Advanced Elixir", "From the Houses of Healing", 1, 1, 1)
+
+gondorPotionDist = {
+    anduinWater: [0, 12],
+    snowmelt: [12, 15],
+    magicalElixir: [14, 20]
+}
+
+#Total shop weapons distributions
+shopWeaponDist = {
+    constants.RegionType.ERIADOR: eriadorWeaponsDist,
+    constants.RegionType.RHOVANION: rhovanionWeaponsDist,
+    constants.RegionType.ROHAN: rohanWeaponsDist,
+    constants.RegionType.GONDOR: gondorWeaponsDist}
+
+#Total shop armor distributions
+shopArmorDist = {
+    constants.RegionType.ERIADOR: eriadorArmorDist,
+    constants.RegionType.RHOVANION: rhovanionArmorDist,
+    constants.RegionType.ROHAN: rohanArmorDist,
+    constants.RegionType.GONDOR: gondorArmorDist}
+    
+#Total shop potion distributions
+shopPotionDist = {
+    constants.RegionType.ERIADOR: eriadorPotionDist,
+    constants.RegionType.RHOVANION: rhovanionPotionDist,
+    constants.RegionType.ROHAN: rohanPotionDist,
+    constants.RegionType.GONDOR: gondorPotionDist}
+    
 #Low-level unique weapons
 guthwine = Weapon("Guthwine", "Eomer's sword. Stolen goods", 10, 10, 20)
 herugrim = Weapon("Herugrim", 

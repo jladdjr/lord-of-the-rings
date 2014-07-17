@@ -8,7 +8,7 @@ from items.armor import Armor
 from items.potion import Potion
 from items.charm import Charm
 from items.item_set import ItemSet
-
+from util.helpers import sortItems
 import constants
 
 class Player(object):
@@ -269,7 +269,7 @@ class Player(object):
         
         #Sort self._equipped
         equipped = self._equipped
-        self._sortItems(equipped)
+        sortItems(equipped)
         
         return statement
         
@@ -349,7 +349,7 @@ class Player(object):
         
         #Successful execution
         inventory.addItem(item)
-        self._sortItems(inventory)
+        sortItems(inventory)
         return True
             
     def removeFromInventory(self, item):
@@ -376,43 +376,7 @@ class Player(object):
         @return:    Player's inventory.
         """
         return self._inventory
-        
-    def _sortItems(self, items):
-        """
-        Sorts items in an ItemSet.
-        
-        @param items:   The ItemSet to sort.
-        """
-        #Create variables
-        itemsList = items.getItems()
-        sortedItems = []
-        charms = {}
-        charmNames = []
-        
-        #Weapon is first
-        for item in itemsList:
-            if isinstance(item, Weapon):
-                sortedItems.append(item)
-        
-        #Armor is second
-        for item in itemsList:
-            if isinstance(item, Armor):
-                sortedItems.append(item)
-                
-        #Sort charms by name
-        for item in itemsList:
-            if isinstance(item, Charm):
-                charmName = item.getName()
-                charmNames.append(charmName)
-                charms[charmName] = item
-
-        charmNames.sort()
-        for charmName in charmNames:
-            sortedItems.append(charms[charmName])
-
-        items.clearItems()
-        items.addItems(sortedItems)
-        
+   
     def getMoney(self):
         """
         Returns player's money.

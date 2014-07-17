@@ -329,11 +329,13 @@ class ShopFactoryConstants(object):
     """
     Constants used in shop factory item type generation.
     """
-    WEAPON_UPPER = .3
-    ARMOR_LOWER  = .3
-    ARMOR_UPPER  = .6
-    POTION_LOWER = .6
-    POTION_UPPER = .975
+    WEAPON_UPPER_LIMIT = .25
+    ARMOR_UPPER_LIMIT  = .5
+    POTION_UPPER_LIMIT = .975
+    STANDARD_DEVIATION = 2
+    QUALITY_MINIMUM    = 0
+    QUALITY_MAXIMUM    = 20
+    UNIQUE_QUALITY_REQ = 10
 
 #Unique Place constants
 """
