@@ -262,13 +262,14 @@ class SpaceTest(unittest.TestCase):
     def testItems(self):
         from space import Space
         from items.item import Item
-
+        import constants
+        
         #Prepare items
         blade = Item("blade", "appears to be dull", 1, 1)
         bow = Item("bow", "long bow", 2, 2) 
 
         #Create space
-        space = Space("shire", "Home of the Hobbits.", "Mordor")
+        space = Space("shire", "Home of the Hobbits.", constants.RegionType.MORDOR)
         items = space.getItems()
 
         #Assert space initially empty
@@ -561,7 +562,7 @@ class PickUpTest(unittest.TestCase):
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
-        item = Item("Dagger", "A trusty blade", 2, 2)
+        item = Item("Dagger", "A trusty blade", 0, 0)
         pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
         
         space.addItem(item)
@@ -1609,9 +1610,9 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        newItem = Item("Chainik Reakettle", "Makes good tea", 1, 1)
-        newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
-        newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
+        newItem = Item("Chainik Reakettle", "Makes good tea", 0, 0)
+        newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 0, 0, 0)
+        newArmor = Armor("Cookies of Miles", "Defends against sadness", 0, 0, 0)
 
         player.addToInventory(newItem)
         player.addToInventory(newWeapon)
@@ -1658,9 +1659,9 @@ class PlayerTest(unittest.TestCase):
 
         #Pretest: items in player._inventory        
         errorMsg = "Failed to initialize test character correctly."
-        self.assertTrue(item in player._inventory, errorMsg)
-        self.assertTrue(weapon in player._inventory, errorMsg)
-        self.assertTrue(armor in player._inventory, errorMsg)
+        self.assertTrue(item in player._inventory._items, errorMsg)
+        self.assertTrue(weapon in player._inventory_items, errorMsg)
+        self.assertTrue(armor in player._inventory_items, errorMsg)
 
         #Testing player.removeFromInventory()
         player.removeFromInventory(item)
@@ -1851,7 +1852,7 @@ class ShopSellItems(unittest.TestCase):
         from items.armor import Armor
         from items.potion import Potion
 
-        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", "Shire", 5, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", constants.RegionType.ERIADOR, 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -1929,8 +1930,9 @@ class ShopSellItems(unittest.TestCase):
         from cities.shop import Shop
         from cities.city import City
         from items.item import Item
+        import constants
         
-        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", "Shire", 5, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", constants.RegionType.ERIADOR, 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -1984,9 +1986,9 @@ class ShopPurchaseItems(unittest.TestCase):
         testWeapon = Potion("Knife", "Russian", 1, 1, 1)
         testArmor = Potion("Shield of Faith", "Also Russian", 1, 1, 1)
         testPotion = Potion("Medium Potion of Healing", "A good concoction. Made by Master Wang.", 1, 5, 3)
-        testShop._items.append(testWeapon)
-        testShop._items.append(testArmor)
-        testShop._items.append(testPotion)
+        testShop._items.addItem(testWeapon)
+        testShop._items.addItem(testArmor)
+        testShop._items.addItem(testPotion)
 
         #Test preconditions
         errorMsg = "Player does not start with 20 rubles."
@@ -2060,7 +2062,7 @@ class ShopPurchaseItems(unittest.TestCase):
         player._money = 20    
 
         testPotion = Potion("SuperDuperLegendary Potion", "A Wang concoction. Made by Master Wang.", 1, 35, 1000)
-        testShop._items.append(testPotion)
+        testShop._items.addItem(testPotion)
         
         #Test preconditions
         errorMsg = "Player does not start with 20 rubles."
@@ -2118,7 +2120,7 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Player equipment should be empty."
         self.assertEqual(len(player._inventory._items), 0, errorMsg)
         errorMsg = "Our test shop was generated with the wrong number of items."
-        self.assertEqual(len(testShop._items), 0, errorMsg)
+        self.assertEqual(testShop._items.count(), 0, errorMsg)
 
         #Player attempts to purchase a non-existent item
         rawInputMock = MagicMock(side_effect = ["purchase", "gobbledigook", "quit"])
@@ -2249,9 +2251,10 @@ class City(unittest.TestCase):
         from cities.inn import Inn
         from cities.shop import Shop
         from cities.square import Square
+        import constants
         
         testInn = Inn("Seth N' Breakfast Test Inn", "Testing inn", "Come test here", 3)
-        testShop = Shop("Pookie Tea Shop", "Full of chi hua-huas", "Moofey, moofey meep", 5, 5)
+        testShop = Shop("Pookie Tea Shop", "Full of chi hua-huas", "Moofey, moofey meep", constants.RegionType.ERIADOR, 5, 5)
         testSquare = Square("Chocolate Mountain", "Origin of Chocolate Rain", "Meepey, meepey moof")
         testCity = City("TestCity", "Chris' unique testing city", "Come test here", buildings = [testInn, testShop, testSquare])
         
@@ -2627,11 +2630,11 @@ class CheckInventoryCommand(unittest.TestCase):
         player = Player("Russian", space)
         checkInventoryCmd = CheckInventoryCommand("Check Inventory Command", "Test command", player)
         
-        weapon = Weapon("Sword of the Spirit", "Divides soul and spirit", 2, 2, 2)
-        armor = Armor("Breastplate of Righteousness", "Made of light", 2, 2, 2)
-        potion = Potion("Vodka", "Russian's favorite", 2, 2, 2)
-        item = Item("Piece of Cardboard", "For arts and crafts", 2, 2)
-        item2 = Item("Scotch Tape", "School supplies", 2, 2)
+        weapon = Weapon("Sword of the Spirit", "Divides soul and spirit", 0, 0, 0)
+        armor = Armor("Breastplate of Righteousness", "Made of light", 0, 0, 0)
+        potion = Potion("Vodka", "Russian's favorite", 0, 0, 0)
+        item = Item("Piece of Cardboard", "For arts and crafts", 0, 0)
+        item2 = Item("Scotch Tape", "School supplies", 0, 0)
 
         player.addToInventory(weapon)
         player.addToInventory(armor)
