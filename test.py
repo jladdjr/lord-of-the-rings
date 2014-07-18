@@ -584,7 +584,7 @@ class PickUpTest(unittest.TestCase):
         self.assertFalse(space.containsItem(item), "Space should not have item but does.")
         
         inventory = player.getInventory()
-        self.assertTrue(inventory.containsItem(item), "Player should have item in inventory but does not.")
+        self.assertTrue(inventory.containsItem(item), "Player should have item in inventory but does not. %s" % inventory._items)
 
         equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(item), "Player should not have item in equipment but does.")
@@ -1620,9 +1620,9 @@ class PlayerTest(unittest.TestCase):
         
         #Test add items to inventory
         errorMsg = "Failed to add item to inventory."
-        self.assertTrue(newItem in player._inventory, errorMsg)
-        self.assertTrue(newWeapon in player._inventory, errorMsg)
-        self.assertTrue(newArmor in player._inventory, errorMsg)
+        self.assertTrue(newItem in player._inventory._items, errorMsg)
+        self.assertTrue(newWeapon in player._inventory._items, errorMsg)
+        self.assertTrue(newArmor in player._inventory._items, errorMsg)
         
         #Negative case: adding items already in inventory to inventory
         numberOfItems = player._inventory.count()
@@ -1851,13 +1851,14 @@ class ShopSellItems(unittest.TestCase):
         from items.weapon import Weapon
         from items.armor import Armor
         from items.potion import Potion
-
+        import constants
+        
         testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", constants.RegionType.ERIADOR, 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
 
-        testShop._items = []
+        testShop._items._items = []
         
         #Create starting inventory and equipment
         weapon = Weapon("Knife", "Jack of all trades", 3, 1, 1)
@@ -1908,13 +1909,13 @@ class ShopSellItems(unittest.TestCase):
 
         #Test that items now appear in shop wares
         errorMsg = "Items are now supposed to be in shop inventory but are not."
-        self.assertTrue(weapon in testShop._items, errorMsg)
-        self.assertTrue(armor in testShop._items, errorMsg)
-        self.assertTrue(potion in testShop._items, errorMsg)
+        self.assertTrue(weapon in testShop._items._items, errorMsg)
+        self.assertTrue(armor in testShop._items._items, errorMsg)
+        self.assertTrue(potion in testShop._items._items, errorMsg)
 
         #New shop wares' prices are set to full cost
         errorMsg = "Item costs not set back to full amount."
-        for item in testShop._items:
+        for item in testShop._items._items:
             self.assertEqual(item._cost, 1, errorMsg)
 
         #Player's money should increase by the half the cost of the items - 1.5 in our case
@@ -1937,7 +1938,7 @@ class ShopSellItems(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
 
-        goldNugget = Item("Gold Nugget", "Potentially cheese!", 1)
+        goldNugget = Item("Gold Nugget", "Potentially cheese!", 1, 1)
         player.addToInventory(goldNugget)
 
         #Test preconditions
@@ -1994,9 +1995,9 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Player does not start with 20 rubles."
         self.assertEqual(player._money, 20, errorMsg)
         errorMsg = "Our test shop was generated with the wrong number of items."
-        self.assertEqual(len(testShop._items), 3, errorMsg)
+        self.assertEqual(testShop._items.count(), 3, errorMsg)
         errorMsg = "Items in shop inventory are of the wrong type."
-        for item in testShop._items:
+        for item in testShop._items._items:
             self.assertTrue(isinstance(item, Weapon) or isinstance(item, Armor) or isinstance(item, Potion), errorMsg)
 
         #Player purchases items
@@ -2028,11 +2029,11 @@ class ShopPurchaseItems(unittest.TestCase):
         
         #Test items not in shop wares
         errorMsg = "Knife that was purchased is still in shop wares."
-        self.assertFalse(testPotion in testShop._items, errorMsg)
+        self.assertFalse(testPotion in testShop._items._items, errorMsg)
         errorMsg = "Shield of Faith that was purchased is still in shop wares."
-        self.assertFalse(testPotion in testShop._items, errorMsg)
+        self.assertFalse(testPotion in testShop._items._items, errorMsg)
         errorMsg = "Medium Potion that was purchased is still in shop wares."
-        self.assertFalse(testPotion in testShop._items, errorMsg)
+        self.assertFalse(testPotion in testShop._items._items, errorMsg)
 
         #player._money should decrease by the cost of the purchases, which is 5
         errorMsg = "player._money not decreased by correct amount."
@@ -2068,9 +2069,9 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Player does not start with 20 rubles."
         self.assertEqual(player._money, 20, errorMsg)
         errorMsg = "Our test shop was generated with the wrong number of items."
-        self.assertEqual(len(testShop._items), 1, errorMsg)
+        self.assertEqual(testShop._items.count(), 1, errorMsg)
         errorMsg = "SuperDuperLegendary Potion not in testShop._items."
-        self.assertTrue(testPotion in testShop._items, errorMsg)
+        self.assertTrue(testPotion in testShop._items._items, errorMsg)
         
         #Player attempts to purchase potion
         rawInputMock = MagicMock(side_effect = ["purchase", "SuperDuperLegendary Potion of Healing", "quit"])
@@ -2083,7 +2084,7 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is in equipped."
         self.assertFalse(player._equipped.containsItemWithName("SuperDuperLegendary Potion of Healing"), errorMsg)
         errorMsg = "SuperDuperLegendary Potion of Healing that was purchased is no longer in shop wares."
-        self.assertTrue(testPotion in testShop._items, errorMsg)
+        self.assertTrue(testPotion in testShop._items._items, errorMsg)
         
         #player._money should be unchanged
         errorMsg = "player._money changed when it was not supposed to."
@@ -2133,12 +2134,12 @@ class ShopPurchaseItems(unittest.TestCase):
         errorMsg = "Player equipment changed when it should not have."
         self.assertEqual(len(player._equipped._items), 0, errorMsg)
         errorMsg = "Shop wares changed when it should not have."
-        self.assertEqual(len(testShop._items), 0, errorMsg)
+        self.assertEqual(testShop._items.count(), 0, errorMsg)
          
         #player._money should not change
         errorMsg = "Player's money incorrectly decreased when purchasing invalid item."
         self.assertEqual(player._money, 20, errorMsg)
-                            
+
 class Square(unittest.TestCase):
     """
     Tests square buildings.
@@ -2262,8 +2263,8 @@ class City(unittest.TestCase):
         player = Player("Frodo", space)
 
         #Test that City can handle a series of commands
-        cityInputMock = MagicMock(side_effect = ["Seth N' Breakfast Test Inn", "leave city", "Pookie Tea Shop",
-            "leave city", "Chocolate Mountain", "gobbledigook", "leave city"])
+        cityInputMock = MagicMock(side_effect = ["Seth N' Breakfast Test Inn", "leave", "Pookie Tea Shop",
+            "leave", "Chocolate Mountain", "gobbledigook", "leave"])
         innInputMock = MagicMock(side_effect = ["no"])
         shopInputMock = MagicMock(side_effect = ["quit"])
         squareInputMock = MagicMock(side_effect = ["quit"])
