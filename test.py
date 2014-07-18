@@ -139,8 +139,9 @@ class ItemTest(unittest.TestCase):
         name = "Generic item"
         description = "Generic description"
         weight = 9
-
-        item = Item(name, description, weight)
+        cost = 10
+        
+        item = Item(name, description, weight, cost)
 
         errorMsg = "Expected item name to be '%s'." % name
         self.assertEqual(item.getName(), name, errorMsg)
@@ -148,6 +149,8 @@ class ItemTest(unittest.TestCase):
         self.assertEqual(item.getDescription(), description, errorMsg)
         errorMsg = "Expected item weight to be '%s'." % weight 
         self.assertEqual(item.getWeight(), weight, errorMsg)
+        errorMsg = "Expected item cost to b e '%s'." % cost
+        self.assertEqual(item.getCost(), cost, errorMsg)
 
 class ItemSetTest(unittest.TestCase):
     """
@@ -160,9 +163,9 @@ class ItemSetTest(unittest.TestCase):
         from items.item import Item
         from items.item_set import ItemSet
 
-        sword = Item("sword", "made by elves", 2)
-        helmet = Item("helmet", "made by men", 1)
-        potion = Item("potion", "restores health", 1)
+        sword = Item("sword", "made by elves", 2, 2)
+        helmet = Item("helmet", "made by men", 1, 1)
+        potion = Item("potion", "restores health", 1, 1)
 
         self._itemList = [sword, helmet, potion]
         self._items = ItemSet([sword, helmet, potion])
@@ -189,7 +192,7 @@ class ItemSetTest(unittest.TestCase):
 
     def testAddRemoveContainsItems(self):
         from items.item import Item
-        antidote = Item("antidote", "cures poison", 1)
+        antidote = Item("antidote", "cures poison", 1, 1)
 
         #Verify item not included in collection
         errorMsg = "ItemSet.containsItem() claimed to contain item not present."
@@ -218,7 +221,7 @@ class ItemSetTest(unittest.TestCase):
         actualWeight = self._items.getWeight()
         self.assertEqual(expectedWeight, actualWeight, errorMsg)
 
-        heavyRock = Item("heavy rock", "weighs a ton", 2000)
+        heavyRock = Item("heavy rock", "weighs a ton", 2000, 0)
 
         #Add item
         self._items.addItem(heavyRock)
@@ -261,8 +264,8 @@ class SpaceTest(unittest.TestCase):
         from items.item import Item
 
         #Prepare items
-        blade = Item("blade", "appears to be dull", 1)
-        bow = Item("bow", "long bow", 2) 
+        blade = Item("blade", "appears to be dull", 1, 1)
+        bow = Item("bow", "long bow", 2, 2) 
 
         #Create space
         space = Space("shire", "Home of the Hobbits.", "Mordor")
@@ -558,7 +561,7 @@ class PickUpTest(unittest.TestCase):
         
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
-        item = Item("Dagger", "A trusty blade", 2)
+        item = Item("Dagger", "A trusty blade", 2, 2)
         pickUpCmd = PickUpCommand("pick up", "Picks up an object", player)
         
         space.addItem(item)
@@ -837,7 +840,7 @@ class EquipTest(unittest.TestCase):
         player = Player("Frodo", space)
         equipCmd = EquipCommand("Equip", "Equips item in inventory to player", player)
         
-        item = Item("Charm", "Unknown effects", 1)
+        item = Item("Charm", "Unknown effects", 1, 1)
         
         inventory = player.getInventory()
         inventory.addItem(item)
@@ -1263,9 +1266,9 @@ class WeaponTest(unittest.TestCase):
         self.assertEqual(sword.getName(), "Sword", "Name did not initialize correctly.")
         self.assertEqual(sword.getDescription(), "A cheap sword", "Description did not initialize correctly.")
         self.assertEqual(sword.getWeight(), 3, "Weight did not initialize correctly.")
-        self.assertEqual(sword.getAttack(), 2, "Damage did not initialize correctly.")
-        self.assertEqual(sword.getCost(), 1, "Cost did not initialize correctly.")
-
+        self.assertEqual(sword.getCost(), 2, "Cost did not initialize correctly.")
+        self.assertEqual(sword.getAttack(), 1, "Damage did not initialize correctly.")
+        
 class ArmorTest(unittest.TestCase):
     """
     Tests Armor class.
@@ -1279,8 +1282,8 @@ class ArmorTest(unittest.TestCase):
         self.assertEqual(shield.getName(), "Shield", "Name did not initialize correctly.")
         self.assertEqual(shield.getDescription(), "A cheap shield", "Description did not initialize correctly.")
         self.assertEqual(shield.getWeight(), 3, "Weight did not initialize correctly.")
-        self.assertEqual(shield.getDefense(), 2, "Defense did not initialize correctly.")
-        self.assertEqual(shield.getCost(), 1, "Cost did not initialize correctly.")
+        self.assertEqual(shield.getCost(), 2, "Cost did not initialize correctly.")
+        self.assertEqual(shield.getDefense(), 1, "Defense did not initialize correctly.")
 
 class Potion(unittest.TestCase):
     """
@@ -1295,8 +1298,8 @@ class Potion(unittest.TestCase):
         self.assertEqual(potion.getName(), "Potion", "Name did not initialize correctly.")
         self.assertEqual(potion.getDescription(), "A small potion", "Description did not initialize correctly.")
         self.assertEqual(potion.getWeight(), 3, "Weight did not initialize correctly.")
-        self.assertEqual(potion.getHealing(), 2, "Healing did not initialize correctly.")
-        self.assertEqual(potion.getCost(), 1, "Cost did not initialize correctly.")
+        self.assertEqual(potion.getCost(), 2, "Cost did not initialize correctly.")
+        self.assertEqual(potion.getHealing(), 1, "Healing did not initialize correctly.")
 
 class PlayerTest(unittest.TestCase):
     """
@@ -1529,7 +1532,7 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        newItem = Item("Chainik Reakettle", "Makes good tea", 1)
+        newItem = Item("Chainik Reakettle", "Makes good tea", 1, 1)
         newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
         newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
         
@@ -1571,7 +1574,7 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        newItem = Item("Chainik Reakettle", "Makes good tea", 1)
+        newItem = Item("Chainik Reakettle", "Makes good tea", 1, 1)
         newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
         newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
         
@@ -1606,7 +1609,7 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        newItem = Item("Chainik Reakettle", "Makes good tea", 1)
+        newItem = Item("Chainik Reakettle", "Makes good tea", 1, 1)
         newWeapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
         newArmor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
 
@@ -2159,7 +2162,7 @@ class Square(unittest.TestCase):
         weapon = Weapon("Sword of the Spirit", "Sharper than any double-edged sword", 1, 1, 1)
         armor = Armor("Shield of Faith", "Quenches fiery darts", 1, 1, 1)
         potion = Potion("Leaves from Tree of Life", "For healing the nations", 1, 1, 1)
-        cookies = Item("Miles' Famous Cookies", "Gross this time", 1)
+        cookies = Item("Miles' Famous Cookies", "Gross this time", 1, 1)
         
         talk = {"Master Wang": "I am Master Wang, creator various things in this Lord of the Rings game", "Miles": "Hello, I am Miles, the cookie legend", "Putin": "Oppression, engage...."}
         items = {"Master Wang": [weapon, armor, potion], "Miles": cookies}
@@ -2626,8 +2629,8 @@ class CheckInventoryCommand(unittest.TestCase):
         weapon = Weapon("Sword of the Spirit", "Divides soul and spirit", 2, 2, 2)
         armor = Armor("Breastplate of Righteousness", "Made of light", 2, 2, 2)
         potion = Potion("Vodka", "Russian's favorite", 2, 2, 2)
-        item = Item("Piece of Cardboard", "For arts and crafts", 2)
-        item2 = Item("Scotch Tape", "School supplies", 2)
+        item = Item("Piece of Cardboard", "For arts and crafts", 2, 2)
+        item2 = Item("Scotch Tape", "School supplies", 2, 2)
 
         player.addToInventory(weapon)
         player.addToInventory(armor)
