@@ -1645,7 +1645,7 @@ class PlayerTest(unittest.TestCase):
         space = Space("Shire", "Home of the Hobbits.", "Mordor")
         player = Player("Frodo", space)
 
-        item = Item("Chainik Reakettle", "Makes good tea", 1)
+        item = Item("Chainik Reakettle", "Makes good tea", 1, 1)
         weapon = Weapon("Gun of Hurlocker", "Oppressive, but friendly", 2, 3, 1)
         armor = Armor("Cookies of Miles", "Defends against sadness", 2, 4, 1)
 
@@ -1851,7 +1851,7 @@ class ShopSellItems(unittest.TestCase):
         from items.armor import Armor
         from items.potion import Potion
 
-        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 5, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", "Shire", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -1930,7 +1930,7 @@ class ShopSellItems(unittest.TestCase):
         from cities.city import City
         from items.item import Item
         
-        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 5, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", "Shire", 5, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -1974,7 +1974,7 @@ class ShopPurchaseItems(unittest.TestCase):
         from items.armor import Armor
         from items.potion import Potion
 
-        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 0, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", "Shire", 0, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -2052,7 +2052,7 @@ class ShopPurchaseItems(unittest.TestCase):
         from cities.city import City
         from items.potion import Potion
 
-        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 0, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", "Shire", 0, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -2103,7 +2103,7 @@ class ShopPurchaseItems(unittest.TestCase):
         from cities.city import City
         from items.potion import Potion
 
-        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", 0, 10)
+        testShop = Shop("Chris' Testing Shop", "Come test here", "Hi", "Shire", 0, 10)
         testCity = City("Test City", "Testing city", "Hello to testing city. See Chris' shop", testShop)
         space = Space("Shire", "Home of the Hobbits.", "Mordor", city = testCity)
         player = Player("Frodo", space)
@@ -2307,7 +2307,7 @@ class EnterCommand(unittest.TestCase):
         One city and one unique place to enter.
 
         Player chooses to:
-        -Enter City, leave City
+        -Enter City, leave
         -Enter UniquePlace
         """
         from commands.enter_command import EnterCommand
@@ -2326,7 +2326,7 @@ class EnterCommand(unittest.TestCase):
         #Testing enter command's ability to execute a series of commands
         spaceInputMock = MagicMock(side_effect = 
             ["Jim's Mobile Fun City", "Master Wang's Magical Testing Place"])
-        cityInputMock = MagicMock(side_effect = ["leave city"])
+        cityInputMock = MagicMock(side_effect = ["leave"])
         
         with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
             with patch('cities.city.raw_input', create = True, new = cityInputMock):
@@ -2337,9 +2337,9 @@ class EnterCommand(unittest.TestCase):
         Multiple cities and one unique place to enter.
 
         Player choses to:
-        -Enter City, leave City
-        -Enter City, leave City
-        -Enter City, leave City
+        -Enter City, leave
+        -Enter City, leave
+        -Enter City, leave
         -Enter UniquePlace
         """
         from commands.enter_command import EnterCommand
@@ -2362,7 +2362,7 @@ class EnterCommand(unittest.TestCase):
         spaceInputMock = MagicMock(side_effect = 
             ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
             "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place"])
-        cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city"])
+        cityInputMock = MagicMock(side_effect = ["leave", "leave", "leave"])
         with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
             with patch('cities.city.raw_input', create = True, new = cityInputMock):
                 enterCmd.execute()
@@ -2372,7 +2372,7 @@ class EnterCommand(unittest.TestCase):
         One city and multiple cities to enter.
 
         Player choses to:
-        -Enter City, leave City
+        -Enter City, leave
         -Enter UniquePlace
         -Enter UniquePlace
         -Enter UniquePlace
@@ -2397,7 +2397,7 @@ class EnterCommand(unittest.TestCase):
         spaceInputMock = MagicMock(side_effect = 
             ["Jim's Mobile Fun City", "Master Wang's Magical Testing Place", 
             "Jim's Magic Castle of Time-Shifting", "Russian Armadillo Mound"])
-        cityInputMock = MagicMock(side_effect = ["leave city"])
+        cityInputMock = MagicMock(side_effect = ["leave"])
         with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
             with patch('cities.city.raw_input', create = True, new = cityInputMock):
                 enterCmd.execute()
@@ -2407,9 +2407,9 @@ class EnterCommand(unittest.TestCase):
         Multiple cities and multiple unique places to enter.
 
         Player choses to:
-        -Enter City, leave City
-        -Enter City, leave City
-        -Enter City, leave City
+        -Enter City, leave
+        -Enter City, leave
+        -Enter City, leave
         -Enter UniquePlace
         -Enter UniquePlace
         -Enter UniquePlace
@@ -2437,7 +2437,7 @@ class EnterCommand(unittest.TestCase):
             ["Jim's Mobile Fun City", "Seth's Sans-Shabbiness Shack Sh-City", 
             "Miles' Magical Cookie Jail City", "Master Wang's Magical Testing Place",
             "Jim's Magic Castle of Time-Shifting", "Russian Armadillo Mound"])
-        cityInputMock = MagicMock(side_effect = ["leave city", "leave city", "leave city"])
+        cityInputMock = MagicMock(side_effect = ["leave", "leave", "leave"])
         with patch('commands.enter_command.raw_input', create = True, new = spaceInputMock):
             with patch('cities.city.raw_input', create = True, new = cityInputMock):
                 enterCmd.execute()
@@ -2626,6 +2626,7 @@ class CheckInventoryCommand(unittest.TestCase):
         space = Space("Chocolate Mountain", "Home of Chocolate Rain", "Mordor")
         player = Player("Russian", space)
         checkInventoryCmd = CheckInventoryCommand("Check Inventory Command", "Test command", player)
+        
         weapon = Weapon("Sword of the Spirit", "Divides soul and spirit", 2, 2, 2)
         armor = Armor("Breastplate of Righteousness", "Made of light", 2, 2, 2)
         potion = Potion("Vodka", "Russian's favorite", 2, 2, 2)
