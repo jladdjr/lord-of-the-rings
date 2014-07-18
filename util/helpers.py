@@ -80,7 +80,7 @@ def sortItems(items):
     items.clearItems()
     items.addItems(sortedItems)
     
-def triangular(self, low, high, mode):
+def triangular(low, high, mode):
     """
     Generates a random number using a triangle distribution.
     
@@ -90,7 +90,9 @@ def triangular(self, low, high, mode):
     
     @return:        The randomly generated number.
     """
-    u = self.random()
+    import random
+    
+    u = random.random()
     try:
         if mode is None:
             c = 0.5  
@@ -103,4 +105,5 @@ def triangular(self, low, high, mode):
         u = 1.0 - u
         c = 1.0 - c
         low, high = high, low
+        
     return low + (high - low) * (u * c) ** 0.5
