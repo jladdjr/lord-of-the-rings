@@ -115,8 +115,8 @@ elvenRings = [narya, nenya, vilya]
 #Shop weapons
 #Eriador Shops - levels 1-6
 walkingStick = Weapon("Walking Stick", "Offensive properties", 1, 1, 1)
-gardenShovel = Weapon("Garden Shoven", 
-    "The best weapon we could find", 1, 1, 1)
+gardenShovel = Weapon("Garden Shovel", 
+    "The best weapon we could find...", 1, 1, 1)
 gardenSythe = Weapon("Garden Sythe", "Very intimidating", 1, 1, 1)
 shortSword = Weapon("Short Sword", "Hobbit-sized", 1, 1, 1)
 hobbitElite = Weapon("Elite Hobbit Battle Gear", "Basically, rocks", 1, 1, 1)

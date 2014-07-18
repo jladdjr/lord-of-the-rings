@@ -21,7 +21,7 @@ def getItems(region, numItems, quality):
     @return:             A list of randomly generated item objects.
     """
     items = ItemSet()
-    
+
     for item in range(numItems):
         #Generate random number used in determining item type
         randType = random.random()
@@ -64,7 +64,8 @@ def qualityRandomizer(quality):
     #Normalize quality with normal distribution
     quality = random.normalvariate(quality, 
         constants.ShopFactoryConstants.STANDARD_DEVIATION)
-            
+    quality = math.floor(quality)
+    
     #Make sure that results are within bounds
     if quality < constants.ShopFactoryConstants.QUALITY_MINIMUM:
         quality = constants.ShopFactoryConstants.QUALITY_MINIMUM
@@ -95,9 +96,8 @@ def genWeapon(quality, region):
             acceptableItems.append(weapon)
     
     #Select randomly drawn item from acceptableItems
-    if acceptableItems:
-        item = random.choice(acceptableItems)
-        return item
+    item = random.choice(acceptableItems)
+    return item
     
 def genArmor(quality, region):
     """
@@ -121,9 +121,8 @@ def genArmor(quality, region):
             acceptableItems.append(armor)
     
     #Select randomly drawn item from acceptableItems
-    if acceptableItems:
-        item = random.choice(acceptableItems)
-        return item
+    item = random.choice(acceptableItems)
+    return item
     
 def genPotion(quality, region):
     """
@@ -147,6 +146,5 @@ def genPotion(quality, region):
             acceptableItems.append(potion)
     
     #Select randomly drawn item from acceptableItems
-    if acceptableItems:
-        item = random.choice(acceptableItems)
-        return item
+    item = random.choice(acceptableItems)
+    return item

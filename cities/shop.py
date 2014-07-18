@@ -114,8 +114,15 @@ What is your choice?
         """
         Lists shop items in detail.
         """
-        print "Item stats:"
+        #Generate list of items without duplicates
+        uniqueItems = []
         for item in self._items:
+            if item not in uniqueItems:
+                uniqueItems.append(item)
+                
+        #Print stats
+        print "Item stats:"
+        for item in uniqueItems:
             print "\t%s: %s." % (item.getName(), item.getDescription())
             if isinstance(item, Weapon):
                 print "\t\tAttack: %s" % item.getAttack()
@@ -174,14 +181,14 @@ What is your choice?
                 if choice.lower() == "yes":
                     player.removeFromInventory(item)
                     player.increaseMoney(sellValue)
-                    self._items.append(item)
+                    self._items.addItem(item)
                     print "Sold %s for %s." % (item.getName(), sellValue)
                     #Check to see if item sold was theOneRing
                     result = self._checkTheOneRingSale(item)
                     #If it is, then theOneRing is removed from shop wares
                     if result:
-                        print "Some strange men come and buy The One Ring."
-                        self._items.remove(item)
+                        print "\nSome strange men come and take The One Ring."
+                        self._items.removeItem(item)
                 elif choice.lower() == "no":
                     print "Didn't sell item." 
                 else:
