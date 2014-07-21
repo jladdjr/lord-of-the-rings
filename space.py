@@ -3,6 +3,7 @@
 from items.item import Item
 from items.item_set import ItemSet
 from constants import Direction, RegionType
+from items.unique_items import theOneRing
 
 class Space(object):
     """
@@ -91,6 +92,11 @@ class Space(object):
 
         @param item:    Item to add.
         """
+        #Special prompt for theOneRing
+        if item == theOneRing:
+            print "\nYou see some strange men walk by."
+            return
+            
         if isinstance(item, Item):
             self._items.addItem(item)
         elif isinstance(item, list):
