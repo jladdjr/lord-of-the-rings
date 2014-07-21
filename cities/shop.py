@@ -238,7 +238,7 @@ What is your choice?
                 #Actual purchase execution
                 if not player.addToInventory(item):
                     return
-                self._items.remove(item)
+                self._items.removeItem(item)
                 player.decreaseMoney(item.getCost())
                 print "%s puchased %s!" % (player.getName(), item.getName())
                 break

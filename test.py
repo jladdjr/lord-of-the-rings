@@ -584,7 +584,7 @@ class PickUpTest(unittest.TestCase):
         self.assertFalse(space.containsItem(item), "Space should not have item but does.")
         
         inventory = player.getInventory()
-        self.assertTrue(inventory.containsItem(item), "Player should have item in inventory but does not. %s" % inventory._items)
+        self.assertTrue(inventory.containsItem(item), "Player should have item in inventory but does not.")
 
         equipped = player.getEquipped()
         self.assertFalse(equipped.containsItem(item), "Player should not have item in equipment but does.")
