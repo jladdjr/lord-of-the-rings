@@ -25,7 +25,7 @@ def generateMenu(prompt, options, appendQuit = False):
 
     return choice
 
-def sortItems(items):
+def sortItems(itemSet):
     """
     Sorts items in an ItemSet.
     
@@ -36,25 +36,30 @@ def sortItems(items):
     from items.armor import Armor
     from items.charm import Charm
     from items.potion import Potion
+    from items.item import Item
     
     #Create variables
-    itemsList = items.getItems()
+    itemsList = itemSet.getItems()
     sortedItems = []
     
     charms = {}
     charmNames = []
     potions = {}
     potionNames = []
+    items = {}
+    itemNames = []
     
     #Weapon is first
     for item in itemsList:
         if isinstance(item, Weapon):
             sortedItems.append(item)
+            itemsList.remove(item)
     
     #Armor is second
     for item in itemsList:
         if isinstance(item, Armor):
             sortedItems.append(item)
+            itemsList.remove(item)
             
     #Sort charms by name
     for item in itemsList:
@@ -62,13 +67,22 @@ def sortItems(items):
             charmName = item.getName()
             charmNames.append(charmName)
             charms[charmName] = item
+            itemsList.remove(item)
             
+    #Sort potions by name
     for item in itemsList:
         if isinstance(item, Potion):
             potionName = item.getName()
             potionNames.append(potionName)
             potions[potionName] = item
-
+            itemsList.remove(item)
+            
+    #The remaining items are Items
+    for item in itemsList:
+        itemName = item.getName()
+        itemNames.append(itemName)
+        items[itemName] = item
+        
     charmNames.sort()
     for charmName in charmNames:
         sortedItems.append(charms[charmName])
@@ -77,8 +91,12 @@ def sortItems(items):
     for potionName in potionNames:
         sortedItems.append(potions[potionName])
         
-    items.clearItems()
-    items.addItems(sortedItems)
+    itemNames.sort()
+    for itemName in itemNames:
+        sortedItems.append(items[itemName])
+        
+    itemSet.clearItems()
+    itemSet.addItems(sortedItems)
     
 def triangular(low, high, mode):
     """

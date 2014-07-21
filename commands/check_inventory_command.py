@@ -6,6 +6,7 @@ from items.weapon import Weapon
 from items.armor import Armor
 from items.potion import Potion
 from items.charm import Charm
+from items.item import Item
 
 class CheckInventoryCommand(Command):
     """
@@ -51,6 +52,8 @@ class CheckInventoryCommand(Command):
                 itemDefense = str(item.getDefense())
                 itemAttack = str(item.getAttack())
                 itemHp = str(item.getHp())
+            elif isinstance(item, Item):
+                pass
             else:
                 errorMsg = "CheckInventoryCommand given invalid item type."
                 raise AssertionError(errorMsg)
@@ -69,6 +72,8 @@ class CheckInventoryCommand(Command):
                 print ("\t%s has an attack bonus of %s, a defense bonus of %s," 
                 " and a HP bonus of %s." % (itemName, itemAttack, itemDefense, 
                 itemHp))
+            elif isinstance(item, Item):
+                pass
             else:
                 errorMsg = "CheckInventoryCommand given invalid item type."
                 raise AssertionError(errorMsg)
