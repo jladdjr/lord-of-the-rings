@@ -66,9 +66,8 @@ class Game(object):
         random battle will occur before nextCommand is executed.
         
         Commands with a chance of unsuccessful execution: the four movement 
-        commands and enter command. These commands are unsuccesful when player 
-        cannot actually move into an adjacent space or space has no places to 
-        enter.
+        commands. These commands are unsuccesful when player cannot actually 
+        move into an adjacent space.
         """
         #Executes next command
         nextCommand = self._parser.getNextCommand()
@@ -97,7 +96,7 @@ class Game(object):
     def _executionCheck(self, nextCommand):
         """
         Checks if the user's command may be carried out. This only applies to 
-        the four movement commands and enter command.
+        the four movement commands.
         
         This method is intended to prevent random battles from occuring in 
         instances where the command cannot be executed.
@@ -119,11 +118,6 @@ class Game(object):
                 return False
         elif isinstance(nextCommand, WestCommand):
             if not self._player.canMoveWest():
-                return False
-                        
-        #Check enter command
-        elif isinstance(nextCommand, EnterCommand):
-            if space.getCity() == None and space.getUniquePlace() == None:
                 return False
         
         return True

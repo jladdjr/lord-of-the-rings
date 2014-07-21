@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-import unittest
 import signal
+import unittest
 
 import xmlrunner
 from mock import (MagicMock, patch)
