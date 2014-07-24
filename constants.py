@@ -110,10 +110,46 @@ class RegionBaseSpawn(object):
     MORDOR        = 10
 
 #Space spawn probability
-class SpaceSpawnProb(object):    
+class SpaceSpawnProb(object):
     """
     Space spawn probabilities.
     """
+    shire               = 0
+    oldForest           = .4
+    weatherHills        = .5
+    trollShaws          = .7
+    mistyMountainsNorth = .7
+    highPass            = 0
+    mirkwood            = .3
+    southernMirkwood    = .75
+    barrowDowns         = .75
+    bruinen             = .5
+    mitheithel          = .5
+    swanfleet           = .5
+    dunland             = .75
+    mistyMountainsSouth = 0
+    lorien              = .25
+    fangorn             = .35
+    theWold             = .5
+    fieldOfCelebrant    = .4
+    calenardhon         = .95
+    westfold            = .75
+    westemnet           = .65
+    eastemnet           = .4
+    emynMuil            = .5
+    eastfold            = .35
+    nindalf             = .6
+    deadMarshes         = .75
+    udun                = .85
+    cairAndros          = .6
+    orodruin            = .95
+    anorien             = .5
+    anduin              = .75
+    ephelDuath          = .8
+    cirithUngol         = .8
+    plateauOfGorgoth    = .85
+    lossamarch          = .4
+    ithilien            = .6
     
 #Monster names
 class MonsterNames(object):
