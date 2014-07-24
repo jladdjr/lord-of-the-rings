@@ -100,15 +100,21 @@ class RegionBaseSpawn(object):
     Regional base spawn per random battle for space in region.
     """
     ERIADOR       = 1
-    BARROW_DOWNS  = 2
-    HIGH_PASS     = 3
-    ENEDWAITH     = 4
-    MORIA         = 7
-    RHOVANION     = 6
-    ROHAN         = 7
+    BARROW_DOWNS  = 5
+    HIGH_PASS     = 6
+    ENEDWAITH     = 5
+    MORIA         = 5
+    RHOVANION     = 5
+    ROHAN         = 6
     GONDOR        = 8
-    MORDOR        = 9
+    MORDOR        = 10
 
+#Space spawn probability
+class SpaceSpawnProb(object):    
+    """
+    Space spawn probabilities.
+    """
+    
 #Monster names
 class MonsterNames(object):
     """

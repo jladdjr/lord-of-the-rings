@@ -101,7 +101,7 @@ def getWorld():
     the warmer regions of the Southfarthing.
     """
     shire = Space("Shire", description, constants.RegionType.ERIADOR, 
-    city = hobbiton)
+    battleProbability = 0, city = hobbiton)
 
     #The Old Forest - Tom Bombadil's House
     #Unique Place
@@ -121,7 +121,7 @@ def getWorld():
     deforestation.
     """
     oldForest = Space("Old Forest", description, constants.RegionType.ERIADOR, 
-    uniquePlace = tomBombadil)
+        battleProbability = .4, uniquePlace = tomBombadil)
 
     #The Weather Hills - Weathertop
     #Unique Place
@@ -136,7 +136,8 @@ def getWorld():
     southern end of this range.
     """
     weatherHills = Space("Weather Hills", description, 
-    constants.RegionType.ERIADOR, uniquePlace = weathertop)
+        constants.RegionType.ERIADOR, battleProbability = .5, 
+        uniquePlace = weathertop)
 
     #Trollshaws
     description = """
@@ -144,7 +145,8 @@ def getWorld():
     Rivers Hoarwell and Loudwater. They were the haunt of Trolls, three of 
     which waylaid Bilbo and his companions during the Quest of Erebor.
     """
-    trollshaws = Space("Trollshaws", description, constants.RegionType.ERIADOR)
+    trollshaws = Space("Trollshaws", description, constants.RegionType.ERIADOR, 
+        battleProbability = .7)
 
     #Misty Mountains North - Rivendell
     #Inn
@@ -186,7 +188,7 @@ def getWorld():
     Gundabad in the far north to Methedras in the south.
     """
     mistyMountainsNorth = Space("Misty Mountains", description, 
-    constants.RegionType.ERIADOR, city = rivendell)
+        constants.RegionType.ERIADOR, battleProbability = .5, city = rivendell)
 
     #High Pass - Goblintown
     #Unique Place
@@ -205,7 +207,7 @@ def getWorld():
     ***Mirkwood is accessible to the south through Goblin Town***
     """
     highPass = Space("High Pass", description, constants.RegionType.HIGH_PASS, 
-    uniquePlace = goblinTown)
+        battleProbability = 0, uniquePlace = goblinTown)
 
     #Mirkwood - Elvenking's Halls
     #Inn
@@ -255,7 +257,7 @@ def getWorld():
     forest in Rhovanion. Mirkwood was once called Greenwood the Great and 
     later became the Wood of Greenleaves."""
     mirkwood = Space("Mirkwood", description, constants.RegionType.RHOVANION, 
-    city = elvenkingsHalls)
+        battleProbability = .3, city = elvenkingsHalls)
 
     #Southern Mirkwood - Dol Guldur
     #Unique Place
@@ -269,7 +271,8 @@ def getWorld():
     Sauron's northern fortress.
     """
     southernMirkwood = Space("Southern Mirkwood", description, 
-    constants.RegionType.RHOVANION, uniquePlace = dolGuldur)
+        constants.RegionType.RHOVANION, battleProbability = .8, 
+        uniquePlace = dolGuldur)
 
     #Barrow Downs - Bree
     #Inn
@@ -308,14 +311,15 @@ def getWorld():
     Many of the hills are crowned with megaliths and barrows.
     """
     barrowDowns = Space("Barrow Downs", description, 
-    constants.RegionType.BARROW_DOWNS, city = bree)
+        constants.RegionType.BARROW_DOWNS, battleProbability = .5, city = bree)
 
     #Bruinen
     description = """Bruinen or Loudwater is a river in eastern Eriador. It 
     begins with two tributaries flowing from the western slopes of the Misty 
     Mountains.
     """
-    bruinen = Space("Bruinen", description, constants.RegionType.ERIADOR)
+    bruinen = Space("Bruinen", description, constants.RegionType.ERIADOR, 
+        battleProbability = .5, )
 
     #Mitheithel - Tharbad
     #Unique Place
@@ -329,7 +333,8 @@ def getWorld():
     icy north of Middle-earth called Hoarwell.
     """
     mitheithel = Space("Mitheithel", description, 
-    constants.RegionType.ERIADOR, uniquePlace = tharbad)
+        constants.RegionType.ERIADOR, battleProbability = .5, 
+        uniquePlace = tharbad)
 
     #Swanfleet - Ost In Edhil
     #Unique Place
@@ -344,7 +349,7 @@ def getWorld():
     Mitheithel. Swanfleet is an inland delta.
     """
     swanfleet = Space("Swanfleet", description, constants.RegionType.ERIADOR, 
-    uniquePlace = ostInEdhil)
+        battleProbability = .5, uniquePlace = ostInEdhil)
     
     #Dunland
     description = """Dunland is the land of the Dunlendings. Dunland means 
@@ -352,7 +357,8 @@ def getWorld():
     after arriving in nearby Calenardhon in the later Third Age. It is a land 
     of wild men.
     """
-    dunland = Space("Mitheithel", description, constants.RegionType.RHOVANION)
+    dunland = Space("Mitheithel", description, constants.RegionType.RHOVANION, 
+        battleProbability = .7)
 
     #Misty Mountains South
     #Unique Place
@@ -407,7 +413,7 @@ def getWorld():
     in Middle-earth and has the only mallorn-trees east of the sea.
     """
     lorien = Space("Lorien", description, constants.RegionType.RHOVANION, 
-    city = carasGaladhon)
+    battleProbability = .25, city = carasGaladhon)
 
     #Fangorn - Derningle
     #Unique Place
@@ -421,7 +427,7 @@ def getWorld():
     Rohan, was named after its oldest Ent, Fangorn.
     """
     fangorn = Space("Fangorn", description, constants.RegionType.ROHAN, 
-    uniquePlace = derningle)
+    battleProbability = .25, uniquePlace = derningle)
 
     #The Wold
     description = """The Wold is the northernmost and least populated part of 
@@ -432,7 +438,8 @@ def getWorld():
     cattle. In recent years, these men have fled in response to frequent
     attacks by orcish raiders.
     """
-    theWold = Space("The Wold", description, constants.RegionType.MORDOR)
+    theWold = Space("The Wold", description, constants.RegionType.MORDOR, 
+        battleProbability = .5)
 
     #Field of Celebrant
     description = """The Field of Celebrant lies between the Rivers Anduin and 
@@ -441,7 +448,7 @@ def getWorld():
     happened here.
     """
     fieldOfCelebrant = Space("Field of Celebrant", description, 
-    constants.RegionType.MORDOR)
+        constants.RegionType.MORDOR, battleProbability = .4)
 
     #Calenardhon - Isenguard
     #Unique Place
@@ -459,7 +466,8 @@ def getWorld():
     ***Westfold is accessible to the south through Isenguard***
     """
     calenardhon = Space("Calenardhon", description, 
-    constants.RegionType.ENEDWAITH, uniquePlace = isenguard)
+        constants.RegionType.ENEDWAITH, battleProbability = 1, 
+        uniquePlace = isenguard)
 
     #Westfold - Helm's Deep
     #Inn
@@ -495,26 +503,29 @@ def getWorld():
     Edoras. Its strongpoint is Helm's Deep.
     """
     westfold = Space("Westfold", description, constants.RegionType.ROHAN, 
-    city = helmsDeep)
+    battleProbability = .8, city = helmsDeep)
 
     #Westemnet
     description = """The Eastemnet is part of Rohan. It is an area of wide, 
     grassy plains east of the Entwash River.
     """ 
-    westemnet = Space("West Emmet", description, constants.RegionType.ROHAN)
+    westemnet = Space("West Emmet", description, constants.RegionType.ROHAN, 
+        battleProbability = .7)
 
     #Eastemnet
     description = """The Eastemnet is part of Rohan. It contains wide, grassy 
     plains and is east of the Entwash and west of the Great River, Anduin.
     """ 
-    eastemnet = Space("East Emmet", description, constants.RegionType.ROHAN)
+    eastemnet = Space("East Emmet", description, constants.RegionType.ROHAN, 
+        battleProbability = .4)
 
     #Emyn Muil
     description = """Emyn Muil is a range of hills south of the Brown Lands 
     and north of Nindalf. The Anduin cuts through these hills and pools in Nen 
     Hithoel.
     """ 
-    emynMuil = Space("Emyn Muil", description, constants.RegionType.MORDOR)
+    emynMuil = Space("Emyn Muil", description, constants.RegionType.MORDOR, 
+        battleProbability = .5)
 
     #Eastfold - Edoras
     #Inn
@@ -581,7 +592,7 @@ def getWorld():
     Edoras.
     """
     eastfold = Space("Eastfold", description, constants.RegionType.ROHAN, 
-    city = [edoras, aldburg])
+    battleProbability = .5, city = [edoras, aldburg])
 
     #Nindalf
     description = """The swamps of Nindalf or Wetwang lie to the south of Emyn 
@@ -589,7 +600,8 @@ def getWorld():
     delta of Entwash. The Dead Marshes lie further east and are an extension 
     of Nindalf.
     """ 
-    nindalf = Space("Nimdalf", description, constants.RegionType.MORDOR)
+    nindalf = Space("Nimdalf", description, constants.RegionType.MORDOR, 
+        battleProbability = .6)
 
     #Dead Marshes - Black Gate
     #Unique Place
@@ -606,7 +618,8 @@ def getWorld():
     ***Udun is accessible to the east through The Black Gate***
     """
     deadMarshes = Space("Dead Marshes", description, 
-    constants.RegionType.MORDOR, uniquePlace = blackGate)
+        constants.RegionType.MORDOR, battleProbability = .75, 
+        uniquePlace = blackGate)
 
     #Valley of Udun - Isenmouthe
     #Unique Place
@@ -625,7 +638,7 @@ def getWorld():
     ***Plateau of Gorgoth is accessible to the south through Isenmouthe***
     """
     udun = Space("Udun", description, constants.RegionType.MORDOR, 
-    uniquePlace = isenmouthe)
+        battleProbability = .85, uniquePlace = isenmouthe)
     
     #Cair Andros
     description = """Cair Andros, meaning "Ship of the Long-Foam," is an
@@ -634,14 +647,15 @@ def getWorld():
     enemy from crossing the river and entering into Anorien.
     """ 
     cairAndros = Space("Cair Andros", description, 
-    constants.RegionType.GONDOR, greeting)
+        constants.RegionType.GONDOR, battleProbability = .5)
 
     #Orodruin
     description = """Mount Doom, also known as Orodruin and Amon Amarth, is
     the volcano in Mordor where the One Ring was forged. It is the only place
     that the One Ring may be destroyed.
     """
-    orodruin = Space("Orodruin", description, constants.RegionType.MORDOR)
+    orodruin = Space("Orodruin", description, constants.RegionType.MORDOR, 
+        battleProbability = .85)
 
     #Anorien - Minas Tirith
     #Inn
@@ -693,7 +707,7 @@ def getWorld():
     Osgiliath as capital of Gondor as Osgiliath was lost to Sauron.
     """
     anorien = Space("Anorien", description, constants.RegionType.GONDOR, 
-    city = minasTirith)
+        battleProbability = .5, city = minasTirith)
 
     #Anduin - Argonath
     #Unique Place
@@ -733,7 +747,7 @@ def getWorld():
     Gondor.
     """
     anduin = Space("Anduin", description, constants.RegionType.GONDOR, 
-    city = osgiliath, uniquePlace = argonath)
+        battleProbability = .7, city = osgiliath, uniquePlace = argonath)
 
     #Ephel Duath - Minas Morgul
     #Unique Place
@@ -753,7 +767,7 @@ def getWorld():
     ***Plateau of Gorgoth is accessible to the east through Minas Morgul***
     """
     ephelDuath = Space("Ephel Duath", description, 
-    constants.RegionType.MORDOR, uniquePlace = minasMorgul)
+    constants.RegionType.MORDOR, battleProbability = .75, uniquePlace = minasMorgul)
 
     #Cirith Ungol - Tower of Cirith Ungol
     #Unique Place
@@ -775,7 +789,8 @@ def getWorld():
     ***Plateau of Gorgoth is accessible to the east through Tower of Cirith Ungol***
     """
     cirithUngol = Space("Cirith Ungol", description, 
-    constants.RegionType.MORDOR, uniquePlace = towerOfCirithUngol)
+        constants.RegionType.MORDOR, battleProbability = .75, 
+        uniquePlace = towerOfCirithUngol)
 
     #Plateau of Gorgoth - Barad Dur
     #Unique Place
@@ -793,7 +808,8 @@ def getWorld():
     supply Mordor's armies with weapons and armor.
     """
     plateauOfGorgoth = Space("Plateau of Gorgoth", description, 
-    constants.RegionType.MORDOR, uniquePlace = baradDur)
+        constants.RegionType.MORDOR, battleProbability = .8, 
+        uniquePlace = baradDur)
 
     #Lossamarch - Pelargir
     #Inn
@@ -833,13 +849,14 @@ def getWorld():
     White Mountains.
     """ 
     lossamarch = Space("Lossamarch", description, constants.RegionType.GONDOR, 
-    city = pelargir)
+        battleProbability = .6, city = pelargir)
 
     #Ithilien
     description = """Ithilien is the fiefdom of Gondor bordering Mordor from 
     the southwest.
     """
-    ithilien = Space("Ithilien", description, constants.RegionType.GONDOR)
+    ithilien = Space("Ithilien", description, constants.RegionType.GONDOR, 
+        battleProbability = .5)
 
     #Connections: East-West
     shire.createExit("east", oldForest, outgoingOnly = False)
