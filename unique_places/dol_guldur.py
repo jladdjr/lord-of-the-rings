@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.nazgul import Nazgul
+from monsters.nazgul_ii import Nazgul_II
 from monsters.orc import Orc
 from monsters.orc_archer import OrcArcher
 from monsters.troll import Troll
@@ -53,7 +53,7 @@ class DolGuldur(UniquePlace):
         #Create monster wave #2
         numberNazgul = random.randrange(0, 8)
         for monster in range(numberNazgul):
-            nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
+            nazgul = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
             self._wave2.append(nazgul)
         if random.random() < constants.DOL_GULDUR_WITCH_KING_PROB:
             witchKing = WitchKing(constants.MONSTER_STATS[WitchKing])
@@ -65,7 +65,7 @@ class DolGuldur(UniquePlace):
         #Create monster wave #3
         numberNazgul = random.randrange(0, 8)
         for monster in range(numberNazgul):
-            nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
+            nazgul = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
             self._wave2.append(nazgul)
         for monster in range(6):
             monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])

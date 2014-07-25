@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.nazgul import Nazgul
+from monsters.nazgul_iii import Nazgul_III
 from monsters.orc import Orc
 from monsters.orc_archer import OrcArcher
 from monsters.troll import Troll
@@ -64,7 +64,7 @@ class Isenmouthe(UniquePlace):
             monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])
             self._wave2.append(monster)
         for monster in range(4):
-            monster = Nazgul(constants.MONSTER_STATS[Nazgul])
+            monster = Nazgul_III(constants.MONSTER_STATS[Nazgul_III])
             self._wave2.append(monster)
         monster = MouthOfSauron(constants.MONSTER_STATS[MouthOfSauron])
         self._wave2.append(monster)

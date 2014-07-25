@@ -138,10 +138,8 @@ def _monsterNumGen(player):
     """
     Helper function used to determine the number of monsters to spawn.
     
-    Default spawn comes from a parameter supplied by space. bonusDifficulty
-    is then applied applied to increase the number of monsters spawned as
-    a percentage increase over base spawn. Then a normal distribution is
-    applied to introduce variation.
+    Default spawn comes from a parameter supplied by space. A normal 
+    distribution is applied to introduce variation.
     
     @param player:     Player object.
 
@@ -149,36 +147,26 @@ def _monsterNumGen(player):
     """
     location = player.getLocation()
     region = location.getRegion()
-    bonusDifficulty = location.getBattleBonusDifficulty()
 
     #Calculate region spawn
     if region == constants.RegionType.ERIADOR:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.ERIADOR)
+        monsterCount = constants.RegionBaseSpawn.ERIADOR
     elif region == constants.RegionType.BARROW_DOWNS:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.BARROW_DOWNS)
+        monsterCount = constants.RegionBaseSpawn.BARROW_DOWNS
     elif region == constants.RegionType.HIGH_PASS:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.HIGH_PASS)
+        monsterCount = constants.RegionBaseSpawn.HIGH_PASS
     elif region == constants.RegionType.ENEDWAITH:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.ENEDWAITH)
+        monsterCount = constants.RegionBaseSpawn.ENEDWAITH
     elif region == constants.RegionType.MORIA:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.MORIA)
+        monsterCount = constants.RegionBaseSpawn.MORIA
     elif region == constants.RegionType.RHOVANION:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.RHOVANION) 
+        monsterCount = constants.RegionBaseSpawn.RHOVANION
     elif region == constants.RegionType.ROHAN:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.ROHAN)
+        monsterCount = constants.RegionBaseSpawn.ROHAN
     elif region == constants.RegionType.GONDOR:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.GONDOR)
+        monsterCount = constants.RegionBaseSpawn.GONDOR
     elif region == constants.RegionType.MORDOR:
-        monsterCount = ((1 + bonusDifficulty) * 
-        constants.RegionBaseSpawn.MORDOR)
+        monsterCount = constants.RegionBaseSpawn.MORDOR
     else:
         errorMsg = "Invalid region - region base monster determination."
         raise AssertionError(errorMsg)

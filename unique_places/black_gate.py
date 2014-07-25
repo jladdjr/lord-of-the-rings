@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.nazgul import Nazgul
+from monsters.nazgul_ii import Nazgul_II
 from monsters.orc import Orc
 from monsters.orc_archer import OrcArcher
 from monsters.troll import Troll
@@ -68,7 +68,7 @@ class BlackGate(UniquePlace):
             monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])
             self._wave2.append(monster)
         for monster in range(9):
-            monster = Nazgul(constants.MONSTER_STATS[Nazgul])
+            monster = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
             self._wave2.append(monster)
             
         #Create monster wave #3

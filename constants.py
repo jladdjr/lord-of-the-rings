@@ -5,6 +5,8 @@ from monsters.goblin import Goblin
 from monsters.great_goblin import GreatGoblin
 from monsters.king_of_the_barrows import KingOfTheBarrows
 from monsters.nazgul import Nazgul
+from monsters.nazgul_ii import Nazgul_II
+from monsters.nazgul_iii import Nazgul_III
 from monsters.troll import Troll
 from monsters.warg_rider import WargRider
 from monsters.uruk_hai import UrukHai
@@ -161,6 +163,8 @@ class MonsterNames(object):
     GreatGoblin       = "Great Goblin"
     KingOfTheBarrows  = "King of the Barrows"
     Nazgul            = "Nazgul"
+    Nazgul_II         = "Nazgul II"
+    Nazgul_III        = "Nazgul III"
     Troll             = "Troll"
     WargRider         = "Warg Rider"
     UrukHai           = "Uruk Hai"
@@ -191,6 +195,8 @@ class MonsterDescriptions(object):
     GreatGoblin       = "\"Give me ALL of your stuff!\""
     KingOfTheBarrows  = "An intense, evil spirit."
     Nazgul            = "\"AAAAEEEEEEEEEEE!!!\""
+    Nazgul_II         = "Learned from past mistakes."
+    Nazgul_III        = "With dragon mount."
     Troll             = "\"Merrily I troll along.\""
     WargRider         = "Likes riding... wargs."
     UrukHai           = "\"You even lift bro?\""
@@ -222,6 +228,8 @@ class MonsterAttackStrings(object):
     GreatGoblin       = "slice and diced"
     KingOfTheBarrows  = "sang a symphony of sadness"
     Nazgul            = "slashed you with a Morgul knife"
+    Nazgul_II         = "slashed you with Scythe of Sorrow"
+    Nazgul_III        = "fire-breathing dragoned you"
     Troll             = "slamed you with fists of malice"
     WargRider         = "trampled around"
     UrukHai           = "tried to out lift you"
@@ -252,6 +260,8 @@ class MonsterDeathStrings(object):
     GreatGoblin       = "\"I'm going back home now too.\""
     KingOfTheBarrows  = "\"I am going back to sleep now.\""
     Nazgul            = "\"AAAAEEEEEEEEEEE!!!\""
+    Nazgul_II         = "\"...AAAAEEEEEEEEEEE!!!\""
+    Nazgul_III        = "\"....\""
     Troll             = "\"Merrily I troll away.\""
     WargRider         = "[Whimpers] ...My warg...."
     UrukHai           = "Well, back to the gym I guess...."
@@ -298,7 +308,7 @@ REGIONAL_MONSTER_DISTRIBUTION = {
                               Balrog: [.98, 1]},
      RegionType.RHOVANION:   {Orc: [0, .5], 
                               OrcArcher: [.5, .7], 
-                              Nazgul: [.7, .85], 
+                              Nazgul_II: [.7, .85], 
                               BlackNumernorian: [.85, 1]},
      RegionType.ROHAN:       {UrukHai: [0, .5], 
                               UrukHaiArcher: [.5, .7], 
@@ -307,7 +317,7 @@ REGIONAL_MONSTER_DISTRIBUTION = {
      RegionType.GONDOR:      {Orc: [0, .5], 
                               OrcArcher: [.5, .65], 
                               Troll: [.65, .75], 
-                              Nazgul: [.75, .775], 
+                              Nazgul_II: [.75, .775], 
                               DragonOfMordor: [.775, .8], 
                               CorsairOfUmbar: [.8, .85], 
                               ArmoredMumakil: [.85, .9], 
@@ -316,7 +326,7 @@ REGIONAL_MONSTER_DISTRIBUTION = {
      RegionType.MORDOR:      {Orc: [0, .5], 
                               OrcArcher: [.5, .65], 
                               Troll: [.65, .75], 
-                              Nazgul: [.75, .85], 
+                              Nazgul_III: [.75, .85], 
                               DragonOfMordor: [.85, .9], 
                               BlackNumernorian: [.9, .95], 
                               SiegeWorks: [.95, 1]}
@@ -333,6 +343,8 @@ MONSTER_STATS = {BarrowWight:       [1, 1, 1],
                  GreatGoblin:       [1, 1, 1],
                  KingOfTheBarrows:  [1, 1, 1],
                  Nazgul:            [1, 1, 1],
+                 Nazgul_II:         [1, 1, 1],
+                 Nazgul_III:        [1, 1, 1],
                  Troll:             [1, 1, 1],
                  WargRider:         [1, 1, 1],
                  UrukHai:           [1, 1, 1],

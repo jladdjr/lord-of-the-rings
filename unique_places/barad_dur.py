@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.nazgul import Nazgul
+from monsters.nazgul_iii import Nazgul_III
 from monsters.orc import Orc
 from monsters.orc_archer import OrcArcher
 from monsters.troll import Troll
@@ -77,7 +77,7 @@ class BaradDur(UniquePlace):
          
         #Create monster wave #4 
         for monster in range(8):
-            monster = Nazgul(constants.MONSTER_STATS[Nazgul])
+            monster = Nazgul_III(constants.MONSTER_STATS[Nazgul_III])
             self._wave4.append(monster)
         monster = WitchKing(constants.MONSTER_STATS[WitchKing])
         self._wave4.append(monster)
