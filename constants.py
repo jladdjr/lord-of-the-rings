@@ -117,7 +117,7 @@ class SpaceSpawnProb(object):
     shire               = 0
     oldForest           = .4
     weatherHills        = .5
-    trollShaws          = .7
+    trollshaws          = .7
     mistyMountainsNorth = .7
     highPass            = 0
     mirkwood            = .3
