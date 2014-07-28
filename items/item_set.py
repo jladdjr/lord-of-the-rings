@@ -8,7 +8,7 @@ class ItemSet(object):
     """
     def __init__(self, itemSet=None):
         """
-        Initialize an ItemSet object.
+        Initializes an ItemSet object.
 
         @keyword itemSet:     (Optional) A single Item object or a
                                list of Item objects.
@@ -26,10 +26,10 @@ class ItemSet(object):
             for item in itemSet:
                 if not isinstance(item, Item):
                     errorMsg = ("ItemSet initialized with list containing" 
-                    " non-Item object(s).")
+                        " non-Item object(s).")
                     raise AssertionError(errorMsg)
                 self._items.append(item)
-                self._weight += int(item.getWeight())
+                self._weight += item.getWeight()
 
     def addItem(self, item):
         """
@@ -43,7 +43,7 @@ class ItemSet(object):
             raise AssertionError(errorMsg)
 
         self._items.append(item)
-        self._weight += int(item.getWeight())
+        self._weight += item.getWeight()
         
     def addItems(self, items):
         """
@@ -55,6 +55,7 @@ class ItemSet(object):
         errorMsg = "ItemSet.addItems() given something other than a list."
         if not isinstance(items, list):
             raise AssertionError(errorMsg)
+            
         errorMsg = "ItemSet.addItems() given a list containing a non-Item object."
         for item in items:
             if not isinstance(item, Item):
@@ -63,7 +64,8 @@ class ItemSet(object):
         #Add items in list to ItemSet
         for item in items:
             self.addItem(item)
-
+            self._weight += item.getWeight()
+            
     def getItems(self):
         """
         Returns list of items contained by ItemSet.

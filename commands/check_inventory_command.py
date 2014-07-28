@@ -35,7 +35,7 @@ class CheckInventoryCommand(Command):
         inventoryList = inventory.getItems()
 
         #Cycle through player's inventory, obtaining item stats
-        print "%s's inventory:\n" %playerName
+        print "%s's inventory:\n" % playerName
         for item in inventoryList:
             itemName = item.getName()
             itemDescription = item.getDescription()
@@ -57,7 +57,7 @@ class CheckInventoryCommand(Command):
             else:
                 errorMsg = "CheckInventoryCommand given invalid item type."
                 raise AssertionError(errorMsg)
-            
+
             #Print stats of given item in inventory
             print "\t%s: %s." % (itemName, itemDescription)
 
@@ -65,21 +65,21 @@ class CheckInventoryCommand(Command):
                 print "\t%s has a defense of %s." % (itemName, itemDefense)
             elif isinstance(item, Weapon):
                 print "\t%s has an attack value of %s." % (itemName, 
-                itemAttack)
+                    itemAttack)
             elif isinstance(item, Potion):
                 print "\t%s has a healing value of %s." % (itemName, itemHeal)
             elif isinstance(item, Charm):
                 print ("\t%s has an attack bonus of %s, a defense bonus of %s," 
-                " and a HP bonus of %s." % (itemName, itemAttack, itemDefense, 
-                itemHp))
+                    " and a HP bonus of %s." % (itemName, itemAttack, 
+                    itemDefense, itemHp))
             elif isinstance(item, Item):
                 pass
             else:
                 errorMsg = "CheckInventoryCommand given invalid item type."
                 raise AssertionError(errorMsg)
             
-            print "\t%s weights %s and costs %s." % (itemName, itemWeight, 
-            itemCost)
+            print "\t%s weighs %s and costs %s." % (itemName, itemWeight, 
+                itemCost)
             print ""
 
         print "\tTotal weight of inventory: %s." % inventory.getWeight()

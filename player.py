@@ -31,10 +31,10 @@ class Player(object):
         self._experience = constants.PlayerInitialization.EXPERIENCE
         self._level      = constants.PlayerInitialization.LEVEL
         
-        self._hp          = self._level * constants.HP_STAT
-        self._maxHp       = self._level * constants.HP_STAT
-        self._attack      = self._level * constants.ATTACK_STAT
-        self._weightLimit = self._level * constants.WEIGHT_LIMIT
+        self._hp          = constants.PlayerInitialization.MAX_HP
+        self._maxHp       = constants.PlayerInitialization.MAX_HP
+        self._attack      = constants.PlayerInitialization.ATTACK
+        self._weightLimit = constants.PlayerInitialization.WEIGHT_LIMIT
         
         #Initialize player inventory and equipment
         self._inventory = ItemSet()
@@ -126,6 +126,14 @@ class Player(object):
         """
         return self._charmHp
         
+    def getWeightLimit(self):
+        """
+        Returns player's weight limit.
+        
+        @return:     Player weight limit.
+        """
+        return self._weightLimit
+        
     def getExperience(self):
         """
         Return's player experience.
@@ -156,25 +164,44 @@ class Player(object):
         
     def _updateLevel(self):
         """
-        Levels up player and updates player stats. 
+        Levels up player and updates player stats. This method creates a list 
+        of levels for which player experiences qualifies. Player level is the 
+        highest level for which player experience qualifies. 
+        
+        After level-up is determined, player stats are updated.
         """
         #Checks to see if player is max level
         if self._level == constants.MAX_LEVEL:
             return
-        #Checks to see if player has leveled up
-        if self._level != floor(self._experience/20) + 1:
-            self._level = floor(self._experience/20) + 1
-            self._level = int(self._level)
-
-            #Player has leveled up. Updates player level and stats.
+            
+        #Check to see if player has leveled up
+        currentLevel = self._level
+        potentialLevels = []
+        
+        #Create list of levels for which player experience qualifies
+        for level in constants.LEVEL_EXP_REQUIREMENT:
+            if self._experience >= constants.LEVEL_EXP_REQUIREMENT[level]:
+                potentialLevels.append(level)
+        
+        #Player level is the highest of the qualified levels
+        potentialNewLevel = max(potentialLevels)
+        
+        #If player has leveled up
+        if currentLevel != potentialNewLevel:
+            numberLevelUp = potentialNewLevel - currentLevel
+            self._level = potentialNewLevel
             print "\n%s leveled up! %s is now level %s!" \
                   % (self._name, self._name, self._level)
-            self._maxHp         = self._level * constants.HP_STAT
-            self._totalMaxHp    = self._maxHp + self._charmHp
-            self._attack        = self._level * constants.ATTACK_STAT
-            self._totalAttack   = (self._attack + self._weaponAttack + 
+                  
+        #Updates player level and stats
+        for level in range(numberLevelUp):
+            self._maxHp = floor(self._maxHp * constants.HP_STAT)
+            self._totalMaxHp = self._maxHp + self._charmHp
+            self._attack = floor(self._attack * constants.ATTACK_STAT)
+            self._totalAttack = (self._attack + self._weaponAttack + 
                 self._charmAttack)
-            self._weightLimit   = self._level * constants.WEIGHT_LIMIT
+            self._weightLimit = floor(self._weightLimit * 
+                constants.WEIGHT_LIMIT_STAT)
             
     def getHp(self):
         """

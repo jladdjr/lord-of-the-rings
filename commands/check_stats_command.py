@@ -30,6 +30,7 @@ class CheckStatsCommand(Command):
         name = self._player.getName()
         experience = self._player.getExperience()
         level = self._player.getLevel()
+        weightLimit = self._player.getWeightLimit()
         
         #Get HP stats
         hp = self._player.getHp()
@@ -69,9 +70,9 @@ class CheckStatsCommand(Command):
         print "\t%s gets a %s HP bonus from charms." % (name, charmHp)
         print ""
         
-        #For player weapon
+        #For attack
+        print "\tCharacter-based attack is %s." % attack
         if weapon:
-            print "\tCharacter-based attack is %s." % attack
             print ("\tWeapons bonus is %s and charm bonus is %s." 
             % (weaponsAttack, charmAttack))
             print "\tTotal attack is %s." % totalAttack
@@ -79,11 +80,15 @@ class CheckStatsCommand(Command):
             print "\tWeapon: [Unequipped]."
         print ""
         
-        #For player armor
+        #For defense
         if armor:
             print "\tArmor-based defense is %s." % armorDefense
             print "\tCharm-based defense is %s." % charmDefense
             print "\tTotal defense is %s." % totalDefense
         else:
             print "\tArmor:  [Unequipped]" 
+        print ""
+        
+        #Player weight limit
+        print "\tPlayer weight limit is %s." % weightLimit
         print ""

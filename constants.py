@@ -43,6 +43,9 @@ class PlayerInitialization(object):
     EXPERIENCE    = 0
     LEVEL         = 1
     MONEY         = 20
+    MAX_HP        = 20
+    ATTACK        = 5
+    WEIGHT_LIMIT  = 15
     WEAPON_ATTACK = 0
     ARMOR_DEFENSE = 0
     CHARM_ATTACK  = 0
@@ -50,10 +53,19 @@ class PlayerInitialization(object):
     CHARM_HP      = 0
 
 #Character stats constants
-HP_STAT      = 20
-ATTACK_STAT  = 2
-MAX_LEVEL    = 20
-WEIGHT_LIMIT = 100
+HP_STAT           = 1.2
+ATTACK_STAT       = 1.2
+MAX_LEVEL         = 20
+WEIGHT_LIMIT_STAT = 1.15
+
+#Player levels
+"""
+Keys are player levels; values are the experience required to obtain its paired
+level.
+"""
+LEVEL_EXP_REQUIREMENT = {0: 0, 1: 20, 2: 44, 3: 72, 4: 105, 5: 144, 6: 190, 
+7: 245, 8: 311, 9: 390, 10: 484, 11: 596, 12: 730, 13:890 , 14: 1082, 
+15: 1312, 16: 1588, 17: 1919, 18: 2316, 19: 2792, 20: 3363}
 
 #Item stat constants 
 SELL_LOSS_PERCENTAGE = .5
