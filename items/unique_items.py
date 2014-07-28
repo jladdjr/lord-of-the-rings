@@ -14,17 +14,17 @@ For instance, "The One Ring."
 """
 #Items - Story
 #Starting Inventory
-sting = Weapon("Sting", "Elvish - made in Gondolin", 2, 10, 10)
-theOneRing = Charm("The One Ring", "Very important", 10, 0, 0, 10, 0)
-leatherCloak = Armor("Leather Cloak", "Travel Tunic", 2, 2, 1)
-vodka = Potion("Vodka", "Good for health", 1, 1, 5)
+sting = Weapon("Sting", "Elvish - made in Gondolin", 2, 10, 8)
+theOneRing = Item("The One Ring", "Very important", 8, 75)
+leatherCloak = Armor("Leather Cloak", "Travel Tunic", 4, 4, 1)
+vodka = Potion("Vodka", "Good for health", 1, 1, 4)
 startingInventory = [sting, theOneRing, leatherCloak, vodka]
 
 #Hobbiton Square
-walkingCane = Item("Walking Cane", "Dubiously helpful", 1, 1)
-tea = Potion("Tea", "A delightful refreshment", 1, 1, 1)
+walkingCane = Item("Walking Cane", "Dubiously helpful", 2, 1)
+tea = Potion("Tea", "A delightful refreshment", 1, 0, 2)
 newspaper = Item("The Shire Newspaper", "Mostly tabloids... about hobbits", 
-1, 1)
+0, 0)
 hobbitonSquareItems = {"Naftel Took": walkingCane, 
 "Amaranth Brandybuck": [tea, newspaper]}
 
@@ -114,12 +114,12 @@ elvenRings = [narya, nenya, vilya]
 
 #Shop weapons
 #Eriador Shops - levels 1-6
-walkingStick = Weapon("Walking Stick", "Offensive properties", 1, 1, 1)
+walkingStick = Weapon("Walking Stick", "Offensive properties", 2, 2, 1)
 gardenShovel = Weapon("Garden Shovel", 
-    "The best weapon we could find...", 1, 1, 1)
-gardenSythe = Weapon("Garden Sythe", "Very intimidating", 1, 1, 1)
-shortSword = Weapon("Short Sword", "Hobbit-sized", 1, 1, 1)
-hobbitElite = Weapon("Elite Hobbit Battle Gear", "Basically, rocks", 1, 1, 1)
+    "The best weapon we could find...", 3, 3, 2)
+gardenSythe = Weapon("Garden Sythe", "Very intimidating", 3, 5, 4)
+shortSword = Weapon("Short Sword", "Hobbit-sized", 3, 6, 5)
+hobbitElite = Weapon("Elite Hobbit Battle Gear", "Basically, rocks", 2, 8, 6)
 
 eriadorWeaponsDist = {
     walkingStick: [0, 2],
@@ -179,9 +179,9 @@ gondorWeaponsDist = {
 
 #Shop armor
 #Eriador Shops - levels 1-5
-farmerShawl = Armor("Farmer's Shawls", "Protection from the sun", 1, 1, 1)
-travelCloak = Armor("Travel Cloak", "A dark shroud", 1, 1, 1)
-leatherCloak = Armor("Leather Cloak", "Stuffy", 1, 1, 1)
+farmerShawl = Armor("Farmer's Shawls", "Protection from the sun", 4, 4, 1)
+travelCloak = Armor("Travel Cloak", "A dark shroud", 3, 5, 1)
+leatherCloak = Armor("Leather Cloak", "Stuffy", 5, 8, 2)
 
 eriadorArmorDist = {
     farmerShawl: [0, 2],
@@ -234,9 +234,9 @@ gondorArmorDist = {
 
 #Shop potions
 #Eriador shops
-hobbitTea = Potion("Hobbit Tea", "Bay leaf", 1, 1, 1)
-shireWater = Potion("Shire Water", "From the Brandywine", 1, 1, 1)
-shireWater2 = Potion("Shire Water", "From the Shirebourne", 1, 1, 1)
+hobbitTea = Potion("Hobbit Tea", "Bay leaf", 1, 1, 2)
+shireWater = Potion("Shire Water", "From the Brandywine", 1, 2, 4)
+shireWater2 = Potion("Shire Water", "From the Shirebourne", 1, 2, 6)
 
 eriadorPotionDist = {
     hobbitTea: [0, 2],

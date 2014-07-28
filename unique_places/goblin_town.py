@@ -30,11 +30,11 @@ class GoblinTown(UniquePlace):
 
         #Spawn loot
         description = "Good for goblins, terrible for humans"
-        weapon = Weapon("Goblin Blade", description, 1, 1, 1)
+        weapon = Weapon("Goblin Blade", description, 3, 5, 6)
         description = "Stolen from Erebor"
-        weapon2 = Weapon("Dwarven Axe", description, 1, 3, 1)
+        weapon2 = Weapon("Dwarven Axe", description, 4, 8, 12)
         description = "Looks Gondorian... represents stolen goods"
-        weapon3 = Weapon("Poleaxe", description, 1, 3, 1)
+        weapon3 = Weapon("Poleaxe", description, 6, 12, 14)
         self._loot = [weapon, weapon2, weapon3]
 
         #Create three monster waves
@@ -48,7 +48,7 @@ class GoblinTown(UniquePlace):
             self._wave.append(monster)
             
         #Create monster wave #2
-        for monster in range(13):
+        for monster in range(8):
             monster = Goblin(constants.MONSTER_STATS[Goblin])
             self._wave2.append(monster)
 

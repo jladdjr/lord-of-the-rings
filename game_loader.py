@@ -662,7 +662,7 @@ def getWorld():
     island in the river Anduin, resting nearly forty miles to the north of 
     Osgiliath. It is of paramount importance to Gondor because it prevents the 
     enemy from crossing the river and entering into Anorien.
-    """ 
+    """
     cairAndros = Space("Cair Andros", description, 
         constants.RegionType.GONDOR, 
         battleProbability = constants.SpaceSpawnProb.cairAndros)
@@ -991,7 +991,7 @@ def getPlayer(world, startingInventory):
         player.addToInventory(item)
     for item in startingInventory:
         player.equip(item)
-        
+
     return player
     
 def getCommandList(player):

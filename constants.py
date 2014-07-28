@@ -114,11 +114,11 @@ class RegionBaseSpawn(object):
     Regional base spawn per random battle for space in region.
     """
     ERIADOR       = 1
-    BARROW_DOWNS  = 5
-    HIGH_PASS     = 6
-    ENEDWAITH     = 5
-    MORIA         = 5
-    RHOVANION     = 5
+    BARROW_DOWNS  = 4
+    HIGH_PASS     = 0
+    ENEDWAITH     = 6
+    MORIA         = 0
+    RHOVANION     = 6
     ROHAN         = 6
     GONDOR        = 8
     MORDOR        = 10
@@ -126,7 +126,7 @@ class RegionBaseSpawn(object):
 #Space spawn probability
 class SpaceSpawnProb(object):
     """
-    Space spawn probabilities.
+    Used to store space spawn probabilities.
     """
     shire               = 0
     oldForest           = .4
@@ -134,11 +134,11 @@ class SpaceSpawnProb(object):
     trollshaws          = .7
     mistyMountainsNorth = .7
     highPass            = 0
-    mirkwood            = .3
+    mirkwood            = .2
     southernMirkwood    = .75
     barrowDowns         = .75
-    bruinen             = .5
-    mitheithel          = .5
+    bruinen             = .4
+    mitheithel          = .4
     swanfleet           = .5
     dunland             = .75
     mistyMountainsSouth = 0
@@ -163,8 +163,51 @@ class SpaceSpawnProb(object):
     cirithUngol         = .8
     plateauOfGorgoth    = .85
     lossamarch          = .4
-    ithilien            = .6
-    
+    ithilien            = .65
+
+#Space bonusDifficulty
+class spaceBonusDiff(object):
+    """
+    Used to store space bonus difficulty probabilities.
+    """
+    """
+    shire               = 0
+    oldForest           = .05
+    weatherHills        = .1
+    trollshaws          = .15
+    mistyMountainsNorth = .2
+    highPass            = 0
+    mirkwood            = 
+    southernMirkwood    = 
+    barrowDowns         = 0
+    bruinen             = .25
+    mitheithel          = .3
+    swanfleet           = 
+    dunland             = 
+    mistyMountainsSouth = 
+    lorien              = 
+    fangorn             = 
+    theWold             = 
+    fieldOfCelebrant    = 
+    calenardhon         = 
+    westfold            = 
+    westemnet           = 
+    eastemnet           = 
+    emynMuil            = 
+    eastfold            = 
+    nindalf             = 
+    deadMarshes         = 
+    udun                = 
+    cairAndros          = 
+    orodruin            = 
+    anorien             = 
+    anduin              = 
+    ephelDuath          = 
+    cirithUngol         = 
+    plateauOfGorgoth    = 
+    lossamarch          = 
+    ithilien            = 
+    """
 #Monster names
 class MonsterNames(object):
     """
@@ -306,8 +349,8 @@ of that class is spawned.
 """
 REGIONAL_MONSTER_DISTRIBUTION = {
     RegionType.ERIADOR:      {Nazgul: [0, 1]},
-    RegionType.BARROW_DOWNS: {BarrowWight: [0, .85], 
-                              KingOfTheBarrows: [.85, 1]},
+    RegionType.BARROW_DOWNS: {BarrowWight: [0, .9], 
+                              KingOfTheBarrows: [.9, 1]},
     RegionType.HIGH_PASS:    {Goblin: [0, 1]},
     RegionType.ENEDWAITH:    {WargRider: [0, .3], 
                               Dunlending: [.3, .6], 
@@ -350,11 +393,11 @@ Monster base stats are the only paramater used in monster creation.
 Stats are a 3-element list whose elements are: hp, attack, and
 experience (in that order).
 """
-MONSTER_STATS = {BarrowWight:       [1, 1, 1],
-                 Goblin:            [1, 1, 1],
-                 GreatGoblin:       [1, 1, 1],
-                 KingOfTheBarrows:  [1, 1, 1],
-                 Nazgul:            [1, 1, 1],
+MONSTER_STATS = {BarrowWight:       [18, 2, 6],
+                 Goblin:            [12, 3, 8],
+                 GreatGoblin:       [64, 5, 35],
+                 KingOfTheBarrows:  [72, 4, 32],
+                 Nazgul:            [32, 3, 12],
                  Nazgul_II:         [1, 1, 1],
                  Nazgul_III:        [1, 1, 1],
                  Troll:             [1, 1, 1],
