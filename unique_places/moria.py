@@ -19,7 +19,7 @@ class Moria(UniquePlace):
     randomly generated variable from 15-25 turns. In each turn, player has a 
     chance of encountering a party of orcs. Each encounter increases the 
     probability of a future encounter until player is running from orcs 
-    constantly. 
+    constantly.
     
     How this works:
     -There are three "travel" methods: low-risk travel, medium-risk travel, 
@@ -85,21 +85,21 @@ class Moria(UniquePlace):
         
         #Spawn loot
         description = "Taken from a slain dwarven warrior"
-        weapon = Weapon("Rusty Axe", description, 1, 1, 1)
-        description = "Durin's legendary mallet"
-        weapon2 = Weapon("Durin's Hammer", description, 1, 1, 1)
-        description = "A legendary spear"
-        weapon3 = Weapon("Aeowyln", description, 1, 1, 1)
-        description = "A legendary helmet"
-        weapon4 = Weapon("Durnhelm", description, 1, 1, 1)
+        weapon = Weapon("Rusty Axe", description, 6, 8, 12)
+        description = "Worker's mallet"
+        weapon2 = Weapon("Dwarven Hammer", description, 10, 12, 16)
+        description = "Steeped in history"
+        weapon3 = Weapon("Aeowyln", description, 8, 22, 18)
+        description = "Historical significance"
+        weapon4 = Weapon("Durnhelm", description, 4, 18, 4)
         description = "Old but still effective"
-        armor = Armor("Iron Cap", description, 1, 1, 1)
+        armor = Armor("Iron Cap", description, 3, 4, 1)
         description = "May increase magic find"
-        armor2 = Armor("Boots of Travel", description, 1, 1, 1)
+        armor2 = Armor("Boots of Travel", description, 2, 8, 2)
         description = "One of Middle Earth's rarest metals"
-        item = Item("Mithril", description, 1, 0)
+        item = Item("Mithril", description, 0, 32)
         description = "Magical properties?"
-        item2 = Item("Ancient Runes", description, 1, 0)
+        item2 = Item("Ancient Runes", description, 2, 38)
         self._loot = [weapon, weapon2, weapon3, weapon4, armor, armor2, item, 
             item2]
         

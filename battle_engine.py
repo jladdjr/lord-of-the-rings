@@ -217,8 +217,7 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
             else:
                 print "%s" % monster.getDeathString()
                 #Generate earnings from winning battle
-                money += (constants.BATTLE_EARNINGS * monster.getExperience() 
-                * (1 + bonusDifficulty))
+                money += monster.getExperience() * (1 + bonusDifficulty)
                 experience += monster.getExperience() * (1 + bonusDifficulty)
                 #Remove monster from monsters list
                 for monster in monsters:

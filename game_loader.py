@@ -366,7 +366,7 @@ def getWorld():
     after arriving in nearby Calenardhon in the later Third Age. It is a land 
     of wild men.
     """
-    dunland = Space("Mitheithel", description, constants.RegionType.RHOVANION, 
+    dunland = Space("Mitheithel", description, constants.RegionType.ENEDWAITH, 
         battleProbability = constants.SpaceSpawnProb.dunland)
 
     #Misty Mountains South

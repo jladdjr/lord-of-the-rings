@@ -18,18 +18,11 @@ class ItemSet(object):
 
         #Received single item
         if isinstance(itemSet, Item):
-            self._items.append(itemSet)
-            self._weight += itemSet.getWeight()
+            self.addItem(itemSet)
             
         #Received set of items
         elif isinstance(itemSet, list):
-            for item in itemSet:
-                if not isinstance(item, Item):
-                    errorMsg = ("ItemSet initialized with list containing" 
-                        " non-Item object(s).")
-                    raise AssertionError(errorMsg)
-                self._items.append(item)
-                self._weight += item.getWeight()
+            self.addItems(itemSet)
 
     def addItem(self, item):
         """
@@ -64,7 +57,6 @@ class ItemSet(object):
         #Add items in list to ItemSet
         for item in items:
             self.addItem(item)
-            self._weight += item.getWeight()
             
     def getItems(self):
         """
@@ -103,6 +95,7 @@ class ItemSet(object):
         Clears items stored in ItemSet.
         """
         self._items = []
+        self._weight = 0
    
     def containsItem(self, item):
         """

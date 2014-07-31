@@ -6,7 +6,7 @@ from monsters.uruk_hai_archer import UrukHaiArcher
 from monsters.elite_uruk_hai import EliteUrukHai
 from monsters.sauroman import Sauroman
 from battle_engine import battle
-from items.unique_items import isenguardItems
+from items.item import Item
 import constants
 
 class Isenguard(UniquePlace):
@@ -34,7 +34,7 @@ class Isenguard(UniquePlace):
         self._wave3 = []
 
         #Create monster wave #1
-        for monster in range(7):
+        for monster in range(6):
             urukHai = UrukHai(constants.MONSTER_STATS[UrukHai])
             self._wave.append(urukHai)
         for monster in range(3):
@@ -45,7 +45,7 @@ class Isenguard(UniquePlace):
         for monster in range(10):
             eliteUrukHai = EliteUrukHai(constants.MONSTER_STATS[EliteUrukHai])
             self._wave2.append(eliteUrukHai)
-        for monster in range(5):
+        for monster in range(4):
             urukHaiArcher = UrukHaiArcher(constants.MONSTER_STATS[UrukHaiArcher])
             self._wave2.append(urukHaiArcher)
 
@@ -62,8 +62,11 @@ class Isenguard(UniquePlace):
         self._wave3.append(sauroman)
 
         #Spawn loot
-        self._battleEarnings = isenguardItems[0]
-        self._summitFindings = isenguardItems[1]
+        description = ("Two gigantic black keys needed to gain entry to the"
+        " Tower of Orthanc")
+        keysOfOrthanc = Item("Keys to Orthanc", description, 1, 72)
+        palatir = Item("Palatir", "Stones of Seeing", 6, 112)
+        self._loot = [keysOfOrthanc, palatir]
         
     def enter(self, player):
         """
@@ -134,11 +137,11 @@ class Isenguard(UniquePlace):
         self._createPort("south")
         
         #Give player loot
-        if self._battleEarnings:
+        if keysOfOrthanc in self._loot:
             print "You have gained the Keys of the Orthanc!"
             print ""
             if player.addToInventory(keysOfOrthanc):
-                self._battleEarnings = None
+                self._loot.remove(keysOfOrthanc)
         
     def _summitPrompt(self):
         """
@@ -167,10 +170,10 @@ class Isenguard(UniquePlace):
         print ""
         
         #Give player loot
-        if self._summitFindings:
+        if palatir in self._loot:
             print "You found Sauroman's Palatir!"
             if player.addToInventory(palatir):
-                self._summitFindings = None
+                self._loot.remove(palatir)
         print ""
 
         #Story

@@ -33,7 +33,7 @@ Constants used in Lord of the Rings.
 #Game constants
 COMMAND_PROMPT           = "> "
 CURRENCY                 = "rubles"
-SPACES_WITH_UNIQUE_ITEMS = 5
+SPACES_WITH_UNIQUE_ITEMS = 2
 
 #Player initialization
 class PlayerInitialization(object):
@@ -63,9 +63,9 @@ WEIGHT_LIMIT_STAT = 1.15
 Keys are player levels; values are the experience required to obtain its paired
 level.
 """
-LEVEL_EXP_REQUIREMENT = {0: 0, 1: 20, 2: 44, 3: 72, 4: 105, 5: 144, 6: 190, 
-7: 245, 8: 311, 9: 390, 10: 484, 11: 596, 12: 730, 13:890 , 14: 1082, 
-15: 1312, 16: 1588, 17: 1919, 18: 2316, 19: 2792, 20: 3363}
+LEVEL_EXP_REQUIREMENT = {1: 0, 2: 20, 3: 44, 4: 72, 5: 105, 6: 144, 7: 190, 
+8: 245, 9: 311, 10: 390, 11: 484, 12: 596, 13: 730, 14:890 , 15: 1082, 
+16: 1312, 17: 1588, 18: 1919, 19: 2316, 20: 2792}
 
 #Item stat constants 
 SELL_LOSS_PERCENTAGE = .5
@@ -117,7 +117,7 @@ class RegionBaseSpawn(object):
     BARROW_DOWNS  = 4
     HIGH_PASS     = 0
     ENEDWAITH     = 6
-    MORIA         = 0
+    MORIA         = 5
     RHOVANION     = 6
     ROHAN         = 6
     GONDOR        = 8
@@ -129,41 +129,41 @@ class SpaceSpawnProb(object):
     Used to store space spawn probabilities.
     """
     shire               = 0
-    oldForest           = .4
-    weatherHills        = .5
-    trollshaws          = .7
-    mistyMountainsNorth = .7
+    oldForest           = .7
+    weatherHills        = .75
+    trollshaws          = .85
+    mistyMountainsNorth = .85
     highPass            = 0
-    mirkwood            = .2
-    southernMirkwood    = .75
-    barrowDowns         = .75
-    bruinen             = .4
-    mitheithel          = .4
-    swanfleet           = .5
-    dunland             = .75
+    mirkwood            = .4
+    southernMirkwood    = .9
+    barrowDowns         = .85
+    bruinen             = .75
+    mitheithel          = .75
+    swanfleet           = .75
+    dunland             = .85
     mistyMountainsSouth = 0
-    lorien              = .25
-    fangorn             = .35
-    theWold             = .5
-    fieldOfCelebrant    = .4
+    lorien              = .4
+    fangorn             = .4
+    theWold             = .8
+    fieldOfCelebrant    = .5
     calenardhon         = .95
-    westfold            = .75
-    westemnet           = .65
-    eastemnet           = .4
-    emynMuil            = .5
-    eastfold            = .35
-    nindalf             = .6
-    deadMarshes         = .75
-    udun                = .85
-    cairAndros          = .6
+    westfold            = .85
+    westemnet           = .8
+    eastemnet           = .6
+    emynMuil            = .75
+    eastfold            = .5
+    nindalf             = .8
+    deadMarshes         = .85
+    udun                = .95
+    cairAndros          = .8
     orodruin            = .95
-    anorien             = .5
-    anduin              = .75
-    ephelDuath          = .8
-    cirithUngol         = .8
-    plateauOfGorgoth    = .85
-    lossamarch          = .4
-    ithilien            = .65
+    anorien             = .75
+    anduin              = .85
+    ephelDuath          = .9
+    cirithUngol         = .9
+    plateauOfGorgoth    = .95
+    lossamarch          = .6
+    ithilien            = .85
 
 #Space bonusDifficulty
 class spaceBonusDiff(object):
@@ -331,7 +331,7 @@ class MonsterDeathStrings(object):
     ArmoredMumakil    = "Armored Mumakil is going home to Africa now."
     BlackNumernorian  = "[Black Numernorian returned to the shadows.]"
     EasterlingWarrior = "Easterling Warrior went back to China."
-    Sauroman          = "Sauroman the Great Wizard was slain!"
+    Sauroman          = "\"Wizards reincarnate you know....\""
     MouthOfSauron     = "\"Rides off to fight another day.\""
     WitchKing         = "\"Hmm....\""
     Shelob            = "[Shelob retreats into the shadows.]"
@@ -369,8 +369,9 @@ REGIONAL_MONSTER_DISTRIBUTION = {
                               UrukHaiArcher: [.5, .7], 
                               EliteUrukHai: [.7, .8], 
                               WargRider: [.8, 1]},
-     RegionType.GONDOR:      {Orc: [0, .5], 
-                              OrcArcher: [.5, .65], 
+     RegionType.GONDOR:      {Orc: [0, .45], 
+                              OrcArcher: [.5, .6],
+                              EasterlingWarrior: [.6, .65],
                               Troll: [.65, .75], 
                               Nazgul_II: [.75, .775], 
                               DragonOfMordor: [.775, .8], 
@@ -394,32 +395,32 @@ Stats are a 3-element list whose elements are: hp, attack, and
 experience (in that order).
 """
 MONSTER_STATS = {BarrowWight:       [18, 2, 6],
-                 Goblin:            [12, 3, 8],
-                 GreatGoblin:       [64, 5, 35],
+                 Goblin:            [28, 5, 12],
+                 GreatGoblin:       [82, 8, 42],
                  KingOfTheBarrows:  [72, 4, 32],
                  Nazgul:            [32, 3, 12],
-                 Nazgul_II:         [1, 1, 1],
-                 Nazgul_III:        [1, 1, 1],
-                 Troll:             [1, 1, 1],
-                 WargRider:         [1, 1, 1],
-                 UrukHai:           [1, 1, 1],
-                 UrukHaiArcher:     [1, 1, 1],
-                 EliteUrukHai:      [1, 1, 1],
-                 Dunlending:        [1, 1, 1],
-                 Orc:               [1, 1, 1],
-                 OrcArcher:         [1, 1, 1],
-                 SiegeWorks:        [1, 1, 1],
-                 DragonOfMordor:    [1, 1, 1],
-                 CorsairOfUmbar:    [1, 1, 1],
-                 ArmoredMumakil:    [1, 1, 1],
-                 BlackNumernorian:  [1, 1, 1],
-                 EasterlingWarrior: [1, 1, 1],
-                 Sauroman:          [1, 1, 1],
-                 MouthOfSauron:     [1, 1, 1],
-                 WitchKing:         [1, 1, 1],
-                 Shelob:            [1, 1, 1],
-                 Balrog:            [1, 1, 1]}
-
+                 Nazgul_II:         [82, 10, 52],
+                 Nazgul_III:        [240, 48, 120],
+                 Troll:             [86, 8, 36],
+                 WargRider:         [32, 5, 14],
+                 UrukHai:           [54, 5, 18],
+                 UrukHaiArcher:     [32, 6, 16],
+                 EliteUrukHai:      [72, 8, 28],
+                 Dunlending:        [26, 5, 12],
+                 Orc:               [24, 5, 10],
+                 OrcArcher:         [18, 7, 12],
+                 SiegeWorks:        [220, 0, 52],
+                 DragonOfMordor:    [300, 65, 150],
+                 CorsairOfUmbar:    [76, 12, 48],
+                 ArmoredMumakil:    [264, 24, 80],
+                 BlackNumernorian:  [66, 12, 48],
+                 EasterlingWarrior: [74, 8, 30],
+                 Sauroman:          [152, 26, 72],
+                 MouthOfSauron:     [480, 72, 250],
+                 WitchKing:         [600, 84, 320],
+                 Shelob:            [450, 70, 140],
+                 Balrog:            [1840, 162, 860]}
+                 
 #Battle engine context
 class BattleEngineContext(object):
     """
@@ -430,7 +431,6 @@ class BattleEngineContext(object):
 
 #Battle engine constants
 RUN_PROBABILITY_SUCCESS = 1
-BATTLE_EARNINGS         = 4
 STANDARD_DEVIATION      = 3
 
 #Shop factory probability constants

@@ -193,15 +193,15 @@ class Player(object):
             print "\n%s leveled up! %s is now level %s!" \
                   % (self._name, self._name, self._level)
                   
-        #Updates player level and stats
-        for level in range(numberLevelUp):
-            self._maxHp = floor(self._maxHp * constants.HP_STAT)
-            self._totalMaxHp = self._maxHp + self._charmHp
-            self._attack = floor(self._attack * constants.ATTACK_STAT)
-            self._totalAttack = (self._attack + self._weaponAttack + 
-                self._charmAttack)
-            self._weightLimit = floor(self._weightLimit * 
-                constants.WEIGHT_LIMIT_STAT)
+            #Updates player level and stats
+            for level in range(numberLevelUp):
+                self._maxHp = floor(self._maxHp * constants.HP_STAT)
+                self._totalMaxHp = self._maxHp + self._charmHp
+                self._attack = floor(self._attack * constants.ATTACK_STAT)
+                self._totalAttack = (self._attack + self._weaponAttack + 
+                    self._charmAttack)
+                self._weightLimit = floor(self._weightLimit * 
+                    constants.WEIGHT_LIMIT_STAT)
             
     def getHp(self):
         """
@@ -359,8 +359,8 @@ class Player(object):
         
         #If user input is not an item
         if not isinstance(item, Item):
-            print "Not an item."
-            return False
+            errorMsg = "Not an item."
+            raise AssertionError(errorMsg)
         
         #Item cannot already be inventory
         if item in inventory:
