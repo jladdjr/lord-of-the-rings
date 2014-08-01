@@ -33,7 +33,8 @@ Constants used in Lord of the Rings.
 #Game constants
 COMMAND_PROMPT           = "> "
 CURRENCY                 = "rubles"
-SPACES_WITH_UNIQUE_ITEMS = 2
+SPACES_WITH_UNIQUE_ITEMS = 4
+ELVEN_RING_PROB          = .3
 
 #Player initialization
 class PlayerInitialization(object):
@@ -407,12 +408,12 @@ MONSTER_STATS = {BarrowWight:       [18, 2, 6],
                  UrukHaiArcher:     [32, 6, 16],
                  EliteUrukHai:      [72, 8, 28],
                  Dunlending:        [26, 5, 12],
-                 Orc:               [24, 5, 10],
-                 OrcArcher:         [18, 7, 12],
+                 Orc:               [26, 5, 12],
+                 OrcArcher:         [22, 7, 16],
                  SiegeWorks:        [220, 0, 52],
-                 DragonOfMordor:    [300, 65, 150],
+                 DragonOfMordor:    [300, 67, 176],
                  CorsairOfUmbar:    [76, 12, 48],
-                 ArmoredMumakil:    [264, 24, 80],
+                 ArmoredMumakil:    [264, 42, 96],
                  BlackNumernorian:  [66, 12, 48],
                  EasterlingWarrior: [74, 8, 30],
                  Sauroman:          [152, 26, 72],
@@ -442,6 +443,7 @@ class ItemFind(object):
 #Battle engine constants
 RUN_PROBABILITY_SUCCESS = 1
 STANDARD_DEVIATION      = 3
+MONEY_CONSTANT          = .5
 
 #Shop factory probability constants
 class ShopFactoryConstants(object):

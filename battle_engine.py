@@ -221,7 +221,9 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
             else:
                 print "%s" % monster.getDeathString()
                 #Generate earnings from winning battle
-                money += monster.getExperience() * (1 + bonusDifficulty)
+                money += random.gauss(constants.MONEY_CONSTANT * 
+                    monster.getExperience() * (1 + bonusDifficulty), 
+                    constants.STANDARD_DEVIATION)
                 experience += monster.getExperience() * (1 + bonusDifficulty)
                 #Remove monster from monsters list
                 for monster in monsters:
@@ -281,20 +283,21 @@ def _itemFind(player, experience):
     @param experience:     The experience gained from the battle.
     """
     location = player.getLocation()
-
+    
     #Item find for low-level uniques
     lowLevel = triangular(constants.ItemFind.lowLevel)
-    if experience > lowLevel:
+    if experience > lowLevel and lowLevelFindableUniques:
         item = random.choice(lowLevelFindableUniques)
         print "You found %s!" % item.getName()
         if player.addToInventory(item):
             lowLevelFindableUniques.remove(item)
         else:
             location.addItem(item)
+            
     
     #Item find for high-level uniques
     highLevel = triangular(constants.ItemFind.highLevel)
-    if experience > highLevel:
+    if experience > highLevel and highLevelFindableUniques:
         item = random.choice(highLevelFindableUniques)
         print "You found %s!" % item.getName()
         if player.addToInventory(item):
@@ -304,14 +307,13 @@ def _itemFind(player, experience):
             
     #Item find for elite-level uniques
     eliteLevel = triangular(constants.ItemFind.eliteLevel)
-    if experience > eliteLevel:
+    if experience > eliteLevel and eliteLevelFindableUniques:
         item = random.choice(eliteLevelFindableUniques)
         print "You found %s!" % item.getName()
         if player.addToInventory(item):
             eliteLevelFindableUniques.remove(item)
         else: 
             location.addItem(item)
-    print ""
     
 def _endSequence(player, earnings):
     """
@@ -339,7 +341,6 @@ def _endSequence(player, earnings):
     print bar
     print victoryDeclaration
     print gainsDeclaration
-    print ""
     _itemFind(player, experience)
     player.increaseMoney(money)
     player.increaseExperience(experience)

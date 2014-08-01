@@ -63,7 +63,7 @@ class Game(object):
         """
         Gets nextCommand from player. If nextCommand may be executed
         successfully and involves a passing of time, there is a chance that a 
-        random battle will occur before nextCommand is executed.
+        random battle will occur after nextCommand is executed.
         
         Commands with a chance of unsuccessful execution: the four movement 
         commands. These commands are unsuccesful when player cannot actually 
@@ -75,11 +75,11 @@ class Game(object):
         if nextCommand is not None:
             #Check command execution
             if self._executionCheck(nextCommand):
+                #Then execute nextCommand
+                nextCommand.execute()
                 #If passing of time... chance a random battle will occur
                 if nextCommand.getTime():
                     self._battlePhase()
-            #Then execute nextCommand
-            nextCommand.execute()
             print ""
             
         else:

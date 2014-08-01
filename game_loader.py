@@ -67,7 +67,7 @@ def getWorld():
     description = "Exotic selection by hobbit standards."
     greeting = "We have strange wares."
     sallyShop = Shop("Sally's Shop", description, greeting, 
-        constants.RegionType.ERIADOR, 5, 3)
+        constants.RegionType.ERIADOR, 4, 0)
     #Square
     description = "Lots of hobbits, mostly gossip."
     greeting = "Did you hear the latest news?"
@@ -159,7 +159,7 @@ def getWorld():
     greeting = ("Welcome to ElvenWares! Here we have the latest in elven" 
     " gadgetry.")
     elvenWares = Shop("ElvenWares", description, greeting, 
-        constants.RegionType.RHOVANION, 5, 6)
+        constants.RegionType.RHOVANION, 5, 4)
     #Square
     description = "Hotshots only."
     greeting = "We've been waiting for your arrival...."
@@ -289,7 +289,7 @@ def getWorld():
     description = "COME GET YOUR ORC-KILLING GEAR HERE!"
     greeting = "HI I'M HANK!!! KILL ORCS!!!!!"
     hanksBattleGear = Shop("Hank's Battle Gear", description, greeting, 
-        constants.RegionType.ERIADOR, 8, 4)
+        constants.RegionType.ERIADOR, 8, 2)
     #Square
     description = "A noisy hole in the wall known for quarrels."
     greeting = ("You are greeted with silence. Two people stare at you briefly" 
@@ -398,7 +398,7 @@ def getWorld():
     description = "ElvenWares! Lots of great elven gear!"
     greeting = "Welcome to ElvenWares! We have lots of rare collectibles!"
     elvenWares = Shop("ElvenWares", description, greeting, 
-        constants.RegionType.RHOVANION, 7, 8)
+        constants.RegionType.RHOVANION, 8, 9)
     #Square
     description = "For prophesy as well as plain old-fashioned vanity."
     greeting = "A strange sight: Galadriel herself!"
@@ -491,7 +491,7 @@ def getWorld():
     description = "The Armory [read: booze shop]."
     greeting = "We got every poison under the sun...."
     theArmory = Shop("The Armory", description, greeting, 
-        constants.RegionType.ROHAN, 10, 8)
+        constants.RegionType.ROHAN, 8, 6)
     #Square
     description = "Mass drunkenness."
     greeting = "Everyone is passed out."
@@ -550,7 +550,7 @@ def getWorld():
     description = "Crafts and various collectibles."
     greeting = "We have items dating back from T.A. 1497!"
     twiceRemembered = Shop("Twice Remembered", description, greeting, 
-        constants.RegionType.ROHAN, 12, 8)
+        constants.RegionType.ROHAN, 10, 8)
     #Square
     description = "A country square full of mostly older folk."
     greeting = "\"We love our lands.\""
@@ -581,7 +581,7 @@ def getWorld():
     description = "Other items too."
     greeting = "\"Would you like some samples?\""
     milesCookieFactory = Shop("Miles' Cookie Factory", description, greeting, 
-        constants.RegionType.ROHAN, 15, 4)
+        constants.RegionType.ROHAN, 10, 12)
     #Square
     description = "Many interesting discussions."
     greeting = "\"I wonder how this works...?\""
@@ -684,7 +684,7 @@ def getWorld():
     description = "An elite armory, used by the best Gondorian troops."
     greeting = "Welcome to the Smithy of Kings! We have legendary blades...."
     smithyOfKings = Shop("Smithy of Kings", description, greeting, 
-        constants.RegionType.GONDOR, 15, 12)
+        constants.RegionType.GONDOR, 14, 14)
     #Square
     description = "Minas Tirith commons."
     greeting = "Tension greets you as you enter Minas Tirith Commons."
@@ -743,7 +743,7 @@ def getWorld():
     description = "Rapidly depleting inventories."
     greeting = "What would you like? We are low on everything...."
     osgiliathArmory = Shop("Osgiliath Armory", description, greeting, 
-        constants.RegionType.GONDOR, 4, 15)
+        constants.RegionType.GONDOR, 4, 12)
     #Square
     description = "Once a glorious square in the capital of Gondor."
     greeting = "You find the square in ruins and deserted."
@@ -842,7 +842,7 @@ def getWorld():
     sunnysideInn = Inn("Sunnyside Inn", description, greeting, 5)
     #Shop
     description = "Beach accessories and paraphernalia."
-    greeting = "\"Hey whaddup bro?\""
+    greeting = "\"Hey what's up, bro?\""
     palmTreeHut = Shop("Palm Tree Hut", description, greeting, 
         constants.RegionType.GONDOR, 6, 14)
     #Square
@@ -956,16 +956,17 @@ def getWorld():
             #Add item to space
             space.addItem(item)
     
+    #Determine which elven rings to spawn
+    elvenRings = items.unique_items.elvenRings
+    chosenRings = []
+    for ring in elvenRings:
+        if random.random() < constants.ELVEN_RING_PROB:
+            chosenRings.append(ring)
+            
     #Add elven rings to spaces
-    for space in range(len(items.unique_items.elvenRings)):
-        if items.unique_items.elvenRings:
-            #Determine which unique item
-            item = random.choice(items.unique_items.elvenRings)
-            items.unique_items.elvenRings.remove(item)
-            #Determine which space
-            space = random.choice(spaces)
-            #Add item to space
-            space.addItem(item)
+    for ring in chosenRings:
+        space = random.choice(spaces)
+        space.addItem(ring)
     
     return spaces
     

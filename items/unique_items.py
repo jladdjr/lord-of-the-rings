@@ -15,8 +15,8 @@ For instance, "The One Ring."
 #Items - Story
 #Starting Inventory
 sting = Weapon("Sting", "Elvish - made in Gondolin", 2, 22, 8)
-theOneRing = Item("The One Ring", "Very important", 8, 420)
-leatherCloak = Armor("Leather Cloak", "Travel tunic", 4, 12, 1)
+theOneRing = Item("The One Ring", "Very important", 6, 540)
+leatherCloak = Armor("Leather Cloak", "Travel tunic", 3, 8, 1)
 vodka = Potion("Vodka", "Good for health", 1, 4, 4)
 startingInventory = [sting, theOneRing, leatherCloak, vodka]
 
@@ -30,9 +30,9 @@ hobbitonSquareItems = {"Naftel Took": walkingCane,
 
 #Council of Elrond
 legolasHair = Item("Legolas' Hair", "Industrial applications", 0, 12)
-mithrilVest = Armor("Mithril Vest", "Gift from Bilbo", 1, 86, 4)
+mithrilVest = Armor("Mithril Vest", "Gift from Bilbo", 1, 102, 4)
 anduril = Weapon("Anduril - The Flame of the West", 
-"The sword once broken, now reforged", 2, 162, 22)
+"The sword once broken, now reforged", 2, 114, 22)
 councilOfElrondItems = {"Elrond": [mithrilVest, anduril], 
 "Legolas": legolasHair}
 
@@ -43,7 +43,7 @@ thePitItems = {"Curufin": water, "Daeron": elvenRum}
 
 #Elvenking's Throne
 sweetNewElvenWare = Armor("Sweet New ElvenWare", 
-"The latest from Mirkwood", 4, 52, 4)
+"The latest from Mirkwood", 4, 52, 3)
 elvenkingsThroneItems = {"Beleg": sweetNewElvenWare}
 
 #Prancing Pony
@@ -52,9 +52,9 @@ bulletin = Item("Nazgul Bulletin", "Details Nazgul sightings", 0, 0)
 prancingPonyItems = {"Harry Goatleaf": bulletin, "Dudo Baggins": tea}
 
 #Galadriel's Mirror
-elvenCloak = Armor("Elven Cloak", "A gift from Galadriel", 4, 62, 4)
+elvenCloak = Armor("Elven Cloak", "A gift from Galadriel", 4, 62, 3)
 phialOfGaladriel = Item("Phial of Galadriel", 
-"\"May it be a light for you in dark places\"", 1, 106)
+"\"May it be a light for you in dark places\"", 1, 92)
 galadrielsMirrorItems = {"Galadriel": [elvenCloak, phialOfGaladriel]}
 
 #Helm's Deep Commons
@@ -117,25 +117,25 @@ hobbitElite = Weapon("Elite Hobbit Battle Gear", "Basically, rocks", 2, 12, 6)
 
 eriadorWeaponsDist = {
     walkingStick: [0, 2],
-    gardenShovel: [1, 3],
-    gardenSythe: [3, 5],
-    shortSword: [4, 5],
+    gardenShovel: [0, 2],
+    gardenSythe: [1, 4],
+    shortSword: [2, 6],
     hobbitElite: [4, 20]
 }
 
 #Rohan Shops - levels 8-12
-ironSword = Weapon("Iron Sword", "Strange markings", 6, 16, 12)
-mediumSword = Weapon("Medium Sword", "Battle tested", 8, 24, 15)
-rohirricBow = Weapon("Rohirric Bow", "Historic embroidery", 10, 30, 18)
-battleMace = Weapon("Battle Mace", "Classic for knights", 8, 32, 22)
+ironSword = Weapon("Iron Sword", "Strange markings", 6, 18, 12)
+mediumSword = Weapon("Medium Sword", "Battle tested", 8, 26, 14)
+rohirricBow = Weapon("Rohirric Bow", "Historic embroidery", 10, 30, 16)
+battleMace = Weapon("Battle Mace", "Classic for knights", 8, 42, 20)
 battleLance = Weapon("Battle Lance", "Knight esesential", 14, 62, 26)
 
 rohanWeaponsDist = {
-    ironSword: [0 , 10],
-    mediumSword: [10 , 14],
-    rohirricBow: [10 , 20],
-    battleMace: [9 , 12],
-    battleLance: [8 , 20],
+    ironSword: [0, 8],
+    mediumSword: [6, 10],
+    rohirricBow: [7, 10],
+    battleMace: [8, 12],
+    battleLance: [10, 20],
 }
 
 #Rhovanion Shops - levels 6-15
@@ -149,24 +149,24 @@ eliteElvenBow = Weapon("Elite Elven Longbow", "Made of mallorn", 8, 112, 40)
 
 rhovanionWeaponsDist = {
     elvenTrainerBow: [0, 8],
-    elvenBlade: [8, 10],
-    elvenBow: [9, 11],
-    doubleBlades: [10, 12],
+    elvenBlade: [6, 10],
+    elvenBow: [7, 10],
+    doubleBlades: [8, 12],
     eliteElvenSword: [12, 20],
     eliteElvenBow: [12, 20],
 }
 
 #Gondor Shops - levels 12-20
-soldersSword = Weapon("Soldier's Sword", "Standard grade", 8, 30, 16)
+soldiersSword = Weapon("Soldier's Sword", "Standard grade", 8, 30, 16)
 longSword = Weapon("Long Sword", "A Gondorian blade", 12, 52, 20)
 compoundBow = Weapon("Compound Bow", "Extreme range", 12, 56, 22)
-eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 10, 112, 24)
-gondorianLongbow = Weapon("Gondorian Longbow", "Extreme range", 13, 100, 30)
+eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 10, 112, 25)
+gondorianLongbow = Weapon("Gondorian Longbow", "Extreme range", 14, 102, 30)
 
 gondorWeaponsDist = {
-    soldersSword: [0, 14],
+    soldiersSword: [0, 12],
     longSword: [12, 15],
-    compoundBow: [14, 16],
+    compoundBow: [13, 16],
     eliteLongSword: [16, 20],
     gondorianLongbow: [16, 20],
 }
@@ -180,11 +180,11 @@ leatherCloak = Armor("Leather Cloak", "Stuffy", 5, 14, 2)
 eriadorArmorDist = {
     farmerShawl: [0, 2],
     travelCloak: [2, 4],
-    leatherCloak: [3, 20]
+    leatherCloak: [4, 20]
 }
 
 #Rohan Shops - levels 8-12
-leatherArmor = Armor("Leather Armor", "Light and lithe", 6, 18, 3)
+leatherArmor = Armor("Leather Armor", "Light and lithe", 6, 18, 2)
 chainmail = Armor("Chainmail", "Took an incredibly long time to make", 10, 24, 4)
 suitOfArmor = Armor("Suit of Armor", "To become a knight in shining armor", 
     25, 85, 6)
@@ -192,38 +192,38 @@ rohirricBreastplate = Armor("Rohirric Breastplate", "Aged with dignity",
     16, 74, 5)
     
 rohanArmorDist = {
-    leatherArmor: [0, 12],
-    chainmail: [8, 15],
-    suitOfArmor: [13, 15],
-    rohirricBreastplate: [14, 20]
+    leatherArmor: [0, 7],
+    chainmail: [8, 12],
+    suitOfArmor: [10, 14],
+    rohirricBreastplate: [12, 20]
 }
 
 #Rhovanion Shops - levels 6-15
-workersGear = Armor("Worker's Gear", "Poor-elf's clothes", 6, 16, 2)
-elvenWare = Armor("Elven Ware", "A time-tested classic", 4, 40, 4)
+workersGear = Armor("Worker's Gear", "Poor-elf's clothes", 6, 14, 2)
+elvenWare = Armor("Elven Ware", "A time-tested classic", 4, 40, 3)
 eliteElvenWare = Armor("Elite Elven Ware", "At a huge premium", 4, 152, 5)
 velvetSuit = Armor("Velvet Suit", "Sex appeal", 6, 262, 8)
 
 rhovanionArmorDist = {
-    workersGear: [0, 9],
-    elvenWare: [8, 12],
-    eliteElvenWare: [12, 15],
-    velvetSuit: [15, 20]
+    workersGear: [0, 6],
+    elvenWare: [6, 10],
+    eliteElvenWare: [9, 15],
+    velvetSuit: [12, 20]
 }
 
 #Gondorian Shops - levels 12-20
 standardSoldiersArmor = Armor("Standard Soldier's Armor", "Sells for a reason", 
     12, 56, 3)
-platemail = Armor("Platemail", "Can take a wallop", 18, 64, 4)
+platemail = Armor("Platemail", "Can take a wallop", 18, 84, 4)
 magneticArmor = Armor("Magnetic Armor", "Repels attacks", 16, 124, 5)
 eliteGondorianArmor = Armor("Elite Gondorian Armor", "Elite Platemail", 
     18, 142, 6)
     
 gondorArmorDist = {
-    standardSoldiersArmor: [0, 16],
-    platemail: [14, 16],
+    standardSoldiersArmor: [0, 12],
+    platemail: [12, 16],
     magneticArmor: [16, 20],
-    eliteGondorianArmor: [18, 20]
+    eliteGondorianArmor: [17, 20]
 }
 
 #Shop potions
@@ -235,40 +235,40 @@ shireWater2 = Potion("Shire Water", "From the Shirebourne", 1, 8, 10)
 eriadorPotionDist = {
     hobbitTea: [0, 2],
     shireWater: [2, 4],
-    shireWater2: [4, 20]
+    shireWater2: [2, 20]
 }
 
 #Rohan shops
-adornWater = Potion("Adorn Water", "From the Adorn River", 1, 14, 16)
-rohirricTea = Potion("Rohirric Tea", "Calming effects", 1, 18, 18)
+adornWater = Potion("Adorn Water", "From the Adorn River", 1, 14, 22)
+rohirricTea = Potion("Rohirric Tea", "Calming effects", 1, 24, 30)
 fangornWater = Potion("Entwash Water", "Extreme restorative properties", 1, 48, 64)
 
 rohanPotionDist = {
-    adornWater: [0, 12],
-    shireWater: [10, 12],
-    shireWater2: [12, 20]
+    adornWater: [0, 6],
+    rohirricTea: [6, 10],
+    fangornWater: [10, 20]
 }
 
 #Rhovanion shops
 elvenTea = Potion("Elven Tea", "Magical effects", 1, 18, 16)
 mirkwoodWater = Potion("Elven Water", "From the Misty Mountains", 1, 24, 24)
-magicalElixir = Potion("Magical Elixir", "Has a strange glow", 2, 35, 45)
+magicalElixir = Potion("Magical Elixir", "Has a strange glow", 2, 60, 50)
 
 rhovanionPotionDist = {
-    elvenTea: [0, 12],
-    mirkwoodWater: [12, 14],
-    magicalElixir: [14, 20]
+    elvenTea: [0, 10],
+    mirkwoodWater: [8, 12],
+    magicalElixir: [12, 20]
 }
 
 #Gondor shops
-anduinWater = Potion("Anduin Water", "All the way from the Anduin River", 1, 1, 72)
-snowmelt = Potion("Snowmelt", "From the White Mountains", 1, 1, 82)
-advancedElixir = Potion("Advanced Elixir", "From the Houses of Healing", 2, 1, 152)
+anduinWater = Potion("Anduin Water", "All the way from the Anduin River", 1, 52, 72)
+snowmelt = Potion("Snowmelt", "From the White Mountains", 1, 64, 82)
+advancedElixir = Potion("Advanced Elixir", "From the Houses of Healing", 2, 102, 152)
 
 gondorPotionDist = {
     anduinWater: [0, 12],
-    snowmelt: [12, 15],
-    magicalElixir: [14, 20]
+    snowmelt: [10, 15],
+    advancedElixir: [14, 20]
 }
 
 #Total shop weapons distributions
@@ -293,17 +293,17 @@ shopPotionDist = {
     constants.RegionType.GONDOR: gondorPotionDist}
     
 #Low-level unique weapons
-guthwine = Weapon("Guthwine", "Eomer's sword. Stolen goods", 10, 142, 24)
+guthwine = Weapon("Guthwine", "Eomer's sword. Stolen goods", 8, 142, 22)
 herugrim = Weapon("Herugrim", 
-"Theoden's sword. Will attract negative attention", 10, 136, 26)
-orchrist = Weapon("Orcrist", "Sindarin: 'Goblin Cleaver", 160, 15, 24)
+"Theoden's sword. Will attract negative attention", 8, 136, 26)
+orchrist = Weapon("Orcrist", "Sindarin: 'Goblin Cleaver", 15, 160, 24)
 
-#Low-level unique armor 
-tarhelmCrown = Armor("TarnHelm Crown", "Straight from Tristram", 6, 86, 3)
+#Low-level unique armor
+tarhelmCrown = Armor("Tarnhelm Crown", "Straight from Tristram", 6, 86, 3)
 snowclash = Armor("Snowclash Battle Belt", "Straight from Tristram", 5, 92, 4)
 razortail = Armor("Razortail Sharkskin", "Straight from Tristram", 8, 102, 4)
 nightsmoke = Armor("Nightsmoke", "Straight from Tristram", 4, 114, 5)
-peasantCrown = Armor("Peasant Crown", "Straight from Tristram", 6, 85, 4)
+peasantCrown = Armor("Peasant Crown", "Straight from Tristram", 4, 85, 4)
 crownOfThieves = Armor("Crown of Thieves", "Straight from Tristram", 5, 76, 3)
 
 #High-level unique weapons
@@ -315,7 +315,7 @@ belthronding = Weapon("Belthronding", "A bow wielded by Beleg Cuthalion",
 5, 176, 76)
 dramborleg = Weapon("Dramborleg", "Thudder Sharp", 6, 160, 78)
 scepterOfAnnuminas = Weapon("Scepter of Annuminas", 
-"Held by the Kings of Arnor", 6, 232, 136)
+"Held by the Kings of Arnor", 6, 232, 96)
 
 #High-level unique armor
 helmOfHador = Armor("Helm of Hador", 
@@ -329,11 +329,11 @@ tyraelsMight = Armor("Tyrael's Might", "Straight from Tristram", 6, 170, 14)
 aeglos = Weapon("Aeglos", "A spear wielded by Gil-galad", 6, 220, 152)
 ananruth = Weapon("Aranruth", "King's Ire", 5, 242, 146)
 ringil = Weapon("Ringil", "Cold Spark", 8, 248, 156)
-grond = Weapon("Grond", "Morgoth's Mace", 30, 320, 240)
+grond = Weapon("Grond", "Morgoth's Mace", 30, 653, 340)
 crownOfElendil = Armor("Crown of Elendil", 
-    "A brilliant crown worn by the Kings of Gondor", 6, 220, 30)
+    "A brilliant crown worn by the Kings of Gondor", 6, 220, 16)
 ironCrown = Armor("Iron Crown", "Forged by Morgoth to hold the Silmaril", 
-    10, 316, 36)
+    10, 316, 22)
 
 lowLevelFindableUniques = [guthwine, herugrim, orchrist, tarhelmCrown, 
     snowclash, razortail, nightsmoke, peasantCrown, crownOfThieves]
