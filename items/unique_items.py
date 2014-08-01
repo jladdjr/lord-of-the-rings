@@ -32,7 +32,7 @@ hobbitonSquareItems = {"Naftel Took": walkingCane,
 legolasHair = Item("Legolas' Hair", "Industrial applications", 0, 12)
 mithrilVest = Armor("Mithril Vest", "Gift from Bilbo", 1, 86, 4)
 anduril = Weapon("Anduril - The Flame of the West", 
-"The sword once broken, now reforged", 2, 56, 22)
+"The sword once broken, now reforged", 2, 162, 22)
 councilOfElrondItems = {"Elrond": [mithrilVest, anduril], 
 "Legolas": legolasHair}
 
@@ -88,7 +88,7 @@ marketSquareItems = {"Calmacil": fruitSamples ,"Atanatar": foodHoards,
 palatir = Item("Palatir", "For seeing mysteries", 6, 112)
 windbeam = Charm("Windbeam", "Strengthens the hearts of men", 4, 116, 50, 10, 4)
 executorSword = Weapon("Executor Sword", "A gift from Prince Imrahil", 
-12, 142, 42)
+12, 112, 42)
 towerOfEchelionItems = {"Denethor": [palatir, windbeam], 
 "Prince Imrahil": executorSword}
 
@@ -102,8 +102,8 @@ beachItems = {"Gondorian bro #3": [draagz, vodka],
 
 #Elven Rings
 narya = Charm("Nanya", "Elven Ring of Fire", 0, 270, 100, 0, 0)
-nenya = Charm("Nenya", "Elven Ring of Water", 0, 280, 0, 500, 0)
-vilya = Charm("Vilya", "Elven Ring of Air", 0, 265, 0, 0, 10)
+nenya = Charm("Nenya", "Elven Ring of Water", 0, 280, 0, 0, 500)
+vilya = Charm("Vilya", "Elven Ring of Air", 0, 265, 0, 15, 0)
 elvenRings = [narya, nenya, vilya]
 
 #Shop weapons
@@ -157,11 +157,11 @@ rhovanionWeaponsDist = {
 }
 
 #Gondor Shops - levels 12-20
-soldersSword = Weapon("Soldier's Sword", "Standard grade", 8, 1, 1)
-longSword = Weapon("Long Sword", "A Gondorian blade", 12, 1, 1)
-compoundBow = Weapon("Compound Bow", "Extreme range", 12, 1, 1)
-eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 10, 1, 1)
-gondorianLongbow = Weapon("Gondorian Longbow", "Extreme range", 13, 1, 1)
+soldersSword = Weapon("Soldier's Sword", "Standard grade", 8, 30, 16)
+longSword = Weapon("Long Sword", "A Gondorian blade", 12, 52, 20)
+compoundBow = Weapon("Compound Bow", "Extreme range", 12, 56, 22)
+eliteLongSword = Weapon("Elite Long Sword", "A Numernorian blade", 10, 112, 24)
+gondorianLongbow = Weapon("Gondorian Longbow", "Extreme range", 13, 100, 30)
 
 gondorWeaponsDist = {
     soldersSword: [0, 14],
@@ -293,52 +293,54 @@ shopPotionDist = {
     constants.RegionType.GONDOR: gondorPotionDist}
     
 #Low-level unique weapons
-guthwine = Weapon("Guthwine", "Eomer's sword. Stolen goods", 10, 10, 20)
+guthwine = Weapon("Guthwine", "Eomer's sword. Stolen goods", 10, 142, 24)
 herugrim = Weapon("Herugrim", 
-"Theoden's sword. Will attract negative attention", 10, 10, 20)
-orchrist = Weapon("Orcrist", "Sindarin: 'Goblin Cleaver", 10, 15, 20)
+"Theoden's sword. Will attract negative attention", 10, 136, 26)
+orchrist = Weapon("Orcrist", "Sindarin: 'Goblin Cleaver", 160, 15, 24)
 
 #Low-level unique armor 
-tarhelmCrown = Armor("TarnHelm Crown", "Straight from Tristram", 2, 10, 10)
-snowclash = Armor("Snowclash Battle Belt", "Straight from Tristram", 2, 10, 10)
-razortail = Armor("Razortail Sharkskin", "Straight from Tristram", 2, 10, 10)
-nightsmoke = Armor("Nightsmoke", "Straight from Tristram", 2, 10, 10)
-peasantCrown = Armor("Peasant Crown", "Straight from Tristram", 2, 10, 10)
-crownOfThieves = Armor("Crown of Thieves", "Straight from Tristram", 2, 10, 10)
+tarhelmCrown = Armor("TarnHelm Crown", "Straight from Tristram", 6, 86, 3)
+snowclash = Armor("Snowclash Battle Belt", "Straight from Tristram", 5, 92, 4)
+razortail = Armor("Razortail Sharkskin", "Straight from Tristram", 8, 102, 4)
+nightsmoke = Armor("Nightsmoke", "Straight from Tristram", 4, 114, 5)
+peasantCrown = Armor("Peasant Crown", "Straight from Tristram", 6, 85, 4)
+crownOfThieves = Armor("Crown of Thieves", "Straight from Tristram", 5, 76, 3)
 
 #High-level unique weapons
-glamdring = Weapon("Glamdring", "Sindarin: \"Foe Hammer\"", 4, 20, 15)
-anglachel = Weapon("Anglachel", "Sindarin: \"Iron of the Flaming Star\"", 
-3, 15, 25)
-angrist = Weapon("Angrist", "Sindarian: \"Iron Cleaver\"", 4, 20, 25)
-anguirel = Weapon("Anguriel", "Sindarian: \"Iron of Eternity\"", 4, 20, 25)
+glamdring = Weapon("Glamdring", "Foe Hammer", 6, 162, 72)
+anglachel = Weapon("Anglachel", "Iron of the Flaming Star", 6, 170, 76)
+angrist = Weapon("Angrist", "Iron Cleaver", 5, 174, 80)
+anguirel = Weapon("Anguriel", "Iron of Eternity", 6, 172, 82)
 belthronding = Weapon("Belthronding", "A bow wielded by Beleg Cuthalion", 
-4, 20, 25)
-dramborleg = Weapon("Dramborleg", "Sindarian: \"Thudder Sharp\"", 4, 15, 20)
+5, 176, 76)
+dramborleg = Weapon("Dramborleg", "Thudder Sharp", 6, 160, 78)
+scepterOfAnnuminas = Weapon("Scepter of Annuminas", 
+"Held by the Kings of Arnor", 6, 232, 136)
 
 #High-level unique armor
 helmOfHador = Armor("Helm of Hador", 
-"A helmet owned by the Royal House of Hador", 2, 10, 30)
+"A helmet owned by the Royal House of Hador", 5, 140, 12)
 harlequinCrestShako = Armor("Harlequin Crest Shako", 
-"Straight from Tristram", 2, 10, 10)
+"Straight from Tristram", 6, 162, 10)
+templarsMight = Armor("Templar's Might", "Straight from Tristram", 6, 152, 12)
+tyraelsMight = Armor("Tyrael's Might", "Straight from Tristram", 6, 170, 14)
 
 #Elite-level unique items
-aeglos = Weapon("Aeglos", "A spear wielded by Gil-galad", 4, 20, 30)
-ananruth = Weapon("Aranruth", "Sindarian: \"King's Ire\"", 4, 20, 25)
-scepterOfAnnuminas = Weapon("Scepter of Annuminas", 
-"Held by the Kings of Arnor", 3, 25, 30)
-ringil = Weapon("Ringil", "Sindarin: \"Cold Spark\"", 10, 15, 20)
-grond = Weapon("Grond", "Morgoth's Mace", 10, 80, 20)
+aeglos = Weapon("Aeglos", "A spear wielded by Gil-galad", 6, 220, 152)
+ananruth = Weapon("Aranruth", "King's Ire", 5, 242, 146)
+ringil = Weapon("Ringil", "Cold Spark", 8, 248, 156)
+grond = Weapon("Grond", "Morgoth's Mace", 30, 320, 240)
 crownOfElendil = Armor("Crown of Elendil", 
-"A brilliant crown worn by the Kings of Gondor", 2, 10, 30)
-ironCrown = Armor("Iron Crown", 
-"Forged by Morgoth to hold the Silmaril", 2, 10, 30)
+    "A brilliant crown worn by the Kings of Gondor", 6, 220, 30)
+ironCrown = Armor("Iron Crown", "Forged by Morgoth to hold the Silmaril", 
+    10, 316, 36)
 
 lowLevelFindableUniques = [guthwine, herugrim, orchrist, tarhelmCrown, 
-snowclash, razortail, nightsmoke, peasantCrown, crownOfThieves]
+    snowclash, razortail, nightsmoke, peasantCrown, crownOfThieves]
 
 highLevelFindableUniques = [glamdring, anglachel, angrist, anguirel, 
-belthronding, dramborleg, helmOfHador, harlequinCrestShako]
+    belthronding, dramborleg, scepterOfAnnuminas, helmOfHador, 
+    harlequinCrestShako, templarsMight, tyraelsMight]
 
-eliteLevelFindableUniques = [aeglos, ananruth, ringil, scepterOfAnnuminas, 
-grond, crownOfElendil, ironCrown]
+eliteLevelFindableUniques = [aeglos, ananruth, ringil, grond, crownOfElendil, 
+    ironCrown]

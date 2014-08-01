@@ -26,9 +26,9 @@ class TomBombadilHouse(UniquePlace):
         
         #Spawn loot
         description = "Has a secret, sharpened edge"
-        weapon = Weapon("Walking Cane", description, 3, 3, 3)
+        weapon = Weapon("Walking Cane", description, 4, 2, 2)
         description = "Contains rare herbs"
-        potion = Potion("Forest Tonic", description, 1, 3, 2)
+        potion = Potion("Forest Tonic", description, 1, 4, 6)
         self._gift = [weapon, potion]
         
     def enter(self, player):

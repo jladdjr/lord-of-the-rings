@@ -73,13 +73,13 @@ class DolGuldur(UniquePlace):
         self._wave3.append(monster)
         
         #Create loot
-        weapon = Weapon("Cursed Sword", "Fills you with fear", 5, 0, 0)
+        weapon = Weapon("Cursed Sword", "Fills you with fear", 5, 18, 18)
         weapon2 = Weapon("Cursed Axe", 
-            "You lose confidence holding this", 5, 0, 0)
-        armor = Armor("Cursed Shield", "Gaping holes", 5, 0, 0)
-        potion = Potion("Cursed Elixir", "An unknown substance", 1, 0, 2)
-        item = Item("Cursed Mirror", "Odd distortions and shadows", 1, 0)
-        item2 = Item("Cursed Books", "Grimoires", 1, 0)
+            "You lose confidence holding this", 5, 22, 16)
+        armor = Armor("Cursed Shield", "Gaping holes", 5, 12, 1)
+        potion = Potion("Cursed Elixir", "An unknown substance", 2, 0, -10)
+        item = Item("Cursed Mirror", "Odd distortions and shadows", 6, 18)
+        item2 = Item("Cursed Books", "Grimoires", 4, 72)
         self._loot = [weapon, weapon2, armor, potion, item, item2]
         
     def enter(self, player):

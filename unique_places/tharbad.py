@@ -38,11 +38,11 @@ class Tharbad(UniquePlace):
 
         #Generate loot
         description = "Ancient runes and symbols"
-        scroll = Item("Ancient Scroll", description, 0, 0)
+        scroll = Item("Ancient Scroll", description, 1, 32)
         description = "Looks like it can break at any second"
-        weapon = Weapon("Rotting Staff", description, 1, 1, 1)
+        weapon = Weapon("Rotting Staff", description, 6, 3, 4)
         description = "Maybe one or two hits and it's through"
-        armor = Armor("Rotting Shield", description, 1, 1, 1)
+        armor = Armor("Rotting Shield", description, 4, 2, 1)
         self._loot = [scroll, weapon, armor]
         
     def enter(self, player):

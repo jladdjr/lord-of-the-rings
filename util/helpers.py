@@ -98,17 +98,20 @@ def sortItems(itemSet):
     itemSet.clearItems()
     itemSet.addItems(sortedItems)
     
-def triangular(low, high, mode):
+def triangular(stats):
     """
     Generates a random number using a triangle distribution.
     
-    @param low:     The bottom endpoint.
-    @param high:    The top endpoint.
-    @param mode:    The height of the triangle.
+    @param stats:   A three-element list whose elements are used to calculate 
+                    the triangular distribution.
     
     @return:        The randomly generated number.
     """
     import random
+    
+    low = stats[0]
+    high = stats[1]
+    mode = stats[2]
     
     u = random.random()
     try:

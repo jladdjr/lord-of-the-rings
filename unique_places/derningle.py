@@ -27,7 +27,7 @@ class Derningle(UniquePlace):
         description = ("A mysterious elixir with extremely powerful" 
             " nourishing properties")
         for potion in range(3):
-            potion = Potion("Ent Draught", description, 1, 10, 5)
+            potion = Potion("Ent Draught", description, 2, 42, 100)
             self._loot.append(potion)
 
     def enter(self, player):

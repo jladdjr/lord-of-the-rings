@@ -70,12 +70,12 @@ class Isenmouthe(UniquePlace):
         self._wave2.append(monster)
         
         #Create loot
-        weapon = Weapon("Troll Hammer", "Enormous and unwieldy", 1, 1, 1)
-        armor = Armor("Troll Shield", "Enormous and unwieldy", 4, 0, 0)
-        potion = Potion("Orc Draught", "Disgusting", 1, 0, 2)
-        potion2 = Potion("Orc Draught", "Potentially toxic", 1, 0, 2)
-        item = Item("Orcish Banister", "Perhaps of high resale value", 1, 0)
-        item2 = Item("Screw and bolts", "Useless", 1, 0)
+        weapon = Weapon("Troll Hammer", "Enormous and unwieldy", 18, 42, 20)
+        armor = Armor("Troll Shield", "Enormous and unwieldy", 14, 36, 2)
+        potion = Potion("Orc Draught", "Disgusting", 2, 0, -15)
+        potion2 = Potion("Orc Draught", "Potentially toxic", 2, 0, -20)
+        item = Item("Orcish Banister", "Potential resale value", 5, 14)
+        item2 = Item("Screw and bolts", "Useless", 2, 4)
         self._loot = [weapon, armor, potion, potion2, item, item2]
         
     def enter(self, player):

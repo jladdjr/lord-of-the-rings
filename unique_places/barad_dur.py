@@ -88,12 +88,13 @@ class BaradDur(UniquePlace):
             self._wave5.append(monster)
             
         #Create loot
-        potion = Potion("Hyper Potion", "Extreme healing qualities", 2, 2, 2)
-        potion2 = Potion("Super Potion", "Medium healing qualities", 2, 2, 2)
-        potion3 = Potion("Dragon Milk", "Healing qualities", 2, 2 ,2)
-        item = Item("Masterball", "Can catch any Pokemon", 2, 0)
-        item2 = Item("Moonstone", "Evolves normal Pokemon", 2, 0)
-        item3 = Item("Nugget", "High resale value", 2, 0)
+        potion = Potion("Hyper Potion", "Extreme healing qualities", 2, 112, 
+            500)
+        potion2 = Potion("Super Potion", "Medium healing qualities", 2, 76, 350)
+        potion3 = Potion("Dragon Milk", "Healing qualities", 2, 142, 1000)
+        item = Item("Masterball", "Can catch any Pokemon", 4, 272)
+        item2 = Item("Moonstone", "Evolves normal Pokemon", 6, 196)
+        item3 = Item("Nugget", "High resale value", 12, 5000)
         self._loot = [potion, potion2, potion3, item, item2, item3]
         
     def enter(self, player):

@@ -64,19 +64,19 @@ class MinasMorgul(UniquePlace):
         
         #Create loot
         description = "Seems to have a mind of its own"
-        weapon = Weapon("Morgul Blade", description, 5, 0, 0)
+        weapon = Weapon("Morgul Blade", description, 6, 32, 18)
         description = "Rusted over"
-        weapon2 = Weapon("Morgul Blade", description, 4, 0 ,0)
+        weapon2 = Weapon("Morgul Blade", description, 6, 18 ,16)
         description = "Completely useless"
-        armor = Armor("Rotting Shield", description, 5, 0, 0)
+        armor = Armor("Rotting Shield", description, 4, 6, 12)
         description = "Too small for a human"
-        armor2 = Armor("Travel Boots", description, 4, 0, 0)
+        armor2 = Armor("Travel Boots", description, 4, 4, 1)
         description = "Strange ingredients"
-        potion = Potion("Orcish Tea", description, 1, 0, 2)
-        description = "Of questionable health value"
-        potion2 = Potion("Orcish Tea", description, 1, 0, 2)
-        description = "Of potential value on the free market"
-        item = Item("Orcish Banister", description, 1, 0)
+        potion = Potion("Orcish Tea", description, 2, 0, -15)
+        description = "Questionable health value"
+        potion2 = Potion("Orcish Tea", description, 2, 0, -20)
+        description = "Potential resale value"
+        item = Item("Orcish Banister", description, 5, 42)
         self._loot = [weapon, weapon2, armor, armor2, potion, potion2, item]
         
     def enter(self, player):

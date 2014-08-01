@@ -100,8 +100,7 @@ class Space(object):
         if isinstance(item, Item):
             self._items.addItem(item)
         elif isinstance(item, list):
-            for specificItem in item:
-                self._items.addItem(specificItem)
+            self._items.addItems(item)
         else:
             errorMsg = "space.AddItem() was given invalid item type."
             raise AssertionError(errorMsg)

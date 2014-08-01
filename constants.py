@@ -398,7 +398,7 @@ MONSTER_STATS = {BarrowWight:       [18, 2, 6],
                  Goblin:            [28, 5, 12],
                  GreatGoblin:       [82, 8, 42],
                  KingOfTheBarrows:  [72, 4, 32],
-                 Nazgul:            [32, 3, 12],
+                 Nazgul:            [44, 3, 12],
                  Nazgul_II:         [82, 10, 52],
                  Nazgul_III:        [240, 48, 120],
                  Troll:             [86, 8, 36],
@@ -429,6 +429,16 @@ class BattleEngineContext(object):
     RANDOM = 1
     STORY  = 2
 
+#Battle engine     
+class ItemFind(object):
+    """
+    Constants used for determining whether player has found items as a result 
+    of battle.
+    """
+    lowLevel   = [100, 450, 175]
+    highLevel  = [350, 1000, 675]
+    eliteLevel = [500, 5000, 1000]
+    
 #Battle engine constants
 RUN_PROBABILITY_SUCCESS = 1
 STANDARD_DEVIATION      = 3

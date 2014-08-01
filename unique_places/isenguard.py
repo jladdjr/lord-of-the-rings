@@ -64,7 +64,7 @@ class Isenguard(UniquePlace):
         #Spawn loot
         description = ("Two gigantic black keys needed to gain entry to the"
         " Tower of Orthanc")
-        keysOfOrthanc = Item("Keys to Orthanc", description, 1, 72)
+        keysOfOrthanc = Item("Keys to Orthanc", description, 1, 104)
         palatir = Item("Palatir", "Stones of Seeing", 6, 112)
         self._loot = [keysOfOrthanc, palatir]
         

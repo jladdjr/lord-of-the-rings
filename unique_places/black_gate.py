@@ -93,13 +93,13 @@ class BlackGate(UniquePlace):
             self._wave4.append(monster)
         
         #Create loot
-        weapon = Weapon("Orcish Knife", "Jagged and old", 5, 0, 0)
-        armor = Armor("Rotting Boots", "Completely useless", 5, 0, 0)
-        potion = Potion("Orc Draught", "May contain human flesh", 1, 0, 2)
+        weapon = Weapon("Orcish Knife", "Jagged and old", 4, 12, 8)
+        armor = Armor("Rotting Boots", "Completely useless", 4, 0, 0)
+        potion = Potion("Orc Draught", "May contain human flesh", 2, 0, -15)
         potion2 = Potion("Orc Draught", 
-            "Basically the orcish version of Gatorade", 1, 0, 2)
-        item = Item("Orcish Pillow", "Basically, a rock", 1, 0)
-        item2 = Item("Orcish Blankets", "For slumber parties", 1, 0)
+            "Basically the orcish version of Gatorade", 2, 0, -10)
+        item = Item("Orcish Pillow", "Basically, a rock", 3, 0)
+        item2 = Item("Orcish Blankets", "For slumber parties", 4, 2)
         self._loot = [weapon, armor, potion, potion2, item, item2]
         
     def enter(self, player):

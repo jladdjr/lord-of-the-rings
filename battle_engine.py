@@ -5,6 +5,10 @@ import random
 
 import factories.monster_factory
 from commands.use_potion_command import UsePotionCommand
+from util.helpers import triangular
+from items.unique_items import lowLevelFindableUniques
+from items.unique_items import highLevelFindableUniques
+from items.unique_items import eliteLevelFindableUniques
 import constants
 
 def battle(player, context, monsters = None):
@@ -264,10 +268,50 @@ def _monsterAttackPhase(player, monsters):
         if player.getHp() == 0:
             print ""
             return False
-            
     print ""
+    
     #Battle continuation
     return True
+
+def _itemFind(player, experience):
+    """
+    Calculates whether player finds an item and which item he finds.
+    
+    @param player:         The player object.
+    @param experience:     The experience gained from the battle.
+    """
+    location = player.getLocation()
+
+    #Item find for low-level uniques
+    lowLevel = triangular(constants.ItemFind.lowLevel)
+    if experience > lowLevel:
+        item = random.choice(lowLevelFindableUniques)
+        print "You found %s!" % item.getName()
+        if player.addToInventory(item):
+            lowLevelFindableUniques.remove(item)
+        else:
+            location.addItem(item)
+    
+    #Item find for high-level uniques
+    highLevel = triangular(constants.ItemFind.highLevel)
+    if experience > highLevel:
+        item = random.choice(highLevelFindableUniques)
+        print "You found %s!" % item.getName()
+        if player.addToInventory(item):
+            highLevelFindableUniques.remove(item)
+        else:
+            location.addItem(item)
+            
+    #Item find for elite-level uniques
+    eliteLevel = triangular(constants.ItemFind.eliteLevel)
+    if experience > eliteLevel:
+        item = random.choice(eliteLevelFindableUniques)
+        print "You found %s!" % item.getName()
+        if player.addToInventory(item):
+            eliteLevelFindableUniques.remove(item)
+        else: 
+            location.addItem(item)
+    print ""
     
 def _endSequence(player, earnings):
     """
@@ -295,6 +339,8 @@ def _endSequence(player, earnings):
     print bar
     print victoryDeclaration
     print gainsDeclaration
+    print ""
+    _itemFind(player, experience)
     player.increaseMoney(money)
     player.increaseExperience(experience)
     print bar
