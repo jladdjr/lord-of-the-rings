@@ -26,6 +26,10 @@ from monsters.mouth_of_sauron import MouthOfSauron
 from monsters.witch_king import WitchKing
 from monsters.shelob import Shelob
 from monsters.balrog import Balrog
+from monsters.orc_ii import Orc_II
+from monsters.orc_archer_ii import OrcArcher_II
+from monsters.troll_ii import Troll_II
+from monsters.black_numernorian_ii import BlackNumernorian_II
 
 """
 Constants used in Lord of the Rings.
@@ -107,7 +111,7 @@ class RegionType(object):
     RHOVANION     = 6
     ROHAN         = 7
     GONDOR        = 8
-    MORDOR        = 9
+    MORDOR        = 8
 
 #Region base spawn
 class RegionBaseSpawn(object):
@@ -167,111 +171,118 @@ class SpaceSpawnProb(object):
     ithilien            = .85
 
 #Space bonusDifficulty
-class spaceBonusDiff(object):
+class SpaceBonusDiff(object):
     """
     Used to store space bonus difficulty probabilities.
     """
-    """
     shire               = 0
-    oldForest           = .05
-    weatherHills        = .1
-    trollshaws          = .15
-    mistyMountainsNorth = .2
+    oldForest           = 0
+    weatherHills        = 0
+    trollshaws          = .2
+    mistyMountainsNorth = 0
     highPass            = 0
-    mirkwood            = 
-    southernMirkwood    = 
+    mirkwood            = 0
+    southernMirkwood    = .2
     barrowDowns         = 0
-    bruinen             = .25
-    mitheithel          = .3
-    swanfleet           = 
-    dunland             = 
-    mistyMountainsSouth = 
-    lorien              = 
-    fangorn             = 
-    theWold             = 
-    fieldOfCelebrant    = 
-    calenardhon         = 
-    westfold            = 
-    westemnet           = 
-    eastemnet           = 
-    emynMuil            = 
-    eastfold            = 
-    nindalf             = 
-    deadMarshes         = 
-    udun                = 
-    cairAndros          = 
-    orodruin            = 
-    anorien             = 
-    anduin              = 
-    ephelDuath          = 
-    cirithUngol         = 
-    plateauOfGorgoth    = 
-    lossamarch          = 
-    ithilien            = 
-    """
+    bruinen             = 0
+    mitheithel          = .2
+    swanfleet           = .2
+    dunland             = 0
+    mistyMountainsSouth = 0
+    lorien              = 0
+    fangorn             = 0
+    theWold             = 0
+    fieldOfCelebrant    = 0
+    calenardhon         = .5
+    westfold            = .3
+    westemnet           = .15
+    eastemnet           = 0
+    emynMuil            = 0
+    eastfold            = 0
+    nindalf             = 0
+    deadMarshes         = .2
+    udun                = .3
+    cairAndros          = .2
+    orodruin            = .3
+    anorien             = .3
+    anduin              = 0
+    ephelDuath          = .2
+    cirithUngol         = .2
+    plateauOfGorgoth    = .2
+    lossamarch          = 0
+    ithilien            = .2
+
 #Monster names
 class MonsterNames(object):
     """
     Contains the names of the monsters in LotR.
     """
-    BarrowWight       = "Barrow Wight"
-    Goblin            = "Goblin"
-    GreatGoblin       = "Great Goblin"
-    KingOfTheBarrows  = "King of the Barrows"
-    Nazgul            = "Nazgul"
-    Nazgul_II         = "Nazgul II"
-    Nazgul_III        = "Nazgul III"
-    Troll             = "Troll"
-    WargRider         = "Warg Rider"
-    UrukHai           = "Uruk Hai"
-    UrukHaiArcher     = "Uruk Hai Archer"
-    EliteUrukHai      = "Elite Uruk Hai"
-    Dunlending        = "Dunlending"
-    Orc               = "Orc"
-    OrcArcher         = "Orcish Archer"
-    SiegeWorks        = "Siege Works"
-    DragonOfMordor    = "Dragon of Mordor"
-    CorsairOfUmbar    = "Corsair of Umbar"
-    ArmoredMumakil    = "Armored Mumakil"
-    BlackNumernorian  = "Black Numernorian"
-    EasterlingWarrior = "Easterling Warrior"
-    Sauroman          = "Sauroman of Many Colors"
-    MouthOfSauron     = "Mouth Of Sauron"
-    WitchKing         = "Witch King"
-    Shelob            = "Shelob"
-    Balrog            = "Balrog"
+    BarrowWight         = "Barrow Wight"
+    Goblin              = "Goblin"
+    GreatGoblin         = "Great Goblin"
+    KingOfTheBarrows    = "King of the Barrows"
+    Nazgul              = "Nazgul"
+    Nazgul_II           = "Nazgul II"
+    Nazgul_III          = "Nazgul III"
+    Troll               = "Troll"
+    WargRider           = "Warg Rider"
+    UrukHai             = "Uruk Hai"
+    UrukHaiArcher       = "Uruk Hai Archer"
+    EliteUrukHai        = "Elite Uruk Hai"
+    Dunlending          = "Dunlending"
+    Orc                 = "Orc"
+    OrcArcher           = "Orcish Archer"
+    SiegeWorks          = "Siege Works"
+    DragonOfMordor      = "Dragon of Mordor"
+    CorsairOfUmbar      = "Corsair of Umbar"
+    ArmoredMumakil      = "Armored Mumakil"
+    BlackNumernorian    = "Black Numernorian"
+    EasterlingWarrior   = "Easterling Warrior"
+    Sauroman            = "Sauroman of Many Colors"
+    MouthOfSauron       = "Mouth Of Sauron"
+    WitchKing           = "Witch King"
+    Shelob              = "Shelob"
+    Balrog              = "Balrog"
+    Orc_II              = "Orc II"
+    OrcArcher_II        = "Orc Archer II"
+    Troll_II            = "Troll II"
+    BlackNumernorian_II = "Black Numernorian II"
     
 #Monster descriptions
 class MonsterDescriptions(object):
     """
     Contains the descriptions of the monsters in LotR.
     """
-    BarrowWight       = "A sad soul left haunting the Downs."
-    Goblin            = "\"Give me all of your stuff!\""
-    GreatGoblin       = "\"Give me ALL of your stuff!\""
-    KingOfTheBarrows  = "An intense, evil spirit."
-    Nazgul            = "\"AAAAEEEEEEEEEEE!!!\""
-    Nazgul_II         = "Learned from past mistakes."
-    Nazgul_III        = "With dragon mount."
-    Troll             = "\"Merrily I troll along.\""
-    WargRider         = "Likes riding... wargs."
-    UrukHai           = "\"You even lift bro?\""
-    UrukHaiArcher     = "Lifts over long distances."
-    EliteUrukHai      = "Bench press champion."
-    Dunlending        = "The original people of Middle Earth."
-    Orc               = "Not very nice."
-    OrcArcher         = "A total j@ck@$$."
-    SiegeWorks        = "Completely useless in this situation."
-    DragonOfMordor    = "Distant cousin of Dragonite."
-    CorsairOfUmbar    = "Basically, pirates."
-    ArmoredMumakil    = "Armored elephants mounted with archers."
-    BlackNumernorian  = "Extremely powerful sorcerers."
-    EasterlingWarrior = "From China."
-    Sauroman          = "Head of the White Council."
-    MouthOfSauron     = "Chief Emissary of Sauron."
-    WitchKing         = "Sauron's second in command."
-    Shelob            = "Last Child of Ungoliant"
-    Balrog            = "Durin's Bane"
+    BarrowWight         = "A sad soul left haunting the Downs."
+    Goblin              = "\"Give me all of your stuff!\""
+    GreatGoblin         = "\"Give me ALL of your stuff!\""
+    KingOfTheBarrows    = "An intense, evil spirit."
+    Nazgul              = "\"AAAAEEEEEEEEEEE!!!\""
+    Nazgul_II           = "Learned from past mistakes."
+    Nazgul_III          = "With dragon mount."
+    Troll               = "\"Merrily I troll along.\""
+    WargRider           = "Likes riding... wargs."
+    UrukHai             = "\"You even lift bro?\""
+    UrukHaiArcher       = "Lifts over long distances."
+    EliteUrukHai        = "Bench press champion."
+    Dunlending          = "The original people of Middle Earth."
+    Orc                 = "Not very nice."
+    OrcArcher           = "A total j@ck@$$."
+    SiegeWorks          = "Completely useless in this situation."
+    DragonOfMordor      = "Distant cousin of Dragonite."
+    CorsairOfUmbar      = "Basically, pirates."
+    ArmoredMumakil      = "Armored elephants mounted with archers."
+    BlackNumernorian    = "Extremely powerful sorcerers."
+    EasterlingWarrior   = "From China."
+    Sauroman            = "Head of the White Council."
+    MouthOfSauron       = "Chief Emissary of Sauron."
+    WitchKing           = "Sauron's second in command."
+    Shelob              = "Last Child of Ungoliant"
+    Balrog              = "Durin's Bane"
+    Orc_II              = "Orc's older brother."
+    OrcArcher_II        = "Orc archer's older brother."
+    Troll_II            = "Troll's older brother."
+    BlackNumernorian_II = "Black numernorian's older brother."    
     
 #Monster attack strings
 class MonsterAttackStrings(object):
@@ -279,64 +290,72 @@ class MonsterAttackStrings(object):
     Contains the attack strings of the monsters in LotR. For instance,
     "Goblin *sliced and diced* %s for %s damage!"
     """
-    BarrowWight       = "sang a sad song"
-    Goblin            = "slice and diced"
-    GreatGoblin       = "slice and diced"
-    KingOfTheBarrows  = "sang a symphony of sadness"
-    Nazgul            = "slashed you with a Morgul knife"
-    Nazgul_II         = "slashed you with Scythe of Sorrow"
-    Nazgul_III        = "fire-breathing dragoned you"
-    Troll             = "slamed you with fists of malice"
-    WargRider         = "trampled around"
-    UrukHai           = "tried to out lift you"
-    UrukHaiArcher     = "tried to out lift you"
-    EliteUrukHai      = "tried to out lift you"
-    Dunlending        = "hacked and slashed"
-    Orc               = "hacked"
-    OrcArcher         = "shot fiery darts"
-    SiegeWorks        = "did nothing"
-    DragonOfMordor    = "used hyperbeam"
-    CorsairOfUmbar    = "slashed"
-    ArmoredMumakil    = "got pissed and started trampling around"
-    BlackNumernorian  = "summon spiritual darkness"
-    EasterlingWarrior = "tried to avenge his ancestors"
-    Sauroman          = "cast elemental spells"
-    MouthOfSauron     = "slashed you with an enchanted blade"
-    WitchKing         = "performed black magic"
-    Shelob            = "stung you"
-    Balrog            = "scourged you with whips of fire"
+    BarrowWight         = "sang a sad song"
+    Goblin              = "slice and diced"
+    GreatGoblin         = "slice and diced"
+    KingOfTheBarrows    = "sang a symphony of sadness"
+    Nazgul              = "slashed you with a Morgul knife"
+    Nazgul_II           = "slashed you with Scythe of Sorrow"
+    Nazgul_III          = "fire-breathing dragoned you"
+    Troll               = "slamed you with fists of malice"
+    WargRider           = "trampled around"
+    UrukHai             = "tried to out lift you"
+    UrukHaiArcher       = "tried to out lift you"
+    EliteUrukHai        = "tried to out lift you"
+    Dunlending          = "hacked and slashed"
+    Orc                 = "hacked"
+    OrcArcher           = "shot fiery darts"
+    SiegeWorks          = "did nothing"
+    DragonOfMordor      = "used hyperbeam"
+    CorsairOfUmbar      = "slashed"
+    ArmoredMumakil      = "got pissed and started trampling around"
+    BlackNumernorian    = "summon spiritual darkness"
+    EasterlingWarrior   = "tried to avenge his ancestors"
+    Sauroman            = "cast elemental spells"
+    MouthOfSauron       = "slashed you with an enchanted blade"
+    WitchKing           = "performed black magic"
+    Shelob              = "stung you"
+    Balrog              = "scourged you with whips of fire"
+    Orc_II              = "hacked"
+    OrcArcher_II        = "shot fiery darts"
+    Troll_II            = "slamed you with fists of malice"
+    BlackNumernorian_II = "summon spiritual darkness"
     
 class MonsterDeathStrings(object):
     """
     Contains the death strings of the monsters in LotR. These strings
     are displayed as player kills monster.
     """
-    BarrowWight       = "\"Good. I am going back to sleep now.\""
-    Goblin            = "\"I'm going back home now.\""
-    GreatGoblin       = "\"I'm going back home now too.\""
-    KingOfTheBarrows  = "\"I am going back to sleep now.\""
-    Nazgul            = "\"AAAAEEEEEEEEEEE!!!\""
-    Nazgul_II         = "\"...AAAAEEEEEEEEEEE!!!\""
-    Nazgul_III        = "\"....\""
-    Troll             = "\"Merrily I troll away.\""
-    WargRider         = "[Whimpers] ...My warg...."
-    UrukHai           = "Well, back to the gym I guess...."
-    UrukHaiArcher     = "Leg lifts and suicides here I come...."
-    EliteUrukHai      = "[Walks back to the locker room depressed.]"
-    Dunlending        = "\"Why the heck am I even here?\""
-    Orc               = "Orc was cut in two!"
-    OrcArcher         = "Orcish Archer was slain!"
-    SiegeWorks        = "...."
-    DragonOfMordor    = "Dragon of Mordor was knocked out!"
-    CorsairOfUmbar    = "Corsair of Umbar went back home."
-    ArmoredMumakil    = "Armored Mumakil is going home to Africa now."
-    BlackNumernorian  = "[Black Numernorian returned to the shadows.]"
-    EasterlingWarrior = "Easterling Warrior went back to China."
-    Sauroman          = "\"Wizards reincarnate you know....\""
-    MouthOfSauron     = "\"Rides off to fight another day.\""
-    WitchKing         = "\"Hmm....\""
-    Shelob            = "[Shelob retreats into the shadows.]"
-    Balrog            = "[The Balrog retreats into the shadows.']"
+    BarrowWight         = "\"Good. I am going back to sleep now.\""
+    Goblin              = "\"I'm going back home now.\""
+    GreatGoblin         = "\"I'm going back home now too.\""
+    KingOfTheBarrows    = "\"I am going back to sleep now.\""
+    Nazgul              = "\"AAAAEEEEEEEEEEE!!!\""
+    Nazgul_II           = "\"...AAAAEEEEEEEEEEE!!!\""
+    Nazgul_III          = "\"....\""
+    Troll               = "\"Merrily I troll away.\""
+    WargRider           = "[Whimpers] ...My warg...."
+    UrukHai             = "Well, back to the gym I guess...."
+    UrukHaiArcher       = "Leg lifts and suicides here I come...."
+    EliteUrukHai        = "[Walks back to the locker room depressed.]"
+    Dunlending          = "\"Why the heck am I even here?\""
+    Orc                 = "Orc was cut in two!"
+    OrcArcher           = "Orcish Archer was slain!"
+    SiegeWorks          = "...."
+    DragonOfMordor      = "Dragon of Mordor was knocked out!"
+    CorsairOfUmbar      = "Corsair of Umbar went back home."
+    ArmoredMumakil      = "Armored Mumakil is going home to Africa now."
+    BlackNumernorian    = "[Black Numernorian returned to the shadows.]"
+    EasterlingWarrior   = "Easterling Warrior went back to China."
+    Sauroman            = "\"Wizards reincarnate you know....\""
+    MouthOfSauron       = "\"Rides off to fight another day.\""
+    WitchKing           = "\"Hmm....\""
+    Shelob              = "[Shelob retreats into the shadows.]"
+    Balrog              = "[The Balrog retreats into the shadows.']"
+    Orc_II              = "Orc was cut in two!"
+    OrcArcher_II        = "Orcish Archer was slain!"
+    Troll_II            = "\"Merrily I troll away.\""
+    BlackNumernorian_II = "[Black Numernorian returned to the shadows.]"
     
 #Region monster distribution
 """
@@ -380,12 +399,12 @@ REGIONAL_MONSTER_DISTRIBUTION = {
                               ArmoredMumakil: [.85, .9], 
                               SiegeWorks: [.9, .95], 
                               BlackNumernorian: [.95, 1]},
-     RegionType.MORDOR:      {Orc: [0, .5], 
-                              OrcArcher: [.5, .65], 
-                              Troll: [.65, .75], 
+     RegionType.MORDOR:      {Orc_II: [0, .5], 
+                              OrcArcher_II: [.5, .65], 
+                              Troll_II: [.65, .75], 
                               Nazgul_III: [.75, .85], 
                               DragonOfMordor: [.85, .9], 
-                              BlackNumernorian: [.9, .95], 
+                              BlackNumernorian_II: [.9, .95], 
                               SiegeWorks: [.95, 1]}
      }
 
@@ -395,33 +414,37 @@ Monster base stats are the only paramater used in monster creation.
 Stats are a 3-element list whose elements are: hp, attack, and
 experience (in that order).
 """
-MONSTER_STATS = {BarrowWight:       [18, 2, 6],
-                 Goblin:            [28, 5, 12],
-                 GreatGoblin:       [82, 8, 42],
-                 KingOfTheBarrows:  [72, 4, 32],
-                 Nazgul:            [44, 3, 12],
-                 Nazgul_II:         [82, 10, 52],
-                 Nazgul_III:        [240, 48, 120],
-                 Troll:             [86, 8, 36],
-                 WargRider:         [32, 5, 14],
-                 UrukHai:           [54, 5, 18],
-                 UrukHaiArcher:     [32, 6, 16],
-                 EliteUrukHai:      [72, 8, 28],
-                 Dunlending:        [26, 5, 12],
-                 Orc:               [26, 5, 12],
-                 OrcArcher:         [22, 7, 16],
-                 SiegeWorks:        [220, 0, 52],
-                 DragonOfMordor:    [300, 67, 176],
-                 CorsairOfUmbar:    [76, 12, 48],
-                 ArmoredMumakil:    [264, 42, 96],
-                 BlackNumernorian:  [66, 12, 48],
-                 EasterlingWarrior: [74, 8, 30],
-                 Sauroman:          [152, 26, 72],
-                 MouthOfSauron:     [480, 72, 250],
-                 WitchKing:         [600, 84, 320],
-                 Shelob:            [450, 70, 140],
-                 Balrog:            [1840, 162, 860]}
-                 
+MONSTER_STATS = {BarrowWight:          [18, 2, 6],
+                 Goblin:               [28, 5, 12],
+                 GreatGoblin:          [82, 8, 42],
+                 KingOfTheBarrows:     [72, 4, 32],
+                 Nazgul:               [44, 3, 12],
+                 Nazgul_II:            [82, 10, 52],
+                 Nazgul_III:           [240, 48, 120],
+                 Troll:                [86, 8, 36],
+                 WargRider:            [32, 5, 14],
+                 UrukHai:              [54, 5, 18],
+                 UrukHaiArcher:        [32, 6, 16],
+                 EliteUrukHai:         [72, 8, 28],
+                 Dunlending:           [26, 5, 12],
+                 Orc:                  [26, 5, 12],
+                 OrcArcher:            [22, 7, 16],
+                 SiegeWorks:           [220, 0, 52],
+                 DragonOfMordor:       [300, 67, 176],
+                 CorsairOfUmbar:       [76, 12, 48],
+                 ArmoredMumakil:       [264, 42, 96],
+                 BlackNumernorian:     [66, 12, 48],
+                 EasterlingWarrior:    [74, 8, 30],
+                 Sauroman:             [152, 26, 72],
+                 MouthOfSauron:        [480, 72, 250],
+                 WitchKing:            [600, 84, 320],
+                 Shelob:               [450, 70, 140],
+                 Balrog:               [1840, 162, 860],
+                 Orc_II:               [72, 10, 35],
+                 OrcArcher_II:         [66, 12, 40],
+                 Troll_II:             [166, 16, 80],
+                 BlackNumernorian_II: [152, 24, 92]}
+    
 #Battle engine context
 class BattleEngineContext(object):
     """

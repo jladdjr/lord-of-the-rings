@@ -107,7 +107,7 @@ vilya = Charm("Vilya", "Elven Ring of Air", 0, 265, 0, 15, 0)
 elvenRings = [narya, nenya, vilya]
 
 #Shop weapons
-#Eriador Shops - levels 1-6
+#Eriador Shops
 walkingStick = Weapon("Walking Stick", "Offensive properties", 2, 4, 1)
 gardenShovel = Weapon("Garden Shovel", 
     "The best weapon we could find...", 3, 5, 2)
@@ -123,7 +123,7 @@ eriadorWeaponsDist = {
     hobbitElite: [4, 20]
 }
 
-#Rohan Shops - levels 8-12
+#Rohan Shops
 ironSword = Weapon("Iron Sword", "Strange markings", 6, 18, 12)
 mediumSword = Weapon("Medium Sword", "Battle tested", 8, 26, 14)
 rohirricBow = Weapon("Rohirric Bow", "Historic embroidery", 10, 30, 16)
@@ -138,7 +138,7 @@ rohanWeaponsDist = {
     battleLance: [10, 20],
 }
 
-#Rhovanion Shops - levels 6-15
+#Rhovanion Shops
 elvenTrainerBow = Weapon("Elven Trainer Bow", "For elf children", 6, 16, 8)
 elvenBlade = Weapon("Elven Blade", "Glows as enemies near", 5, 24, 12)
 elvenBow = Weapon("Elven Bow", "Standard grade", 6, 35, 16)
@@ -156,7 +156,7 @@ rhovanionWeaponsDist = {
     eliteElvenBow: [12, 20],
 }
 
-#Gondor Shops - levels 12-20
+#Gondor Shops
 soldiersSword = Weapon("Soldier's Sword", "Standard grade", 8, 30, 16)
 longSword = Weapon("Long Sword", "A Gondorian blade", 12, 52, 20)
 compoundBow = Weapon("Compound Bow", "Extreme range", 12, 56, 22)
@@ -172,7 +172,7 @@ gondorWeaponsDist = {
 }
 
 #Shop armor
-#Eriador Shops - levels 1-5
+#Eriador Shops
 farmerShawl = Armor("Farmer's Shawls", "Protection from the sun", 4, 8, 1)
 travelCloak = Armor("Travel Cloak", "A dark shroud", 3, 12, 1)
 leatherCloak = Armor("Leather Cloak", "Stuffy", 5, 14, 2)
@@ -183,7 +183,7 @@ eriadorArmorDist = {
     leatherCloak: [4, 20]
 }
 
-#Rohan Shops - levels 8-12
+#Rohan Shops
 leatherArmor = Armor("Leather Armor", "Light and lithe", 6, 18, 2)
 chainmail = Armor("Chainmail", "Took an incredibly long time to make", 10, 24, 4)
 suitOfArmor = Armor("Suit of Armor", "To become a knight in shining armor", 
@@ -198,7 +198,7 @@ rohanArmorDist = {
     rohirricBreastplate: [12, 20]
 }
 
-#Rhovanion Shops - levels 6-15
+#Rhovanion Shops
 workersGear = Armor("Worker's Gear", "Poor-elf's clothes", 6, 14, 2)
 elvenWare = Armor("Elven Ware", "A time-tested classic", 4, 40, 3)
 eliteElvenWare = Armor("Elite Elven Ware", "At a huge premium", 4, 152, 5)
@@ -211,7 +211,7 @@ rhovanionArmorDist = {
     velvetSuit: [12, 20]
 }
 
-#Gondorian Shops - levels 12-20
+#Gondorian Shops
 standardSoldiersArmor = Armor("Standard Soldier's Armor", "Sells for a reason", 
     12, 56, 3)
 platemail = Armor("Platemail", "Can take a wallop", 18, 84, 4)

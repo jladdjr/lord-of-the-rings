@@ -2,10 +2,10 @@
 
 from unique_place import UniquePlace
 from monsters.nazgul_iii import Nazgul_III
-from monsters.orc import Orc
-from monsters.orc_archer import OrcArcher
-from monsters.troll import Troll
-from monsters.black_numernorian import BlackNumernorian
+from monsters.orc_ii import Orc_II
+from monsters.orc_archer_ii import OrcArcher_II
+from monsters.troll_ii import Troll_II
+from monsters.black_numernorian_ii import BlackNumernorian_II
 from monsters.mouth_of_sauron import MouthOfSauron
 from battle_engine import battle
 from items.weapon import Weapon
@@ -38,30 +38,30 @@ class Isenmouthe(UniquePlace):
         
         #Create monster wave #1 
         for monster in range(14):
-            monster = Orc(constants.MONSTER_STATS[Orc])
+            monster = Orc_II(constants.MONSTER_STATS[Orc_II])
             self._wave.append(monster)
         for monster in range(7):
-            monster = OrcArcher(constants.MONSTER_STATS[OrcArcher])
+            monster = OrcArcher_II(constants.MONSTER_STATS[OrcArcher_II])
             self._wave.append(monster)
         for monster in range(6):
-            monster = Troll(constants.MONSTER_STATS[Troll])
+            monster = Troll_II(constants.MONSTER_STATS[Troll_II])
             self._wave.append(monster)
         for monster in range(3):
-            monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])
+            monster = BlackNumernorian_II(constants.MONSTER_STATS[BlackNumernorian_II])
             self._wave.append(monster)
         
         #Create monster wave #2
         for monster in range(5):
-            monster = Orc(constants.MONSTER_STATS[Orc])
+            monster = Orc_II(constants.MONSTER_STATS[Orc_II])
             self._wave2.append(monster)
         for monster in range(4):
-            monster = OrcArcher(constants.MONSTER_STATS[OrcArcher])
+            monster = OrcArcher_II(constants.MONSTER_STATS[OrcArcher_II])
             self._wave2.append(monster)
         for monster in range(2):
-            monster = Troll(constants.MONSTER_STATS[Troll])
+            monster = Troll_II(constants.MONSTER_STATS[Troll_II])
             self._wave2.append(monster)
         for monster in range(5):
-            monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])
+            monster = BlackNumernorian_II(constants.MONSTER_STATS[BlackNumernorian_II])
             self._wave2.append(monster)
         for monster in range(4):
             monster = Nazgul_III(constants.MONSTER_STATS[Nazgul_III])

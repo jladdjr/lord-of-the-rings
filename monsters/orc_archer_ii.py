@@ -3,7 +3,7 @@
 from monsters.monster import Monster
 import constants
 
-class OrcArcher(Monster):
+class OrcArcher_II(Monster):
     """
     Inherits from Monster.
     
@@ -12,12 +12,12 @@ class OrcArcher(Monster):
     """
     def __init__(self, stats):
         """
-        Initializes a OrcArcher monster.
+        Initializes a OrcArcher_II monster.
 
         @param stats:     3-element list of Monster stats including attack, hp,
                           and experience (in that order).
         """
-        Monster.__init__(self, constants.MonsterNames.OrcArcher, 
-        constants.MonsterDescriptions.OrcArcher, stats, 
-        constants.MonsterAttackStrings.OrcArcher, 
-        constants.MonsterDeathStrings.OrcArcher)
+        Monster.__init__(self, constants.MonsterNames.OrcArcher_II, 
+        constants.MonsterDescriptions.OrcArcher_II, stats, 
+        constants.MonsterAttackStrings.OrcArcher_II, 
+        constants.MonsterDeathStrings.OrcArcher_II)

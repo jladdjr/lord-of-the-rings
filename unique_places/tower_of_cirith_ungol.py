@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.orc import Orc
-from monsters.orc_archer import OrcArcher
+from monsters.orc_ii import Orc_II
+from monsters.orc_archer_ii import OrcArcher_II
 from monsters.shelob import Shelob
 from battle_engine import battle
 from items.unique_items import phialOfGaladriel
@@ -38,10 +38,10 @@ class TowerOfCirithUngol(UniquePlace):
         
         #Create monster wave #2
         for monster in range(15):
-            monster = Orc(constants.MONSTER_STATS[Orc])
+            monster = Orc_II(constants.MONSTER_STATS[Orc_II])
             self._wave2.append(monster)
         for monster in range(6):
-            monster = OrcArcher(constants.MONSTER_STATS[OrcArcher])
+            monster = OrcArcher_II(constants.MONSTER_STATS[OrcArcher_II])
             self._wave2.append(monster)
             
     def enter(self, player):

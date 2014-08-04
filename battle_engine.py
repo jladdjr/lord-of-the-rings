@@ -151,26 +151,27 @@ def _monsterNumGen(player):
     """
     location = player.getLocation()
     region = location.getRegion()
+    bonusDifficulty = location.getBattleBonusDifficulty()
 
     #Calculate region spawn
     if region == constants.RegionType.ERIADOR:
-        monsterCount = constants.RegionBaseSpawn.ERIADOR
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ERIADOR
     elif region == constants.RegionType.BARROW_DOWNS:
-        monsterCount = constants.RegionBaseSpawn.BARROW_DOWNS
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.BARROW_DOWNS
     elif region == constants.RegionType.HIGH_PASS:
-        monsterCount = constants.RegionBaseSpawn.HIGH_PASS
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.HIGH_PASS
     elif region == constants.RegionType.ENEDWAITH:
-        monsterCount = constants.RegionBaseSpawn.ENEDWAITH
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ENEDWAITH
     elif region == constants.RegionType.MORIA:
-        monsterCount = constants.RegionBaseSpawn.MORIA
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORIA
     elif region == constants.RegionType.RHOVANION:
-        monsterCount = constants.RegionBaseSpawn.RHOVANION
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.RHOVANION   
     elif region == constants.RegionType.ROHAN:
-        monsterCount = constants.RegionBaseSpawn.ROHAN
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.ROHAN       
     elif region == constants.RegionType.GONDOR:
-        monsterCount = constants.RegionBaseSpawn.GONDOR
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.GONDOR      
     elif region == constants.RegionType.MORDOR:
-        monsterCount = constants.RegionBaseSpawn.MORDOR
+        monsterCount = (1 + bonusDifficulty) * constants.RegionBaseSpawn.MORDOR
     else:
         errorMsg = "Invalid region - region base monster determination."
         raise AssertionError(errorMsg)

@@ -2,9 +2,9 @@
 
 from unique_place import UniquePlace
 from monsters.nazgul_ii import Nazgul_II
-from monsters.orc import Orc
-from monsters.orc_archer import OrcArcher
-from monsters.troll import Troll
+from monsters.orc_ii import Orc_II
+from monsters.orc_archer_ii import OrcArcher_II
+from monsters.troll_ii import Troll_II
 from monsters.witch_king import WitchKing
 from battle_engine import battle
 from items.weapon import Weapon
@@ -35,13 +35,13 @@ class MinasMorgul(UniquePlace):
         
         #Create monster wave #1
         for monster in range(13):
-            monster = Orc(constants.MONSTER_STATS[Orc])
+            monster = Orc_II(constants.MONSTER_STATS[Orc_II])
             self._wave.append(monster)
         for monster in range(8):
-            monster = OrcArcher(constants.MONSTER_STATS[OrcArcher])
+            monster = OrcArcher_II(constants.MONSTER_STATS[OrcArcher_II])
             self._wave.append(monster)
         for monster in range(7):
-            monster = Troll(constants.MONSTER_STATS[Troll])
+            monster = Troll_II(constants.MONSTER_STATS[Troll_II])
             self._wave.append(monster)
         
         #Create monster wave #2
@@ -53,10 +53,10 @@ class MinasMorgul(UniquePlace):
         
         #Create monster wave #3
         for monster in range(7):
-            monster = Orc(constants.MONSTER_STATS[Orc])
+            monster = Orc_II(constants.MONSTER_STATS[Orc_II])
             self._wave3.append(monster)
         for monster in range(3):
-            monster = OrcArcher(constants.MONSTER_STATS[OrcArcher])
+            monster = OrcArcher_II(constants.MONSTER_STATS[OrcArcher_II])
             self._wave3.append(monster)
         for monster in range(4):
             monster = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])

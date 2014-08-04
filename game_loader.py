@@ -121,7 +121,8 @@ def getWorld():
     deforestation.
     """
     oldForest = Space("Old Forest", description, constants.RegionType.ERIADOR, 
-        battleProbability = constants.SpaceSpawnProb.oldForest, uniquePlace = tomBombadil)
+        battleProbability = constants.SpaceSpawnProb.oldForest, 
+        uniquePlace = tomBombadil)
 
     #The Weather Hills - Weathertop
     #Unique Place
@@ -147,7 +148,8 @@ def getWorld():
     which waylaid Bilbo and his companions during the Quest of Erebor.
     """
     trollshaws = Space("Trollshaws", description, constants.RegionType.ERIADOR, 
-        battleProbability = constants.SpaceSpawnProb.trollshaws)
+        battleProbability = constants.SpaceSpawnProb.trollshaws, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.trollshaws)
 
     #Misty Mountains North - Rivendell
     #Inn
@@ -278,6 +280,7 @@ def getWorld():
     southernMirkwood = Space("Southern Mirkwood", description, 
         constants.RegionType.RHOVANION, 
         battleProbability = constants.SpaceSpawnProb.southernMirkwood, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.southernMirkwood, 
         uniquePlace = dolGuldur)
 
     #Barrow Downs - Bree
@@ -340,8 +343,9 @@ def getWorld():
     description = """Mitheithel is the long river that rises in a place in the 
     icy north of Middle-earth called Hoarwell.
     """
-    mitheithel = Space("Mitheithel", description, 
-        constants.RegionType.ERIADOR, battleProbability = .5, 
+    mitheithel = Space("Mitheithel", description, constants.RegionType.ERIADOR, 
+        battleProbability = constants.SpaceSpawnProb.mitheithel, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.mitheithel, 
         uniquePlace = tharbad)
 
     #Swanfleet - Ost In Edhil
@@ -358,6 +362,7 @@ def getWorld():
     """
     swanfleet = Space("Swanfleet", description, constants.RegionType.ERIADOR, 
         battleProbability = constants.SpaceSpawnProb.swanfleet, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.swanfleet, 
         uniquePlace = ostInEdhil)
     
     #Dunland
@@ -480,6 +485,7 @@ def getWorld():
     calenardhon = Space("Calenardhon", description, 
         constants.RegionType.ENEDWAITH, 
         battleProbability = constants.SpaceSpawnProb.calenardhon, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.calenardhon, 
         uniquePlace = isenguard)
 
     #Westfold - Helm's Deep
@@ -517,6 +523,7 @@ def getWorld():
     """
     westfold = Space("Westfold", description, constants.RegionType.ROHAN, 
         battleProbability = constants.SpaceSpawnProb.westfold, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.westfold, 
         city = helmsDeep)
 
     #Westemnet
@@ -524,7 +531,8 @@ def getWorld():
     grassy plains east of the Entwash River.
     """ 
     westemnet = Space("West Emmet", description, constants.RegionType.ROHAN, 
-        battleProbability = constants.SpaceSpawnProb.westemnet)
+        battleProbability = constants.SpaceSpawnProb.westemnet, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.westemnet)
 
     #Eastemnet
     description = """The Eastemnet is part of Rohan. It contains wide, grassy 
@@ -634,7 +642,6 @@ def getWorld():
     """
     deadMarshes = Space("Dead Marshes", description, 
         constants.RegionType.MORDOR, 
-        battleProbability = constants.SpaceSpawnProb.deadMarshes, 
         uniquePlace = blackGate)
 
     #Valley of Udun - Isenmouthe
@@ -655,6 +662,7 @@ def getWorld():
     """
     udun = Space("Udun", description, constants.RegionType.MORDOR, 
         battleProbability = constants.SpaceSpawnProb.udun, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.udun, 
         uniquePlace = isenmouthe)
     
     #Cair Andros
@@ -665,7 +673,8 @@ def getWorld():
     """
     cairAndros = Space("Cair Andros", description, 
         constants.RegionType.GONDOR, 
-        battleProbability = constants.SpaceSpawnProb.cairAndros)
+        battleProbability = constants.SpaceSpawnProb.cairAndros, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.cairAndros)
 
     #Orodruin
     description = """Mount Doom, also known as Orodruin and Amon Amarth, is
@@ -673,7 +682,8 @@ def getWorld():
     that the One Ring may be destroyed.
     """
     orodruin = Space("Orodruin", description, constants.RegionType.MORDOR, 
-        battleProbability = constants.SpaceSpawnProb.orodruin)
+        battleProbability = constants.SpaceSpawnProb.orodruin, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.orodruin)
 
     #Anorien - Minas Tirith
     #Inn
@@ -767,6 +777,7 @@ def getWorld():
     """
     anduin = Space("Anduin", description, constants.RegionType.GONDOR, 
         battleProbability = constants.SpaceSpawnProb.anduin, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.anduin, 
         city = osgiliath, uniquePlace = argonath)
 
     #Ephel Duath - Minas Morgul
@@ -789,6 +800,7 @@ def getWorld():
     ephelDuath = Space("Ephel Duath", description, 
         constants.RegionType.MORDOR, 
         battleProbability = constants.SpaceSpawnProb.ephelDuath, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.ephelDuath, 
         uniquePlace = minasMorgul)
 
     #Cirith Ungol - Tower of Cirith Ungol
@@ -813,6 +825,7 @@ def getWorld():
     cirithUngol = Space("Cirith Ungol", description, 
         constants.RegionType.MORDOR, 
         battleProbability = constants.SpaceSpawnProb.cirithUngol, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.cirithUngol, 
         uniquePlace = towerOfCirithUngol)
 
     #Plateau of Gorgoth - Barad Dur
@@ -833,6 +846,7 @@ def getWorld():
     plateauOfGorgoth = Space("Plateau of Gorgoth", description, 
         constants.RegionType.MORDOR, 
         battleProbability = constants.SpaceSpawnProb.plateauOfGorgoth, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.plateauOfGorgoth, 
         uniquePlace = baradDur)
 
     #Lossamarch - Pelargir
@@ -871,7 +885,7 @@ def getWorld():
     description = """Lossarnach is a region and fiefdom in Southern Gondor. 
     Known as the Vale of Flowers, it is a fertile region lying south of the 
     White Mountains.
-    """ 
+    """
     lossamarch = Space("Lossamarch", description, constants.RegionType.GONDOR, 
         battleProbability = constants.SpaceSpawnProb.lossamarch, 
         city = pelargir)
@@ -881,7 +895,8 @@ def getWorld():
     the southwest.
     """
     ithilien = Space("Ithilien", description, constants.RegionType.GONDOR, 
-        battleProbability = constants.SpaceSpawnProb.ithilien)
+        battleProbability = constants.SpaceSpawnProb.ithilien, 
+        battleBonusDifficulty = constants.SpaceBonusDiff.ithilien)
 
     #Connections: East-West
     shire.createExit("east", oldForest, outgoingOnly = False)
