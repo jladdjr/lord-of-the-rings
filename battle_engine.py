@@ -290,9 +290,7 @@ def _itemFind(player, experience):
     if experience > lowLevel and lowLevelFindableUniques:
         item = random.choice(lowLevelFindableUniques)
         print "You found %s!" % item.getName()
-        if player.addToInventory(item):
-            lowLevelFindableUniques.remove(item)
-        else:
+        if not player.addToInventory(item):
             location.addItem(item)
             
     
@@ -301,9 +299,7 @@ def _itemFind(player, experience):
     if experience > highLevel and highLevelFindableUniques:
         item = random.choice(highLevelFindableUniques)
         print "You found %s!" % item.getName()
-        if player.addToInventory(item):
-            highLevelFindableUniques.remove(item)
-        else:
+        if not player.addToInventory(item):
             location.addItem(item)
             
     #Item find for elite-level uniques
@@ -311,9 +307,7 @@ def _itemFind(player, experience):
     if experience > eliteLevel and eliteLevelFindableUniques:
         item = random.choice(eliteLevelFindableUniques)
         print "You found %s!" % item.getName()
-        if player.addToInventory(item):
-            eliteLevelFindableUniques.remove(item)
-        else: 
+        if not player.addToInventory(item):
             location.addItem(item)
     
 def _endSequence(player, earnings):

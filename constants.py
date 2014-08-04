@@ -459,8 +459,8 @@ class ItemFind(object):
     Constants used for determining whether player has found items as a result 
     of battle.
     """
-    lowLevel   = [100, 450, 175]
-    highLevel  = [350, 1000, 675]
+    lowLevel   = [100, 5000, 300]
+    highLevel  = [350, 5000, 600]
     eliteLevel = [500, 5000, 1000]
     
 #Battle engine constants

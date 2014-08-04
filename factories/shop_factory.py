@@ -45,7 +45,6 @@ def getItems(region, numItems, quality):
                 quality and lowLevelFindableUniques):
                 item = random.choice(lowLevelFindableUniques)
                 items.addItem(item)
-                lowLevelFindableUniques.remove(item)
             #Low-level shops generate additional potions
             else:
                 item = genPotion(quality, region)
