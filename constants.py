@@ -443,7 +443,7 @@ MONSTER_STATS = {BarrowWight:          [18, 2, 6],
                  Orc_II:               [72, 10, 35],
                  OrcArcher_II:         [66, 12, 40],
                  Troll_II:             [166, 16, 80],
-                 BlackNumernorian_II: [152, 24, 92]}
+                 BlackNumernorian_II:  [152, 24, 92]}
     
 #Battle engine context
 class BattleEngineContext(object):

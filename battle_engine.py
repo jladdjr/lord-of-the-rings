@@ -36,6 +36,9 @@ def battle(player, context, monsters = None):
     if context == constants.BattleEngineContext.RANDOM:
         bonusDifficulty = output[0]
         monsters = output[1]
+        #If no monsters are spawned
+        if len(monsters) == 0:
+            return
     else:
         bonusDifficulty = output
     

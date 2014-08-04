@@ -67,23 +67,10 @@ class Square(Building):
                 print ""
                 print self._talk[choice]
 
-                #If item in self._items, give player item
+                #If target person has items
                 if choice in self._items:
                     gift = self._items[choice]
-                    
-                    #If entry is single item
-                    if isinstance(gift, Item):
-                        print "Received %s from %s." % (gift.getName(), choice)
-                        player.addToInventory(gift)
-                        self._items[choice] = None
-                        
-                    #If entry is a list
-                    elif isinstance(gift, list):
-                        for item in gift:
-                            print "Received %s from %s." % (item.getName(), 
-                            choice)
-                            player.addToInventory(item)
-                        self._items[choice] = None
+                    self._giveItem(player, choice)
                 print ""
                     
             #If person doesn't exist
@@ -92,3 +79,33 @@ class Square(Building):
                 print "Alas, '%s' could not be found in %s." % (choice, 
                 self._name)
                 print ""
+                
+    def _giveItem(self, player, choice):
+        """
+        Helper method that is responsible for handing player receiving items.
+        
+        @param player:  The player object.
+        @param gift:    The gift that player is supposed to receive.
+        @param choice:  The person that the user has chosen to talk to.
+        """
+        gift = self._items[choice]
+        
+        #If entry is single item
+        if isinstance(gift, Item):
+            if player.addToInventory(gift):
+                print "Received %s from %s." % (gift.getName(), choice)
+                del self._items[choice]
+            
+        #If entry is a list
+        elif isinstance(gift, list):
+            successfulItems = []
+            for item in gift:
+                if player.addToInventory(item):
+                    print "Received %s from %s." % (item.getName(), choice)
+                    successfulItems.append(item)
+                    
+            #Cleanup
+            if successfulItems == gift:
+                del self._items[choice]
+            for item in successfulItems:
+                gift.remove(item)
