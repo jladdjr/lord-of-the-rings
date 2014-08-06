@@ -53,7 +53,7 @@ class Shop(Building):
         """
         print ""
         print "- - - %s - - -" % self._name
-        print self._greetings
+        print "%s" % self._greetings
 
         #Determine and carry out player choice
         choice = None

@@ -42,8 +42,7 @@ def battle(player, context, monsters = None):
     else:
         bonusDifficulty = output
         
-    money = 0
-    experience = 0
+    earnings = [0, 0]
     
     #Main battle sequence
     while len(monsters) != 0:
@@ -61,7 +60,7 @@ def battle(player, context, monsters = None):
         
         #Player attack option
         if choice == 'attack':
-            earnings = _playerAttackPhase(player, monsters, bonusDifficulty, money, experience)
+            earnings = _playerAttackPhase(player, monsters, bonusDifficulty, earnings)
             
         #Use potion option
         elif choice == "use potion":
@@ -191,7 +190,7 @@ def _monsterNumGen(player):
     
     return monsterCount
 
-def _playerAttackPhase(player, monsters, bonusDifficulty, money, experience):
+def _playerAttackPhase(player, monsters, bonusDifficulty, earnings):
     """
     When the user gets to attack a single monster object.
     If monster health is reduced to zero, monster is removed
@@ -201,18 +200,18 @@ def _playerAttackPhase(player, monsters, bonusDifficulty, money, experience):
 
     @param player:        The player object.
     @param monsters:      The list of monster objects.
-    @param money:         Player money earnings. Accumulates with successive 
-                          function calls.
-    @param experience:    Player experience earnings. Accumulates with 
-                          successive function calls.
+    @param earnings:      2-element tuple caring battle earnings. First element
+                          is money earned and second is experience received. 
+                          Earnings needs to be passed in between successive 
+                          function calls to update battle earnings.
     
     @return:              2-element tuple carrying battle earnings.
                           First element is money earned, second
                           element is experience received.
     """
     #Starting battle earnings
-    money      = 0
-    experience = 0
+    money      = earnings[0]
+    experience = earnings[1]
 
     #Solicit attack target
     target = raw_input("Whom? ")
@@ -280,9 +279,10 @@ def _monsterAttackPhase(player, monsters):
         if player.getHp() == 0:
             print ""
             return False
-            
-    raw_input("Press enter to continue. ")
-    print ""
+    
+    if monsters:
+        raw_input("Press enter to continue. ")
+        print ""
     
     #Battle continuation
     return True

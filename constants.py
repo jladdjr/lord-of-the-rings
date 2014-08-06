@@ -414,9 +414,10 @@ Monster base stats are the only paramater used in monster creation.
 Stats are a 3-element list whose elements are: hp, attack, and
 experience (in that order).
 """
-MONSTER_STATS = {BarrowWight:          [18, 2, 6],
+#18 72
+MONSTER_STATS = {BarrowWight:          [1, 2, 6],
                  Goblin:               [28, 5, 12],
-                 GreatGoblin:          [82, 8, 42],
+                 GreatGoblin:          [1, 8, 42],
                  KingOfTheBarrows:     [72, 4, 32],
                  Nazgul:               [44, 3, 12],
                  Nazgul_II:            [82, 10, 52],
@@ -470,8 +471,7 @@ class BattleEngine(object):
     """
     RUN_PROBABILITY_SUCCESS = 1
     STANDARD_DEVIATION      = 3
-    MONEY_CONSTANT          = 4
-    
+    MONEY_CONSTANT          = 3
 
 #Shop factory probability constants
 class ShopFactoryConstants(object):

@@ -109,15 +109,19 @@ class Game(object):
         #Check movement commands
         if isinstance(nextCommand, NorthCommand):
             if not self._player.canMoveNorth():
+                print "Cannot move north."
                 return False
         elif isinstance(nextCommand, SouthCommand):
             if not self._player.canMoveSouth():
+                print "Cannot move south."
                 return False
         elif isinstance(nextCommand, EastCommand):
             if not self._player.canMoveEast():
+                print "Cannot move east."
                 return False
         elif isinstance(nextCommand, WestCommand):
             if not self._player.canMoveWest():
+                print "Cannot move west."
                 return False
         
         return True
