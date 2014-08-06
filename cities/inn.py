@@ -52,15 +52,16 @@ class Inn(Building):
                     print "%s was healed at %s cost! %s has %s %s remaining." \
                           % (player.getName(), cost, player.getName(), 
                           player.getMoney(), constants.CURRENCY)
-                    break
                 #Not enough money
                 else:
                     print "%s doesn't have enough money." % player.getName()
-                    return
+                raw_input("Press enter to continue. ")
+                return
                 
             #Non-use option
             elif choice == "no":
                 print "Thanks for coming to %s." % self._name
+                raw_input("Press enter to continue. ")
                 
             #For invalid input
             else:

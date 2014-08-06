@@ -41,6 +41,9 @@ def battle(player, context, monsters = None):
             return
     else:
         bonusDifficulty = output
+        
+    money = 0
+    experience = 0
     
     #Main battle sequence
     while len(monsters) != 0:
@@ -58,7 +61,7 @@ def battle(player, context, monsters = None):
         
         #Player attack option
         if choice == 'attack':
-            earnings = _playerAttackPhase(player, monsters, bonusDifficulty)
+            earnings = _playerAttackPhase(player, monsters, bonusDifficulty, money, experience)
             
         #Use potion option
         elif choice == "use potion":
@@ -67,7 +70,7 @@ def battle(player, context, monsters = None):
         #Run option
         elif choice == "run":
             if context == constants.BattleEngineContext.RANDOM:
-                if random.random() < constants.RUN_PROBABILITY_SUCCESS:
+                if random.random() < constants.BattleEngine.RUN_PROBABILITY_SUCCESS:
                     print "You ran away succesfully!"
                     print ""
                     return True
@@ -180,15 +183,15 @@ def _monsterNumGen(player):
         raise AssertionError(errorMsg)
         
     #Apply normal distribution to introduce variation
-    standardDeviation = monsterCount/constants.STANDARD_DEVIATION
+    standardDeviation = monsterCount/constants.BattleEngine.STANDARD_DEVIATION
     
     monsterCount = random.normalvariate(monsterCount, standardDeviation)
-    monsterCount = math.floor(monsterCount)
+    monsterCount = max(math.floor(monsterCount), 0)
     monsterCount = int(monsterCount)
     
     return monsterCount
 
-def _playerAttackPhase(player, monsters, bonusDifficulty):
+def _playerAttackPhase(player, monsters, bonusDifficulty, money, experience):
     """
     When the user gets to attack a single monster object.
     If monster health is reduced to zero, monster is removed
@@ -198,7 +201,11 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
 
     @param player:        The player object.
     @param monsters:      The list of monster objects.
-
+    @param money:         Player money earnings. Accumulates with successive 
+                          function calls.
+    @param experience:    Player experience earnings. Accumulates with 
+                          successive function calls.
+    
     @return:              2-element tuple carrying battle earnings.
                           First element is money earned, second
                           element is experience received.
@@ -225,10 +232,9 @@ def _playerAttackPhase(player, monsters, bonusDifficulty):
             else:
                 print "%s" % monster.getDeathString()
                 #Generate earnings from winning battle
-                money += random.gauss(constants.MONEY_CONSTANT * 
-                    monster.getExperience() * (1 + bonusDifficulty), 
-                    constants.STANDARD_DEVIATION)
-                experience += monster.getExperience() * (1 + bonusDifficulty)
+                expIncrease = monster.getExperience() * (1 + bonusDifficulty)
+                experience += expIncrease
+                money += math.floor(expIncrease/constants.BattleEngine.MONEY_CONSTANT)
                 #Remove monster from monsters list
                 for monster in monsters:
                     if monster.getName() == target:
@@ -274,6 +280,8 @@ def _monsterAttackPhase(player, monsters):
         if player.getHp() == 0:
             print ""
             return False
+            
+    raw_input("Press enter to continue. ")
     print ""
     
     #Battle continuation
@@ -295,8 +303,7 @@ def _itemFind(player, experience):
         print "You found %s!" % item.getName()
         if not player.addToInventory(item):
             location.addItem(item)
-            
-    
+
     #Item find for high-level uniques
     highLevel = triangular(constants.ItemFind.highLevel)
     if experience > highLevel and highLevelFindableUniques:

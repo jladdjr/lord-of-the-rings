@@ -258,8 +258,8 @@ class MonsterDescriptions(object):
     GreatGoblin         = "\"Give me ALL of your stuff!\""
     KingOfTheBarrows    = "An intense, evil spirit."
     Nazgul              = "\"AAAAEEEEEEEEEEE!!!\""
-    Nazgul_II           = "Learned from past mistakes."
-    Nazgul_III          = "With dragon mount."
+    Nazgul_II           = "Nazgul's older brother."
+    Nazgul_III          = "Now with dragon mount!"
     Troll               = "\"Merrily I troll along.\""
     WargRider           = "Likes riding... wargs."
     UrukHai             = "\"You even lift bro?\""
@@ -464,9 +464,14 @@ class ItemFind(object):
     eliteLevel = [500, 5000, 1000]
     
 #Battle engine constants
-RUN_PROBABILITY_SUCCESS = 1
-STANDARD_DEVIATION      = 3
-MONEY_CONSTANT          = .5
+class BattleEngine(object):
+    """
+    Constants for battle engine.
+    """
+    RUN_PROBABILITY_SUCCESS = 1
+    STANDARD_DEVIATION      = 3
+    MONEY_CONSTANT          = 4
+    
 
 #Shop factory probability constants
 class ShopFactoryConstants(object):
@@ -476,7 +481,7 @@ class ShopFactoryConstants(object):
     WEAPON_UPPER_LIMIT = .25
     ARMOR_UPPER_LIMIT  = .5
     POTION_UPPER_LIMIT = .975
-    STANDARD_DEVIATION = 2
+    STANDARD_DEVIATION = 2.5
     QUALITY_MINIMUM    = 0
     QUALITY_MAXIMUM    = 20
     UNIQUE_QUALITY_REQ = 10

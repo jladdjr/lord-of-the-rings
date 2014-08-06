@@ -100,9 +100,8 @@ class City(Place):
         buildingDictionary = self._createDictionaryOfBuildings()
 
         print "Entering %s!" % self.getName()
-        print "\n%s" % self.getDescription()
+        print "%s" % self.getDescription()
         print "%s" % self.getGreetings()
-        print ""
         raw_input("Press enter to continue. ")
         print ""
         

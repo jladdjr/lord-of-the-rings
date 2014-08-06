@@ -71,15 +71,16 @@ class Square(Building):
                 if choice in self._items:
                     gift = self._items[choice]
                     self._giveItem(player, choice)
-                print ""
                     
             #If person doesn't exist
             else:
                 print ""
                 print "Alas, '%s' could not be found in %s." % (choice, 
                 self._name)
-                print ""
-                
+     
+            raw_input("Press enter to continue. ")
+            print ""
+            
     def _giveItem(self, player, choice):
         """
         Helper method that is responsible for handing player receiving items.

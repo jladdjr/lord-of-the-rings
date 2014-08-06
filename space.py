@@ -93,7 +93,7 @@ class Space(object):
         @param item:    Item to add.
         """
         #Special prompt for theOneRing
-        if item == theOneRing:
+        if item == theOneRing and self._name != "Orodruin":
             print "\nYou see some strange men walk by."
             return
             
