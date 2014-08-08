@@ -33,8 +33,8 @@ legolasHair = Item("Legolas' Hair", "Industrial applications", 0, 12)
 mithrilVest = Armor("Mithril Vest", "Gift from Bilbo", 1, 102, 4)
 anduril = Weapon("Anduril - The Flame of the West", 
 "The sword once broken, now reforged", 2, 114, 22)
-councilOfElrondItems = {"Elrond": [mithrilVest, anduril], 
-"Legolas": legolasHair}
+councilOfElrondItems = {"Elrond": anduril, "Legolas": legolasHair, "Bilbo": 
+    mithrilVest}
 
 #The Pit
 water = Potion("Water", "For sobering up", 1, 4, 8)
@@ -80,15 +80,15 @@ auburnSquareCommons = {"Dmitriy": russianTea, "Jim": freePizza,
 fruitSamples = Potion("Fruit Samples", "Meagerly", 2, 18, 30)
 foodHoards = Potion("Spare Food Hoards", "Generously given", 4, 42, 85)
 negativeThinking = Charm("Negative Thinking", "Not something you want", 
-35, 0, -15, -15, -15)
+35, 0, -15, -2, -40)
 marketSquareItems = {"Calmacil": fruitSamples ,"Atanatar": foodHoards, 
 "Castamir": negativeThinking}
 
 #Tower of Echelion
 palatir = Item("Palatir", "For seeing mysteries", 6, 112)
-windbeam = Charm("Windbeam", "Strengthens the hearts of men", 4, 116, 50, 10, 4)
+windbeam = Charm("Windbeam", "Strengthens the hearts of men", 4, 116, 14, 1, 36)
 executorSword = Weapon("Executor Sword", "A gift from Prince Imrahil", 
-12, 112, 42)
+12, 112, 26)
 towerOfEchelionItems = {"Denethor": [palatir, windbeam], 
 "Prince Imrahil": executorSword}
 
@@ -96,7 +96,7 @@ towerOfEchelionItems = {"Denethor": [palatir, windbeam],
 draagz = Item("Draagz", "Bad for health", 2, 76)
 vodka = Potion("Vodka", "From the Gondorian heartland", 1, 52, 48)
 flowersAndTrinkets = Charm("Flowers And Trinkets", "Mental health bonuses", 
-    5, 84, 23, 4, 1)
+    5, 72, 6, 0, 18)
 beachItems = {"Gondorian bro #3": [draagz, vodka], 
 "Gondorian bro #2": flowersAndTrinkets}
 
@@ -201,7 +201,7 @@ rohanArmorDist = {
 #Rhovanion Shops
 workersGear = Armor("Worker's Gear", "Poor-elf's clothes", 6, 14, 2)
 elvenWare = Armor("Elven Ware", "A time-tested classic", 4, 40, 3)
-eliteElvenWare = Armor("Elite Elven Ware", "At a huge premium", 4, 152, 5)
+eliteElvenWare = Armor("Elite ElvenWare", "At a huge premium", 4, 152, 5)
 velvetSuit = Armor("Velvet Suit", "Sex appeal", 6, 262, 8)
 
 rhovanionArmorDist = {

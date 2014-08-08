@@ -377,6 +377,7 @@ class Player(object):
         #Successful execution
         inventory.addItem(item)
         sortItems(inventory)
+        print "Added %s to inventory." % item.getName()
         return True
             
     def removeFromInventory(self, item):

@@ -185,7 +185,7 @@ def _monsterNumGen(player):
     standardDeviation = monsterCount/constants.BattleEngine.STANDARD_DEVIATION
     
     monsterCount = random.normalvariate(monsterCount, standardDeviation)
-    monsterCount = max(math.floor(monsterCount), 0)
+    monsterCount = max(math.floor(monsterCount), 1)
     monsterCount = int(monsterCount)
     
     return monsterCount

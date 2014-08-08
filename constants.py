@@ -149,16 +149,16 @@ class SpaceSpawnProb(object):
     mistyMountainsSouth = 0
     lorien              = .4
     fangorn             = .4
-    theWold             = .8
-    fieldOfCelebrant    = .5
+    theWold             = .4
+    fieldOfCelebrant    = .25
     calenardhon         = .95
     westfold            = .85
     westemnet           = .8
     eastemnet           = .6
-    emynMuil            = .75
+    emynMuil            = .4
     eastfold            = .5
     nindalf             = .8
-    deadMarshes         = .85
+    deadMarshes         = .5
     udun                = .95
     cairAndros          = .8
     orodruin            = .95
@@ -191,15 +191,15 @@ class SpaceBonusDiff(object):
     mistyMountainsSouth = 0
     lorien              = 0
     fangorn             = 0
-    theWold             = 0
-    fieldOfCelebrant    = 0
+    theWold             = -.3
+    fieldOfCelebrant    = -.3
     calenardhon         = .5
     westfold            = .3
     westemnet           = .15
     eastemnet           = 0
-    emynMuil            = 0
+    emynMuil            = -.2
     eastfold            = 0
-    nindalf             = 0
+    nindalf             = -.2
     deadMarshes         = .2
     udun                = .3
     cairAndros          = .2
@@ -414,10 +414,9 @@ Monster base stats are the only paramater used in monster creation.
 Stats are a 3-element list whose elements are: hp, attack, and
 experience (in that order).
 """
-#18 72
-MONSTER_STATS = {BarrowWight:          [1, 2, 6],
+MONSTER_STATS = {BarrowWight:          [18, 2, 6],
                  Goblin:               [28, 5, 12],
-                 GreatGoblin:          [1, 8, 42],
+                 GreatGoblin:          [72, 8, 42],
                  KingOfTheBarrows:     [72, 4, 32],
                  Nazgul:               [44, 3, 12],
                  Nazgul_II:            [82, 10, 52],

@@ -91,15 +91,15 @@ class Moria(UniquePlace):
         description = "Steeped in history"
         weapon3 = Weapon("Aeowyln", description, 8, 22, 18)
         description = "Historical significance"
-        weapon4 = Weapon("Durnhelm", description, 4, 18, 4)
+        weapon4 = Weapon("Durnhelm", description, 4, 18, 3)
         description = "Old but still effective"
         armor = Armor("Iron Cap", description, 3, 4, 1)
         description = "May increase magic find"
         armor2 = Armor("Boots of Travel", description, 2, 8, 2)
         description = "One of Middle Earth's rarest metals"
-        item = Item("Mithril", description, 0, 32)
+        item = Item("Mithril", description, 0, 84)
         description = "Magical properties?"
-        item2 = Item("Ancient Runes", description, 2, 38)
+        item2 = Item("Ancient Runes", description, 2, 42)
         self._loot = [weapon, weapon2, weapon3, weapon4, armor, armor2, item, 
             item2]
         

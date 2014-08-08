@@ -170,7 +170,8 @@ def getWorld():
     "Legolas": "What do you think about my hair?", 
     "Aragorn": "Check out these knife tricks!", 
     "Gimli": "I bet I can eat more hotdogs than you.", 
-    "Gandalf": "Ahrekhabekamahna...."
+    "Gandalf": "Ahrekhabekamahna....",
+    "Bilbo": "Please take care of my things...."
     }
     councilOfElrond = Square("Council of Elrond", description, greeting, 
     talk, items.unique_items.councilOfElrondItems)

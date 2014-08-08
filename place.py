@@ -64,8 +64,9 @@ class Place(object):
         self._space.createExit(direction, self._targetSpace, 
         outgoingOnly = False)
         
-        print "%s is now accessable to the %s." % (self._targetSpace.getName(), 
+        string = "%s is now accessable to the %s" % (self._targetSpace.getName(), 
         direction)
+        print string.upper()
         
     def enter(self, player):
         """

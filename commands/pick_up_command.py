@@ -40,10 +40,6 @@ class PickUpCommand(Command):
             print "%s does not contain item." % location.getName()
             return
 
-        #Add item to inventory
+        #Successful execution
         if self._player.addToInventory(item):
-            print ""
-            print "Added %s to inventory." % item.getName()
-
-            #Remove item from space
             location.removeItem(item)

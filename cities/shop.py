@@ -83,7 +83,10 @@ What is your choice?
                 break
             else:
                 print "\"Huh?\""
-
+                
+            print ""
+            raw_input("Press enter to continue. ")
+            
     #Gives basic descriptions of items
     def checkItems(self):
         """
@@ -125,30 +128,29 @@ What is your choice?
         for item in uniqueItems:
             print "\t%s: %s." % (item.getName(), item.getDescription())
             if isinstance(item, Weapon):
-                print "\t\tAttack: %s" % item.getAttack()
-                print "\t\tWeight: %s" % item.getWeight()
-                print "\t\tCost: %s" % item.getCost()
+                print "\t\t-Attack: %s" % item.getAttack()
+                print "\t\t-Weight: %s" % item.getWeight()
+                print "\t\t-Cost: %s" % item.getCost()
             elif isinstance(item, Armor):
-                print "\t\tDefense: %s" % item.getDefense()
-                print "\t\tWeight: %s" % item.getWeight()
-                print "\t\tCost: %s" % item.getCost()
+                print "\t\t-Defense: %s" % item.getDefense()
+                print "\t\t-Weight: %s" % item.getWeight()
+                print "\t\t-Cost: %s" % item.getCost()
             elif isinstance(item, Charm):
                 if item.getAttack():
-                    print "\t\tAttack: %s" % item.getAttack()
+                    print "\t\t-Attack: %s" % item.getAttack()
                 if item.getDefense():
-                    print "\t\tDefense: %s" % item.getDefense()
+                    print "\t\t-Defense: %s" % item.getDefense()
                 if item.getHp():
-                    print "\t\tHP Bonus: %s" % item.getHp()
-                print "\t\tWeight: %s" % item.getWeight()
-                print "\t\tCost: %s" % item.getCost()
+                    print "\t\t-HP Bonus: %s" % item.getHp()
+                print "\t\t-Weight: %s" % item.getWeight()
+                print "\t\t-Cost: %s" % item.getCost()
             elif isinstance(item, Potion):
-                print "\t\tHealing: %s" % item.getHealing()
-                print "\t\tWeight: %s" % item.getWeight()
-                print "\t\tCost: %s" % item.getCost()
+                print "\t\t-Healing: %s" % item.getHealing()
+                print "\t\t-Weight: %s" % item.getWeight()
+                print "\t\t-Cost: %s" % item.getCost()
             else:
                 errorMsg = "Invalid item - shop_factory, checkItemsStats()"
                 raise AssertionError(errorMsg)
-            print ""
                 
     #For selling items in inventory to shop
     def sellItems(self, player):
@@ -158,39 +160,47 @@ What is your choice?
         
         @param player:    The player object.
         """
-        #User prompt
         inventory = player.getInventory()
-        sellableItems = []
+        itemValues = {}
+        
+        #User prompt
         print "Current inventory:"
         for item in player.getInventory():
-            if isinstance(item, Item):
-                sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
-                print "\t%s... with sell value: %s %s." % (item.getName(), 
-                sellValue, constants.CURRENCY)
-                sellableItems.append(item)
-        print ""
-
-        itemToSell = raw_input("Which item would you like to sell? ")
-        #Finds if item exists in inventory
-        for item in sellableItems:
+            sellValue = constants.SELL_LOSS_PERCENTAGE * item.getCost()
+            itemValues[item] = sellValue
+            print "\t%s... with sell value: %s %s." % (item.getName(), 
+            sellValue, constants.CURRENCY)
+        itemToSell = raw_input("\nWhich item would you like to sell? ")
+        
+        #Find if item exists in inventory
+        for item in inventory:
             if item.getName() == itemToSell:
-                #Actual sale execution
+                sellValue = itemValues[item]
+                
+                #Is user sure?
                 choice = raw_input("Would you like to sell %s for %s %s?"
                 " Response: yes/no. " % (item.getName(), sellValue, 
                 constants.CURRENCY))
+                
+                #Sale execution - with affirmative
                 if choice.lower() == "yes":
                     player.removeFromInventory(item)
                     player.increaseMoney(sellValue)
                     self._items.addItem(item)
                     print "Sold %s for %s." % (item.getName(), sellValue)
+                    
                     #Check to see if item sold was theOneRing
                     result = self._checkTheOneRingSale(item)
                     #If it is, then theOneRing is removed from shop wares
                     if result:
                         print "\nSome strange men come and take The One Ring."
                         self._items.removeItem(item)
+                
+                #Player changes mind
                 elif choice.lower() == "no":
-                    print "Didn't sell item." 
+                    print "Didn't sell item."
+                
+                #Invalid choice
                 else:
                     print "Invalid choice."
                     

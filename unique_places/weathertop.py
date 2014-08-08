@@ -2,7 +2,6 @@
 
 from unique_place import UniquePlace
 from monsters.nazgul import Nazgul
-from monsters.witch_king import WitchKing
 from battle_engine import battle
 import constants
 import random
@@ -26,13 +25,10 @@ class Weathertop(UniquePlace):
 
         #Generates Nazgul wave
         self._monsters = []
-        numberNazgul = random.randrange(0, 7)
+        numberNazgul = random.randrange(0, 8)
         for monster in range(numberNazgul):
             nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
             self._monsters.append(nazgul)
-        if random.random() < constants.WEATHERTOP_WITCH_KING_PROB:
-            witchKing = WitchKing(constants.MONSTER_STATS[WitchKing])
-            self._monsters.append(witchKing)
                 
     def enter(self, player):
         """

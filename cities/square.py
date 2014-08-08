@@ -78,7 +78,7 @@ class Square(Building):
                 print "Alas, '%s' could not be found in %s." % (choice, 
                 self._name)
      
-            raw_input("Press enter to continue. ")
+            raw_input("\nPress enter to continue. ")
             print ""
             
     def _giveItem(self, player, choice):
