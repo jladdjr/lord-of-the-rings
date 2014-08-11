@@ -65,10 +65,11 @@ class Square(Building):
             #If person exists
             elif choice in self._talk:
                 print ""
-                print self._talk[choice]
+                print "\"%s\"" %  self._talk[choice]
 
                 #If target person has items
                 if choice in self._items:
+                    print ""
                     gift = self._items[choice]
                     self._giveItem(player, choice)
                     
@@ -93,16 +94,18 @@ class Square(Building):
         
         #If entry is single item
         if isinstance(gift, Item):
+            print "%s gave %s to %s." % (choice, gift.getName(),
+                player.getName())
             if player.addToInventory(gift):
-                print "Received %s from %s." % (gift.getName(), choice)
                 del self._items[choice]
             
         #If entry is a list
         elif isinstance(gift, list):
             successfulItems = []
             for item in gift:
+                print "%s gave %s to %s." %(choice, item.getName(),
+                     player.getName())
                 if player.addToInventory(item):
-                    print "Received %s from %s." % (item.getName(), choice)
                     successfulItems.append(item)
                     
             #Cleanup
