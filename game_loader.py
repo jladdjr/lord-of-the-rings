@@ -48,6 +48,7 @@ from unique_places.barad_dur import BaradDur
 from unique_places.dol_guldur import DolGuldur
 from unique_places.tower_of_cirith_ungol import TowerOfCirithUngol
 from unique_places.moria import Moria
+from unique_places.derningle import Derningle
 import constants
 
 def getWorld():

@@ -39,7 +39,6 @@ class TomBombadilHouse(UniquePlace):
         """
         #Story
         print self._greetings
-        print ""
         
         print ("\"I am Tom Bombadil. My wife Goldberry and I live in these"
             " forests.\"")
@@ -59,3 +58,5 @@ class TomBombadilHouse(UniquePlace):
         print ""
         
         print "\"Thank you for visiting me in these forests.\""
+        raw_input("Press enter to continue. ")
+        print ""

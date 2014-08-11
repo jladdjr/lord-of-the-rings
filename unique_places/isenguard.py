@@ -78,7 +78,8 @@ class Isenguard(UniquePlace):
         print ""
 
         #Player goes through series of battles to take Isenguard
-        self._battle(player)
+        if not self._battle(player):
+            return
         print ""
 
         #Player given option to summit Orthanc
@@ -103,7 +104,7 @@ class Isenguard(UniquePlace):
         raw_input("Press enter to continue. ")
         result = battle(player, constants.BattleEngineContext.STORY, self._wave)
         if not result:
-            return
+            return False
         print ""
         
         #Wave 2
@@ -118,7 +119,7 @@ class Isenguard(UniquePlace):
         result = battle(player, constants.BattleEngineContext.STORY, 
             self._wave2)
         if not result:
-            return
+            return False
         print ""
         
         #Wave 3
@@ -127,7 +128,7 @@ class Isenguard(UniquePlace):
         result = battle(player, constants.BattleEngineContext.STORY, 
             self._wave3)
         if not result:
-            return
+            return False
         print ""
 
         #Victory sequence

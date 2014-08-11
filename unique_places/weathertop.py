@@ -25,7 +25,7 @@ class Weathertop(UniquePlace):
 
         #Generates Nazgul wave
         self._monsters = []
-        numberNazgul = random.randrange(0, 8)
+        numberNazgul = random.randrange(1, 8)
         for monster in range(numberNazgul):
             nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
             self._monsters.append(nazgul)
