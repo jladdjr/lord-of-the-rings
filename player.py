@@ -496,7 +496,10 @@ class Player(object):
             return
             
         #...Otherwise, move to new space
-        self._location = northSpace
+        if not isinstance(northSpace, list):
+            self._location = northSpace
+        else:
+            self._moveList(northSpace)
 
     def moveSouth(self):
         """
@@ -509,7 +512,10 @@ class Player(object):
             return
             
         #...Otherwise, move to new space 
-        self._location = southSpace 
+        if not isinstance(southSpace, list):
+            self._location = southSpace
+        else:
+            self._moveList(southSpace)
 
     def moveEast(self):
         """
@@ -522,7 +528,10 @@ class Player(object):
             return
             
         #...Otherwise, move to new space 
-        self._location = eastSpace 
+        if not isinstance(eastSpace, list):
+            self._location = eastSpace
+        else:
+            self._moveList(eastSpace)
 
     def moveWest(self):
         """
@@ -535,8 +544,36 @@ class Player(object):
             return
             
         #...Otherwise, move to new space 
-        self._location = westSpace 
+        if not isinstance(westSpace, list):
+            self._location = westSpace
+        else:
+            self._moveList(westSpace)
+    
+    def _moveList(self, spaces):
+        """
+        Helper method for the four movement commands. Processes cases when 
+        there are multiple spaces available for a single direction.
+        """
+        acceptableChoices = {}
+        choice = None
+        
+        #Solicit user input
+        print "You may move to the following:"
+        for space in spaces:
+            print "\t-%s" % space.getName()
+            acceptableChoices[space] = space.getName()
+        print ""
+        
+        while choice not in acceptableChoices.values():
+            choice = raw_input("Where would you like to go? ")
 
+        #Move to new space
+        for pair in acceptableChoices.items():
+            if choice in pair:
+                space = pair[0]
+                break
+        self._location = space
+        
     def getLocation(self):
         """
         Returns player's current location.

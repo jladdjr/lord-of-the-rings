@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from command import Command
+from space import Space
 from cities.city import City
 from unique_place import UniquePlace
 import constants
@@ -26,7 +27,7 @@ class MapCommand(Command):
         """
         Calls self._printInformation on each of the spaces that are connected
         to the player's current space.
-        """        
+        """
         #Generate variables for map locations
         location = self._player.getLocation()
         exits = location.getExits()
@@ -38,16 +39,47 @@ class MapCommand(Command):
         #List details for each space in NSEW order
         if exits[constants.Direction.NORTH]:
             space = exits[constants.Direction.NORTH]
-            self._printInformation(space, constants.Direction.NORTH)
+            #For single spaces
+            if not isinstance(space, list):
+                self._printInformation(space, constants.Direction.NORTH)
+            #For lists of spaces
+            else:
+                for individualSpace in space:
+                    self._printInformation(individualSpace, 
+                        constants.Direction.NORTH)
+                        
         if exits[constants.Direction.SOUTH]:
             space = exits[constants.Direction.SOUTH]
-            self._printInformation(space, constants.Direction.SOUTH)
+            #For single spaces
+            if not isinstance(space, list):
+                self._printInformation(space, constants.Direction.SOUTH)
+            #For lists of spaces
+            else:
+                for individualSpace in space:
+                    self._printInformation(individualSpace, 
+                        constants.Direction.SOUTH)
+                        
         if exits[constants.Direction.EAST]:
             space = exits[constants.Direction.EAST]
-            self._printInformation(space, constants.Direction.EAST)
+            #For single spaces
+            if not isinstance(space, list):
+                self._printInformation(space, constants.Direction.EAST)
+            #For lists of spaces
+            else:
+                for individualSpace in space:
+                    self._printInformation(individualSpace, 
+                        constants.Direction.EAST)
+                        
         if exits[constants.Direction.WEST]:
             space = exits[constants.Direction.WEST]
-            self._printInformation(space, constants.Direction.WEST)
+            #For single spaces
+            if not isinstance(space, list):
+                self._printInformation(space, constants.Direction.WEST)
+            #For lists of spaces
+            else:
+                for individualSpace in space:
+                    self._printInformation(individualSpace, 
+                        constants.Direction.WEST)
             
     def _printInformation(self, space, direction):
         """

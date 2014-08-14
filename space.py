@@ -174,10 +174,11 @@ class Space(object):
 
     def createExit(self, direction, space, outgoingOnly = False):
         """
-        Create an exit to another space. By default,
-        the method creates the appropriate exit
-        in the second space. (This can be suppressed, 
-        however, using I{outgoingOnly}).
+        Create an exit to another space. By default, the method creates the 
+        appropriate exit in the second space. (This can be suppressed, however, 
+        using I{outgoingOnly}).
+        
+        Spaces can have multiple spaces per direction.
 
         @param direction:       Direction of exit.
         @param space:           Adjacent space.
@@ -187,22 +188,26 @@ class Space(object):
         """
         #Make sure a valid direction has been specified
         if not self._isExit(direction):
-            errorMsg = "Direction not valid: %s" % direction 
+            errorMsg = "Direction not valid: %s" % direction
             raise AssertionError(errorMsg)
 
         #Set exit to other space
-        self._exits[direction] = space
+        if self._exits[direction]:
+            currentSpace = self._exits[direction]
+            self._exits[direction] = [currentSpace, space]
+        else:
+            self._exits[direction] = space
 
         #Create exit from other space to this space
         if not outgoingOnly:
             oppositeDirection = self._oppositeDirection(direction)
-            space._exits[oppositeDirection] = self
+            #outgoingOnly = True as to not create an infinite loop
+            space.createExit(oppositeDirection, self, outgoingOnly = True)
 
-    def clearExit(self, direction, outgoingOnly):
+    def clearExit(self, direction, outgoingOnly, space = None):
         """
-        Removes an exit to another space. By default,
-        the method removes the appropriate exit from
-        the second space. (This can be suppressed, 
+        Removes an exit to another space. By default, the method removes the 
+        appropriate exit from the second space. (This can be suppressed, 
         however, using I{outgoingOnly}).
 
         @param direction:       Direction of exit.
@@ -212,23 +217,24 @@ class Space(object):
         """
         #Make sure a valid direction has been specified
         if not self._isExit(direction):
-            errorMsg = "Direction not valid: %s" % direction 
+            errorMsg = "Direction not valid: %s" % direction
             raise AssertionError(errorMsg)
 
         #If exit has not been set, there is nothing to do
         if self._exits[direction] == None:
             return
-
+    
         #Create a temporary copy of adjacent space
         adjSpace = self._exits[direction]
-
-        #Clear exit from this space
-        self._exits[direction] = None
-
-        #Clear exit from other space to this space
+        
+        if isinstance(self._exits[direction], list):
+            self._exits[direction].remove(space)
+        else:
+            self._exits[direction] = None
+            
         if not outgoingOnly:
             oppositeDirection = self._oppositeDirection(direction)
-            adjSpace._exits[oppositeDirection] = None
+            adjSpace.clearExit(oppositeDirection, True, space = self)
 
     def getExit(self, direction):
         """
