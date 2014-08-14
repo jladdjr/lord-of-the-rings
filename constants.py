@@ -126,7 +126,7 @@ class RegionBaseSpawn(object):
     RHOVANION     = 6
     ROHAN         = 6
     GONDOR        = 8
-    MORDOR        = 10
+    MORDOR        = 8
 
 #Space spawn probability
 class SpaceSpawnProb(object):

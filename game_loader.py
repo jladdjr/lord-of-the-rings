@@ -270,7 +270,9 @@ def getWorld():
 
     #Southern Mirkwood - Dol Guldur
     #Unique Place
-    description = "Hill fortress of Sauron."
+    description = """Dol Guldur is Sauron's stronghold in Mirkwood. The hill 
+    itself is the highest point in the southwestern part of the forest.
+    """
     greeting = ("You are overcome with an overwhelming sense of fear as you"
     " approach the Citadel of Dol Guldur.")
     dolGuldur = DolGuldur("Dol Guldur", description, greeting)
@@ -373,7 +375,7 @@ def getWorld():
     after arriving in nearby Calenardhon in the later Third Age. It is a land 
     of wild men.
     """
-    dunland = Space("Mitheithel", description, constants.RegionType.ENEDWAITH, 
+    dunland = Space("Dunland", description, constants.RegionType.ENEDWAITH, 
         battleProbability = constants.SpaceSpawnProb.dunland)
 
     #Misty Mountains South
@@ -908,12 +910,10 @@ def getWorld():
     mistyMountainsNorth.createExit("east", highPass, outgoingOnly = False)
     barrowDowns.createExit("east", bruinen, outgoingOnly = False)
     swanfleet.createExit("east", mistyMountainsSouth, outgoingOnly = False)
-    calenardhon.createExit("east", fangorn, outgoingOnly = False)
     fangorn.createExit("east", fieldOfCelebrant, outgoingOnly = False)
     fangorn.createExit("east", theWold, outgoingOnly = False)
     westfold.createExit("east", westemnet, outgoingOnly = False)
     westemnet.createExit("east", eastemnet, outgoingOnly = False)
-    southernMirkwood.createExit("east", lorien, outgoingOnly = False)
     eastemnet.createExit("east", emynMuil, outgoingOnly = False)
     eastfold.createExit("east", nindalf, outgoingOnly = False)
     nindalf.createExit("east", deadMarshes, outgoingOnly = False)
@@ -928,7 +928,7 @@ def getWorld():
     trollshaws.createExit("south", bruinen, outgoingOnly = False)
     bruinen.createExit("south", mitheithel, outgoingOnly = False)
     mirkwood.createExit("south", southernMirkwood, outgoingOnly = False)
-    southernMirkwood.createExit("south", emynMuil, outgoingOnly = False)
+    southernMirkwood.createExit("south", lorien, outgoingOnly = False)
     mitheithel.createExit("south", swanfleet, outgoingOnly = False)
     swanfleet.createExit("south", dunland, outgoingOnly = False)
     dunland.createExit("south", calenardhon, outgoingOnly = False)
