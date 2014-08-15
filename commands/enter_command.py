@@ -17,7 +17,7 @@ class EnterCommand(Command):
         @param player:       The player object.
         """
         #Call parent's init method
-        Command.__init__(self, name, explanation, time = True)
+        Command.__init__(self, name, explanation, time = False)
 
         self._player = player
     
@@ -33,7 +33,7 @@ class EnterCommand(Command):
         
         #If there are no cities or unique places
         if not (city or uniquePlace):
-            print "No places to enter."
+            print "No place to enter."
         
         #Otherwise print the possible places to enter
         else:
@@ -109,4 +109,22 @@ class EnterCommand(Command):
             choice = raw_input("Where would you like to enter?\n")
         else:
             print "\n"
+            self._battlePhase()
             dictionary[choice].enter(self._player)
+            
+    def _battlePhase(self):
+        """
+        Evaluates if a random battle will occur. If so, battle_engine.battle()
+        is called to execute the battle.
+        """
+        import random 
+        import battle_engine
+        import constants
+        currentLocation = self._player.getLocation()
+        battleProbability = currentLocation.getBattleProbability()
+        
+        #Determines if random battle will occur
+        if random.random() < battleProbability:
+            #Call on battle to resolve battle
+            battle_engine.battle(self._player, 
+            constants.BattleEngineContext.RANDOM)

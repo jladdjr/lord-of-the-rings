@@ -58,5 +58,5 @@ class TomBombadilHouse(UniquePlace):
         print ""
         
         print "\"Thank you for visiting me in these forests.\""
-        raw_input("Press enter to continue. ")
+        raw_input("Press enter to leave. ")
         print ""

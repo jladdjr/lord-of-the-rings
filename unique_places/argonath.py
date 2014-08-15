@@ -45,7 +45,9 @@ class Argonath(UniquePlace):
         #Player receives reward
         print ("You draw up deep reserves of strength within yourself to" 
             " finish the quest. \nMordor awaits.")
-        print "%s gains %s experience." % (name, experienceIncrease)
+        print "%s gains %s experience.\n" % (name, experienceIncrease)
         player.increaseExperience(experienceIncrease)
         player.heal(maxHp)
+        
+        raw_input("Press enter to leave. ")
         print ""

@@ -194,4 +194,5 @@ class BaradDur(UniquePlace):
         
         #Story
         print "You set off for other ventures within the Dark Land."
+        raw_input("Press enter to leave. ")
         print ""

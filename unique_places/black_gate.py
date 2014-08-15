@@ -201,8 +201,10 @@ class BlackGate(UniquePlace):
         #Story
         print "You continue your quest for better night-time entertainment."
         print ""
-        
         self._createPort("east")
+        
+        raw_input("Press enter to leave. ")
+        print ""
         
     def _run(self, player):
         """
@@ -222,4 +224,5 @@ class BlackGate(UniquePlace):
             
         #Story
         print "You escape the rest of your pursuers!"
+        raw_input("Press enter to leave. ")
         print ""

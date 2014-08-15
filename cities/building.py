@@ -38,7 +38,7 @@ class Building(object):
 
     def greetings(self):
         """
-        Returns the string that is displayed as player enteres 
+        Returns the string that is displayed as player enters 
         the building.
 
         @return:    The greetings player receives upon entering

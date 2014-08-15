@@ -84,7 +84,7 @@ def battle(player, context, monsters = None):
             earnings = [0, 0]
 
         #Break between player and monster phases
-        raw_input("Press 'enter' to continue. ")
+        raw_input("Press enter to continue. ")
         print ""
 
         #Monsters attack phase

@@ -200,7 +200,7 @@ class GoblinTown(UniquePlace):
         """
         print ("As you gaze over the corpses of your enemies, you decide that" 
             " it is time to take your winnings and leave.")
-        raw_input("Press enter to take loot. ")
+        raw_input("Press enter to continue. ")
         print ""
 
         #Give player items

@@ -144,12 +144,12 @@ class Derningle(UniquePlace):
         print ""
 
         print "Treebeard: \Are you a little orc?\""
-        raw_input("Press enter to answer. ")
+        raw_input("Press enter to continue. ")
         print ""
 
         print ("\"Ah I see. Please continue fighting for what is right and" 
             " receive this blessing \nfrom us.\"")
-        raw_input("Press enter to receive. ")
+        raw_input("Press enter to continue. ")
         print ""
         
         #Player receives loot
