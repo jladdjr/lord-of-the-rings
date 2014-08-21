@@ -83,7 +83,7 @@ class GoblinTown(UniquePlace):
             
         #Story
         print ("You have defeated some unsuspecting goblins! Escaping" 
-            " detection now may \nstill be an option.")
+            " detection now may \nstill be an option!")
         raw_input("Press enter to continue. ")
         print ""
     

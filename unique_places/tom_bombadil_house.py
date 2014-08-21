@@ -55,8 +55,7 @@ class TomBombadilHouse(UniquePlace):
         for item in self._gift:
             if player.addToInventory(item):
                 self._gift.remove(item)
+        raw_input("Press enter to continue. ")
         print ""
         
         print "\"Thank you for visiting me in these forests.\""
-        raw_input("Press enter to leave. ")
-        print ""

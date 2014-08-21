@@ -88,7 +88,7 @@ to camp the night at Weathertop?
                 return
                 
             print ("Alas, peaceful rest was never to be. After all, you are a" 
-            " man being \nhunted.")
+            " man \nhunted.")
             print ""
             
         #Peaceful rest
