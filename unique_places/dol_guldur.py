@@ -66,7 +66,7 @@ class DolGuldur(UniquePlace):
         numberNazgul = random.randrange(0, 8)
         for monster in range(numberNazgul):
             nazgul = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
-            self._wave2.append(nazgul)
+            self._wave3.append(nazgul)
         for monster in range(6):
             monster = BlackNumernorian(constants.MONSTER_STATS[BlackNumernorian])
             self._wave3.append(monster)

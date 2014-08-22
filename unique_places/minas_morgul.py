@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.nazgul_ii import Nazgul_II
+from monsters.nazgul_iii import Nazgul_III
 from monsters.orc_ii import Orc_II
 from monsters.orc_archer_ii import OrcArcher_II
 from monsters.troll_ii import Troll_II
@@ -46,7 +46,7 @@ class MinasMorgul(UniquePlace):
         
         #Create monster wave #2
         for monster in range(8):
-            monster = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
+            monster = Nazgul_III(constants.MONSTER_STATS[Nazgul_III])
             self._wave2.append(monster)
         monster = WitchKing(constants.MONSTER_STATS[WitchKing])
         self._wave2.append(monster)
@@ -59,7 +59,7 @@ class MinasMorgul(UniquePlace):
             monster = OrcArcher_II(constants.MONSTER_STATS[OrcArcher_II])
             self._wave3.append(monster)
         for monster in range(4):
-            monster = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
+            monster = Nazgul_III(constants.MONSTER_STATS[Nazgul_III])
             self._wave3.append(monster)
         
         #Create loot

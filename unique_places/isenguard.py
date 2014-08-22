@@ -64,9 +64,9 @@ class Isenguard(UniquePlace):
         #Spawn loot
         description = ("Two gigantic black keys needed to gain entry to the"
         " Tower of Orthanc")
-        keysOfOrthanc = Item("Keys to Orthanc", description, 1, 104)
-        palatir = Item("Palatir", "Stones of Seeing", 6, 112)
-        self._loot = [keysOfOrthanc, palatir]
+        self._keysOfOrthanc = Item("Keys to Orthanc", description, 1, 104)
+        self._palatir = Item("Palatir", "Stones of Seeing", 6, 112)
+        self._loot = [self._keysOfOrthanc, self._palatir]
         
     def enter(self, player):
         """
@@ -138,11 +138,11 @@ class Isenguard(UniquePlace):
         self._createPort("south")
         
         #Give player loot
-        if keysOfOrthanc in self._loot:
+        if self._keysOfOrthanc in self._loot:
             print "You have gained the Keys of the Orthanc!"
             print ""
-            if player.addToInventory(keysOfOrthanc):
-                self._loot.remove(keysOfOrthanc)
+            if player.addToInventory(self._keysOfOrthanc):
+                self._loot.remove(self._keysOfOrthanc)
         
     def _summitPrompt(self):
         """
@@ -171,10 +171,10 @@ class Isenguard(UniquePlace):
         print ""
         
         #Give player loot
-        if palatir in self._loot:
+        if self._palatir in self._loot:
             print "You found Sauroman's Palatir!"
-            if player.addToInventory(palatir):
-                self._loot.remove(palatir)
+            if player.addToInventory(self._palatir):
+                self._loot.remove(self._palatir)
         print ""
 
         #Story

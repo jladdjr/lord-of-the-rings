@@ -50,7 +50,7 @@ class Place(object):
         self._space = space
         self._targetSpace = targetSpace
         
-    def _createPort(self, direction):
+    def _createPort(self, direction, executed = False):
         """
         Creates a port between the space and targetSpace. In this
         construction, targetSpace is to the direction of space.
@@ -60,14 +60,24 @@ class Place(object):
         
         @param direction:     The direction targetSpace is in with 
                               respect to space.
+        @param executed:      If this method has been executed. False by 
+                              default.
         """
+        #If already executed, no need to create additional port
+        self._executed = executed
+        if self._executed:
+            return
+        
+        #Create port and print accompanying user text
         self._space.createExit(direction, self._targetSpace, 
             outgoingOnly = False)
-        
         string = "%s is now accessible to the %s" % (self._targetSpace.getName(), 
             direction)
         print string.upper()
         print ""
+        
+        #Update self._executed
+        self._executed = True
         
     def enter(self, player):
         """

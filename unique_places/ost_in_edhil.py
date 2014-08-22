@@ -27,7 +27,7 @@ class OstInEdhil(UniquePlace):
         @param player:  The current player.
         """
         healing = player.getMaxHp() - player.getHp()
-            
+        
         print self._greetings
         print ""
         print "You decide that this is a good place to spend the night."

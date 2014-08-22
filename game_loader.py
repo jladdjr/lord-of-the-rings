@@ -437,8 +437,8 @@ def getWorld():
     #Fangorn - Derningle
     #Unique Place
     description = "Derningle is the site of meeting for Fangorn's ents."
-    derningle = UniquePlace("Derningle", description, greeting)
     greeting = "\"Welcome to the Entmoot! Don't be so hasty.\""
+    derningle = Derningle("Derningle", description, greeting)
     #Fangorn
     description = """Fangorn Forest is a deep, dark woodland that grows
     beneath the southern tips of the Misty Mountains under the eastern flanks

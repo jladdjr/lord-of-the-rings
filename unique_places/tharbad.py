@@ -31,7 +31,7 @@ class Tharbad(UniquePlace):
 
         #Generates list of Nazgul that user may fight
         self._monsters = []
-        numberNazgul = random.randrange(0, 5)
+        numberNazgul = random.randrange(1, 5)
         for monster in range(numberNazgul):
             nazgul = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
             self._monsters.append(nazgul)
@@ -125,11 +125,11 @@ class Tharbad(UniquePlace):
             
     def _chanceBattle(self, player):
         """
-        Determines if a random battle is to occur."
+        Determines if a random battle is to occur.
         
         @param player:   The player object.
         """
-        if random.random() < constants.THARBAD_BATTLE_PROB:
+        if random.random() < constants.THARBAD_BATTLE_PROB and self._monsters:
             print "You hear some rustling in the shadows...."
             raw_input("Press enter to continue. ")
             print ""

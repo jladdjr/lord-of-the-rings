@@ -114,6 +114,7 @@ class TowerOfCirithUngol(UniquePlace):
             
             #Call next action sequence
             self._cirithUngol(player)
+            return
         
         #A potential encounter with Shelob
         shelobAppearance = random.random()

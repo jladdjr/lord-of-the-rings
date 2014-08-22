@@ -190,11 +190,17 @@ class Space(object):
         if not self._isExit(direction):
             errorMsg = "Direction not valid: %s" % direction
             raise AssertionError(errorMsg)
-
-        #Set exit to other space
+        
+        #Set exit to other space - if a space already exists
         if self._exits[direction]:
             currentSpace = self._exits[direction]
-            self._exits[direction] = [currentSpace, space]
+            #If multiple spaces already exist in that direction
+            if isinstance(self._exits[direction], list):
+                currentSpace.append(space)
+            #If a single space exists in that direction
+            else:
+                self._exits[direction] = [currentSpace, space]
+        #If no space already exists
         else:
             self._exits[direction] = space
 

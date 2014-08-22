@@ -22,13 +22,13 @@ class Derningle(UniquePlace):
         #Call parent class init function
         UniquePlace.__init__(self, name, description, greetings)
 
-        #Create loot
-        self._loot = []
+        #Create gift
+        self._gift = []
         description = ("A mysterious elixir with extremely powerful" 
             " nourishing properties")
         for potion in range(3):
             potion = Potion("Ent Draught", description, 2, 42, 100)
-            self._loot.append(potion)
+            self._gift.append(potion)
 
     def enter(self, player):
         """
@@ -134,7 +134,7 @@ class Derningle(UniquePlace):
     def _continueDestination(self, player):
         """
         Terminal destination given that use picks 'straight' and 'yes.' Here, 
-        player meets Treebeard and gets some loot.
+        player meets Treebeard and gets a gift.
                
         @param player:  The current player.
         """
@@ -143,7 +143,7 @@ class Derningle(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
 
-        print "Treebeard: \Are you a little orc?\""
+        print "Treebeard: \"Are you a little orc?\""
         raw_input("Press enter to continue. ")
         print ""
 
@@ -152,10 +152,10 @@ class Derningle(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         
-        #Player receives loot
+        #Player receives gift
         print ("\"Received three ent-draughts! These are legendary elixirs of" 
             " incredible power.\"")
         for item in self._gift:
             if player.addToInventory(item):
-                self._loot.remove(item)
+                self._gift.remove(item)
         print ""
