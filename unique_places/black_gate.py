@@ -193,9 +193,13 @@ class BlackGate(UniquePlace):
             print "While looting the battlefield, you find many items."
             raw_input("Press enter to continue. ")
             print ""
+            
+            toRemove = []
             for item in self._loot:
                 if player.addToInventory(item):
-                    self._loot.remove(item)
+                    toRemove.append(item)
+            for item in toRemove:
+                self._loot.remove(item)
             print ""
         
         #Story

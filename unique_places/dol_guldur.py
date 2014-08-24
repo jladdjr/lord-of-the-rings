@@ -150,9 +150,12 @@ class DolGuldur(UniquePlace):
             print "While looking around, you find several items."
             raw_input("Press enter to continue. ")
             print ""
+            toRemove = []
             for item in self._loot:
                 if player.addToInventory(item):
-                    self._loot.remove(item)
+                    toRemove.append(item)
+            for item in toRemove:
+                self._loot.remove(item)
             print ""
         
         #Story

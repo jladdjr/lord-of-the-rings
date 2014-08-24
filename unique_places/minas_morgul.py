@@ -166,9 +166,12 @@ class MinasMorgul(UniquePlace):
             print "You quickly loot the battle field."
             raw_input("Press enter to continue. ")
             print ""
+            toRemove = []
             for item in self._loot:
                 if player.addToInventory(item):
-                    self._loot.remove(item)
+                    toRemove.append(item)
+            for item in toRemove:
+                self._loot.remove(item)
             print ""
         
         print "You quickly move on, knowing that Sauron is on the move too."

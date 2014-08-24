@@ -64,9 +64,9 @@ class Isenguard(UniquePlace):
         #Spawn loot
         description = ("Two gigantic black keys needed to gain entry to the"
         " Tower of Orthanc")
-        self._keysOfOrthanc = Item("Keys to Orthanc", description, 1, 104)
-        self._palatir = Item("Palatir", "Stones of Seeing", 6, 112)
-        self._loot = [self._keysOfOrthanc, self._palatir]
+        keysOfOrthanc = Item("Keys to Orthanc", description, 1, 104)
+        palatir = Item("Palatir", "Stones of Seeing", 6, 112)
+        self._loot = [keysOfOrthanc, palatir]
         
     def enter(self, player):
         """
@@ -78,19 +78,23 @@ class Isenguard(UniquePlace):
         print ""
 
         #Player goes through series of battles to take Isenguard
-        if not self._battle(player):
+        result = self._battle(player)
+        if not result:
             return
-        print ""
 
-        #Player given option to summit Orthanc
-        choice = self._summitPrompt()
+        #Give player loot
+        toRemove = []
+        for item in self._loot:
+            if player.addToInventory(item):
+                toRemove.append(item)
+        for item in toRemove:
+            self._loot.remove(item)
         print ""
-        
-        #Carry out user-dependent script
-        if choice == "yes":
-            self._summitOrthanc(player)
-        else:
-            print "You continue on your journey."
+            
+        #Ending sequence
+        print "Isenguard has a new overseer this day."
+        print ""
+        self._createPort("south")
         
     def _battle(self, player):
         """
@@ -130,53 +134,5 @@ class Isenguard(UniquePlace):
         if not result:
             return False
         print ""
-
-        #Victory sequence
-        print "Isenguard has a new overseer this day."
-        print ""
         
-        self._createPort("south")
-        
-        #Give player loot
-        if self._keysOfOrthanc in self._loot:
-            print "You have gained the Keys of the Orthanc!"
-            print ""
-            if player.addToInventory(self._keysOfOrthanc):
-                self._loot.remove(self._keysOfOrthanc)
-        
-    def _summitPrompt(self):
-        """
-        Solicits user choice. Player given opportunity to summit the Orthanc 
-        (Sauroman's Tower).
-
-        @param player:  The current player.
-        """
-        choice = None
-        acceptable = ["yes", "no"]
-        print "Would you like to summit the Tower of Orthanc?"
-        while choice not in acceptable:
-            choice = raw_input("Choice: 'yes' or 'no.' ")
-            
-        return choice
-
-    def _summitOrthanc(self, player):
-        """
-        Action sequence given that user has choicen to summit the Orthanc.
-
-        @param player:  The current player.
-        """
-        #Summiting the Orthanc
-        print "You take a brief residence in the Tower of Orthanc!"
-        raw_input("Press enter to continue. ")
-        print ""
-        
-        #Give player loot
-        if self._palatir in self._loot:
-            print "You found Sauroman's Palatir!"
-            if player.addToInventory(self._palatir):
-                self._loot.remove(self._palatir)
-        print ""
-
-        #Story
-        print "Congratulations on your victory!"
-        print ""
+        return True

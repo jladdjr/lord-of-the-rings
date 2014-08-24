@@ -155,7 +155,10 @@ class Derningle(UniquePlace):
         #Player receives gift
         print ("\"Received three ent-draughts! These are legendary elixirs of" 
             " incredible power.\"")
+        toRemove = []
         for item in self._gift:
             if player.addToInventory(item):
-                self._gift.remove(item)
+                toRemove.append(item)
+        for item in toRemove:
+            self._gift.remove(item)
         print ""
