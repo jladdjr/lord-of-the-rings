@@ -37,7 +37,7 @@ class Square(Building):
         """
         print ""
         print "- - - %s - - -" % self._name
-        print self._greetings
+        print "\"%s\"" % self._greetings
         print ""
 
         #If square is empty

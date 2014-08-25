@@ -84,11 +84,11 @@ class City(Place):
         buildings = self.getBuildings()
         #If there is one building
         if isinstance(buildings, Building):
-            print "\t%s" % buildings.getName()
+            print "\t%s: %s" % (buildings.getName(), buildings.getDescription())
         #If there are multiple buildings
         elif isinstance(buildings, list):
             for building in buildings:
-                print "\t%s" % building.getName()
+                print "\t%s: %s" % (building.getName(), building.getDescription())
         print ""
         
     def enter(self, player):  

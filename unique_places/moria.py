@@ -142,6 +142,7 @@ class Moria(UniquePlace):
             if battleOccurence:
                 result = battle(player, constants.BattleEngineContext.RANDOM)
                 if not result:
+                    self._danger = 0
                     return
         
         #Ending sequence
@@ -149,6 +150,7 @@ class Moria(UniquePlace):
         raw_input("Press enter to continue. ")
         print ""
         
+        self._danger = 0
         self._createPort("east")
         
     def _lowRiskTravel(self, player):

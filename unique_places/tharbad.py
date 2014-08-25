@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from unique_place import UniquePlace
-from monsters.nazgul_ii import Nazgul_II
+from monsters.nazgul import Nazgul
 from battle_engine import battle
 from items.weapon import Weapon
 from items.armor import Armor
@@ -33,7 +33,7 @@ class Tharbad(UniquePlace):
         self._monsters = []
         numberNazgul = random.randrange(1, 5)
         for monster in range(numberNazgul):
-            nazgul = Nazgul_II(constants.MONSTER_STATS[Nazgul_II])
+            nazgul = Nazgul(constants.MONSTER_STATS[Nazgul])
             self._monsters.append(nazgul)
 
         #Generate loot

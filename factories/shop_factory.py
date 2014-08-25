@@ -36,19 +36,9 @@ def getItems(region, numItems, quality):
         elif randType < constants.ShopFactoryConstants.ARMOR_UPPER_LIMIT:
             item = genArmor(quality, region)
             items.addItem(item)
-        elif randType < constants.ShopFactoryConstants.POTION_UPPER_LIMIT:
+        else:
             item = genPotion(quality, region)
             items.addItem(item)
-        else:
-            #Only shops advanced in the game generate uniques
-            if (constants.ShopFactoryConstants.UNIQUE_QUALITY_REQ <= 
-                quality and lowLevelFindableUniques):
-                item = random.choice(lowLevelFindableUniques)
-                items.addItem(item)
-            #Low-level shops generate additional potions
-            else:
-                item = genPotion(quality, region)
-                items.addItem(item)
                 
     return items
     

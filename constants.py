@@ -239,7 +239,7 @@ class MonsterNames(object):
     BlackNumernorian    = "Black Numernorian"
     EasterlingWarrior   = "Easterling Warrior"
     Sauroman            = "Sauroman of Many Colors"
-    MouthOfSauron       = "Mouth Of Sauron"
+    MouthOfSauron       = "Mouth of Sauron"
     WitchKing           = "Witch King"
     Shelob              = "Shelob"
     Balrog              = "Balrog"
@@ -479,8 +479,7 @@ class ShopFactoryConstants(object):
     """
     WEAPON_UPPER_LIMIT = .25
     ARMOR_UPPER_LIMIT  = .5
-    POTION_UPPER_LIMIT = .975
-    STANDARD_DEVIATION = 2.5
+    STANDARD_DEVIATION = 3.5
     QUALITY_MINIMUM    = 0
     QUALITY_MAXIMUM    = 20
     UNIQUE_QUALITY_REQ = 10
@@ -494,7 +493,7 @@ WEATHERTOP_WITCH_KING_PROB = .125
 THARBAD_BATTLE_PROB = .2
 THARBAD_ITEM_FIND_PROB = .5
 ARGONATH_EXP_INCREASE = .1
-DERINGLE_EXP_INCREASE = .05
+DERINGLE_EXP_INCREASE = .15
 GOBLIN_TOWN_EVASION_PROB = .4
 DOL_GULDUR_WITCH_KING_PROB = .125
 CIRITH_UNGOL_EVASION_PROB = .4

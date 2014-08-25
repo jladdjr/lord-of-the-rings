@@ -3,6 +3,10 @@
 from command import Command
 from cities.city import City
 from unique_place import UniquePlace
+import battle_engine
+import constants
+
+import random
 
 class EnterCommand(Command):
     """
@@ -44,7 +48,7 @@ class EnterCommand(Command):
                 for eachCity in city:
                     print "\t-%s" % eachCity.getName()
             
-        #Display uniquePlaces that player may enter
+            #Display uniquePlaces that player may enter
             if isinstance(uniquePlace, UniquePlace):
                 print "\t-%s" % uniquePlace.getName()
             elif isinstance(uniquePlace, list):
@@ -101,11 +105,11 @@ class EnterCommand(Command):
         
         #Entering the place that the player chooses to enter
         choice = raw_input("Which of these would you like to enter?\n")
-        while (choice not in dictionary.keys()) or choice == "stop":
-            if choice == "stop":
+        while (choice not in dictionary.keys()) or choice == "cancel":
+            if choice == "cancel":
                 break 
-            print "\nThat does not match the names of any of the places here."
-            print "Try again, or type 'stop.'\n"
+            print "\n\"Huh?\""
+            print "Try again, or type \"cancel.\"\n"
             choice = raw_input("Where would you like to enter?\n")
         else:
             print "\n"
@@ -117,9 +121,6 @@ class EnterCommand(Command):
         Evaluates if a random battle will occur. If so, battle_engine.battle()
         is called to execute the battle.
         """
-        import random 
-        import battle_engine
-        import constants
         currentLocation = self._player.getLocation()
         battleProbability = currentLocation.getBattleProbability()
         

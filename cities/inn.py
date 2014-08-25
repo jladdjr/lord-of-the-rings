@@ -32,15 +32,17 @@ class Inn(Building):
 
         print ""
         print "- - - %s - - -" % self.getName()
-        print self._greetings
+        print "\"%s\"" % self._greetings
         print "Cost to stay: %s." % cost
+        raw_input("Press enter to continue. ")
 
         #Determine player choice
         choice = None
         while choice != "no":
             print ""
-            choice = raw_input("Would you like to stay for the night?" 
-            " Response: 'yes' or 'no.' ")
+            choice = raw_input("\"Would you like to stay for the night?\"" 
+            " \nResponse: \"yes\" or \"no.\" ")
+            print ""
             
             #Heal option   
             if choice == "yes":
@@ -60,12 +62,13 @@ class Inn(Building):
                 
             #Non-use option
             elif choice == "no":
-                print "Thanks for coming to %s." % self._name
+                print "\"Thanks for coming to %s.\"" % self._name
                 raw_input("Press enter to continue. ")
                 
             #For invalid input
             else:
-                print "'What?'"
+                print "\"What?\""
+                raw_input("Press enter to continue. ")
     
     def getCost(self):
         """
@@ -81,7 +84,7 @@ class Inn(Building):
 
         @param player:    The player object.
         """
-        maxHp = player.getMaxHp()
+        maxHp = player.getTotalMaxHp()
         hp = player.getHp()
         amountToHeal = maxHp - hp
 

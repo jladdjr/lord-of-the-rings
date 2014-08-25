@@ -295,8 +295,7 @@ class Player(object):
         statement = "%s equipped %s." %(self._name, item.getName())
         
         #Sort self._equipped
-        equipped = self._equipped
-        sortItems(equipped)
+        sortItems(self._equipped)
         
         return statement
         
@@ -334,16 +333,33 @@ class Player(object):
                 self._charmAttack)
             self._totalDefense = self._armorDefense + self._charmDefense
             self._totalMaxHp = self._maxHp + self._charmHp
-            
+        
+        #Update player Hp for charms
+        self._updateHpForCharms()
+        
+        #Sort self._equipped
+        sortItems(self._equipped)
+        
         statement = "%s unequipped %s." % (self._name, item.getName())
         return statement
-
+        
+    def _updateHpForCharms(self):
+        """
+        For unequiping charms, player HP needs to be updated to reflect new 
+        totalMaxHp.
+        """
+        currentHp = player._hp
+        if self._totaMaxHp < currentHp:
+            player._hp = self._totalMaxHp
+    
     def getEquipped(self):
         """
         Returns the player's currently equipped equipment.
 
         @return:    Player's current gear.
         """
+        sortItems(self._equipped)
+        
         return self._equipped
     
     def addToInventory(self, item):
@@ -361,10 +377,6 @@ class Player(object):
         if not isinstance(item, Item):
             errorMsg = "Not an item."
             raise AssertionError(errorMsg)
-        
-        #Item cannot already be inventory
-        if item in inventory:
-            print "Item already in inventory."
         
         #Check inventory weight restriction
         itemWeight = item.getWeight()
@@ -396,6 +408,7 @@ class Player(object):
             self.unequip(item)
             
         self._inventory.removeItem(item)
+        sortItems(self._inventory)
     
     def getInventory(self):
         """
@@ -403,6 +416,8 @@ class Player(object):
 
         @return:    Player's inventory.
         """
+        sortItems(self._inventory)
+        
         return self._inventory
    
     def getMoney(self):

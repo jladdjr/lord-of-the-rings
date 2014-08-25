@@ -53,7 +53,7 @@ class Shop(Building):
         """
         print ""
         print "- - - %s - - -" % self._name
-        print "%s" % self._greetings
+        print "\"%s\"" % self._greetings
 
         #Determine and carry out player choice
         choice = None
@@ -67,7 +67,7 @@ What is your choice?
 \tPurchase item           - 'purchase'
 \tQuit                    - 'quit'
 """
-            choice = raw_input("What do you want to do? ")
+            choice = raw_input("\"What do you want to do? \"")
             print ""
             
             if choice == "check":
@@ -82,7 +82,7 @@ What is your choice?
                 self.leaveShop()
                 break
             else:
-                print "\"Huh?\""
+                print "\"What?\""
                 
             print ""
             raw_input("Press enter to continue. ")
@@ -198,7 +198,7 @@ What is your choice?
                     result = self._checkTheOneRingSale(item)
                     #If it is, then theOneRing is removed from shop wares
                     if result:
-                        print "\nSome strange men come and take The One Ring."
+                        print "\nSome strange men come by."
                         self._items.removeItem(item)
                 
                 #Player changes mind
@@ -208,6 +208,7 @@ What is your choice?
                 #Invalid choice
                 else:
                     print "Invalid choice."
+                break
                     
     #Checks if sold item was theOneRing
     def _checkTheOneRingSale(self, item):
@@ -262,4 +263,5 @@ What is your choice?
 
     #To leave shop
     def leaveShop(self):
-        print "Leaving %s." % self._name
+        print "\"Have a good day.\""
+        raw_input("Press enter to continue. ")
