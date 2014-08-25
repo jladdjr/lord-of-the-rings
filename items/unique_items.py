@@ -17,12 +17,12 @@ For instance, "The One Ring."
 sting = Weapon("Sting", "Elvish - made in Gondolin", 2, 22, 8)
 theOneRing = Item("The One Ring", "Very important", 6, 540)
 leatherCloak = Armor("Leather Cloak", "Travel tunic", 3, 8, 1)
-vodka = Potion("Vodka", "Good for health", 1, 4, 4)
+vodka = Potion("Vodka", "Good for health", 1, 4, 6)
 startingInventory = [sting, theOneRing, leatherCloak, vodka]
 
 #Hobbiton Square
 walkingCane = Item("Walking Cane", "Dubiously helpful", 2, 2)
-tea = Potion("Tea", "A delightful refreshment", 1, 1, 4)
+tea = Potion("Tea", "A delightful refreshment", 1, 4, 4)
 newspaper = Item("The Shire Newspaper", "Mostly tabloids... about hobbits", 
 0, 0)
 hobbitonSquareItems = {"Naftel Took": walkingCane, 
@@ -47,7 +47,7 @@ sweetNewElvenWare = Armor("Sweet New ElvenWare",
 elvenkingsThroneItems = {"Beleg": sweetNewElvenWare}
 
 #Prancing Pony
-tea = Potion("Tea", "Left by Dudo", 1, 3, 1)
+tea = Potion("Tea", "Left by Dudo", 1, 3, 4)
 bulletin = Item("Nazgul Bulletin", "Details Nazgul sightings", 0, 0)
 prancingPonyItems = {"Harry Goatleaf": bulletin, "Dudo Baggins": tea}
 
@@ -95,7 +95,7 @@ towerOfEchelionItems = {"Denethor": [palatir, windbeam],
 #Beach
 draagz = Item("Draagz", "Bad for health", 2, 76)
 vodka = Potion("Vodka", "From the Gondorian heartland", 1, 52, 48)
-flowersAndTrinkets = Charm("Flowers And Trinkets", "Mental health bonuses", 
+flowersAndTrinkets = Charm("Flowers and Trinkets", "Mental health bonuses", 
     5, 72, 6, 0, 18)
 beachItems = {"Gondorian bro #3": [draagz, vodka], 
 "Gondorian bro #2": flowersAndTrinkets}

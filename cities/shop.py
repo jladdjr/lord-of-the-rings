@@ -108,6 +108,8 @@ What is your choice?
                     print "\t\tHP Bonus: %s" % item.getHp()
             elif isinstance(item, Potion):
                 print "\t\tHealing: %s" % item.getHealing()
+            elif isinstance(item, Item):
+                pass
             else:
                 errorMsg = "Invalid item - shop_factory, checkItems()"
                 raise AssertionError(errorMsg)
@@ -146,6 +148,9 @@ What is your choice?
                 print "\t\t-Cost: %s" % item.getCost()
             elif isinstance(item, Potion):
                 print "\t\t-Healing: %s" % item.getHealing()
+                print "\t\t-Weight: %s" % item.getWeight()
+                print "\t\t-Cost: %s" % item.getCost()
+            elif isinstance(item, Item):
                 print "\t\t-Weight: %s" % item.getWeight()
                 print "\t\t-Cost: %s" % item.getCost()
             else:

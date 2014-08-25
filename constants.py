@@ -45,7 +45,7 @@ class PlayerInitialization(object):
     """
     Constants used in player initialization.
     """
-    EXPERIENCE    = 0
+    EXPERIENCE    = 200
     LEVEL         = 1
     MONEY         = 20
     MAX_HP        = 20
