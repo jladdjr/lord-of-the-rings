@@ -63,6 +63,8 @@ class Place(object):
         @param executed:      If this method has been executed. False by 
                               default.
         """
+        import pdb
+        pdb.set_trace()
         #If already executed, no need to create additional port
         self._executed = executed
         if self._executed:

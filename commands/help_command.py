@@ -27,12 +27,21 @@ class HelpCommand(Command):
         print "--------------------------------"
         print "The following commands may be used during the game:"
         print ""
-
-        #Print help for each defined command
+        
+        #Calculate some variables
         words = self._commandWords
-
-        names = words.getCommandNames() 
+        names = words.getCommandNames()
+        
+        lengthCommand = []
+        for name in names:
+            lengthCommand.append(len(name))
+            
+        minLength = min(lengthCommand)
+        totalSpacing = 12
+        
+        #Print out command information
         for name in names:
             command = words.getCommand(name)
             explanation = command.getExplanation()
-            print "%s\t\t\t%s" % (name, explanation)
+            whiteSpace = (12 - len(name)) * " "
+            print "%s%s%s" % (name, whiteSpace, explanation)
