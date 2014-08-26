@@ -348,7 +348,7 @@ class Player(object):
         For unequiping charms, player HP needs to be updated to reflect new 
         totalMaxHp.
         """
-        currentHp = player._hp
+        currentHp = self._hp
         if self._totaMaxHp < currentHp:
             player._hp = self._totalMaxHp
     
