@@ -67,7 +67,7 @@ What is your choice?
 \tPurchase item           - 'purchase'
 \tQuit                    - 'quit'
 """
-            choice = raw_input("\"What do you want to do? \"")
+            choice = raw_input("\"What do you want to do?\" ")
             print ""
             
             if choice == "check":

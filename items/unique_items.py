@@ -17,12 +17,12 @@ For instance, "The One Ring."
 sting = Weapon("Sting", "Elvish - made in Gondolin", 2, 22, 8)
 theOneRing = Item("The One Ring", "Very important", 6, 540)
 leatherCloak = Armor("Leather Cloak", "Travel tunic", 3, 8, 1)
-vodka = Potion("Vodka", "Good for health", 1, 4, 6)
+vodka = Potion("Vodka", "Good for health", 1, 4, 5)
 startingInventory = [sting, theOneRing, leatherCloak, vodka]
 
 #Hobbiton Square
 walkingCane = Item("Walking Cane", "Dubiously helpful", 2, 2)
-tea = Potion("Tea", "A delightful refreshment", 1, 4, 4)
+tea = Potion("Tea", "A delightful refreshment", 1, 4, 6)
 newspaper = Item("The Shire Newspaper", "Mostly tabloids... about hobbits", 
 0, 0)
 hobbitonSquareItems = {"Naftel Took": walkingCane, 
@@ -89,8 +89,10 @@ palatir = Item("Palatir", "For seeing mysteries", 6, 112)
 windbeam = Charm("Windbeam", "Strengthens the hearts of men", 4, 116, 14, 1, 36)
 executorSword = Weapon("Executor Sword", "A gift from Prince Imrahil", 
 12, 112, 26)
+journal = Item("Swan Knight's Journal", "Details experiences on the eastern front",
+1, 42)
 towerOfEchelionItems = {"Denethor": [palatir, windbeam], 
-"Prince Imrahil": executorSword}
+"Prince Imrahil": executorSword, "Swan Knight": journal}
 
 #Beach
 draagz = Item("Draagz", "Bad for health", 2, 76)
@@ -184,7 +186,7 @@ eriadorArmorDist = {
 }
 
 #Rohan Shops
-leatherArmor = Armor("Leather Armor", "Light and lithe", 6, 18, 2)
+leatherArmor = Armor("Leather Armor", "Light and sturdy", 6, 18, 2)
 chainmail = Armor("Chainmail", "Took an incredibly long time to make", 10, 24, 4)
 suitOfArmor = Armor("Suit of Armor", "To become a knight in shining armor", 
     25, 85, 6)

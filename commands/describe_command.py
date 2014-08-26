@@ -75,4 +75,4 @@ class DescribeCommand(Command):
         if len(itemsList) > 0:
             print "The following items are in %s:" % locationName
             for item in itemsList:
-                print "\t--%s." % item.getName()
+                print "\t-%s." % item.getName()

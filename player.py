@@ -349,8 +349,8 @@ class Player(object):
         totalMaxHp.
         """
         currentHp = self._hp
-        if self._totaMaxHp < currentHp:
-            player._hp = self._totalMaxHp
+        if self._totalMaxHp < currentHp:
+            self._hp = self._totalMaxHp
     
     def getEquipped(self):
         """
