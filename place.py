@@ -15,7 +15,8 @@ class Place(object):
         self._name = name
         self._description = description
         self._greetings = greetings
-    
+        self._portCreated = False
+        
     def getName(self):
         """
         Returns name of place.
@@ -63,11 +64,8 @@ class Place(object):
         @param executed:      If this method has been executed. False by 
                               default.
         """
-        import pdb
-        pdb.set_trace()
         #If already executed, no need to create additional port
-        self._executed = executed
-        if self._executed:
+        if self._portCreated:
             return
         
         #Create port and print accompanying user text
@@ -78,8 +76,7 @@ class Place(object):
         print string.upper()
         print ""
         
-        #Update self._executed
-        self._executed = True
+        self._portCreated = True
         
     def enter(self, player):
         """
